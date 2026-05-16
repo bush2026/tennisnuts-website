@@ -46,9 +46,8 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 /* NAV */
 .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.92); backdrop-filter: saturate(140%) blur(10px); border-bottom: 1px solid var(--line); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
-.brand { display: flex; align-items: center; gap: 10px; }
-.brand-logo { height: 52px; width: auto; display: block; }
-.brand small { display: block; font-family: "DM Sans", sans-serif; font-weight: 500; font-size: 11px; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; margin-top: -2px; }
+.brand { display: flex; align-items: center; }
+.brand-logo { height: 56px; width: auto; display: block; object-fit: contain; }
 .nav-links { display: flex; align-items: center; gap: 28px; font-weight: 500; font-size: 15px; }
 .nav-links a { color: var(--ink-2); transition: color .15s; }
 .nav-links a:hover { color: var(--green); }
@@ -206,7 +205,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .footer { background: var(--green-2); color: rgba(255,255,255,0.85); padding: 80px 0 28px; position: relative; overflow: hidden; }
 .footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: repeating-linear-gradient(90deg, var(--ball) 0 40px, var(--green-3) 40px 80px); }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; }
-.footer-brand .brand-logo { height: 64px; }
+.footer-brand .brand-logo { height: 72px; filter: brightness(0) invert(1); }
 .footer-brand p { margin-top: 22px; font-size: 15px; line-height: 1.55; max-width: 32ch; color: rgba(255,255,255,0.7); }
 .footer-col h4 { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ball); margin-bottom: 22px; font-family: "DM Sans", sans-serif; }
 .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
@@ -304,7 +303,7 @@ const LOGOS = ["Manegrow","Capovítèz","Solinco","SportsJam","PMDTA"];
 function Logo({ light }) {
   return (
     <div className="brand">
-      <img src="logo.png" alt="Tennisnuts" className="brand-logo"/>
+      <img src="Tennisnuts%20Logo.png" alt="Tennisnuts" className="brand-logo"/>
     </div>
   );
 }
