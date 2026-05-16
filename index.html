@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tennisnuts — The Social Side of Tennis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ball-2: #d8e85a;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --paper: #ffffff;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 {
+  font-family: "Bricolage Grotesque", "DM Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+.container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.92); backdrop-filter: saturate(140%) blur(10px); border-bottom: 1px solid var(--line); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 12px; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.02em; }
+.brand-mark { width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #e3ef5e 0%, var(--ball) 55%, #b8c632 100%); position: relative; overflow: hidden; box-shadow: inset 0 -3px 6px rgba(0,0,0,0.08); flex: none; }
+.brand-mark::before, .brand-mark::after { content: ""; position: absolute; inset: 0; border: 2px solid #fff; border-radius: 50%; clip-path: ellipse(58% 38% at 50% -8%); }
+.brand-mark::after { clip-path: ellipse(58% 38% at 50% 108%); }
+.brand small { display: block; font-family: "DM Sans", sans-serif; font-weight: 500; font-size: 11px; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; margin-top: -2px; }
+.nav-links { display: flex; align-items: center; gap: 28px; font-weight: 500; font-size: 15px; }
+.nav-links a { color: var(--ink-2); transition: color .15s; }
+.nav-links a:hover { color: var(--green); }
+.nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; background: var(--green); color: #fff !important; font-weight: 600; font-size: 14px; transition: transform .15s, background .15s; }
+.nav-cta:hover { background: var(--green-2); transform: translateY(-1px); }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 999px; font-weight: 600; font-size: 16px; transition: transform .15s ease, background .15s, color .15s, box-shadow .15s; white-space: nowrap; cursor: pointer; }
+.btn-primary { background: var(--green); color: #fff; box-shadow: 0 8px 24px -10px rgba(58,92,44,0.6); }
+.btn-primary:hover { background: var(--green-2); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.7); }
+.btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+.btn-ball { background: var(--ball); color: var(--green-2); }
+.btn-ball:hover { background: var(--ball-2); transform: translateY(-2px); }
+.btn-small { padding: 10px 18px; font-size: 14px; }
+
+/* HERO */
+.hero { position: relative; min-height: 720px; color: #fff; overflow: hidden; isolation: isolate; display: flex; align-items: stretch; }
+.hero-bg { position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse at 78% 62%, rgba(0,0,0,0.55), transparent 45%), linear-gradient(180deg, rgba(58,92,44,0.55) 0%, rgba(34,52,22,0.85) 100%), repeating-linear-gradient(115deg, #6b8c4f 0 38px, #5d7d44 38px 78px), #4d7239; }
+.hero-photo { position: absolute; inset: 0; z-index: -1; opacity: 0.55; background-image: linear-gradient(transparent 0, transparent calc(50% - 1px), rgba(255,255,255,0.35) calc(50% - 1px), rgba(255,255,255,0.35) calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(90deg, transparent 9%, rgba(255,255,255,0.25) 9%, rgba(255,255,255,0.25) calc(9% + 2px), transparent calc(9% + 2px), transparent 91%, rgba(255,255,255,0.25) 91%, rgba(255,255,255,0.25) calc(91% + 2px), transparent calc(91% + 2px)); transform: perspective(900px) rotateX(60deg) scale(1.6) translateY(40%); transform-origin: 50% 100%; filter: blur(0.5px); }
+.hero-noise { position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 20% 30%, rgba(205,220,57,0.15), transparent 40%), radial-gradient(circle at 85% 75%, rgba(0,0,0,0.4), transparent 50%); mix-blend-mode: overlay; }
+.hero-content { position: relative; width: 100%; display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 60px; padding: 80px 0 110px; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; backdrop-filter: blur(6px); margin-bottom: 28px; }
+.hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ball); box-shadow: 0 0 0 4px rgba(205,220,57,0.25); animation: pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 4px rgba(205,220,57,0.25); } 50% { box-shadow: 0 0 0 8px rgba(205,220,57,0.05); } }
+.hero h1 { font-size: clamp(48px, 7vw, 92px); line-height: 0.98; letter-spacing: -0.035em; margin-bottom: 24px; }
+.hero h1 .accent { color: var(--ball); font-style: italic; font-weight: 700; position: relative; display: inline-block; }
+.hero h1 .accent::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 10px; background: rgba(205,220,57,0.25); border-radius: 6px; z-index: -1; }
+.hero-sub { font-size: 19px; line-height: 1.5; color: rgba(255,255,255,0.9); max-width: 520px; margin-bottom: 36px; }
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+.hero-stats { display: flex; gap: 36px; flex-wrap: wrap; }
+.hero-stats .stat { border-left: 2px solid rgba(205,220,57,0.6); padding-left: 14px; }
+.hero-stats .stat .num { font-family: "Bricolage Grotesque", sans-serif; font-size: 32px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+.hero-stats .stat .label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 6px; }
+.hero-collage { position: relative; height: 520px; }
+.hero-card { position: absolute; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); border: 4px solid #fff; }
+.hero-card .ph { width: 100%; height: 100%; display: flex; align-items: flex-end; padding: 16px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: rgba(255,255,255,0.85); }
+.hero-card-1 { top: 0; right: 40px; width: 280px; height: 360px; transform: rotate(-4deg); background: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 14px, rgba(255,255,255,0) 14px 28px), linear-gradient(160deg, #d8e85a 0%, #a3b82a 100%); }
+.hero-card-2 { top: 80px; left: 0; width: 220px; height: 280px; transform: rotate(5deg); background: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 14px, transparent 14px 28px), linear-gradient(180deg, #5d7d44 0%, #3a5c2c 100%); }
+.hero-card-3 { bottom: 0; right: 100px; width: 240px; height: 200px; transform: rotate(2deg); background: repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 14px, transparent 14px 28px), linear-gradient(200deg, #f5f3e8 0%, #d8d4bf 100%); }
+.hero-card-3 .ph { color: var(--green-2); }
+.hero-ball { position: absolute; width: 110px; height: 110px; border-radius: 50%; bottom: 60px; left: 110px; background: radial-gradient(circle at 30% 30%, #e8f76e 0%, var(--ball) 60%, #a3b82a 100%); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4), inset 0 -8px 14px rgba(0,0,0,0.15); z-index: 2; }
+.hero-ball::before, .hero-ball::after { content: ""; position: absolute; inset: 0; border: 2.5px solid #fff; border-radius: 50%; clip-path: ellipse(58% 38% at 50% -8%); }
+.hero-ball::after { clip-path: ellipse(58% 38% at 50% 108%); }
+.hero-ribbon { position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: var(--ball); display: flex; align-items: center; overflow: hidden; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 18px; color: var(--green-2); }
+.hero-ribbon .marquee { display: flex; gap: 28px; white-space: nowrap; animation: marquee 30s linear infinite; padding-left: 28px; }
+.hero-ribbon span { display: inline-flex; align-items: center; gap: 28px; }
+.hero-ribbon .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-2); display: inline-block; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* SECTIONS */
+.section { padding: 110px 0; }
+.section-eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--green); font-weight: 600; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 18px; }
+.section-eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--ball); }
+.section h2 { font-size: clamp(36px, 4.4vw, 56px); line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 18px; max-width: 16ch; }
+.section-head { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: 60px; margin-bottom: 60px; }
+.section-head .right { font-size: 17px; color: var(--ink-2); }
+
+/* WHO WE ARE */
+.who { background: var(--cream); overflow: hidden; }
+.who-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 80px; align-items: center; }
+.who-copy h2 { margin-bottom: 28px; }
+.who-copy p { font-size: 18px; color: var(--ink-2); margin-bottom: 22px; max-width: 50ch; }
+.who-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.who-tag { padding: 10px 16px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-weight: 500; font-size: 14px; color: var(--green-2); display: inline-flex; align-items: center; gap: 8px; }
+.who-tag .b { width: 8px; height: 8px; border-radius: 50%; background: var(--ball); }
+.who-photo { position: relative; border-radius: 28px; aspect-ratio: 4/4.4; background: repeating-linear-gradient(115deg, #cfe07f 0 18px, #c3d472 18px 36px); overflow: hidden; box-shadow: 0 30px 60px -25px rgba(58,92,44,0.5); }
+.who-photo .ph-label { position: absolute; bottom: 18px; left: 18px; background: rgba(28,34,24,0.7); color: #fff; font-family: "JetBrains Mono", monospace; font-size: 12px; padding: 8px 12px; border-radius: 8px; }
+.who-right { position: relative; }
+.who-badge { position: absolute; top: -22px; right: -22px; width: 140px; height: 140px; border-radius: 50%; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 13px; line-height: 1.2; letter-spacing: 0.04em; text-transform: uppercase; box-shadow: 0 16px 30px -10px rgba(58,92,44,0.4); animation: spin 22s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.who-badge .core { position: absolute; inset: 22px; border-radius: 50%; background: var(--ball); display: flex; align-items: center; justify-content: center; color: var(--green-2); font-size: 36px; animation: spin 22s linear infinite reverse; }
+
+/* ACTIVITIES */
+.activities { background: #fff; }
+.act-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.act-card { border-radius: 20px; background: #fff; border: 1px solid var(--line); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; cursor: pointer; }
+.act-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -25px rgba(58,92,44,0.35); border-color: var(--green); }
+.act-card .head { background: var(--green); color: #fff; padding: 18px 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.act-card .icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(205,220,57,0.18); display: flex; align-items: center; justify-content: center; color: var(--ball); }
+.act-card .num { font-family: "JetBrains Mono", monospace; font-size: 12px; opacity: 0.6; }
+.act-card .body { padding: 22px 20px 24px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.act-card h3 { font-size: 20px; letter-spacing: -0.02em; }
+.act-card p { font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
+.act-card .more { margin-top: auto; padding-top: 16px; font-size: 13px; font-weight: 600; color: var(--green); display: inline-flex; align-items: center; gap: 6px; transition: gap .15s; }
+.act-card:hover .more { gap: 10px; }
+
+/* EVENTS */
+.events { background: var(--cream); }
+.events-scroll { display: flex; gap: 22px; overflow-x: auto; padding: 8px 28px 28px; margin: 0 -28px; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--green) transparent; }
+.events-scroll::-webkit-scrollbar { height: 8px; }
+.events-scroll::-webkit-scrollbar-thumb { background: var(--green); border-radius: 4px; }
+.event-card { flex: 0 0 360px; background: #fff; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); scroll-snap-align: start; transition: transform .2s, box-shadow .2s; display: flex; flex-direction: column; }
+.event-card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -25px rgba(58,92,44,0.35); }
+.event-banner { height: 180px; position: relative; overflow: hidden; }
+.event-banner .ph-tag { position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,0.92); color: var(--green-2); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; }
+.event-banner .date { position: absolute; bottom: 14px; right: 14px; background: var(--ball); color: var(--green-2); font-family: "Bricolage Grotesque", sans-serif; border-radius: 12px; padding: 8px 12px; text-align: center; line-height: 1; min-width: 60px; }
+.event-banner .date .d { font-size: 22px; font-weight: 700; }
+.event-banner .date .m { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.event-body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.event-body h3 { font-size: 22px; letter-spacing: -0.02em; }
+.event-meta { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--ink-2); }
+.event-meta div { display: flex; align-items: center; gap: 8px; }
+.event-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; margin-top: auto; border-top: 1px dashed var(--line); }
+.event-foot .spots { font-size: 13px; color: var(--ink-2); }
+.event-foot .spots b { color: var(--green); }
+.events-nav { display: flex; gap: 10px; }
+.events-nav button { width: 48px; height: 48px; border-radius: 50%; background: #fff; border: 1px solid var(--line); color: var(--green-2); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s, border-color .15s; cursor: pointer; }
+.events-nav button:hover { background: var(--green); color: #fff; border-color: var(--green); }
+.ev-b-1 { background: repeating-linear-gradient(115deg, #cfe07f 0 16px, #b9cc62 16px 32px); }
+.ev-b-2 { background: repeating-linear-gradient(125deg, #4d7239 0 16px, #3a5c2c 16px 32px); }
+.ev-b-3 { background: repeating-linear-gradient(105deg, #e0dac4 0 16px, #cec7ad 16px 32px); }
+.ev-b-4 { background: repeating-linear-gradient(135deg, #d8e85a 0 16px, #c2cf4a 16px 32px); }
+.ev-b-5 { background: repeating-linear-gradient(115deg, #6b8c4f 0 16px, #5d7d44 16px 32px); }
+
+/* TESTIMONIALS */
+.testimonials { background: var(--green-soft); position: relative; overflow: hidden; }
+.testimonials::before { content: ""; position: absolute; right: -120px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #e8f76e 0%, var(--ball) 60%, #a3b82a 100%); opacity: 0.4; }
+.testimonials::after { content: ""; position: absolute; left: -100px; bottom: -100px; width: 280px; height: 280px; border-radius: 50%; background: var(--green); opacity: 0.08; }
+.testimonials .container { position: relative; z-index: 1; }
+.test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.test-card { background: #fff; border-radius: 24px; padding: 36px 36px 32px; border: 1px solid rgba(58,92,44,0.08); box-shadow: 0 24px 50px -30px rgba(58,92,44,0.4); position: relative; }
+.test-quote-mark { font-family: "Bricolage Grotesque", serif; font-size: 80px; color: var(--ball); line-height: 0.6; margin-bottom: 4px; font-weight: 700; }
+.test-card .stars { display: flex; gap: 4px; color: var(--ball); margin-bottom: 16px; }
+.test-card blockquote { font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; line-height: 1.35; letter-spacing: -0.015em; font-weight: 500; color: var(--ink); margin: 0 0 28px; }
+.test-author { display: flex; align-items: center; gap: 14px; }
+.test-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--green-3), var(--green)); color: #fff; display: flex; align-items: center; justify-content: center; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 16px; flex: none; }
+.test-author .name { font-weight: 600; font-size: 15px; }
+.test-author .role { font-size: 13px; color: var(--ink-2); }
+
+/* PARTNERS */
+.partners { background: #fff; padding: 80px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.partners-row { display: grid; grid-template-columns: 220px 1fr; gap: 60px; align-items: center; }
+.partners-row h3 { font-size: 16px; font-weight: 600; color: var(--ink-2); letter-spacing: 0.04em; }
+.partners-row h3 span { display: block; color: var(--green); font-family: "Bricolage Grotesque", sans-serif; font-size: 28px; letter-spacing: -0.02em; margin-top: 4px; }
+.logos { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.logo-chip { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.02em; color: #9aa192; display: inline-flex; align-items: center; gap: 8px; transition: color .2s; cursor: pointer; }
+.logo-chip:hover { color: var(--green); }
+.logo-chip .lm { width: 28px; height: 28px; border-radius: 7px; background: currentColor; opacity: 0.18; display: inline-block; flex: none; }
+.logo-chip.b1 .lm { border-radius: 50%; }
+.logo-chip.b3 .lm { transform: rotate(45deg); border-radius: 4px; }
+.logo-chip.b4 .lm { border-radius: 50% 4px 50% 4px; }
+.logo-chip.b5 .lm { border-radius: 14px 4px; }
+
+/* JOIN */
+.join { background: var(--green); color: #fff; padding: 100px 0; text-align: center; position: relative; overflow: hidden; }
+.join::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 28px, transparent 28px 56px); }
+.join .container { position: relative; z-index: 1; }
+.join h2 { font-size: clamp(36px, 5vw, 64px); color: #fff; margin-bottom: 20px; max-width: none; }
+.join h2 .accent { color: var(--ball); font-style: italic; }
+.join p { font-size: 19px; color: rgba(255,255,255,0.8); max-width: 52ch; margin: 0 auto 40px; }
+.join-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* FOOTER */
+.footer { background: var(--green-2); color: rgba(255,255,255,0.85); padding: 80px 0 28px; position: relative; overflow: hidden; }
+.footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: repeating-linear-gradient(90deg, var(--ball) 0 40px, var(--green-3) 40px 80px); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; }
+.footer-brand .brand { color: #fff; }
+.footer-brand .brand small { color: var(--ball); }
+.footer-brand p { margin-top: 22px; font-size: 15px; line-height: 1.55; max-width: 32ch; color: rgba(255,255,255,0.7); }
+.footer-col h4 { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ball); margin-bottom: 22px; font-family: "DM Sans", sans-serif; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.footer-col li { font-size: 15px; color: rgba(255,255,255,0.7); }
+.footer-col a { font-size: 15px; color: rgba(255,255,255,0.8); transition: color .15s; }
+.footer-col a:hover { color: var(--ball); }
+.footer-newsletter { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 8px 8px 8px 18px; display: flex; align-items: center; gap: 8px; margin-top: 18px; }
+.footer-newsletter input { flex: 1; background: transparent; border: 0; color: #fff; font-family: inherit; font-size: 14px; outline: none; min-width: 0; }
+.footer-newsletter input::placeholder { color: rgba(255,255,255,0.45); }
+.footer-newsletter button { background: var(--ball); color: var(--green-2); font-weight: 600; font-size: 13px; padding: 10px 16px; border-radius: 10px; flex: none; cursor: pointer; }
+.footer-newsletter button:hover { background: var(--ball-2); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; color: rgba(255,255,255,0.55); }
+.socials { display: flex; gap: 10px; margin-top: 16px; }
+.socials a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s; color: rgba(255,255,255,0.9); }
+.socials a:hover { background: var(--ball); color: var(--green-2); }
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .nav-links { display: none; }
+  .hero-content { grid-template-columns: 1fr; gap: 30px; padding-bottom: 130px; }
+  .hero-collage { height: 380px; }
+  .who-grid { grid-template-columns: 1fr; gap: 48px; }
+  .section-head { grid-template-columns: 1fr; gap: 16px; }
+  .act-grid { grid-template-columns: repeat(2, 1fr); }
+  .test-grid { grid-template-columns: 1fr; }
+  .partners-row { grid-template-columns: 1fr; gap: 28px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .section { padding: 80px 0; }
+}
+@media (max-width: 560px) {
+  .act-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 48px; }
+  .join-ctas { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<script type="text/babel">
+const { useState, useRef } = React;
+
+const Ic = {
+  Arrow: (p) => <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M5 12h14M13 6l6 6-6 6"/></svg>,
+  Play:  (p) => <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" {...p}><path d="M8 5v14l11-7z"/></svg>,
+  Star:  (p) => <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" {...p}><path d="M12 17.3l-6.18 3.7 1.64-7.03L2 9.24l7.19-.61L12 2l2.81 6.63L22 9.24l-5.46 4.73L18.18 21z"/></svg>,
+  Pin:   (p) => <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M12 21s-7-7.5-7-12a7 7 0 0114 0c0 4.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>,
+  Clock: (p) => <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" {...p}><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>,
+  Users: (p) => <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><circle cx="9" cy="8" r="3.5"/><path d="M2 21c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2.5"/><path d="M22 21c0-2.5-1.8-4.5-5-4.5"/></svg>,
+  Confetti: (p) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" {...p}><path d="M4 20l8-14"/><path d="M14 4l2 2M18 8l2 2M20 14l2 0M16 18l2 1M12 20l1 2"/><circle cx="20" cy="6" r="1" fill="currentColor"/><circle cx="6" cy="14" r="1" fill="currentColor"/><circle cx="13" cy="16" r="1" fill="currentColor"/></svg>,
+  Trophy: (p) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M8 4h8v5a4 4 0 01-8 0V4z"/><path d="M16 6h3a2 2 0 01-3 3.5M8 6H5a2 2 0 003 3.5"/><path d="M10 14h4l-1 4h-2l-1-4zM8 20h8"/></svg>,
+  Briefcase: (p) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></svg>,
+  Racket: (p) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><ellipse cx="10" cy="10" rx="6" ry="7"/><path d="M14 14l6 6M6 7l8 6M7 11l6-6"/></svg>,
+  Target: (p) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" {...p}><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>,
+  Mic:  (p) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3M9 21h6"/></svg>,
+  Pen:  (p) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 6l3 3"/></svg>,
+  Heart:(p) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M12 21s-7-4.5-9.5-9A5 5 0 0112 6a5 5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>,
+  Insta:(p) => <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" {...p}><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>,
+  Yt:   (p) => <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...p}><path d="M21.6 7.2a3 3 0 00-2.1-2.1C17.5 4.6 12 4.6 12 4.6s-5.5 0-7.5.5A3 3 0 002.4 7.2C2 9 2 12 2 12s0 3 .4 4.8a3 3 0 002.1 2.1c2 .5 7.5.5 7.5.5s5.5 0 7.5-.5a3 3 0 002.1-2.1c.4-1.8.4-4.8.4-4.8s0-3-.4-4.8zM10 15.4V8.6l5.5 3.4L10 15.4z"/></svg>,
+  Wa:   (p) => <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...p}><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a6.7 6.7 0 01-2-1.2 7.5 7.5 0 01-1.4-1.8c-.2-.3 0-.4.1-.6l.4-.4.3-.5v-.5l-.7-1.6c-.2-.4-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-1 2.3 5.2 5.2 0 001.1 2.8 11.8 11.8 0 004.5 4c.6.3 1.1.4 1.5.5.6.2 1.2.2 1.7.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></svg>,
+  Fb:   (p) => <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" {...p}><path d="M13.5 21v-8.2h2.8l.4-3.2h-3.2v-2c0-.9.3-1.6 1.6-1.6h1.7V3.2A23 23 0 0014.4 3c-2.4 0-4 1.5-4 4.1v2.5H7.6v3.2h2.8V21h3.1z"/></svg>,
+  X:    (p) => <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" {...p}><path d="M17.5 3h3.2l-7 8 8.3 10h-6.5l-5.1-6.4L4.5 21H1.3l7.5-8.6L.8 3h6.6l4.6 5.9L17.5 3zm-1.1 16h1.8L7.7 4.9H5.8l10.6 14.1z"/></svg>,
+};
+
+const ACTIVITIES = [
+  { i: <Ic.Confetti/>,  t: "Tennisnuts Socials",    d: "Weekend mixer sessions where rallies turn into friendships." },
+  { i: <Ic.Trophy/>,    t: "Narendra Sopal Trophy", d: "Our flagship invitational — heart, hustle, and trophy chasing." },
+  { i: <Ic.Briefcase/>, t: "Corporate Tournament",  d: "Bring your team, leave the spreadsheets. Game on." },
+  { i: <Ic.Racket/>,    t: "Tennis Clinics",        d: "Open-format clinics for beginners to club-level players." },
+  { i: <Ic.Target/>,    t: "Focused Coaching",      d: "Targeted drills with pros to sharpen one weak spot at a time." },
+  { i: <Ic.Mic/>,       t: "Tennis Bytes Podcast",  d: "Conversations with players, coaches, and people who love the game." },
+  { i: <Ic.Pen/>,       t: "Nuts Blog",             d: "Stories from the court — match notes, tips, and player journeys." },
+  { i: <Ic.Heart/>,     t: "Social Work",           d: "Putting rackets in more hands. Community drives + scholarships." },
+];
+
+const EVENTS = [
+  { tag:"Tournament", d:"24", m:"May", title:"Narendra Sopal Trophy '26",  place:"PYC Hindu Gymkhana, Pune",   time:"Sat 7:00 AM · Doubles",      spots:"12",   banner:"ev-b-2" },
+  { tag:"Social",     d:"31", m:"May", title:"Sunday Sundowner Mixer",     place:"Deccan Gymkhana",            time:"Sun 5:30 PM · All levels",    spots:"8",    banner:"ev-b-1" },
+  { tag:"Clinic",     d:"07", m:"Jun", title:"Serve & Volley Clinic",      place:"Balewadi Sports Complex",    time:"Sat 6:00 AM · Intermediate",  spots:"4",    banner:"ev-b-4" },
+  { tag:"Corporate",  d:"14", m:"Jun", title:"Pune Corporate Cup '26",     place:"Poona Club Courts",          time:"Sat–Sun · Team event",        spots:"16",   banner:"ev-b-3" },
+  { tag:"Podcast",    d:"20", m:"Jun", title:"Tennis Bytes Live #14",      place:"The Pavilion, Aundh",        time:"Fri 7:30 PM · Free entry",    spots:"Open", banner:"ev-b-5" },
+];
+
+const TESTIMONIALS = [
+  { q:"Tennisnuts didn't just get me back on court — it gave me a Sunday morning crew I genuinely look forward to. Best decision of the year.", n:"Aditi Rane",   r:"4.0 player, Koregaon Park", a:"AR" },
+  { q:"Walked in nervous, no club, no doubles partner. Walked out with eight new friends and a tournament entry. That's the magic.",           n:"Karan Mehta", r:"Returning player, Baner",   a:"KM" },
+];
+
+const LOGOS = ["Manegrow","Capovítèz","Solinco","SportsJam","PMDTA"];
+
+function Logo({ light }) {
+  return (
+    <div className="brand">
+      <div className="brand-mark"></div>
+      <div>
+        <div style={{color: light ? "#fff" : "var(--ink)"}}>Tennisnuts</div>
+        <small>The Social Side of Tennis</small>
+      </div>
+    </div>
+  );
+}
+
+function Nav() {
+  return (
+    <header className="nav">
+      <div className="container nav-inner">
+        <a href="#"><Logo/></a>
+        <nav className="nav-links">
+          <a href="#who">About</a>
+          <a href="#activities">Activities</a>
+          <a href="#events">Events</a>
+          <a href="#partners">Partners</a>
+          <a href="#">Blog</a>
+        </nav>
+        <a href="#join" className="nav-cta">Join the Club <Ic.Arrow/></a>
+      </div>
+    </header>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="hero">
+      <div className="hero-bg"></div>
+      <div className="hero-photo"></div>
+      <div className="hero-noise"></div>
+      <div className="container">
+        <div className="hero-content">
+          <div>
+            <div className="hero-eyebrow">
+              <span className="dot"></span>
+              Pune's friendliest tennis community · 800+ members
+            </div>
+            <h1>The <span className="accent">Social</span> Side<br/>of Tennis.</h1>
+            <p className="hero-sub">Open courts, easy doubles, big tournaments, and the kind of post-match chai sessions that turn opponents into your weekend regulars.</p>
+            <div className="hero-ctas">
+              <a href="#join" className="btn btn-ball">Join Us <Ic.Arrow/></a>
+              <a href="#events" className="btn btn-ghost"><Ic.Play/> Explore Events</a>
+            </div>
+            <div className="hero-stats">
+              <div className="stat"><div className="num">800+</div><div className="label">Active Members</div></div>
+              <div className="stat"><div className="num">40+</div><div className="label">Events / Year</div></div>
+              <div className="stat"><div className="num">12</div><div className="label">Partner Courts</div></div>
+            </div>
+          </div>
+          <div className="hero-collage">
+            <div className="hero-card hero-card-1"><div className="ph">/* action shot — forehand at sunset */</div></div>
+            <div className="hero-card hero-card-2"><div className="ph">/* group huddle, post match */</div></div>
+            <div className="hero-card hero-card-3"><div className="ph">/* trophy presentation */</div></div>
+            <div className="hero-ball"></div>
+          </div>
+        </div>
+      </div>
+      <div className="hero-ribbon">
+        <div className="marquee">
+          {[0,1].map(j => <span key={j}>Rally · <span className="dot"></span> · Social · <span className="dot"></span> · Compete · <span className="dot"></span> · Coach · <span className="dot"></span> · Give Back · <span className="dot"></span> ·&nbsp;</span>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Who() {
+  return (
+    <section className="section who" id="who">
+      <div className="container">
+        <div className="who-grid">
+          <div className="who-copy">
+            <div className="section-eyebrow">Who we are</div>
+            <h2>A tennis club that doesn't feel like one.</h2>
+            <p>Tennisnuts started with a few friends in Pune who wanted somewhere to play that wasn't stiff, wasn't expensive, and didn't require knowing the right people. Five years later we're still that — just with more of us.</p>
+            <p>We run weekend socials, organise the city's most-loved invitationals, put new players on court with coaches who care, and keep the chai flowing well past stumps. <b>Fair play, real friendships, and a healthy obsession with tennis.</b></p>
+            <div className="who-tags">
+              <span className="who-tag"><span className="b"></span> Open to all levels</span>
+              <span className="who-tag"><span className="b"></span> Singles · Doubles · Mixed</span>
+              <span className="who-tag"><span className="b"></span> Pune-wide</span>
+              <span className="who-tag"><span className="b"></span> Est. 2021</span>
+            </div>
+          </div>
+          <div className="who-right">
+            <div className="who-photo"><div className="ph-label">photo · group huddle on court</div></div>
+            <div className="who-badge">
+              <span style={{position:"absolute",top:18,left:0,right:0,textAlign:"center"}}>· FAIR PLAY · ·</span>
+              <span style={{position:"absolute",bottom:18,left:0,right:0,textAlign:"center"}}>· REAL FRIENDS ·</span>
+              <div className="core">🎾</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Activities() {
+  return (
+    <section className="section activities" id="activities">
+      <div className="container">
+        <div className="section-head">
+          <div>
+            <div className="section-eyebrow">What we do</div>
+            <h2>Eight ways to be a Tennisnut.</h2>
+          </div>
+          <div className="right">From low-key Sunday socials to the city's most chased trophy. Show up for one, stay for all of them.</div>
+        </div>
+        <div className="act-grid">
+          {ACTIVITIES.map((a,i) => (
+            <div key={a.t} className="act-card">
+              <div className="head">
+                <div className="icon">{a.i}</div>
+                <div className="num">0{i+1}</div>
+              </div>
+              <div className="body">
+                <h3>{a.t}</h3>
+                <p>{a.d}</p>
+                <span className="more">Learn more <Ic.Arrow/></span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Events() {
+  const ref = useRef(null);
+  const scroll = d => ref.current && ref.current.scrollBy({left: d*400, behavior:"smooth"});
+  return (
+    <section className="section events" id="events">
+      <div className="container">
+        <div className="section-head">
+          <div>
+            <div className="section-eyebrow">Upcoming events</div>
+            <h2>Pick a Saturday, show up, play.</h2>
+          </div>
+          <div className="right" style={{display:"flex",alignItems:"end",justifyContent:"space-between",gap:24}}>
+            <div>Free for members. Visitors welcome at most sessions.</div>
+            <div className="events-nav">
+              <button onClick={() => scroll(-1)}><Ic.Arrow style={{transform:"rotate(180deg)"}}/></button>
+              <button onClick={() => scroll(1)}><Ic.Arrow/></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="events-scroll" ref={ref}>
+          {EVENTS.map((e,i) => (
+            <div key={i} className="event-card">
+              <div className={`event-banner ${e.banner}`}>
+                <div className="ph-tag">{e.tag}</div>
+                <div className="date"><div className="d">{e.d}</div><div className="m">{e.m}</div></div>
+              </div>
+              <div className="event-body">
+                <h3>{e.title}</h3>
+                <div className="event-meta">
+                  <div><Ic.Pin style={{color:"var(--green)",flexShrink:0}}/> {e.place}</div>
+                  <div><Ic.Clock style={{color:"var(--green)",flexShrink:0}}/> {e.time}</div>
+                </div>
+                <div className="event-foot">
+                  <div className="spots"><Ic.Users style={{display:"inline",verticalAlign:"middle",marginRight:6,color:"var(--green)"}}/><b>{e.spots}</b> spots left</div>
+                  <a href="#" className="btn btn-primary btn-small">Register</a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Testimonials() {
+  return (
+    <section className="section testimonials">
+      <div className="container">
+        <div className="section-head">
+          <div>
+            <div className="section-eyebrow">From the courts</div>
+            <h2>Players say it best.</h2>
+          </div>
+        </div>
+        <div className="test-grid">
+          {TESTIMONIALS.map((t,i) => (
+            <div key={i} className="test-card">
+              <div className="test-quote-mark">"</div>
+              <div className="stars">{Array.from({length:5}).map((_,k) => <Ic.Star key={k}/>)}</div>
+              <blockquote>{t.q}</blockquote>
+              <div className="test-author">
+                <div className="test-avatar">{t.a}</div>
+                <div>
+                  <div className="name">{t.n}</div>
+                  <div className="role">{t.r}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Partners() {
+  return (
+    <section className="partners" id="partners">
+      <div className="container">
+        <div className="partners-row">
+          <h3>Played with the best.<span>Our partners</span></h3>
+          <div className="logos">
+            {LOGOS.map((l,i) => (
+              <div key={l} className={`logo-chip b${i+1}`}><span className="lm"></span>{l}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Join() {
+  return (
+    <section className="join" id="join">
+      <div className="container">
+        <h2>Ready to find your <span className="accent">court crew?</span></h2>
+        <p>Join 800+ players across Pune who show up every weekend, chase trophies, share meals, and call each other teammates.</p>
+        <div className="join-ctas">
+          <a href="#" className="btn btn-ball">Join Us <Ic.Arrow/></a>
+          <a href="#events" className="btn btn-ghost"><Ic.Play/> See Upcoming Events</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <Logo light/>
+            <p>The Social Side of Tennis. Founded in Pune in 2021. Open courts, easy doubles, lifelong rallies.</p>
+            <div className="footer-newsletter">
+              <input type="email" placeholder="Your email — get the weekly fixtures"/>
+              <button>Subscribe</button>
+            </div>
+          </div>
+          <div className="footer-col">
+            <h4>Explore</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#who">About</a></li>
+              <li><a href="#activities">Activities</a></li>
+              <li><a href="#events">Events</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Programs</h4>
+            <ul>
+              <li><a href="#">Sopal Trophy</a></li>
+              <li><a href="#">Corporate Cup</a></li>
+              <li><a href="#">Clinics</a></li>
+              <li><a href="#">Coaching</a></li>
+              <li><a href="#">Podcast</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Visit</h4>
+            <ul>
+              <li>Pune, Maharashtra</li>
+              <li>hello@tennisnuts.co.in</li>
+              <li>+91 90000 00000</li>
+            </ul>
+            <h4 style={{marginTop:28}}>Follow</h4>
+            <div className="socials">
+              <a href="#"><Ic.Insta/></a>
+              <a href="#"><Ic.Yt/></a>
+              <a href="#"><Ic.Wa/></a>
+              <a href="#"><Ic.Fb/></a>
+              <a href="#"><Ic.X/></a>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <div>© 2026 Tennisnuts Community · Pune, India · All rights reserved.</div>
+          <div>Built by players, for players. 🎾</div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Nav/>
+      <main>
+        <Hero/>
+        <Who/>
+        <Activities/>
+        <Events/>
+        <Testimonials/>
+        <Partners/>
+        <Join/>
+      </main>
+      <Footer/>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
