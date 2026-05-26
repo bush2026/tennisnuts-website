@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin — Tennisnuts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ball-2: #d8e85a;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --paper: #fff;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+  line-height: 1.5;
+}
+h1,h2,h3,h4 { font-family: "Bricolage Grotesque","DM Sans",sans-serif; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+input, select, textarea { font-family: inherit; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ── PASSWORD GATE ───────────────────────────────────────────────────── */
+#pwGate {
+  position: fixed; inset: 0; z-index: 1000;
+  background: var(--green-2);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .4s ease;
+}
+#pwGate.fade-out { opacity: 0; pointer-events: none; }
+.pw-box {
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5);
+}
+.pw-box .lock-icon { font-size: 48px; margin-bottom: 16px; }
+.pw-box h2 { font-size: 26px; margin-bottom: 8px; }
+.pw-box p { color: var(--ink-2); font-size: 14px; margin-bottom: 28px; }
+.pw-input-row { display: flex; gap: 10px; margin-bottom: 12px; }
+.pw-input {
+  flex: 1; padding: 12px 16px; border: 1.5px solid var(--line);
+  border-radius: 10px; font-size: 15px; outline: none;
+  transition: border-color .15s;
+}
+.pw-input:focus { border-color: var(--green); }
+.pw-input.shake { animation: shake .4s ease; border-color: #ef4444; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-6px); }
+  40%,80% { transform: translateX(6px); }
+}
+.pw-error { color: #dc2626; font-size: 13px; min-height: 18px; margin-bottom: 4px; }
+.btn-green {
+  background: var(--green); color: #fff;
+  border-radius: 10px; padding: 12px 24px;
+  font-weight: 600; font-size: 15px;
+  transition: background .15s, transform .1s;
+}
+.btn-green:hover { background: var(--green-2); transform: translateY(-1px); }
+.btn-green:disabled { background: var(--line); color: var(--ink-2); transform: none; cursor: default; }
+.btn-ball {
+  background: var(--ball); color: var(--green-2);
+  border-radius: 10px; padding: 10px 20px;
+  font-weight: 600; font-size: 14px;
+  transition: background .15s, transform .1s;
+}
+.btn-ball:hover { background: var(--ball-2); transform: translateY(-1px); }
+.btn-danger {
+  background: #fef2f2; color: #dc2626;
+  border: 1px solid #fecaca; border-radius: 8px;
+  padding: 6px 12px; font-size: 13px; font-weight: 500;
+  transition: background .15s;
+}
+.btn-danger:hover { background: #fee2e2; }
+.btn-sm {
+  padding: 8px 14px; font-size: 13px; border-radius: 8px;
+}
+
+/* ── ADMIN UI ─────────────────────────────────────────────────────────── */
+#adminUI { display: none; }
+#adminUI.visible { display: block; }
+
+.admin-header {
+  background: var(--green-2);
+  color: #fff;
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+  border-bottom: 3px solid var(--ball);
+  position: sticky; top: 0; z-index: 50;
+}
+.admin-header h1 { font-size: 20px; color: #fff; display: flex; align-items: center; gap: 10px; }
+.admin-header .logo-small { height: 36px; }
+.btn-logout {
+  background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.25); border-radius: 8px;
+  padding: 8px 16px; font-size: 13px; font-weight: 500;
+  transition: background .15s;
+}
+.btn-logout:hover { background: rgba(255,255,255,0.2); }
+
+/* TABS */
+.admin-tabs { background: var(--paper); border-bottom: 1px solid var(--line); padding: 0 24px; display: flex; gap: 0; }
+.atab {
+  padding: 16px 22px; font-size: 14px; font-weight: 500; color: var(--ink-2);
+  border-bottom: 2.5px solid transparent; margin-bottom: -1px;
+  transition: color .15s, border-color .15s; cursor: pointer; background: none;
+  border-left: 0; border-right: 0; border-top: 0;
+}
+.atab:hover { color: var(--green); }
+.atab.active { color: var(--green); border-bottom-color: var(--ball); font-weight: 600; }
+
+/* CONTENT */
+.admin-content { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* SECTION CARD */
+.section-card {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 16px; padding: 28px; margin-bottom: 24px;
+}
+.section-card h3 { font-size: 17px; margin-bottom: 20px; color: var(--green-2); display: flex; align-items: center; gap: 8px; }
+
+/* DATA TABLE */
+.data-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--line); margin-bottom: 24px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.data-table th {
+  background: var(--green-soft); color: var(--green-2);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 11px 14px; text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.data-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--cream); }
+.badge { padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.badge-upcoming { background: #eff6ff; color: #1e40af; }
+.badge-active { background: #f0fdf4; color: #166534; }
+.badge-completed { background: var(--line); color: var(--ink-2); }
+
+/* FORM */
+.add-form { background: var(--cream); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+.add-form h4 { font-size: 15px; margin-bottom: 16px; color: var(--ink); }
+.form-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.form-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 140px; }
+.form-group label { font-size: 12px; font-weight: 600; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.05em; }
+.form-input {
+  padding: 9px 12px; border: 1.5px solid var(--line);
+  border-radius: 8px; font-size: 14px; outline: none;
+  background: var(--paper); color: var(--ink);
+  transition: border-color .15s;
+}
+.form-input:focus { border-color: var(--green); }
+.form-select { padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 8px; font-size: 14px; outline: none; background: var(--paper); color: var(--ink); transition: border-color .15s; cursor: pointer; }
+.form-select:focus { border-color: var(--green); }
+
+/* INLINE STATUS SELECT */
+.status-sel { padding: 5px 8px; border-radius: 6px; border: 1px solid var(--line); font-size: 12px; font-weight: 600; background: var(--paper); cursor: pointer; outline: none; }
+
+/* SPINNER */
+.spinner-wrap { display: flex; justify-content: center; align-items: center; padding: 40px 0; }
+.spinner { width: 32px; height: 32px; border: 3px solid var(--line); border-top-color: var(--green); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ERROR / SUCCESS */
+.error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 16px; color: #dc2626; font-size: 14px; margin: 12px 0; }
+.success-box { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 12px 16px; color: #166534; font-size: 14px; margin: 12px 0; }
+
+/* TOAST */
+#toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  background: var(--green-2); color: #fff;
+  padding: 14px 20px; border-radius: 12px;
+  font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px -4px rgba(0,0,0,0.3);
+  transform: translateY(20px); opacity: 0;
+  transition: all .3s ease;
+  max-width: 340px;
+  display: flex; align-items: center; gap: 10px;
+}
+#toast.show { transform: translateY(0); opacity: 1; }
+
+/* RESULTS TAB */
+.match-result-row {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 10px; margin-bottom: 8px; overflow: hidden;
+}
+.match-result-header {
+  padding: 14px 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  transition: background .15s;
+}
+.match-result-header:hover { background: var(--cream); }
+.match-result-header .match-title { font-weight: 600; font-size: 14px; }
+.match-result-header .match-meta { font-size: 13px; color: var(--ink-2); }
+.pending-count { background: #fef3c7; color: #92400e; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 600; }
+.match-result-form { padding: 16px; border-top: 1px solid var(--line); background: var(--cream); display: none; }
+.match-result-form.open { display: block; }
+.radio-group { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.radio-label { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1.5px solid var(--line); border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 14px; transition: all .15s; }
+.radio-label:hover { border-color: var(--green); background: var(--green-soft); }
+.radio-label input { accent-color: var(--green); }
+.radio-label.checked { border-color: var(--ball); background: #fafde8; }
+.result-readonly-table { margin-top: 24px; }
+.result-readonly-table h3 { font-size: 16px; color: var(--ink); margin-bottom: 14px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .form-row { flex-direction: column; }
+  .form-group { min-width: 0; width: 100%; }
+  .admin-tabs { overflow-x: auto; }
+  .atab { white-space: nowrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="pwGate">
+  <div class="pw-box">
+    <div class="lock-icon">&#128272;</div>
+    <h2>Admin Access</h2>
+    <p>Enter the admin password to continue</p>
+    <div class="pw-input-row">
+      <input type="password" class="pw-input" id="pwInput" placeholder="Password" autocomplete="current-password"/>
+      <button class="btn-green" id="pwEnterBtn">Enter</button>
+    </div>
+    <div class="pw-error" id="pwError"></div>
+  </div>
+</div>
+
+<!-- ADMIN UI -->
+<div id="adminUI">
+  <!-- HEADER -->
+  <header class="admin-header">
+    <h1>
+      <img src="images/website-sections/logo/tennisnuts-logo-transparent.png" alt="" class="logo-small"/>
+      Tennisnuts Admin
+    </h1>
+    <button class="btn-logout" id="logoutBtn">&#128275; Logout</button>
+  </header>
+
+  <!-- TABS -->
+  <div class="admin-tabs">
+    <button class="atab active" data-tab="members">Members</button>
+    <button class="atab" data-tab="tournaments">Tournaments</button>
+    <button class="atab" data-tab="matches">Matches</button>
+    <button class="atab" data-tab="results">Results</button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="admin-content" id="adminContent">
+    <div class="spinner-wrap"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ─── Config ───────────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://kdfibfpvtynbhrulfioi.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_mxzgPUUeA6ewEIlYqTy1hQ_bSW4hbk3';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// <!-- Change ADMIN_PASSWORD constant below -->
+const ADMIN_PASSWORD = 'tennisnuts';
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let authenticated = false;
+let activeTab = 'members';
+let adminData = { tournaments: [], matches: [], members: [] };
+
+// ─── Password gate ────────────────────────────────────────────────────────────
+const pwGate     = document.getElementById('pwGate');
+const pwInput    = document.getElementById('pwInput');
+const pwEnterBtn = document.getElementById('pwEnterBtn');
+const pwError    = document.getElementById('pwError');
+const adminUI    = document.getElementById('adminUI');
+
+function tryPassword() {
+  const val = pwInput.value;
+  if (val === ADMIN_PASSWORD) {
+    authenticated = true;
+    pwGate.classList.add('fade-out');
+    setTimeout(() => { pwGate.style.display = 'none'; }, 420);
+    adminUI.classList.add('visible');
+    initAdmin();
+  } else {
+    pwError.textContent = 'Incorrect password';
+    pwInput.classList.add('shake');
+    setTimeout(() => pwInput.classList.remove('shake'), 450);
+    pwInput.value = '';
+    pwInput.focus();
+  }
+}
+
+pwEnterBtn.addEventListener('click', tryPassword);
+pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryPassword(); });
+
+// Logout
+document.getElementById('logoutBtn').addEventListener('click', () => location.reload());
+
+// ─── Tab switching ────────────────────────────────────────────────────────────
+document.querySelectorAll('.atab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeTab = btn.dataset.tab;
+    document.querySelectorAll('.atab').forEach(b => b.classList.toggle('active', b.dataset.tab === activeTab));
+    renderTab();
+  });
+});
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+async function initAdmin() {
+  showSpinner();
+  await loadAllData();
+  renderTab();
+}
+
+async function loadAllData() {
+  try {
+    const [mRes, tRes, matchRes] = await Promise.all([
+      sb.from('members').select('*').order('display_name'),
+      sb.from('tournaments').select('*').order('year', { ascending: false }),
+      sb.from('matches').select('*').order('created_at', { ascending: false })
+    ]);
+    if (mRes.error) throw mRes.error;
+    if (tRes.error) throw tRes.error;
+    if (matchRes.error) throw matchRes.error;
+    adminData.members     = mRes.data || [];
+    adminData.tournaments = tRes.data || [];
+    adminData.matches     = matchRes.data || [];
+  } catch (err) {
+    showAdminError('Failed to load data: ' + err.message);
+  }
+}
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+const adminContent = document.getElementById('adminContent');
+
+function showSpinner() {
+  adminContent.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>';
+}
+
+function showAdminError(msg) {
+  adminContent.innerHTML = `<div class="error-box">&#9888;&#65039; ${msg}</div>`;
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  if (!s) return '';
+  return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+}
+
+let toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+function renderTab() {
+  if (activeTab === 'members')     renderMembers();
+  else if (activeTab === 'tournaments') renderTournaments();
+  else if (activeTab === 'matches')    renderMatches();
+  else if (activeTab === 'results')    renderResults();
+}
+
+// ─── MEMBERS TAB ─────────────────────────────────────────────────────────────
+function renderMembers() {
+  const rows = adminData.members.map(m => `
+    <tr>
+      <td><strong>${escHtml(m.display_name)}</strong></td>
+      <td style="color:var(--ink-2);">@${escHtml(m.username)}</td>
+      <td>${new Date(m.created_at).toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'})}</td>
+      <td><button class="btn-danger btn-sm" data-delete-member="${escAttr(m.id)}">Delete</button></td>
+    </tr>`).join('');
+
+  adminContent.innerHTML = `
+    <div class="section-card">
+      <h3>&#128100; Members (${adminData.members.length})</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Display Name</th><th>Username</th><th>Created</th><th>Action</th></tr></thead>
+          <tbody>${rows || '<tr><td colspan="4" style="text-align:center;color:var(--ink-2);padding:24px;">No members yet</td></tr>'}</tbody>
+        </table>
+      </div>
+    </div>
+    <div class="section-card">
+      <h3>&#10133; Add Member</h3>
+      <div id="memberFormMsg"></div>
+      <div class="add-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Display Name</label>
+            <input class="form-input" id="mDisplayName" placeholder="e.g. Rahul Sharma" type="text"/>
+          </div>
+          <div class="form-group">
+            <label>Username</label>
+            <input class="form-input" id="mUsername" placeholder="e.g. rahul_s" type="text"/>
+          </div>
+          <div style="display:flex;align-items:flex-end;">
+            <button class="btn-green" id="addMemberBtn">Add Member</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('addMemberBtn').addEventListener('click', addMember);
+  document.querySelectorAll('[data-delete-member]').forEach(btn => {
+    btn.addEventListener('click', () => deleteMember(btn.dataset.deleteMember));
+  });
+}
+
+async function addMember() {
+  const displayName = document.getElementById('mDisplayName').value.trim();
+  const username    = document.getElementById('mUsername').value.trim();
+  const msgEl       = document.getElementById('memberFormMsg');
+  msgEl.innerHTML   = '';
+
+  if (!displayName || !username) {
+    msgEl.innerHTML = '<div class="error-box">Please fill in both fields.</div>';
+    return;
+  }
+
+  const btn = document.getElementById('addMemberBtn');
+  btn.disabled = true;
+  btn.textContent = 'Adding...';
+
+  try {
+    const { error } = await sb.from('members').insert({ display_name: displayName, username });
+    if (error) throw error;
+    msgEl.innerHTML = '<div class="success-box">&#10003; Member added!</div>';
+    document.getElementById('mDisplayName').value = '';
+    document.getElementById('mUsername').value = '';
+    showToast('&#10003; Member added successfully');
+    await loadAllData();
+    renderMembers();
+  } catch (err) {
+    msgEl.innerHTML = `<div class="error-box">Error: ${escHtml(err.message)}</div>`;
+    btn.disabled = false;
+    btn.textContent = 'Add Member';
+  }
+}
+
+async function deleteMember(id) {
+  if (!confirm('Delete this member and all their predictions?')) return;
+  try {
+    const { error } = await sb.from('members').delete().eq('id', id);
+    if (error) throw error;
+    showToast('Member deleted');
+    await loadAllData();
+    renderMembers();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+// ─── TOURNAMENTS TAB ──────────────────────────────────────────────────────────
+function renderTournaments() {
+  const rows = adminData.tournaments.map(t => `
+    <tr>
+      <td><strong>${escHtml(t.name)}</strong></td>
+      <td>${t.year}</td>
+      <td>
+        <select class="status-sel" data-tour-status="${escAttr(t.id)}" data-cur="${escAttr(t.status)}">
+          <option value="upcoming" ${t.status==='upcoming'?'selected':''}>Upcoming</option>
+          <option value="active"   ${t.status==='active'  ?'selected':''}>Active</option>
+          <option value="completed"${t.status==='completed'?'selected':''}>Completed</option>
+        </select>
+      </td>
+      <td><button class="btn-danger btn-sm" data-delete-tour="${escAttr(t.id)}">Delete</button></td>
+    </tr>`).join('');
+
+  adminContent.innerHTML = `
+    <div class="section-card">
+      <h3>&#127942; Tournaments (${adminData.tournaments.length})</h3>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Year</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>${rows || '<tr><td colspan="4" style="text-align:center;color:var(--ink-2);padding:24px;">No tournaments yet</td></tr>'}</tbody>
+        </table>
+      </div>
+    </div>
+    <div class="section-card">
+      <h3>&#10133; Add Tournament</h3>
+      <div id="tourFormMsg"></div>
+      <div class="add-form">
+        <div class="form-row">
+          <div class="form-group" style="flex:2;">
+            <label>Tournament Name</label>
+            <input class="form-input" id="tName" placeholder="e.g. Narendra Sopal Trophy" type="text"/>
+          </div>
+          <div class="form-group" style="flex:0 0 100px;">
+            <label>Year</label>
+            <input class="form-input" id="tYear" type="number" value="${new Date().getFullYear()}" min="2020" max="2099"/>
+          </div>
+          <div class="form-group" style="flex:0 0 150px;">
+            <label>Status</label>
+            <select class="form-select" id="tStatus">
+              <option value="upcoming">Upcoming</option>
+              <option value="active">Active</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:flex-end;">
+            <button class="btn-green" id="addTourBtn">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('addTourBtn').addEventListener('click', addTournament);
+  document.querySelectorAll('[data-tour-status]').forEach(sel => {
+    sel.addEventListener('change', () => updateTournamentStatus(sel.dataset.tourStatus, sel.value));
+  });
+  document.querySelectorAll('[data-delete-tour]').forEach(btn => {
+    btn.addEventListener('click', () => deleteTournament(btn.dataset.deleteTour));
+  });
+}
+
+async function addTournament() {
+  const name   = document.getElementById('tName').value.trim();
+  const year   = parseInt(document.getElementById('tYear').value);
+  const status = document.getElementById('tStatus').value;
+  const msgEl  = document.getElementById('tourFormMsg');
+  msgEl.innerHTML = '';
+
+  if (!name || !year) {
+    msgEl.innerHTML = '<div class="error-box">Please fill in all fields.</div>';
+    return;
+  }
+
+  const btn = document.getElementById('addTourBtn');
+  btn.disabled = true; btn.textContent = 'Adding...';
+
+  try {
+    const { error } = await sb.from('tournaments').insert({ name, year, status });
+    if (error) throw error;
+    msgEl.innerHTML = '<div class="success-box">&#10003; Tournament added!</div>';
+    document.getElementById('tName').value = '';
+    showToast('&#10003; Tournament added successfully');
+    await loadAllData();
+    renderTournaments();
+  } catch (err) {
+    msgEl.innerHTML = `<div class="error-box">Error: ${escHtml(err.message)}</div>`;
+    btn.disabled = false; btn.textContent = 'Add';
+  }
+}
+
+async function updateTournamentStatus(id, status) {
+  try {
+    const { error } = await sb.from('tournaments').update({ status }).eq('id', id);
+    if (error) throw error;
+    const t = adminData.tournaments.find(t => t.id === id);
+    if (t) t.status = status;
+    showToast('&#10003; Status updated to ' + status);
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+async function deleteTournament(id) {
+  if (!confirm('Delete this tournament and all its matches and predictions?')) return;
+  try {
+    const { error } = await sb.from('tournaments').delete().eq('id', id);
+    if (error) throw error;
+    showToast('Tournament deleted');
+    await loadAllData();
+    renderTournaments();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+// ─── MATCHES TAB ─────────────────────────────────────────────────────────────
+let matchFilterTourId = '';
+
+function renderMatches() {
+  const tourOptions = adminData.tournaments.map(t =>
+    `<option value="${escAttr(t.id)}" ${matchFilterTourId===t.id?'selected':''}>${escHtml(t.name)} ${t.year}</option>`
+  ).join('');
+
+  const filteredMatches = matchFilterTourId
+    ? adminData.matches.filter(m => m.tournament_id === matchFilterTourId)
+    : adminData.matches;
+
+  const rows = filteredMatches.map(m => {
+    const tour = adminData.tournaments.find(t => t.id === m.tournament_id);
+    const deadline = new Date(m.deadline).toLocaleString('en-IN', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    const resultText = m.result_winner ? `&#9989; ${escHtml(m.result_winner)}` : '<span style="color:var(--ink-2);">—</span>';
+    return `
+      <tr>
+        <td>${escHtml(m.round)}</td>
+        <td><strong>${escHtml(m.player1)}</strong> vs <strong>${escHtml(m.player2)}</strong>${tour ? `<br/><span style="font-size:12px;color:var(--ink-2);">${escHtml(tour.name)}</span>` : ''}</td>
+        <td>${m.format === 'best_of_5' ? 'Best of 5' : 'Best of 3'}</td>
+        <td>${m.favourite_percent}%</td>
+        <td style="font-size:13px;">${deadline}</td>
+        <td>${resultText}</td>
+        <td><button class="btn-danger btn-sm" data-delete-match="${escAttr(m.id)}">Delete</button></td>
+      </tr>`;
+  }).join('');
+
+  const tourAddOptions = adminData.tournaments.map(t =>
+    `<option value="${escAttr(t.id)}">${escHtml(t.name)} ${t.year}</option>`
+  ).join('');
+
+  adminContent.innerHTML = `
+    <div class="section-card">
+      <h3>&#127934; Matches (${filteredMatches.length}${matchFilterTourId ? ' filtered' : ''})</h3>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:12px;font-weight:600;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Filter by Tournament</label>
+        <select class="form-select" id="matchFilterSel" style="max-width:300px;">
+          <option value="">All Tournaments</option>
+          ${tourOptions}
+        </select>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Round</th><th>Match</th><th>Format</th><th>Fav%</th><th>Deadline</th><th>Result</th><th>Action</th></tr></thead>
+          <tbody>${rows || '<tr><td colspan="7" style="text-align:center;color:var(--ink-2);padding:24px;">No matches yet</td></tr>'}</tbody>
+        </table>
+      </div>
+    </div>
+    <div class="section-card">
+      <h3>&#10133; Add Match</h3>
+      <div id="matchFormMsg"></div>
+      <div class="add-form">
+        <div class="form-row">
+          <div class="form-group" style="flex:2;">
+            <label>Tournament *</label>
+            <select class="form-select" id="mTourId">
+              <option value="">— Select Tournament —</option>
+              ${tourAddOptions}
+            </select>
+          </div>
+          <div class="form-group" style="flex:0 0 140px;">
+            <label>Round</label>
+            <input class="form-input" id="mRound" placeholder="e.g. Quarter-final" type="text" list="roundSuggestions"/>
+            <datalist id="roundSuggestions">
+              <option value="Round of 16"/>
+              <option value="Quarter-final"/>
+              <option value="Semi-final"/>
+              <option value="Final"/>
+            </datalist>
+          </div>
+        </div>
+        <div class="form-row" style="margin-top:12px;">
+          <div class="form-group">
+            <label>Player 1 Name</label>
+            <input class="form-input" id="mP1" placeholder="Player 1" type="text"/>
+          </div>
+          <div class="form-group">
+            <label>Player 2 Name</label>
+            <input class="form-input" id="mP2" placeholder="Player 2" type="text"/>
+          </div>
+        </div>
+        <div class="form-row" style="margin-top:12px;">
+          <div class="form-group" style="flex:0 0 160px;">
+            <label>Format</label>
+            <select class="form-select" id="mFormat">
+              <option value="best_of_3">Best of 3</option>
+              <option value="best_of_5">Best of 5</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:0 0 160px;">
+            <label>Player 1 Fav % (0–100)</label>
+            <input class="form-input" id="mFav" type="number" min="0" max="100" value="50"/>
+          </div>
+          <div class="form-group">
+            <label>Prediction Deadline</label>
+            <input class="form-input" id="mDeadline" type="datetime-local"/>
+          </div>
+          <div style="display:flex;align-items:flex-end;">
+            <button class="btn-green" id="addMatchBtn">Add Match</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('matchFilterSel').addEventListener('change', e => {
+    matchFilterTourId = e.target.value;
+    renderMatches();
+  });
+  document.getElementById('addMatchBtn').addEventListener('click', addMatch);
+  document.querySelectorAll('[data-delete-match]').forEach(btn => {
+    btn.addEventListener('click', () => deleteMatch(btn.dataset.deleteMatch));
+  });
+}
+
+async function addMatch() {
+  const tourId   = document.getElementById('mTourId').value;
+  const round    = document.getElementById('mRound').value.trim();
+  const p1       = document.getElementById('mP1').value.trim();
+  const p2       = document.getElementById('mP2').value.trim();
+  const format   = document.getElementById('mFormat').value;
+  const fav      = parseInt(document.getElementById('mFav').value);
+  const deadline = document.getElementById('mDeadline').value;
+  const msgEl    = document.getElementById('matchFormMsg');
+  msgEl.innerHTML = '';
+
+  if (!tourId || !round || !p1 || !p2 || !deadline) {
+    msgEl.innerHTML = '<div class="error-box">Please fill in all required fields (Tournament, Round, Players, Deadline).</div>';
+    return;
+  }
+  if (isNaN(fav) || fav < 0 || fav > 100) {
+    msgEl.innerHTML = '<div class="error-box">Favourite % must be between 0 and 100.</div>';
+    return;
+  }
+
+  const btn = document.getElementById('addMatchBtn');
+  btn.disabled = true; btn.textContent = 'Adding...';
+
+  try {
+    const deadlineISO = new Date(deadline).toISOString();
+    const { error } = await sb.from('matches').insert({
+      tournament_id: tourId,
+      player1: p1, player2: p2,
+      round, format,
+      favourite_percent: fav,
+      deadline: deadlineISO
+    });
+    if (error) throw error;
+    msgEl.innerHTML = '<div class="success-box">&#10003; Match added!</div>';
+    document.getElementById('mP1').value = '';
+    document.getElementById('mP2').value = '';
+    document.getElementById('mRound').value = '';
+    showToast('&#10003; Match added successfully');
+    await loadAllData();
+    renderMatches();
+  } catch (err) {
+    msgEl.innerHTML = `<div class="error-box">Error: ${escHtml(err.message)}</div>`;
+    btn.disabled = false; btn.textContent = 'Add Match';
+  }
+}
+
+async function deleteMatch(id) {
+  if (!confirm('Delete this match and all predictions for it?')) return;
+  try {
+    const { error } = await sb.from('matches').delete().eq('id', id);
+    if (error) throw error;
+    showToast('Match deleted');
+    await loadAllData();
+    renderMatches();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+// ─── RESULTS TAB ─────────────────────────────────────────────────────────────
+let resultFilterTourId = '';
+let expandedResultMatch = null;
+
+async function renderResults() {
+  const tourOptions = adminData.tournaments.map(t =>
+    `<option value="${escAttr(t.id)}" ${resultFilterTourId===t.id?'selected':''}>${escHtml(t.name)} ${t.year}</option>`
+  ).join('');
+
+  // Pending matches (no result yet)
+  const pendingMatches = adminData.matches.filter(m =>
+    !m.result_winner &&
+    (resultFilterTourId ? m.tournament_id === resultFilterTourId : true)
+  );
+
+  // Completed matches (with result)
+  const completedMatches = adminData.matches.filter(m =>
+    !!m.result_winner &&
+    (resultFilterTourId ? m.tournament_id === resultFilterTourId : true)
+  );
+
+  // Fetch prediction counts for pending matches
+  let pendingCounts = {};
+  if (pendingMatches.length > 0) {
+    try {
+      const ids = pendingMatches.map(m => m.id);
+      const { data } = await sb.from('predictions').select('match_id').in('match_id', ids);
+      (data || []).forEach(p => {
+        pendingCounts[p.match_id] = (pendingCounts[p.match_id] || 0) + 1;
+      });
+    } catch (e) {}
+  }
+
+  let pendingHtml = pendingMatches.map(m => {
+    const count = pendingCounts[m.id] || 0;
+    const isExpanded = expandedResultMatch === m.id;
+    return `
+      <div class="match-result-row" data-match-result-id="${escAttr(m.id)}">
+        <div class="match-result-header" data-toggle-result="${escAttr(m.id)}">
+          <div>
+            <div class="match-title">${escHtml(m.player1)} vs ${escHtml(m.player2)}</div>
+            <div class="match-meta">${escHtml(m.round)} &middot; ${m.format === 'best_of_5' ? 'Best of 5' : 'Best of 3'}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="pending-count">${count} prediction${count !== 1 ? 's' : ''}</span>
+            <span style="color:var(--ink-2);font-size:18px;">${isExpanded ? '&#9650;' : '&#9660;'}</span>
+          </div>
+        </div>
+        <div class="match-result-form${isExpanded ? ' open' : ''}" id="rf-${escAttr(m.id)}">
+          <div style="margin-bottom:12px;">
+            <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);margin-bottom:8px;">Winner</div>
+            <div class="radio-group">
+              <label class="radio-label" id="rl1-${escAttr(m.id)}">
+                <input type="radio" name="winner-${escAttr(m.id)}" value="${escAttr(m.player1)}" data-match="${escAttr(m.id)}"/>
+                ${escHtml(m.player1)}
+              </label>
+              <label class="radio-label" id="rl2-${escAttr(m.id)}">
+                <input type="radio" name="winner-${escAttr(m.id)}" value="${escAttr(m.player2)}" data-match="${escAttr(m.id)}"/>
+                ${escHtml(m.player2)}
+              </label>
+            </div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);margin-bottom:8px;">Sets Played</div>
+            <input class="form-input" type="text" id="rs-${escAttr(m.id)}" placeholder="e.g. 6-4 3-6 6-3" style="max-width:280px;"/>
+          </div>
+          <div id="rf-msg-${escAttr(m.id)}"></div>
+          <button class="btn-green" data-save-result="${escAttr(m.id)}" data-p1="${escAttr(m.player1)}" data-p2="${escAttr(m.player2)}">
+            Save Result &amp; Calculate Points
+          </button>
+        </div>
+      </div>`;
+  }).join('');
+
+  const completedRows = completedMatches.map(m => {
+    const tour = adminData.tournaments.find(t => t.id === m.tournament_id);
+    return `
+      <tr>
+        <td>${escHtml(m.round)}</td>
+        <td>${escHtml(m.player1)} vs ${escHtml(m.player2)}</td>
+        <td><strong>${escHtml(m.result_winner)}</strong></td>
+        <td>${m.result_sets ? escHtml(m.result_sets) : '—'}</td>
+        <td>${tour ? escHtml(tour.name) : '—'}</td>
+        <td><button class="btn-ball btn-sm" data-recalc="${escAttr(m.id)}" data-p1="${escAttr(m.player1)}" data-p2="${escAttr(m.player2)}" data-rw="${escAttr(m.result_winner)}" data-rs="${escAttr(m.result_sets||'')}">Recalculate</button></td>
+      </tr>`;
+  }).join('');
+
+  adminContent.innerHTML = `
+    <div class="section-card">
+      <h3>&#9989; Enter Match Results</h3>
+      <p style="color:var(--ink-2);font-size:14px;margin-bottom:20px;">Enter match results to automatically score all predictions.</p>
+      <div style="margin-bottom:20px;">
+        <label style="font-size:12px;font-weight:600;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Filter by Tournament</label>
+        <select class="form-select" id="resultFilterSel" style="max-width:300px;">
+          <option value="">All Tournaments</option>
+          ${tourOptions}
+        </select>
+      </div>
+      ${pendingMatches.length === 0
+        ? '<div style="text-align:center;padding:30px;color:var(--ink-2);">No pending results for this filter.</div>'
+        : pendingHtml}
+    </div>
+    <div class="result-readonly-table section-card">
+      <h3>&#128203; Completed Results (${completedMatches.length})</h3>
+      ${completedMatches.length > 0 ? `
+        <div class="data-table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Round</th><th>Match</th><th>Winner</th><th>Sets</th><th>Tournament</th><th>Action</th></tr></thead>
+            <tbody>${completedRows}</tbody>
+          </table>
+        </div>` : '<div style="color:var(--ink-2);font-size:14px;">No completed results yet.</div>'}
+    </div>`;
+
+  // Filter
+  document.getElementById('resultFilterSel').addEventListener('change', async e => {
+    resultFilterTourId = e.target.value;
+    expandedResultMatch = null;
+    await renderResults();
+  });
+
+  // Toggle expand
+  document.querySelectorAll('[data-toggle-result]').forEach(el => {
+    el.addEventListener('click', async () => {
+      const id = el.dataset.toggleResult;
+      expandedResultMatch = expandedResultMatch === id ? null : id;
+      await renderResults();
+    });
+  });
+
+  // Radio highlight
+  document.querySelectorAll('[name^="winner-"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const matchId = radio.dataset.match;
+      document.querySelectorAll(`[name="winner-${matchId}"]`).forEach(r => {
+        r.closest('.radio-label').classList.toggle('checked', r === radio && r.checked);
+      });
+    });
+  });
+
+  // Save result buttons
+  document.querySelectorAll('[data-save-result]').forEach(btn => {
+    btn.addEventListener('click', () => saveResult(
+      btn.dataset.saveResult,
+      btn.dataset.p1,
+      btn.dataset.p2
+    ));
+  });
+
+  // Recalculate buttons
+  document.querySelectorAll('[data-recalc]').forEach(btn => {
+    btn.addEventListener('click', () => recalculateResult(
+      btn.dataset.recalc,
+      btn.dataset.rw,
+      btn.dataset.rs
+    ));
+  });
+}
+
+async function saveResult(matchId, p1, p2) {
+  const selectedRadio = document.querySelector(`input[name="winner-${matchId}"]:checked`);
+  const setsInput = document.getElementById(`rs-${matchId}`);
+  const msgEl = document.getElementById(`rf-msg-${matchId}`);
+  msgEl.innerHTML = '';
+
+  if (!selectedRadio) {
+    msgEl.innerHTML = '<div class="error-box" style="margin-bottom:12px;">Please select a winner.</div>';
+    return;
+  }
+
+  const winner = selectedRadio.value;
+  const sets   = setsInput ? setsInput.value.trim() : '';
+
+  const btn = document.querySelector(`[data-save-result="${matchId}"]`);
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  try {
+    // 1. Update match
+    const { error: matchErr } = await sb.from('matches')
+      .update({ result_winner: winner, result_sets: sets || null })
+      .eq('id', matchId);
+    if (matchErr) throw matchErr;
+
+    // 2. Fetch all predictions for this match
+    const { data: preds, error: predErr } = await sb.from('predictions')
+      .select('*')
+      .eq('match_id', matchId);
+    if (predErr) throw predErr;
+
+    // 3. Score each prediction
+    const scored = (preds || []).map(pred => {
+      const winnerCorrect = pred.predicted_winner === winner;
+      const setsCorrect   = winnerCorrect && sets && pred.predicted_sets &&
+                            pred.predicted_sets.trim().toLowerCase() === sets.trim().toLowerCase();
+      const pts = winnerCorrect ? (setsCorrect ? 2 : 1) : 0;
+      return { id: pred.id, points_earned: pts };
+    });
+
+    // 4. Bulk update predictions
+    if (scored.length > 0) {
+      for (const s of scored) {
+        const { error: upErr } = await sb.from('predictions')
+          .update({ points_earned: s.points_earned })
+          .eq('id', s.id);
+        if (upErr) throw upErr;
+      }
+    }
+
+    showToast(`&#10003; Saved — ${scored.length} prediction${scored.length !== 1 ? 's' : ''} scored`);
+    expandedResultMatch = null;
+    await loadAllData();
+    await renderResults();
+  } catch (err) {
+    msgEl.innerHTML = `<div class="error-box" style="margin-bottom:12px;">Error: ${escHtml(err.message)}</div>`;
+    btn.disabled = false;
+    btn.textContent = 'Save Result & Calculate Points';
+  }
+}
+
+async function recalculateResult(matchId, resultWinner, resultSets) {
+  if (!confirm('Recalculate scores for this match? This will overwrite existing points.')) return;
+
+  try {
+    const { data: preds, error: predErr } = await sb.from('predictions')
+      .select('*')
+      .eq('match_id', matchId);
+    if (predErr) throw predErr;
+
+    const scored = (preds || []).map(pred => {
+      const winnerCorrect = pred.predicted_winner === resultWinner;
+      const setsCorrect   = winnerCorrect && resultSets && pred.predicted_sets &&
+                            pred.predicted_sets.trim().toLowerCase() === resultSets.trim().toLowerCase();
+      const pts = winnerCorrect ? (setsCorrect ? 2 : 1) : 0;
+      return { id: pred.id, points_earned: pts };
+    });
+
+    for (const s of scored) {
+      const { error } = await sb.from('predictions')
+        .update({ points_earned: s.points_earned })
+        .eq('id', s.id);
+      if (error) throw error;
+    }
+
+    showToast(`&#10003; Recalculated — ${scored.length} prediction${scored.length !== 1 ? 's' : ''} updated`);
+    await renderResults();
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+// ─── Boot ─────────────────────────────────────────────────────────────────────
+// Focus password field on load
+window.addEventListener('DOMContentLoaded', () => {
+  pwInput.focus();
+});
+</script>
+</body>
+</html>
