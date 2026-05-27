@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Sopal Trophy 2022 — Tennisnuts</title>
+  <title>Narendra Sopal Memorial Inter-Club Tennis Championship 2022 — Tennisnuts</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
@@ -16,53 +16,73 @@
     .container{max-width:1200px;margin:0 auto;padding:0 32px}
 
     /* HERO */
-    .hero{background:var(--green);min-height:400px;display:flex;align-items:center;padding:80px 40px}
+    .hero{background:var(--green-2);min-height:420px;display:flex;align-items:center;padding:80px 40px;position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--ball) 0 40px,var(--green-3) 40px 80px)}
     .hero-inner{max-width:1200px;margin:0 auto;width:100%}
-    .breadcrumb{font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:20px;display:flex;align-items:center;gap:8px}
-    .breadcrumb a{color:rgba(255,255,255,0.65);transition:color .15s}
+    .breadcrumb{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .breadcrumb a{color:rgba(255,255,255,0.6);transition:color .15s}
     .breadcrumb a:hover{color:#fff}
-    .breadcrumb .sep{color:rgba(255,255,255,0.4)}
+    .breadcrumb .sep{color:rgba(255,255,255,0.35)}
     .breadcrumb .current{color:#fff;font-weight:600}
-    .hero h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(2.4rem,6vw,4rem);color:#fff;letter-spacing:-0.02em;margin-bottom:16px}
-    .hero p{font-size:1.15rem;color:rgba(255,255,255,0.8);max-width:50ch}
+    .hero-badge{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;background:var(--ball);color:var(--green-2);padding:5px 12px;border-radius:6px;margin-bottom:16px;font-weight:500}
+    .hero h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.4rem);color:#fff;letter-spacing:-0.02em;margin-bottom:14px;max-width:22ch}
+    .hero-sub{font-size:1.1rem;color:rgba(255,255,255,0.78);max-width:50ch;line-height:1.6}
 
     /* BUTTONS */
     .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 28px;font-weight:600;font-size:15px;transition:transform .15s,background .15s;cursor:pointer;text-decoration:none}
     .btn-wa{background:#25D366;color:#fff}
     .btn-wa:hover{background:#1ebe5c;transform:translateY(-2px)}
-    .btn-green{background:var(--green);color:#fff}
-    .btn-green:hover{background:var(--green-2);transform:translateY(-2px)}
 
     /* SECTIONS */
     .section{padding:80px 0}
+    .cream-bg{background:var(--cream)}
+    .green-soft-bg{background:var(--green-soft)}
     .section-label{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
-    .section-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.4rem);letter-spacing:-0.02em;color:var(--ink);margin-bottom:40px}
+    .section-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.4rem);letter-spacing:-0.02em;color:var(--ink);margin-bottom:28px}
 
     /* STATS GRID */
-    .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:12px}
     @media(max-width:900px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:560px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
     .stat-box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
-    .stat-num{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:2.5rem;color:var(--green);line-height:1;margin-bottom:6px}
-    .stat-label{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-2);font-weight:500}
+    .stat-num{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:2.4rem;color:var(--green);line-height:1;margin-bottom:6px}
+    .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-2);font-weight:500}
 
     /* HIGHLIGHTS */
-    .cream-bg{background:var(--cream)}
     .highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
     @media(max-width:760px){.highlights-grid{grid-template-columns:1fr}}
     .highlight-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s}
     .highlight-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,0,0,0.12)}
     .highlight-icon{width:48px;height:48px;background:var(--green-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
-    .highlight-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.15rem;color:var(--ink);margin-bottom:8px}
-    .highlight-desc{font-size:0.95rem;color:var(--ink-2);line-height:1.6}
+    .highlight-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.1rem;color:var(--ink);margin-bottom:8px}
+    .highlight-desc{font-size:0.95rem;color:var(--ink-2);line-height:1.65}
 
-    /* RESULTS PLACEHOLDER */
-    .results-section{background:var(--ball);padding:64px 40px;text-align:center}
-    .results-section h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.8rem;color:var(--green-2);margin-bottom:12px}
-    .results-section p{color:var(--green-2);opacity:0.75;font-size:1rem}
+    /* TEAMS SECTION */
+    .teams-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    @media(max-width:760px){.teams-grid{grid-template-columns:repeat(2,1fr)}}
+    .team-chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:13px;font-weight:500;color:var(--ink-2)}
+    .team-chip.tennisnuts{border-color:var(--green);color:var(--green);font-weight:600}
+
+    /* PHOTO GALLERY */
+    .gallery-section{background:var(--ink);padding:72px 0}
+    .gallery-section .section-label{color:var(--ball)}
+    .gallery-section .section-title{color:#fff}
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:760px){.gallery-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:480px){.gallery-grid{grid-template-columns:1fr}}
+    .gallery-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block}
+    .gallery-placeholder{width:100%;aspect-ratio:4/3;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);font-size:13px;font-family:"JetBrains Mono",monospace;letter-spacing:0.06em}
+
+    /* PRIZE TABLE */
+    .prize-table{width:100%;border-collapse:collapse;margin-top:8px}
+    .prize-table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-2);padding:10px 16px;border-bottom:1px solid var(--line);font-weight:600}
+    .prize-table td{padding:14px 16px;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+    .prize-table tr:last-child td{border-bottom:none}
+    .prize-amount{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;color:var(--green);font-size:1.1rem}
 
     /* FOOTER CTA */
-    .footer-cta{background:var(--green-2);padding:64px 40px;text-align:center}
+    .footer-cta{background:var(--green-2);padding:64px 40px;text-align:center;position:relative;overflow:hidden}
+    .footer-cta::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--ball) 0 40px,var(--green-3) 40px 80px)}
     .footer-cta h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.5rem,3vw,2rem);color:#fff;margin-bottom:24px;letter-spacing:-0.02em}
   </style>
 </head>
@@ -73,43 +93,44 @@
   <section class="hero">
     <div class="hero-inner">
       <div class="breadcrumb">
-        <a href="sopal-trophy.html">Sopal Trophy</a>
+        <a href="sopal-trophy.html">Sopal Club Championship</a>
         <span class="sep">›</span>
-        <span class="current">2022</span>
+        <span class="current">2022 — Inaugural Edition</span>
       </div>
-      <h1>Sopal Trophy 2022</h1>
-      <p>The inaugural edition.</p>
+      <div class="hero-badge">Inaugural Edition · October 2022</div>
+      <h1>Narendra Sopal Memorial Inter-Club Tennis Championship 2022</h1>
+      <p class="hero-sub">The championship that started it all — 192 players, 24 club teams, and the beginning of a new annual tradition in Pune tennis.</p>
     </div>
   </section>
 
-  <!-- OVERVIEW -->
+  <!-- OVERVIEW STATS -->
   <section class="section">
     <div class="container">
       <div class="section-label">Tournament Overview</div>
       <h2 class="section-title">Edition at a Glance</h2>
       <div class="stats-grid">
         <div class="stat-box">
-          <div class="stat-num">64</div>
+          <div class="stat-num">192</div>
           <div class="stat-label">Players</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">2</div>
-          <div class="stat-label">Draws</div>
+          <div class="stat-num">24</div>
+          <div class="stat-label">Club Teams</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">BO3</div>
-          <div class="stat-label">Format</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num">Pune</div>
+          <div class="stat-num">Balewadi</div>
           <div class="stat-label">Venue</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">2</div>
-          <div class="stat-label">Days</div>
+          <div class="stat-num">Oct 7</div>
+          <div class="stat-label">Start Date</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">₹75K</div>
+          <div class="stat-label">Prize Fund</div>
         </div>
       </div>
-      <p style="margin-top:20px;font-size:0.9rem;color:var(--ink-2)">Draws: Main Draw &amp; Consolation Draw</p>
+      <p style="margin-top:16px;font-size:0.9rem;color:var(--ink-2)">Venue: MSLTA Tennis Courts, Mhalunge Balewadi, Pune · Under aegis of PMDTA</p>
     </div>
   </section>
 
@@ -121,33 +142,90 @@
       <div class="highlights-grid">
         <div class="highlight-card">
           <div class="highlight-icon">🏆</div>
-          <div class="highlight-title">Inaugural Edition</div>
-          <p class="highlight-desc">The very first Sopal Trophy — a dream that became a reality. Tennisnuts organised its flagship tournament for the first time, setting the stage for an annual tradition.</p>
+          <div class="highlight-title">192 Players, 24 Teams</div>
+          <p class="highlight-desc">The inaugural edition drew an outstanding response — 192 players from 24 club teams across Pune and PCMC confirmed their entries, reflecting just how much Pune's tennis community was ready for this championship.</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon">🎖️</div>
+          <div class="highlight-title">Inaugurated by Police Commissioner</div>
+          <p class="highlight-desc">The championship was inaugurated by Mr. Ankush Shinde (IPS), Police Commissioner of PCMC — a mark of the event's standing in Pune's sporting calendar from day one.</p>
         </div>
         <div class="highlight-card">
           <div class="highlight-icon">🤝</div>
-          <div class="highlight-title">Community Spirit</div>
-          <p class="highlight-desc">Players from all over Pune came together on and off the court. The camaraderie, the cheering, and the shared love of tennis made this edition truly special.</p>
-        </div>
-        <div class="highlight-card">
-          <div class="highlight-icon">⚡</div>
-          <div class="highlight-title">Epic Finals</div>
-          <p class="highlight-desc">Thrilling finals matches on center court kept spectators on the edge of their seats. The inaugural champions were crowned after two days of competitive tennis.</p>
+          <div class="highlight-title">A Community United</div>
+          <p class="highlight-desc">Tennisnuts Panchayat 1 & 2, FC, Maharashtra Mandal, Golden Boys, Aces United, Forest Hunters and many more clubs competed side by side — rivals on court, friends off it.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- RESULTS PLACEHOLDER -->
-  <section class="results-section">
-    <h2>Results &amp; Photos Coming Soon</h2>
-    <p>We're working on archiving all results, draws and photos from the 2022 edition. Check back shortly.</p>
+  <!-- PARTICIPATING TEAMS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Participating Teams</div>
+      <h2 class="section-title">24 Club Teams from Pune &amp; PCMC</h2>
+      <div class="teams-grid">
+        <div class="team-chip tennisnuts">Tennisnuts Panchayat 1</div>
+        <div class="team-chip tennisnuts">Tennisnuts Panchayat 2</div>
+        <div class="team-chip">Fergusson College</div>
+        <div class="team-chip">Maharashtra Mandal 1</div>
+        <div class="team-chip">Golden Boys</div>
+        <div class="team-chip">Aces United</div>
+        <div class="team-chip">Forest Hunters</div>
+        <div class="team-chip">TFL Free Radicals</div>
+        <div class="team-chip" style="color:var(--ink-2);font-style:italic;border-style:dashed">+ 16 more teams</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="section-label">Edition 1 · October 2022</div>
+      <h2 class="section-title" style="margin-bottom:32px">Photos from the Championship</h2>
+      <div class="gallery-grid" id="photo-gallery">
+        <!-- Photos loaded from Cloudinary -->
+        <div class="gallery-placeholder">Loading photos…</div>
+        <div class="gallery-placeholder">Loading photos…</div>
+        <div class="gallery-placeholder">Loading photos…</div>
+        <div class="gallery-placeholder">Loading photos…</div>
+        <div class="gallery-placeholder">Loading photos…</div>
+        <div class="gallery-placeholder">Loading photos…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIZE MONEY -->
+  <section class="section green-soft-bg">
+    <div class="container">
+      <div class="section-label">Prize Structure</div>
+      <h2 class="section-title">Prize Money</h2>
+      <table class="prize-table" style="max-width:500px">
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Prize</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🏆 Champions</td>
+            <td><span class="prize-amount">₹50,000</span> + Trophy</td>
+          </tr>
+          <tr>
+            <td>🥈 Runners-up</td>
+            <td><span class="prize-amount">₹25,000</span> + Trophy</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:20px;font-size:0.9rem;color:var(--ink-2)">Total prize fund: ₹75,000 · Presented by Manegrow &amp; Tower Transmission</p>
+    </div>
   </section>
 
   <!-- FOOTER CTA -->
   <section class="footer-cta">
-    <h2>Join the 2025 edition</h2>
-    <a href="https://wa.me/919999999999?text=Hi%2C%20I%27m%20interested%20in%20the%20Sopal%20Trophy%202025" class="btn btn-wa" target="_blank" rel="noopener">
+    <h2>Enter your club team for the next edition</h2>
+    <a href="https://wa.me/919999999999?text=Hi%2C%20I%27m%20interested%20in%20the%20Sopal%20Club%20Championship" class="btn btn-wa" target="_blank" rel="noopener">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Message us on WhatsApp
     </a>

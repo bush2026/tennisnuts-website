@@ -276,17 +276,17 @@ const Ic = {
 
 const ACTIVITIES = [
   { i: <Ic.Confetti/>, t: "Tennisnuts Socials",    d: "Weekend mixer sessions where rallies turn into friendships.", url: "socials.html" },
-  { i: <Ic.Trophy/>,   t: "Narendra Sopal Trophy", d: "Our flagship invitational — heart, hustle, and trophy chasing.", url: "sopal-trophy.html" },
+  { i: <Ic.Trophy/>,   t: "Sopal Club Championship", d: "Pune's premier inter-club tennis championship, held annually in memory of Narendra Sopal.", url: "sopal-trophy.html" },
   { i: <Ic.Briefcase/>,t: "Corporate Tournament",  d: "Bring your team, leave the spreadsheets. Game on.", url: "corporate-tournament.html" },
   { i: <Ic.Racket/>,   t: "Tennis Clinics",        d: "Open-format clinics for beginners to club-level players.", url: "tennis-clinics.html" },
   { i: <Ic.Target/>,   t: "Focused Coaching",      d: "Targeted drills with pros to sharpen one weak spot at a time.", url: "academy.html" },
   { i: <Ic.Mic/>,      t: "Tennis Bytes Podcast",  d: "Conversations with players, coaches, and people who love the game.", url: "tennis-bytes.html" },
   { i: <Ic.Pen/>,      t: "Nuts Blog",             d: "Stories from the court — match notes, tips, and player journeys.", url: "blog.html" },
-  { i: <Ic.Heart/>,    t: "Social Work",           d: "Putting rackets in more hands. Community drives + scholarships.", url: "social-work.html" },
+  { i: <Ic.Heart/>,    t: "Community Impact",      d: "Putting rackets in more hands — free clinics, equipment drives, and more.", url: "social-work.html" },
 ];
 
 const EVENTS = [
-  { tag:"Tournament", d:"24", m:"May", title:"Narendra Sopal Trophy '26",  place:"PYC Hindu Gymkhana, Pune",   time:"Sat 7:00 AM · Doubles",      spots:"12",   banner:"ev-b-2" },
+  { tag:"Tournament", d:"24", m:"May", title:"Sopal Club Championship '26",  place:"PYC Hindu Gymkhana, Pune",   time:"Sat 7:00 AM · Doubles",      spots:"12",   banner:"ev-b-2" },
   { tag:"Social",     d:"31", m:"May", title:"Sunday Sundowner Mixer",     place:"Deccan Gymkhana",            time:"Sun 5:30 PM · All levels",    spots:"8",    banner:"ev-b-1" },
   { tag:"Clinic",     d:"07", m:"Jun", title:"Serve & Volley Clinic",      place:"Balewadi Sports Complex",    time:"Sat 6:00 AM · Intermediate",  spots:"4",    banner:"ev-b-4" },
   { tag:"Corporate",  d:"14", m:"Jun", title:"Pune Corporate Cup '26",     place:"Poona Club Courts",          time:"Sat–Sun · Team event",        spots:"16",   banner:"ev-b-3" },
@@ -318,21 +318,15 @@ function Nav() {
         <a href="index.html"><img src="images/website-sections/logo/tennisnuts-logo-transparent.png" alt="Tennisnuts" className="brand-logo"/></a>
         <nav className="nav-links" aria-label="Primary">
           <a href="index.html">Home</a>
-          <div style={{position:'relative'}} onMouseEnter={()=>setOpen('events')} onMouseLeave={()=>setOpen(null)}>
-            <button style={{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,color:'var(--ink-2)',fontWeight:500,fontSize:15,padding:'8px 12px',borderRadius:8,fontFamily:'inherit'}} onClick={()=>toggle('events')}>Events <Chevron/></button>
-            {open==='events' && <div style={{position:'absolute',top:'100%',left:0,background:'#fff',border:'1px solid var(--line)',borderRadius:14,boxShadow:'0 12px 32px -8px rgba(0,0,0,0.15)',minWidth:220,padding:8,zIndex:200}}>
-              {[['Tennisnuts Socials','socials.html'],['Sopal Trophy','sopal-trophy.html'],['Corporate Tournament','corporate-tournament.html']].map(([l,h])=><a key={h} href={h} style={{display:'block',padding:'10px 14px',borderRadius:8,color:'var(--ink)',fontSize:14,fontWeight:500}}>{l}</a>)}
-            </div>}
-          </div>
-          <div style={{position:'relative'}} onMouseEnter={()=>setOpen('community')} onMouseLeave={()=>setOpen(null)}>
-            <button style={{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,color:'var(--ink-2)',fontWeight:500,fontSize:15,padding:'8px 12px',borderRadius:8,fontFamily:'inherit'}} onClick={()=>toggle('community')}>Community <Chevron/></button>
-            {open==='community' && <div style={{position:'absolute',top:'100%',left:0,background:'#fff',border:'1px solid var(--line)',borderRadius:14,boxShadow:'0 12px 32px -8px rgba(0,0,0,0.15)',minWidth:220,padding:8,zIndex:200}}>
-              {[['Tennis Clinics','tennis-clinics.html'],['Tennis Bytes Podcast','tennis-bytes.html'],['Social Work','social-work.html']].map(([l,h])=><a key={h} href={h} style={{display:'block',padding:'10px 14px',borderRadius:8,color:'var(--ink)',fontSize:14,fontWeight:500}}>{l}</a>)}
-            </div>}
-          </div>
           <a href="academy.html">Academy</a>
           <a href="partners.html">Partners</a>
           <a href="blog.html">Blog</a>
+          <div style={{position:'relative'}} onMouseEnter={()=>setOpen('events')} onMouseLeave={()=>setOpen(null)}>
+            <button style={{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,color:'var(--ink-2)',fontWeight:500,fontSize:15,padding:'8px 12px',borderRadius:8,fontFamily:'inherit'}} onClick={()=>toggle('events')}>Events <Chevron/></button>
+            {open==='events' && <div style={{position:'absolute',top:'100%',right:0,background:'#fff',border:'1px solid var(--line)',borderRadius:14,boxShadow:'0 12px 32px -8px rgba(0,0,0,0.15)',minWidth:240,padding:8,zIndex:200}}>
+              {[['Tennisnuts Socials','socials.html'],['Sopal Club Championship','sopal-trophy.html'],['Corporate Tournament','corporate-tournament.html'],['Tennis Clinics','tennis-clinics.html']].map(([l,h])=><a key={h} href={h} style={{display:'block',padding:'10px 14px',borderRadius:8,color:'var(--ink)',fontSize:14,fontWeight:500}}>{l}</a>)}
+            </div>}
+          </div>
         </nav>
         <a href="#" className="nav-cta"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24" style={{marginRight:4}}><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5z"/></svg> Join WhatsApp</a>
       </div>
