@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Tennis Clinics — Tennisnuts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"DM Sans",sans-serif;color:var(--ink,#1c2218);background:#fff}
+    a{text-decoration:none;color:inherit}
+    :root{--green:#3a5c2c;--green-2:#2c4621;--green-3:#4d7239;--green-soft:#eef2e6;--ball:#cddc39;--ball-2:#d8e85a;--ink:#1c2218;--ink-2:#4a5240;--paper:#fff;--cream:#faf8f1;--line:#e6e3d8}
+
+    .container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+    /* HERO */
+    .hero{background:var(--green-soft);min-height:380px;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 40px}
+    .hero h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(2.6rem,6vw,4.2rem);color:var(--ink);letter-spacing:-0.02em;margin-bottom:18px}
+    .hero p{font-size:1.1rem;color:var(--ink-2);max-width:50ch;margin:0 auto 32px;line-height:1.7}
+
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 28px;font-weight:600;font-size:15px;font-family:"DM Sans",sans-serif;transition:transform .15s,background .15s,box-shadow .15s;cursor:pointer;text-decoration:none}
+    .btn-green{background:var(--green);color:#fff}
+    .btn-green:hover{background:var(--green-2);transform:translateY(-2px)}
+    .btn-ball{background:var(--ball);color:var(--green-2)}
+    .btn-ball:hover{background:var(--ball-2);transform:translateY(-2px)}
+    .btn-wa{background:#25D366;color:#fff}
+    .btn-wa:hover{background:#1ebe5c;transform:translateY(-2px)}
+    .btn-outline-white{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.6)}
+    .btn-outline-white:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px)}
+
+    /* SECTIONS */
+    .section{padding:80px 0}
+    .section-cream{background:var(--cream)}
+    .section-label{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+    .section-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.4rem);letter-spacing:-0.02em;color:var(--ink);margin-bottom:16px}
+    .section-body{font-size:1.05rem;color:var(--ink-2);line-height:1.7}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:40px}}
+
+    .feature-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:8px}
+    .feature-list li{display:flex;align-items:center;gap:12px;font-size:1rem;color:var(--ink-2);font-weight:500}
+    .feature-list li .check{width:28px;height:28px;background:var(--green-soft);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--green);font-size:14px;font-weight:700}
+
+    /* LEVELS */
+    .levels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    @media(max-width:900px){.levels-grid{grid-template-columns:1fr}}
+
+    .level-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s}
+    .level-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+    .level-badge{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:16px}
+    .badge-beginner{background:#eef2e6;color:var(--green)}
+    .badge-intermediate{background:#fef9e6;color:#b5860e}
+    .badge-advanced{background:#fde8e8;color:#b91c1c}
+    .level-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.4rem;color:var(--ink);margin-bottom:12px}
+    .level-desc{font-size:0.95rem;color:var(--ink-2);line-height:1.7}
+
+    /* SCHEDULE TABLE */
+    .table-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--line)}
+    table{width:100%;border-collapse:collapse}
+    thead{background:var(--green);color:#fff}
+    thead th{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;padding:16px 20px;text-align:left}
+    tbody tr{border-bottom:1px solid var(--line)}
+    tbody tr:last-child{border-bottom:none}
+    tbody tr:nth-child(even){background:var(--cream)}
+    tbody td{padding:18px 20px;font-size:0.95rem;color:var(--ink-2)}
+    tbody td:first-child{font-weight:600;color:var(--ink)}
+    .fee{font-family:"JetBrains Mono",monospace;font-size:0.95rem;color:var(--green);font-weight:500}
+
+    /* CTA */
+    .cta-section{background:var(--green);padding:80px 40px;text-align:center}
+    .cta-section h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.6rem,3.5vw,2.2rem);color:#fff;margin-bottom:12px;letter-spacing:-0.02em}
+    .cta-section p{color:rgba(255,255,255,0.8);font-size:1.05rem;margin-bottom:32px}
+  </style>
+</head>
+<body>
+  <div id="site-nav"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="section-label" style="justify-content:center;display:flex">Group Coaching</div>
+      <h1>Tennis Clinics</h1>
+      <p>Group coaching sessions for every level — from first rally to tournament prep.</p>
+      <a href="https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20join%20the%20next%20Tennis%20Clinic" class="btn btn-green" target="_blank" rel="noopener">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Join Next Clinic
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="section-label">What We Do</div>
+          <h2 class="section-title">Coached by Pros, Loved by Everyone</h2>
+          <p class="section-body">Tennisnuts runs regular group clinics with experienced, certified coaches. Every session is designed to be engaging, practical, and fun — covering footwork, groundstrokes, volleys, and match tactics. Whether you've never held a racket or you've been playing for years, there's a clinic for you.</p>
+          <p class="section-body" style="margin-top:16px">We keep batches small — a maximum of 8 players per session — so you get real attention, real feedback, and real improvement. Clinics run on weekends at courts across Pune.</p>
+        </div>
+        <div>
+          <ul class="feature-list">
+            <li><span class="check">✓</span> Professional, certified coaching</li>
+            <li><span class="check">✓</span> All skill levels welcome</li>
+            <li><span class="check">✓</span> Max 8 players per batch</li>
+            <li><span class="check">✓</span> Saturdays &amp; Sundays</li>
+            <li><span class="check">✓</span> Multiple Pune venues</li>
+            <li><span class="check">✓</span> Rackets available on request</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVELS -->
+  <section class="section section-cream">
+    <div class="container">
+      <div class="section-label" style="text-align:center">Skill Levels</div>
+      <h2 class="section-title" style="text-align:center;margin-bottom:48px">Find Your Batch</h2>
+      <div class="levels-grid">
+        <div class="level-card">
+          <span class="level-badge badge-beginner">Beginner</span>
+          <div class="level-title">Starting Fresh</div>
+          <p class="level-desc">For those new to tennis or returning after a break. We cover the fundamentals: grip, stance, footwork, and basic groundstrokes. The goal is to build confidence and fall in love with the sport — no pressure, just great tennis.</p>
+        </div>
+        <div class="level-card">
+          <span class="level-badge badge-intermediate">Intermediate</span>
+          <div class="level-title">Level Up Your Game</div>
+          <p class="level-desc">For club players who want to sharpen consistency, improve tactical awareness, and become more competitive in match play. We work on shot selection, net play, second serve, and reading your opponent.</p>
+        </div>
+        <div class="level-card">
+          <span class="level-badge badge-advanced">Advanced</span>
+          <div class="level-title">Tournament Ready</div>
+          <p class="level-desc">For competitive players focused on technique refinement and tournament preparation. High-intensity sessions covering advanced patterns of play, mental toughness, and match-specific conditioning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Session Times</div>
+      <h2 class="section-title" style="margin-bottom:36px">Clinic Schedule</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Duration</th>
+              <th>Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Beginner</td>
+              <td>Saturday</td>
+              <td>7:00 AM</td>
+              <td>90 min</td>
+              <td class="fee">₹500</td>
+            </tr>
+            <tr>
+              <td>Intermediate</td>
+              <td>Sunday</td>
+              <td>8:30 AM</td>
+              <td>90 min</td>
+              <td class="fee">₹600</td>
+            </tr>
+            <tr>
+              <td>Advanced</td>
+              <td>Saturday</td>
+              <td>6:00 AM</td>
+              <td>2 hrs</td>
+              <td class="fee">₹800</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:16px;font-size:0.9rem;color:var(--ink-2)">Fees are per session. Venue details shared on WhatsApp after registration.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Register for a Clinic</h2>
+    <p>Spots fill fast — get in touch on WhatsApp to book your place.</p>
+    <a href="https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20register%20for%20a%20Tennisnuts%20clinic" class="btn btn-ball" target="_blank" rel="noopener">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Register on WhatsApp
+    </a>
+  </section>
+
+  <div id="site-footer"></div>
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+</body>
+</html>

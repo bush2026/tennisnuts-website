@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Corporate Tournament — Tennisnuts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:"DM Sans",sans-serif;color:var(--ink,#1c2218);background:#fff}
+    a{text-decoration:none;color:inherit}
+    :root{--green:#3a5c2c;--green-2:#2c4621;--green-3:#4d7239;--green-soft:#eef2e6;--ball:#cddc39;--ball-2:#d8e85a;--ink:#1c2218;--ink-2:#4a5240;--paper:#fff;--cream:#faf8f1;--line:#e6e3d8}
+
+    .container{max-width:1200px;margin:0 auto;padding:0 32px}
+
+    /* HERO */
+    .hero{background:var(--ink);min-height:400px;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 40px}
+    .hero h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(3rem,7vw,5rem);color:#fff;letter-spacing:-0.02em;margin-bottom:20px}
+    .hero p{font-size:1.15rem;color:rgba(255,255,255,0.75);max-width:52ch;margin:0 auto}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 28px;font-weight:600;font-size:15px;transition:transform .15s,background .15s;cursor:pointer;text-decoration:none}
+    .btn-ball{background:var(--ball);color:var(--green-2)}
+    .btn-ball:hover{background:var(--ball-2);transform:translateY(-2px)}
+    .btn-green{background:var(--green);color:#fff}
+    .btn-green:hover{background:var(--green-2);transform:translateY(-2px)}
+    .btn-wa{background:#25D366;color:#fff}
+    .btn-wa:hover{background:#1ebe5c;transform:translateY(-2px)}
+
+    /* SECTIONS */
+    .section{padding:80px 0}
+    .section-label{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+    .section-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-0.02em;color:var(--ink);margin-bottom:16px}
+    .section-body{font-size:1.05rem;color:var(--ink-2);line-height:1.7;max-width:56ch}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:40px}}
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .stat-box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
+    .stat-num{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:2.5rem;color:var(--green);line-height:1;margin-bottom:6px}
+    .stat-label{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-2);font-weight:500}
+
+    /* CARDS */
+    .cream-bg{background:var(--cream)}
+    .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    @media(max-width:900px){.cards-grid{grid-template-columns:1fr}}
+    .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s}
+    .card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,0,0,0.12)}
+    .card-icon{width:48px;height:48px;background:var(--green-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
+    .card-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.15rem;color:var(--ink);margin-bottom:8px}
+    .card-desc{font-size:0.95rem;color:var(--ink-2);line-height:1.6}
+
+    /* EDITIONS */
+    .editions-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    @media(max-width:760px){.editions-grid{grid-template-columns:1fr}}
+    .edition-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+    .edition-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,0,0,0.12)}
+    .edition-year{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:3.5rem;color:var(--ink);letter-spacing:-0.03em;line-height:1;margin-bottom:12px}
+    .edition-desc{font-size:0.95rem;color:var(--ink-2);line-height:1.6;flex:1;margin-bottom:20px}
+    .edition-link{font-weight:600;color:var(--green);font-size:14px;display:inline-flex;align-items:center;gap:6px;transition:gap .15s}
+    .edition-link:hover{gap:10px}
+
+    /* REGISTER CTA */
+    .register-cta{background:var(--ink);padding:72px 40px;text-align:center}
+    .register-cta h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.6rem,3.5vw,2.2rem);color:#fff;margin-bottom:12px;letter-spacing:-0.02em}
+    .register-cta p{color:rgba(255,255,255,0.65);font-size:1rem;margin-bottom:28px;max-width:50ch;margin-left:auto;margin-right:auto}
+  </style>
+</head>
+<body>
+  <div id="site-nav"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1>Corporate Tournament</h1>
+      <p>Doubles tennis for your workplace. Build team bonds on the court.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="section-label">About the Tournament</div>
+          <h2 class="section-title">Where Offices Compete on the Court</h2>
+          <p class="section-body">The Tennisnuts Corporate Tournament brings offices and companies together through the shared language of tennis. Teams of colleagues enter as a unit, compete in a doubles-only format, and leave with stronger bonds and unforgettable memories.</p>
+          <p class="section-body" style="margin-top:16px">It's a single-day, fast-paced tournament designed to be fun for players of all skill levels — from seasoned club players to complete beginners picking up a racket for the first time.</p>
+        </div>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Teams</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">Day</div>
+            <div class="stat-label">Format</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">All</div>
+            <div class="stat-label">Skill Levels</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ENTER -->
+  <section class="section cream-bg">
+    <div class="container">
+      <div class="section-label">Why Enter</div>
+      <h2 class="section-title" style="margin-bottom:40px">Three Reasons to Bring Your Office</h2>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">🤝</div>
+          <div class="card-title">Team Building</div>
+          <p class="card-desc">Nothing builds bonds quite like a doubles tournament. You'll communicate, strategize, and celebrate together — on and off the court. It's team building that actually works.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🏆</div>
+          <div class="card-title">Healthy Competition</div>
+          <p class="card-desc">Friendly rivalry between Pune's top companies makes for incredible energy throughout the day. Bragging rights are at stake — and everyone takes them seriously.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎉</div>
+          <div class="card-title">Great Fun</div>
+          <p class="card-desc">Post-match celebrations, trophies, team photos, and memories that last well beyond the final point. This is a corporate outing people will actually look forward to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITIONS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Editions</div>
+      <h2 class="section-title" style="margin-bottom:40px">Tournament History</h2>
+      <div class="editions-grid">
+        <div class="edition-card">
+          <div class="edition-year">2024</div>
+          <p class="edition-desc">The inaugural corporate doubles showdown — 12 teams from across Pune went head-to-head in a day of competitive, community doubles tennis.</p>
+          <a href="corporate-2024.html" class="edition-link">View Edition →</a>
+        </div>
+        <div class="edition-card" style="border-color:var(--green);background:var(--green-soft)">
+          <div class="edition-year" style="color:var(--green-2)">2025</div>
+          <p class="edition-desc">The biggest corporate doubles tournament in Pune — 20+ teams, upgraded format, and registrations now open. Is your office in?</p>
+          <a href="corporate-2025.html" class="edition-link">View Edition →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTER CTA -->
+  <section class="register-cta">
+    <h2>Register your team for 2025</h2>
+    <p>Spots are limited. Get your office in before registrations close.</p>
+    <a href="https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20register%20my%20team%20for%20the%20Corporate%20Tournament%202025" class="btn btn-wa" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Register on WhatsApp
+    </a>
+  </section>
+
+  <div id="site-footer"></div>
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+</body>
+</html>
