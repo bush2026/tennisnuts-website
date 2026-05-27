@@ -350,12 +350,6 @@ function Nav() {
               {[['Tennisnuts Socials','socials.html'],['Sopal Club Championship','sopal-trophy.html'],['Corporate Tournament','corporate-tournament.html'],['Tennis Clinics','tennis-clinics.html']].map(([l,h])=><a key={h} href={h} style={dropLinkStyle}>{l}</a>)}
             </div>}
           </div>
-          <div style={{position:'relative'}} onMouseEnter={()=>setOpen('community')} onMouseLeave={()=>setOpen(null)}>
-            <button style={btnStyle} onClick={()=>toggle('community')}>Community <Chevron/></button>
-            {open==='community' && <div style={dropStyle}>
-              {[['Tennis Bytes Podcast','tennis-bytes.html'],['Social Work','social-work.html'],['Match Predictor','predict.html']].map(([l,h])=><a key={h} href={h} style={dropLinkStyle}>{l}</a>)}
-            </div>}
-          </div>
         </nav>
 
         <a href="#" className="nav-cta" style={{display:'inline-flex',alignItems:'center',gap:8,padding:'10px 18px',borderRadius:999,background:'var(--green)',color:'#fff',fontWeight:600,fontSize:14,transition:'transform .15s,background .15s'}}>
@@ -378,11 +372,6 @@ function Nav() {
         <a href="sopal-trophy.html" onClick={closeMobile}>Sopal Club Championship</a>
         <a href="corporate-tournament.html" onClick={closeMobile}>Corporate Tournament</a>
         <a href="tennis-clinics.html" onClick={closeMobile}>Tennis Clinics</a>
-        <div className="mob-divider"></div>
-        <div className="mob-label">Community</div>
-        <a href="tennis-bytes.html" onClick={closeMobile}>Tennis Bytes Podcast</a>
-        <a href="social-work.html" onClick={closeMobile}>Social Work</a>
-        <a href="predict.html" onClick={closeMobile}>Match Predictor</a>
       </div>
     </header>
   );

@@ -60,18 +60,13 @@
     + '</ul>'
     + '</div>'
 
-    // Col 4 — Community + Contact
+    // Col 4 — Contact
     + '<div class="footer-col">'
-    + '<h4>Community</h4>'
+    + '<h4>Contact</h4>'
     + '<ul>'
-    + '<li><a href="tennis-bytes.html">Tennis Bytes Podcast</a></li>'
-    + '<li><a href="social-work.html">Social Work</a></li>'
-    + '<li><a href="predict.html">Match Predictor</a></li>'
+    + '<li>Pune, Maharashtra</li>'
+    + '<li><a href="mailto:hello@tennisnuts.co.in">hello@tennisnuts.co.in</a></li>'
     + '</ul>'
-    + '<div style="margin-top:24px">'
-    + '<div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:8px">Pune, Maharashtra</div>'
-    + '<a href="mailto:hello@tennisnuts.co.in" style="font-size:13px;color:rgba(255,255,255,0.75)">hello@tennisnuts.co.in</a>'
-    + '</div>'
     + '<div class="footer-socials">'
     + '<a href="#" aria-label="Instagram"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>'
     + '<a href="#" aria-label="YouTube"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M21.6 7.2a3 3 0 00-2.1-2.1C17.5 4.6 12 4.6 12 4.6s-5.5 0-7.5.5A3 3 0 002.4 7.2C2 9 2 12 2 12s0 3 .4 4.8a3 3 0 002.1 2.1c2 .5 7.5.5 7.5.5s5.5 0 7.5-.5a3 3 0 002.1-2.1c.4-1.8.4-4.8.4-4.8s0-3-.4-4.8zM10 15.4V8.6l5.5 3.4L10 15.4z"/></svg></a>'
