@@ -16,9 +16,20 @@
     .container{max-width:1200px;margin:0 auto;padding:0 32px}
 
     /* HERO */
-    .hero{background:var(--green-2);min-height:420px;display:flex;align-items:center;padding:80px 40px;position:relative;overflow:hidden}
-    .hero::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--ball) 0 40px,var(--green-3) 40px 80px)}
-    .hero-inner{max-width:1200px;margin:0 auto;width:100%}
+    .hero{
+      min-height:560px;
+      display:flex;
+      align-items:flex-end;
+      padding:80px 40px 60px;
+      position:relative;
+      overflow:hidden;
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+    }
+    .hero::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--ball) 0 40px,var(--green-3) 40px 80px);z-index:2}
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(28,42,24,0.25) 0%,rgba(28,42,24,0.82) 100%)}
+    .hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:1}
     .breadcrumb{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
     .breadcrumb a{color:rgba(255,255,255,0.6);transition:color .15s}
     .breadcrumb a:hover{color:#fff}
@@ -26,7 +37,7 @@
     .breadcrumb .current{color:#fff;font-weight:600}
     .hero-badge{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;background:var(--ball);color:var(--green-2);padding:5px 12px;border-radius:6px;margin-bottom:16px;font-weight:500}
     .hero h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.4rem);color:#fff;letter-spacing:-0.02em;margin-bottom:14px;max-width:22ch}
-    .hero-sub{font-size:1.1rem;color:rgba(255,255,255,0.78);max-width:50ch;line-height:1.6}
+    .hero-sub{font-size:1.1rem;color:rgba(255,255,255,0.85);max-width:50ch;line-height:1.6}
 
     /* BUTTONS */
     .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 28px;font-weight:600;font-size:15px;transition:transform .15s,background .15s;cursor:pointer;text-decoration:none}
@@ -48,14 +59,27 @@
     .stat-num{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:2.4rem;color:var(--green);line-height:1;margin-bottom:6px}
     .stat-label{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-2);font-weight:500}
 
-    /* HIGHLIGHTS */
+    /* RESULTS — Winners / Runners-up */
+    .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    @media(max-width:680px){.results-grid{grid-template-columns:1fr}}
+    .result-card{border-radius:20px;overflow:hidden;box-shadow:0 8px 32px -8px rgba(0,0,0,0.14)}
+    .result-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+    .result-footer{padding:18px 22px;display:flex;align-items:center;justify-content:space-between;background:#fff}
+    .result-badge{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:999px;font-weight:600}
+    .winner-badge{background:var(--ball);color:var(--green-2)}
+    .runner-badge{background:var(--green-soft);color:var(--green);border:1px solid #c6d8b4}
+    .result-prize{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.3rem;color:var(--green)}
+
+    /* HIGHLIGHTS with photos */
     .highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
     @media(max-width:760px){.highlights-grid{grid-template-columns:1fr}}
-    .highlight-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s}
+    .highlight-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:transform .2s,box-shadow .2s}
     .highlight-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,0,0,0.12)}
-    .highlight-icon{width:48px;height:48px;background:var(--green-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
-    .highlight-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.1rem;color:var(--ink);margin-bottom:8px}
-    .highlight-desc{font-size:0.95rem;color:var(--ink-2);line-height:1.65}
+    .highlight-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+    .highlight-body{padding:24px}
+    .highlight-icon{width:40px;height:40px;background:var(--green-soft);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:20px}
+    .highlight-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.05rem;color:var(--ink);margin-bottom:8px}
+    .highlight-desc{font-size:0.9rem;color:var(--ink-2);line-height:1.65}
 
     /* TEAMS SECTION */
     .teams-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -67,11 +91,9 @@
     .gallery-section{background:var(--ink);padding:72px 0}
     .gallery-section .section-label{color:var(--ball)}
     .gallery-section .section-title{color:#fff}
-    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    @media(max-width:760px){.gallery-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:480px){.gallery-grid{grid-template-columns:1fr}}
-    .gallery-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block}
-    .gallery-placeholder{width:100%;aspect-ratio:4/3;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);font-size:13px;font-family:"JetBrains Mono",monospace;letter-spacing:0.06em}
+    .gallery-masonry{columns:2;column-gap:16px}
+    @media(max-width:560px){.gallery-masonry{columns:1}}
+    .gallery-masonry-img{width:100%;display:block;break-inside:avoid;margin-bottom:16px;border-radius:12px;object-fit:cover}
 
     /* PRIZE TABLE */
     .prize-table{width:100%;border-collapse:collapse;margin-top:8px}
@@ -89,8 +111,8 @@
 <body>
   <div id="site-nav"></div>
 
-  <!-- HERO -->
-  <section class="hero">
+  <!-- HERO — full-width banner photo -->
+  <section class="hero" style="background-image:url('https://res.cloudinary.com/dwd0abtfo/image/upload/w_1600,c_fill,g_auto,q_auto,f_auto/v1779163605/Banner_ujpzob.jpg')">
     <div class="hero-inner">
       <div class="breadcrumb">
         <a href="sopal-trophy.html">Sopal Club Championship</a>
@@ -134,33 +156,81 @@
     </div>
   </section>
 
-  <!-- HIGHLIGHTS -->
+  <!-- RESULTS — Champions & Runners-up -->
   <section class="section cream-bg">
+    <div class="container">
+      <div class="section-label">Final Results</div>
+      <h2 class="section-title">Champions &amp; Runners-up</h2>
+      <div class="results-grid">
+        <div class="result-card">
+          <img
+            src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1779163599/Winners_uxwplx.jpg"
+            alt="Champions — Narendra Sopal Memorial Trophy 2022"
+            class="result-photo">
+          <div class="result-footer">
+            <span class="result-badge winner-badge">🏆 Champions</span>
+            <span class="result-prize">₹50,000</span>
+          </div>
+        </div>
+        <div class="result-card">
+          <img
+            src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1779163604/Runners_Up_mfumwb.jpg"
+            alt="Runners-up — Narendra Sopal Memorial Trophy 2022"
+            class="result-photo">
+          <div class="result-footer">
+            <span class="result-badge runner-badge">🥈 Runners-up</span>
+            <span class="result-prize">₹25,000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS — Inauguration, Trophies, Venue -->
+  <section class="section">
     <div class="container">
       <div class="section-label">Highlights</div>
       <h2 class="section-title">Moments from the Inaugural Edition</h2>
       <div class="highlights-grid">
         <div class="highlight-card">
-          <div class="highlight-icon">🏆</div>
-          <div class="highlight-title">192 Players, 24 Teams</div>
-          <p class="highlight-desc">The inaugural edition drew an outstanding response — 192 players from 24 club teams across Pune and PCMC confirmed their entries, reflecting just how much Pune's tennis community was ready for this championship.</p>
+          <img
+            src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_380,c_fill,g_auto,q_auto,f_auto/v1779163609/Inauguration_Ceremony_i5mteb.jpg"
+            alt="Inauguration Ceremony"
+            class="highlight-photo">
+          <div class="highlight-body">
+            <div class="highlight-icon">🎖️</div>
+            <div class="highlight-title">Inaugurated by Police Commissioner</div>
+            <p class="highlight-desc">The championship was inaugurated by Mr. Ankush Shinde (IPS), Police Commissioner of PCMC — a mark of the event's standing in Pune's sporting calendar from day one.</p>
+          </div>
         </div>
         <div class="highlight-card">
-          <div class="highlight-icon">🎖️</div>
-          <div class="highlight-title">Inaugurated by Police Commissioner</div>
-          <p class="highlight-desc">The championship was inaugurated by Mr. Ankush Shinde (IPS), Police Commissioner of PCMC — a mark of the event's standing in Pune's sporting calendar from day one.</p>
+          <img
+            src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_380,c_fill,g_auto,q_auto,f_auto/v1779163612/Poster_and_Trophies_w06ue7.jpg"
+            alt="Poster and Trophies on display"
+            class="highlight-photo">
+          <div class="highlight-body">
+            <div class="highlight-icon">🏆</div>
+            <div class="highlight-title">192 Players, 24 Teams</div>
+            <p class="highlight-desc">The inaugural edition drew an outstanding response — 192 players from 24 club teams across Pune and PCMC confirmed their entries, reflecting just how much Pune's tennis community was ready for this championship.</p>
+          </div>
         </div>
         <div class="highlight-card">
-          <div class="highlight-icon">🤝</div>
-          <div class="highlight-title">A Community United</div>
-          <p class="highlight-desc">Tennisnuts Panchayat 1 & 2, FC, Maharashtra Mandal, Golden Boys, Aces United, Forest Hunters and many more clubs competed side by side — rivals on court, friends off it.</p>
+          <img
+            src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_380,c_fill,g_auto,q_auto,f_auto/v1779163612/PYC_xtsc6l.jpg"
+            alt="PYC — Tournament Venue"
+            class="highlight-photo">
+          <div class="highlight-body">
+            <div class="highlight-icon">🤝</div>
+            <div class="highlight-title">A Community United</div>
+            <p class="highlight-desc">Tennisnuts Panchayat 1 &amp; 2, FC, Maharashtra Mandal, Golden Boys, Aces United, Forest Hunters and many more clubs competed side by side — rivals on court, friends off it.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- PARTICIPATING TEAMS -->
-  <section class="section">
+  <section class="section green-soft-bg">
     <div class="container">
       <div class="section-label">Participating Teams</div>
       <h2 class="section-title">24 Club Teams from Pune &amp; PCMC</h2>
@@ -178,25 +248,34 @@
     </div>
   </section>
 
-  <!-- PHOTO GALLERY -->
+  <!-- PHOTO GALLERY — masonry grid -->
   <section class="gallery-section">
     <div class="container">
       <div class="section-label">Edition 1 · October 2022</div>
       <h2 class="section-title" style="margin-bottom:32px">Photos from the Championship</h2>
-      <div class="gallery-grid" id="photo-gallery">
-        <!-- Photos loaded from Cloudinary -->
-        <div class="gallery-placeholder">Loading photos…</div>
-        <div class="gallery-placeholder">Loading photos…</div>
-        <div class="gallery-placeholder">Loading photos…</div>
-        <div class="gallery-placeholder">Loading photos…</div>
-        <div class="gallery-placeholder">Loading photos…</div>
-        <div class="gallery-placeholder">Loading photos…</div>
+      <div class="gallery-masonry" id="photo-gallery">
+        <img
+          src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_900,q_auto,f_auto/v1779163598/Prize_Distribution_Guests_gsqegk.jpg"
+          alt="Prize Distribution with Guests"
+          class="gallery-masonry-img">
+        <img
+          src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_900,q_auto,f_auto/v1779163603/Tournament_Director_and_Manager_aunjzl.jpg"
+          alt="Tournament Director and Manager"
+          class="gallery-masonry-img">
+        <img
+          src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_900,q_auto,f_auto/v1779163601/MWTA_szsiut.jpg"
+          alt="MWTA"
+          class="gallery-masonry-img">
+        <img
+          src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_900,q_auto,f_auto/v1779163614/Golden_Boys_bc4ob9.jpg"
+          alt="Golden Boys"
+          class="gallery-masonry-img">
       </div>
     </div>
   </section>
 
   <!-- PRIZE MONEY -->
-  <section class="section green-soft-bg">
+  <section class="section cream-bg">
     <div class="container">
       <div class="section-label">Prize Structure</div>
       <h2 class="section-title">Prize Money</h2>
