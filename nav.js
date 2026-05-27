@@ -2,6 +2,8 @@
   // A. Inject styles
   var style = document.createElement('style');
   style.textContent = [
+    /* Prevent horizontal overflow site-wide */
+    'html,body{overflow-x:hidden;max-width:100%}',
     '.site-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.93);backdrop-filter:saturate(140%) blur(12px);-webkit-backdrop-filter:saturate(140%) blur(12px);border-bottom:1px solid var(--line,#e6e3d8);}',
     '.site-nav .nav-inner{max-width:1240px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px;}',
     '.site-nav .brand{display:flex;align-items:center;flex-shrink:0;}',
@@ -18,26 +20,30 @@
     '.site-nav .dropdown-menu a:hover{background:#f5f8ef;color:#3a5c2c;}',
     '.site-nav .nav-wa{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:#3a5c2c;color:#fff;font-family:"DM Sans",sans-serif;font-weight:600;font-size:14px;text-decoration:none;flex-shrink:0;transition:background .15s,transform .15s;}',
     '.site-nav .nav-wa:hover{background:#2c4621;transform:translateY(-1px);}',
-    '.site-nav .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;}',
-    '.site-nav .nav-burger span{display:block;width:22px;height:2px;background:#1c2218;border-radius:2px;transition:all .2s;}',
+    /* Burger — hidden on desktop, shown on mobile */
+    '.site-nav .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:10px 8px;border-radius:8px;transition:background .15s;}',
+    '.site-nav .nav-burger:hover{background:#f5f8ef;}',
+    '.site-nav .nav-burger span{display:block;width:24px;height:2px;background:#1c2218;border-radius:2px;transition:all .25s;}',
     '.site-nav.menu-open .nav-burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}',
-    '.site-nav.menu-open .nav-burger span:nth-child(2){opacity:0;}',
+    '.site-nav.menu-open .nav-burger span:nth-child(2){opacity:0;transform:scaleX(0);}',
     '.site-nav.menu-open .nav-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}',
     '@media(max-width:960px){',
     '  .site-nav .nav-links{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;border-bottom:1px solid var(--line,#e6e3d8);flex-direction:column;align-items:stretch;padding:12px 20px 20px;gap:2px;box-shadow:0 8px 24px rgba(0,0,0,0.08);}',
     '  .site-nav.menu-open .nav-links{display:flex;}',
     '  .site-nav .nav-links li{width:100%;}',
-    '  .site-nav .nav-links a,.site-nav .nav-links button{width:100%;justify-content:space-between;padding:12px 14px;}',
+    '  .site-nav .nav-links a,.site-nav .nav-links button{width:100%;justify-content:space-between;padding:13px 14px;font-size:16px;}',
     '  .site-nav .dropdown-menu{display:none!important;position:static;border:none;box-shadow:none;border-radius:0;padding:0 0 0 16px;background:transparent;}',
     '  .site-nav li.open .dropdown-menu{display:block!important;}',
-    '  .site-nav .dropdown-menu a{padding:10px 14px;font-size:14px;border-radius:8px;}',
+    '  .site-nav .dropdown-menu a{padding:11px 14px;font-size:15px;border-radius:8px;}',
     '  .site-nav .nav-burger{display:flex;}',
     '  .site-nav .nav-wa{display:none;}',
+    '  .site-nav .nav-links li.mobile-section-label{padding:14px 14px 4px;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#9aa192;pointer-events:none;}',
     '}'
   ].join('');
   document.head.appendChild(style);
 
   // B. Inject nav HTML
+  var chevronSVG = '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>';
   var logoImg = '<img src="images/website-sections/logo/tennisnuts-logo-transparent.png" alt="Tennisnuts" style="height:54px;display:block">';
   var navHTML = '<nav class="site-nav" id="main-nav">'
     + '<div class="nav-inner">'
@@ -48,12 +54,20 @@
     + '<li><a href="partners.html">Partners</a></li>'
     + '<li><a href="blog.html">Blog</a></li>'
     + '<li>'
-    + '<button aria-haspopup="true">Events <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>'
+    + '<button aria-haspopup="true">Events ' + chevronSVG + '</button>'
     + '<div class="dropdown-menu">'
     + '<a href="socials.html">Tennisnuts Socials</a>'
     + '<a href="sopal-trophy.html">Sopal Club Championship</a>'
     + '<a href="corporate-tournament.html">Corporate Tournament</a>'
     + '<a href="tennis-clinics.html">Tennis Clinics</a>'
+    + '</div>'
+    + '</li>'
+    + '<li>'
+    + '<button aria-haspopup="true">Community ' + chevronSVG + '</button>'
+    + '<div class="dropdown-menu">'
+    + '<a href="tennis-bytes.html">Tennis Bytes Podcast</a>'
+    + '<a href="social-work.html">Social Work</a>'
+    + '<a href="predict.html">Match Predictor</a>'
     + '</div>'
     + '</li>'
     + '</ul>'
@@ -74,7 +88,14 @@
     document.getElementById('main-nav').classList.toggle('menu-open');
   });
 
-  // Dropdown toggle on button click (mobile + desktop fallback)
+  // Close mobile menu when a link is clicked
+  document.querySelectorAll('.site-nav .nav-links a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      document.getElementById('main-nav').classList.remove('menu-open');
+    });
+  });
+
+  // Dropdown toggle on button click
   document.querySelectorAll('.site-nav .nav-links button').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
@@ -88,6 +109,12 @@
   // Close dropdowns on outside click
   document.addEventListener('click', function () {
     document.querySelectorAll('.site-nav .nav-links li').forEach(function (l) { l.classList.remove('open'); });
+    document.getElementById('main-nav').classList.remove('menu-open');
+  });
+
+  // Prevent close when clicking inside nav
+  document.getElementById('main-nav').addEventListener('click', function (e) {
+    e.stopPropagation();
   });
 
   // Active link highlighting
