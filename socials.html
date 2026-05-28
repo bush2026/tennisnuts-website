@@ -349,6 +349,74 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 }
 
 /* ─────────────────────────────────────────────
+   EDITION RESULTS ROW
+───────────────────────────────────────────── */
+.edition-results {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 14px 0;
+  padding: 14px;
+  background: var(--cream);
+  border-radius: 12px;
+}
+.result-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+}
+.result-icon {
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.result-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  flex-shrink: 0;
+  min-width: 68px;
+}
+.result-names {
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.35;
+}
+.result-score {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: var(--green);
+  flex-shrink: 0;
+}
+.edition-results .divider {
+  height: 1px;
+  background: var(--line);
+  margin: 4px 0;
+}
+.edition-spotlight {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--green-2);
+  background: var(--ball);
+  border-radius: 8px;
+  padding: 7px 12px;
+  margin: 10px 0 4px;
+  font-weight: 600;
+}
+.edition-powered {
+  font-size: 12px;
+  color: var(--ink-2);
+  margin-top: 12px;
+  opacity: 0.8;
+}
+
+/* ─────────────────────────────────────────────
    WHATSAPP CTA
 ───────────────────────────────────────────── */
 .wa-cta {
@@ -492,87 +560,130 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
       </div>
       <div class="editions-grid">
 
-        <!-- Edition 1 -->
+        <!-- Edition 41 -->
         <div class="edition-card">
-          <div class="edition-photo">
-            <div class="edition-photo-label">photo · socials edition 1</div>
+          <div class="edition-photo" style="background:repeating-linear-gradient(115deg,#4d7239 0 18px,#3a5c2c 18px 36px);">
+            <div class="edition-photo-label">Socials #41 · post-rain edition</div>
           </div>
           <div class="edition-body">
-            <div class="edition-tag">Edition 1</div>
-            <h3>Tennisnuts Socials — Edition 1</h3>
-            <div class="edition-meta">📅 Date TBD &nbsp;·&nbsp; 📍 Venue TBD</div>
-            <p>A wonderful afternoon of tennis, laughter, and new friendships. Players of all levels came together for a session to remember.</p>
-            <a href="#" class="btn btn-outline" style="margin-top:16px;">View Details</a>
+            <div class="edition-tag">Edition 41</div>
+            <h3>Tennisnuts Socials #41</h3>
+            <div class="edition-meta">📍 Pune &nbsp;·&nbsp; ☔ After a long rain break</div>
+            <div class="edition-results">
+              <div class="result-row">
+                <span class="result-icon">🏆</span>
+                <span class="result-label">Winners</span>
+                <span class="result-names">Vivek Khadge &amp; Rohan Deshpande</span>
+              </div>
+              <div class="divider"></div>
+              <div class="result-row">
+                <span class="result-icon">🥈</span>
+                <span class="result-label">Runners-up</span>
+                <span class="result-names">Nikhil Bhagat &amp; Ketan Gadre</span>
+              </div>
+            </div>
+            <div class="edition-spotlight">⭐ Boy of the Socials — Vihan Sawant</div>
+            <p>Rain gods gave us a perfect break and this edition came alive with special Sr-Junior combinations — parents Nitin, Sachin M, and Aashi taking the court with their kids. Rohan Deshpande was incredible on his feet with stunning footwork, well supported by Vivek. New faces Aarya Muley (unreal defence and hands) and Atul Gunale (Thiem-like backhand) are ones to watch.</p>
+            <div class="edition-powered">Powered by Sportsjam · Thanks to Venky, Amit K, Atul K &amp; Mahesh Sir</div>
           </div>
         </div>
 
-        <!-- Edition 2 -->
+        <!-- Edition 40 -->
         <div class="edition-card">
-          <div class="edition-photo" style="background:repeating-linear-gradient(125deg,#c3d472 0 18px,#b8ca60 18px 36px);">
-            <div class="edition-photo-label">photo · socials edition 2</div>
+          <div class="edition-photo" style="background:repeating-linear-gradient(125deg,#5d7d44 0 18px,#4d7239 18px 36px);">
+            <div class="edition-photo-label">Socials #40 · maiden triumph</div>
           </div>
           <div class="edition-body">
-            <div class="edition-tag">Edition 2</div>
-            <h3>Tennisnuts Socials — Edition 2</h3>
-            <div class="edition-meta">📅 Date TBD &nbsp;·&nbsp; 📍 Venue TBD</div>
-            <p>A wonderful afternoon of tennis, laughter, and new friendships. Players of all levels came together for a session to remember.</p>
-            <a href="#" class="btn btn-outline" style="margin-top:16px;">View Details</a>
+            <div class="edition-tag">Edition 40</div>
+            <h3>Tennisnuts Socials #40</h3>
+            <div class="edition-meta">📍 Pune</div>
+            <div class="edition-results">
+              <div class="result-row">
+                <span class="result-icon">🏆</span>
+                <span class="result-label">Winners</span>
+                <span class="result-names">Girish Kukreja &amp; Aadarsh</span>
+                <span class="result-score">21 pts</span>
+              </div>
+              <div class="divider"></div>
+              <div class="result-row">
+                <span class="result-icon">🥈</span>
+                <span class="result-label">Runners-up</span>
+                <span class="result-names">Atul K &amp; Sudhir Pisal</span>
+                <span class="result-score">18 pts</span>
+              </div>
+            </div>
+            <p>A story of never giving up. Girish Kukreja has been a Socials ambassador since Edition #01 and finally held the trophy in his hands at #40 — holding his nerve at a tense 18-18 to close it out. Girish's booming forehand and Aadarsh's kick serve were a winning combination.</p>
+            <div class="edition-powered">Powered by Sportsjam · Thanks Organising Team Tennisnuts</div>
           </div>
         </div>
 
-        <!-- Edition 3 -->
+        <!-- Edition 38 -->
         <div class="edition-card">
-          <div class="edition-photo" style="background:repeating-linear-gradient(105deg,#d5e87a 0 18px,#c8d96a 18px 36px);">
-            <div class="edition-photo-label">photo · socials edition 3</div>
+          <div class="edition-photo" style="background:repeating-linear-gradient(105deg,#6b8c4f 0 18px,#5d7d44 18px 36px);">
+            <div class="edition-photo-label">Socials #38 · two-category special</div>
           </div>
           <div class="edition-body">
-            <div class="edition-tag">Edition 3</div>
-            <h3>Tennisnuts Socials — Edition 3</h3>
-            <div class="edition-meta">📅 Date TBD &nbsp;·&nbsp; 📍 Venue TBD</div>
-            <p>A wonderful afternoon of tennis, laughter, and new friendships. Players of all levels came together for a session to remember.</p>
-            <a href="#" class="btn btn-outline" style="margin-top:16px;">View Details</a>
+            <div class="edition-tag">Edition 38</div>
+            <h3>Tennisnuts Socials #38</h3>
+            <div class="edition-meta">📍 AWTA — Aniket Wakankar Tennis Academy</div>
+            <div class="edition-results">
+              <div class="result-row" style="margin-bottom:2px">
+                <span class="result-label" style="min-width:auto;margin-right:6px;color:var(--green)">Beginners</span>
+              </div>
+              <div class="result-row">
+                <span class="result-icon">🏆</span>
+                <span class="result-label">Winners</span>
+                <span class="result-names">Vinit Shahane &amp; Pankaj Singh</span>
+              </div>
+              <div class="result-row">
+                <span class="result-icon">🥈</span>
+                <span class="result-label">Runners-up</span>
+                <span class="result-names">Anand Iyer &amp; Vishal Nawale</span>
+              </div>
+              <div class="divider"></div>
+              <div class="result-row" style="margin-bottom:2px">
+                <span class="result-label" style="min-width:auto;margin-right:6px;color:var(--green)">Seniors</span>
+              </div>
+              <div class="result-row">
+                <span class="result-icon">🏆</span>
+                <span class="result-label">Winners</span>
+                <span class="result-names">Salil Kunchur &amp; Sandeep Belludi</span>
+              </div>
+              <div class="result-row">
+                <span class="result-icon">🥈</span>
+                <span class="result-label">Runners-up</span>
+                <span class="result-names">Dr Ravi Kothari &amp; Nitin Sawant</span>
+              </div>
+            </div>
+            <p>A landmark edition featuring two separate categories — Beginners and Seniors — plus outstanding women's participation. Special mention to Sumant Sir and Jaydeep Kaka for partnering with their sons despite a competitive draw. All new winners across both categories!</p>
+            <div class="edition-powered">Powered by Sportsjam · Venue by AWTA · Thanks Venky &amp; Amit</div>
           </div>
         </div>
 
-        <!-- Edition 4 -->
+        <!-- Edition 36 -->
         <div class="edition-card">
-          <div class="edition-photo" style="background:repeating-linear-gradient(135deg,#bdd464 0 18px,#b1c857 18px 36px);">
-            <div class="edition-photo-label">photo · socials edition 4</div>
+          <div class="edition-photo" style="background:repeating-linear-gradient(135deg,#cfe07f 0 18px,#c3d472 18px 36px);">
+            <div class="edition-photo-label">Socials #36 · Roland Garros weekend</div>
           </div>
           <div class="edition-body">
-            <div class="edition-tag">Edition 4</div>
-            <h3>Tennisnuts Socials — Edition 4</h3>
-            <div class="edition-meta">📅 Date TBD &nbsp;·&nbsp; 📍 Venue TBD</div>
-            <p>A wonderful afternoon of tennis, laughter, and new friendships. Players of all levels came together for a session to remember.</p>
-            <a href="#" class="btn btn-outline" style="margin-top:16px;">View Details</a>
-          </div>
-        </div>
-
-        <!-- Edition 5 -->
-        <div class="edition-card">
-          <div class="edition-photo" style="background:repeating-linear-gradient(115deg,#c9dc70 0 18px,#bece60 18px 36px);">
-            <div class="edition-photo-label">photo · socials edition 5</div>
-          </div>
-          <div class="edition-body">
-            <div class="edition-tag">Edition 5</div>
-            <h3>Tennisnuts Socials — Edition 5</h3>
-            <div class="edition-meta">📅 Date TBD &nbsp;·&nbsp; 📍 Venue TBD</div>
-            <p>A wonderful afternoon of tennis, laughter, and new friendships. Players of all levels came together for a session to remember.</p>
-            <a href="#" class="btn btn-outline" style="margin-top:16px;">View Details</a>
-          </div>
-        </div>
-
-        <!-- Edition 6 -->
-        <div class="edition-card">
-          <div class="edition-photo" style="background:repeating-linear-gradient(95deg,#d2e476 0 18px,#c6d866 18px 36px);">
-            <div class="edition-photo-label">photo · socials edition 6</div>
-          </div>
-          <div class="edition-body">
-            <div class="edition-tag">Edition 6</div>
-            <h3>Tennisnuts Socials — Edition 6</h3>
-            <div class="edition-meta">📅 Date TBD &nbsp;·&nbsp; 📍 Venue TBD</div>
-            <p>A wonderful afternoon of tennis, laughter, and new friendships. Players of all levels came together for a session to remember.</p>
-            <a href="#" class="btn btn-outline" style="margin-top:16px;">View Details</a>
+            <div class="edition-tag">Edition 36</div>
+            <h3>Tennisnuts Socials #36</h3>
+            <div class="edition-meta">📍 Pune &nbsp;·&nbsp; 🎾 Roland Garros 2023 weekend</div>
+            <div class="edition-results">
+              <div class="result-row">
+                <span class="result-icon">🏆</span>
+                <span class="result-label">Winners</span>
+                <span class="result-names">Venky &amp; Kumar</span>
+              </div>
+              <div class="divider"></div>
+              <div class="result-row">
+                <span class="result-icon">🥈</span>
+                <span class="result-label">Runners-up</span>
+                <span class="result-names">Atul &amp; Sudhir</span>
+              </div>
+            </div>
+            <p>Despite everyone watching Roland Garros and the summer heat, Socials #36 drew a fantastic crowd. Highlights included two U-10 boys playing with their dads (Harsh-Prafful &amp; Rishab-Anup), the inspiring Dr Kunchur (Baba) competing at 78 years young, and a group driving all the way from Phaltan — Dr Pawar, Suryapratap, Varun and Rahul Sir. Venky and Kumar were dominant all the way to the trophy.</p>
+            <div class="edition-powered">Powered by Sportsjam · Thanks to Nilesh Sir and the court team</div>
           </div>
         </div>
 
