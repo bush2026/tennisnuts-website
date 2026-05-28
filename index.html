@@ -347,7 +347,7 @@ function Nav() {
           <div style={{position:'relative'}} onMouseEnter={()=>setOpen('events')} onMouseLeave={()=>setOpen(null)}>
             <button style={btnStyle} onClick={()=>toggle('events')}>Events <Chevron/></button>
             {open==='events' && <div style={dropStyle}>
-              {[['Tennisnuts Socials','socials.html'],['Seniors Tennis','seniors.html'],['Sopal Club Championship','sopal-trophy.html'],['Corporate Tournament','corporate-tournament.html'],['Tennis Clinics','tennis-clinics.html']].map(([l,h])=><a key={h} href={h} style={dropLinkStyle}>{l}</a>)}
+              {[['Tennisnuts Socials','socials.html'],['Seniors Tennis','seniors.html'],['Tennisnuts Open','open.html'],['Sopal Club Championship','sopal-trophy.html'],['Corporate Tournament','corporate-tournament.html'],['Tennis Clinics','tennis-clinics.html']].map(([l,h])=><a key={h} href={h} style={dropLinkStyle}>{l}</a>)}
             </div>}
           </div>
         </nav>
@@ -370,6 +370,7 @@ function Nav() {
         <div className="mob-label">Events</div>
         <a href="socials.html" onClick={closeMobile}>Tennisnuts Socials</a>
         <a href="seniors.html" onClick={closeMobile}>Seniors Tennis</a>
+        <a href="open.html" onClick={closeMobile}>Tennisnuts Open</a>
         <a href="sopal-trophy.html" onClick={closeMobile}>Sopal Club Championship</a>
         <a href="corporate-tournament.html" onClick={closeMobile}>Corporate Tournament</a>
         <a href="tennis-clinics.html" onClick={closeMobile}>Tennis Clinics</a>

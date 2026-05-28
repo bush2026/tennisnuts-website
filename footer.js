@@ -55,6 +55,7 @@
     + '<ul>'
     + '<li><a href="socials.html">Tennisnuts Socials</a></li>'
     + '<li><a href="seniors.html">Seniors Tennis</a></li>'
+    + '<li><a href="open.html">Tennisnuts Open</a></li>'
     + '<li><a href="sopal-trophy.html">Sopal Club Championship</a></li>'
     + '<li><a href="corporate-tournament.html">Corporate Tournament</a></li>'
     + '<li><a href="tennis-clinics.html">Tennis Clinics</a></li>'
