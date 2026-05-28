@@ -136,32 +136,6 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .act-card:hover .more { gap: 10px; }
 
 /* EVENTS */
-.events { background: var(--cream); }
-.events-scroll { display: flex; gap: 22px; overflow-x: auto; padding: 8px 28px 28px; margin: 0 -28px; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--green) transparent; }
-.events-scroll::-webkit-scrollbar { height: 8px; }
-.events-scroll::-webkit-scrollbar-thumb { background: var(--green); border-radius: 4px; }
-.event-card { flex: 0 0 360px; background: #fff; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); scroll-snap-align: start; transition: transform .2s, box-shadow .2s; display: flex; flex-direction: column; }
-.event-card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -25px rgba(58,92,44,0.35); }
-.event-banner { height: 180px; position: relative; overflow: hidden; }
-.event-banner .ph-tag { position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,0.92); color: var(--green-2); font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px; }
-.event-banner .date { position: absolute; bottom: 14px; right: 14px; background: var(--ball); color: var(--green-2); font-family: "Bricolage Grotesque", sans-serif; border-radius: 12px; padding: 8px 12px; text-align: center; line-height: 1; min-width: 60px; }
-.event-banner .date .d { font-size: 22px; font-weight: 700; }
-.event-banner .date .m { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
-.event-body { padding: 22px 22px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-.event-body h3 { font-size: 22px; letter-spacing: -0.02em; }
-.event-meta { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--ink-2); }
-.event-meta div { display: flex; align-items: center; gap: 8px; }
-.event-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; margin-top: auto; border-top: 1px dashed var(--line); }
-.event-foot .spots { font-size: 13px; color: var(--ink-2); }
-.event-foot .spots b { color: var(--green); }
-.events-nav { display: flex; gap: 10px; }
-.events-nav button { width: 48px; height: 48px; border-radius: 50%; background: #fff; border: 1px solid var(--line); color: var(--green-2); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s, border-color .15s; cursor: pointer; }
-.events-nav button:hover { background: var(--green); color: #fff; border-color: var(--green); }
-.ev-b-1 { background: repeating-linear-gradient(115deg, #cfe07f 0 16px, #b9cc62 16px 32px); }
-.ev-b-2 { background: repeating-linear-gradient(125deg, #4d7239 0 16px, #3a5c2c 16px 32px); }
-.ev-b-3 { background: repeating-linear-gradient(105deg, #e0dac4 0 16px, #cec7ad 16px 32px); }
-.ev-b-4 { background: repeating-linear-gradient(135deg, #d8e85a 0 16px, #c2cf4a 16px 32px); }
-.ev-b-5 { background: repeating-linear-gradient(115deg, #6b8c4f 0 16px, #5d7d44 16px 32px); }
 
 /* TESTIMONIALS */
 .testimonials { background: var(--green-soft); position: relative; overflow: hidden; }
@@ -212,11 +186,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .footer-col li { font-size: 15px; color: rgba(255,255,255,0.7); }
 .footer-col a { font-size: 15px; color: rgba(255,255,255,0.8); transition: color .15s; }
 .footer-col a:hover { color: var(--ball); }
-.footer-newsletter { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 8px 8px 8px 18px; display: flex; align-items: center; gap: 8px; margin-top: 18px; }
-.footer-newsletter input { flex: 1; background: transparent; border: 0; color: #fff; font-family: inherit; font-size: 14px; outline: none; min-width: 0; }
-.footer-newsletter input::placeholder { color: rgba(255,255,255,0.45); }
-.footer-newsletter button { background: var(--ball); color: var(--green-2); font-weight: 600; font-size: 13px; padding: 10px 16px; border-radius: 10px; flex: none; cursor: pointer; }
-.footer-newsletter button:hover { background: var(--ball-2); }
+
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 13px; color: rgba(255,255,255,0.55); }
 .socials { display: flex; gap: 10px; margin-top: 16px; }
 .socials a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s; color: rgba(255,255,255,0.9); }
@@ -267,7 +237,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
 <script type="text/babel">
-const { useState, useRef } = React;
+const { useState } = React;
 
 const Ic = {
   Arrow: (p) => <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M5 12h14M13 6l6 6-6 6"/></svg>,
@@ -302,13 +272,6 @@ const ACTIVITIES = [
   { i: <Ic.Heart/>,    t: "Community Impact",      d: "Putting rackets in more hands — free clinics, equipment drives, and more.", url: "social-work.html" },
 ];
 
-const EVENTS = [
-  { tag:"Tournament", d:"24", m:"May", title:"Sopal Club Championship '26",  place:"PYC Hindu Gymkhana, Pune",   time:"Sat 7:00 AM · Doubles",      spots:"12",   banner:"ev-b-2" },
-  { tag:"Social",     d:"31", m:"May", title:"Sunday Sundowner Mixer",     place:"Deccan Gymkhana",            time:"Sun 5:30 PM · All levels",    spots:"8",    banner:"ev-b-1" },
-  { tag:"Clinic",     d:"07", m:"Jun", title:"Serve & Volley Clinic",      place:"Balewadi Sports Complex",    time:"Sat 6:00 AM · Intermediate",  spots:"4",    banner:"ev-b-4" },
-  { tag:"Corporate",  d:"14", m:"Jun", title:"Pune Corporate Cup '26",     place:"Poona Club Courts",          time:"Sat–Sun · Team event",        spots:"16",   banner:"ev-b-3" },
-  { tag:"Podcast",    d:"20", m:"Jun", title:"Tennis Bytes Live #14",      place:"The Pavilion, Aundh",        time:"Fri 7:30 PM · Free entry",    spots:"Open", banner:"ev-b-5" },
-];
 
 const TESTIMONIALS = [
   { q:"Tennisnuts didn't just get me back on court — it gave me a Sunday morning crew I genuinely look forward to. Best decision of the year.", n:"Aditi Rane",   r:"4.0 player, Koregaon Park", a:"AR" },
@@ -484,52 +447,6 @@ function Activities() {
   );
 }
 
-function Events() {
-  const ref = useRef(null);
-  const scroll = d => ref.current && ref.current.scrollBy({left: d*400, behavior:"smooth"});
-  return (
-    <section className="section events" id="events">
-      <div className="container">
-        <div className="section-head">
-          <div>
-            <div className="section-eyebrow">Upcoming events</div>
-            <h2>Pick a Saturday, show up, play.</h2>
-          </div>
-          <div className="right" style={{display:"flex",alignItems:"end",justifyContent:"space-between",gap:24}}>
-            <div>Free for members. Visitors welcome at most sessions.</div>
-            <div className="events-nav">
-              <button onClick={() => scroll(-1)}><Ic.Arrow style={{transform:"rotate(180deg)"}}/></button>
-              <button onClick={() => scroll(1)}><Ic.Arrow/></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <div className="events-scroll" ref={ref}>
-          {EVENTS.map((e,i) => (
-            <div key={i} className="event-card">
-              <div className={`event-banner ${e.banner}`}>
-                <div className="ph-tag">{e.tag}</div>
-                <div className="date"><div className="d">{e.d}</div><div className="m">{e.m}</div></div>
-              </div>
-              <div className="event-body">
-                <h3>{e.title}</h3>
-                <div className="event-meta">
-                  <div><Ic.Pin style={{color:"var(--green)",flexShrink:0}}/> {e.place}</div>
-                  <div><Ic.Clock style={{color:"var(--green)",flexShrink:0}}/> {e.time}</div>
-                </div>
-                <div className="event-foot">
-                  <div className="spots"><Ic.Users style={{display:"inline",verticalAlign:"middle",marginRight:6,color:"var(--green)"}}/><b>{e.spots}</b> spots left</div>
-                  <a href="#" className="btn btn-primary btn-small">Register</a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Testimonials() {
   return (
@@ -586,8 +503,7 @@ function Join() {
         <h2>Ready to find your <span className="accent">court crew?</span></h2>
         <p>Join 800+ players across Pune who show up every weekend, chase trophies, share meals, and call each other teammates.</p>
         <div className="join-ctas">
-          <a href="#" className="btn btn-ball">Join Us <Ic.Arrow/></a>
-          <a href="#events" className="btn btn-ghost"><Ic.Play/> See Upcoming Events</a>
+          <a href="#" className="btn btn-ball"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg> Join WhatsApp <Ic.Arrow/></a>
         </div>
       </div>
     </section>
@@ -602,10 +518,6 @@ function Footer() {
           <div className="footer-brand">
             <Logo light/>
             <p>The Social Side of Tennis. Founded in Pune in 2021. Open courts, easy doubles, lifelong rallies.</p>
-            <div className="footer-newsletter">
-              <input type="email" placeholder="Your email — get the weekly fixtures"/>
-              <button>Subscribe</button>
-            </div>
           </div>
           <div className="footer-col">
             <h4>Explore</h4>
@@ -619,29 +531,27 @@ function Footer() {
             </ul>
           </div>
           <div className="footer-col">
-            <h4>Programs</h4>
+            <h4>Events</h4>
             <ul>
-              <li><a href="#">Sopal Trophy</a></li>
-              <li><a href="#">Corporate Cup</a></li>
-              <li><a href="#">Clinics</a></li>
-              <li><a href="#">Coaching</a></li>
-              <li><a href="#">Podcast</a></li>
+              <li><a href="socials.html">Tennisnuts Socials</a></li>
+              <li><a href="seniors.html">Seniors Tennis</a></li>
+              <li><a href="open.html">Tennisnuts Open</a></li>
+              <li><a href="sopal-trophy.html">Sopal Club Championship</a></li>
+              <li><a href="corporate-tournament.html">Corporate Tournament</a></li>
+              <li><a href="tennis-clinics.html">Tennis Clinics</a></li>
             </ul>
           </div>
           <div className="footer-col">
             <h4>Visit</h4>
             <ul>
               <li>Pune, Maharashtra</li>
-              <li>hello@tennisnuts.co.in</li>
-              <li>+91 90000 00000</li>
+              <li>+91 9881125831</li>
             </ul>
             <h4 style={{marginTop:28}}>Follow</h4>
             <div className="socials">
-              <a href="#"><Ic.Insta/></a>
-              <a href="#"><Ic.Yt/></a>
-              <a href="#"><Ic.Wa/></a>
-              <a href="#"><Ic.Fb/></a>
-              <a href="#"><Ic.X/></a>
+              <a href="#" aria-label="Instagram"><Ic.Insta/></a>
+              <a href="#" aria-label="WhatsApp"><Ic.Wa/></a>
+              <a href="#" aria-label="Facebook"><Ic.Fb/></a>
             </div>
           </div>
         </div>
@@ -662,7 +572,6 @@ function App() {
         <Hero/>
         <Who/>
         <Activities/>
-        <Events/>
         <Testimonials/>
         <Partners/>
         <Join/>
