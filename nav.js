@@ -57,6 +57,7 @@
     + '<button aria-haspopup="true">Events ' + chevronSVG + '</button>'
     + '<div class="dropdown-menu">'
     + '<a href="socials.html">Tennisnuts Socials</a>'
+    + '<a href="seniors.html">Seniors Tennis</a>'
     + '<a href="sopal-trophy.html">Sopal Club Championship</a>'
     + '<a href="corporate-tournament.html">Corporate Tournament</a>'
     + '<a href="tennis-clinics.html">Tennis Clinics</a>'
