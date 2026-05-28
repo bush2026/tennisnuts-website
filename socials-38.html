@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Socials #38 — Tennisnuts Socials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── Design tokens ── */
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 {
+  font-family: "Bricolage Grotesque", "DM Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+/* ── Section eyebrow ── */
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--ball);
+  display: block;
+}
+
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+.ed-hero {
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 68px;
+  color: #fff;
+}
+.ed-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 24px, transparent 24px 48px);
+  pointer-events: none;
+}
+.hero-bg-number {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: clamp(200px, 28vw, 340px);
+  line-height: 1;
+  color: #fff;
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+}
+.ed-hero .container { position: relative; z-index: 1; }
+
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px;
+  transition: color .15s;
+}
+.breadcrumb:hover { color: rgba(255,255,255,0.85); }
+.breadcrumb svg { flex-shrink: 0; }
+
+.edition-chip {
+  display: inline-block;
+  background: var(--ball);
+  color: var(--green-2);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.ed-hero h1 {
+  font-size: clamp(52px, 9vw, 96px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 18px;
+}
+
+.hero-tagline {
+  font-size: clamp(16px, 2.5vw, 22px);
+  color: rgba(255,255,255,0.72);
+  font-style: italic;
+  margin-bottom: 28px;
+  max-width: 44ch;
+  line-height: 1.4;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  font-family: "JetBrains Mono", monospace;
+}
+.hero-meta .dot { opacity: 0.4; }
+
+/* ═══════════════════════════════
+   PODIUM — DUAL CATEGORY
+═══════════════════════════════ */
+.ed-podium {
+  background: #fff;
+  padding: 80px 0;
+}
+.podium-categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 36px;
+}
+.podium-category {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.podium-category-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--green-2);
+  background: var(--ball);
+  padding: 5px 14px;
+  border-radius: 999px;
+  align-self: flex-start;
+  margin-bottom: 4px;
+}
+.podium-card {
+  border-radius: 20px;
+  padding: 28px 26px;
+  position: relative;
+  overflow: hidden;
+}
+.podium-card.winners {
+  background: var(--green);
+  color: #fff;
+}
+.podium-card.winners::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--ball);
+}
+.podium-card.runners {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+}
+.podium-icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.podium-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 8px;
+}
+.podium-card.winners .podium-label { color: rgba(255,255,255,0.75); }
+.podium-card.runners .podium-label { color: var(--ink-2); }
+.podium-names {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 700;
+  font-size: clamp(17px, 2.5vw, 24px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.podium-card.winners .podium-names { color: #fff; }
+.podium-card.runners .podium-names { color: var(--ink); }
+
+/* ═══════════════════════════════
+   STORY
+═══════════════════════════════ */
+.ed-story {
+  background: var(--cream);
+  padding: 80px 0;
+}
+.story-content {
+  max-width: 720px;
+  margin-top: 28px;
+}
+.story-content p {
+  font-size: 17px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.story-content p:last-of-type { margin-bottom: 0; }
+.pull-quote {
+  border-left: 4px solid var(--ball);
+  padding: 18px 24px;
+  margin: 32px 0;
+  background: rgba(205,220,57,0.08);
+  border-radius: 0 12px 12px 0;
+}
+.pull-quote p {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  font-style: italic;
+  margin: 0;
+}
+.story-thanks {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--ink-2);
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════
+   SPOTLIGHTS
+═══════════════════════════════ */
+.ed-spotlights {
+  background: var(--green-soft);
+  padding: 80px 0;
+}
+.spotlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 36px;
+}
+.spotlight-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 26px;
+  border: 1px solid var(--line);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.spotlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -12px rgba(58,92,44,0.2);
+}
+.spotlight-emoji {
+  font-size: 30px;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+.spotlight-name {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.spotlight-note {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.spotlight-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--green-soft);
+  color: var(--green-2);
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(58,92,44,0.15);
+}
+
+/* ═══════════════════════════════
+   GALLERY
+═══════════════════════════════ */
+.ed-gallery {
+  background: var(--ink);
+  padding: 80px 0;
+}
+.gallery-header {
+  margin-bottom: 36px;
+}
+.gallery-header .eyebrow { color: rgba(255,255,255,0.55); }
+.gallery-header .eyebrow::before { background: var(--ball); opacity: 0.7; }
+.gallery-label {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.gallery-mosaic {
+  columns: 3;
+  column-gap: 14px;
+}
+.gallery-slot {
+  break-inside: avoid;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.gallery-slot:nth-child(3n+1) { aspect-ratio: 4/3; }
+.gallery-slot:nth-child(3n+2) { aspect-ratio: 3/4; }
+.gallery-slot:nth-child(3n)   { aspect-ratio: 1/1; }
+.gallery-slot-label {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+  background: rgba(0,0,0,0.4);
+  padding: 3px 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.gallery-slot:nth-child(1)  { background: linear-gradient(105deg, #3a5c2c, #6b8c4f); }
+.gallery-slot:nth-child(2)  { background: linear-gradient(140deg, #2c4621, #4d7239); }
+.gallery-slot:nth-child(3)  { background: linear-gradient(120deg, #4d7239, #cddc39 230%); }
+.gallery-slot:nth-child(4)  { background: linear-gradient(155deg, #1c2218, #3a5c2c); }
+.gallery-slot:nth-child(5)  { background: linear-gradient(110deg, #4d7239, #2c4621); }
+.gallery-slot:nth-child(6)  { background: linear-gradient(160deg, #3a5c2c, #4a5240); }
+.gallery-slot:nth-child(7)  { background: linear-gradient(130deg, #2c4621, #3a5c2c); }
+.gallery-slot:nth-child(8)  { background: linear-gradient(145deg, #4d7239, #1c2218); }
+.gallery-slot:nth-child(9)  { background: linear-gradient(115deg, #3a5c2c, #5d7d44); }
+.gallery-slot:nth-child(10) { background: linear-gradient(135deg, #1c2218, #4d7239); }
+
+/* ═══════════════════════════════
+   EDITION NAV
+═══════════════════════════════ */
+.ed-nav {
+  background: var(--green-2);
+  padding: 36px 0;
+}
+.ed-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.ed-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  transition: color .15s;
+  font-family: "DM Sans", sans-serif;
+}
+.ed-nav-link:hover { color: #fff; }
+.ed-nav-link.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: default;
+}
+.ed-nav-center {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ball);
+  text-transform: uppercase;
+  transition: opacity .15s;
+}
+.ed-nav-center:hover { opacity: 0.8; }
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 700px) {
+  .podium-categories { grid-template-columns: 1fr; }
+  .ed-hero { padding: 56px 0 52px; }
+  .ed-podium, .ed-story, .ed-spotlights, .ed-gallery { padding: 60px 0; }
+}
+@media (max-width: 760px) {
+  .gallery-mosaic { columns: 2; }
+  .spotlights-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .gallery-mosaic { columns: 1; }
+  .spotlights-grid { grid-template-columns: 1fr; }
+  .ed-nav .container { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<main>
+
+  <!-- ══ HERO ══ -->
+  <section class="ed-hero">
+    <div class="hero-bg-number">#38</div>
+    <div class="container">
+      <a href="socials.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Tennisnuts Socials
+      </a>
+      <div class="edition-chip">Tennisnuts Socials</div>
+      <h1>Socials #38</h1>
+      <p class="hero-tagline">"Two courts. Two categories. Twice the stories."</p>
+      <div class="hero-meta">
+        <span>📍 AWTA — Aniket Wakankar Tennis Academy</span>
+        <span class="dot">·</span>
+        <span>Powered by Sportsjam</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PODIUM — DUAL CATEGORY ══ -->
+  <section class="ed-podium">
+    <div class="container">
+      <div class="eyebrow">Results</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">The Podiums</h2>
+      <div class="podium-categories">
+
+        <!-- BEGINNERS -->
+        <div class="podium-category">
+          <div class="podium-category-label">🎾 Beginners</div>
+          <div class="podium-card winners">
+            <div class="podium-icon">🏆</div>
+            <div class="podium-label">Winners</div>
+            <div class="podium-names">Vinit Shahane &amp;<br>Pankaj Singh</div>
+          </div>
+          <div class="podium-card runners">
+            <div class="podium-icon">🥈</div>
+            <div class="podium-label">Runners-up</div>
+            <div class="podium-names">Anand Iyer &amp;<br>Vishal Nawale</div>
+          </div>
+        </div>
+
+        <!-- SENIORS -->
+        <div class="podium-category">
+          <div class="podium-category-label">🌟 Seniors</div>
+          <div class="podium-card winners">
+            <div class="podium-icon">🏆</div>
+            <div class="podium-label">Winners</div>
+            <div class="podium-names">Salil Kunchur &amp;<br>Sandeep Belludi</div>
+          </div>
+          <div class="podium-card runners">
+            <div class="podium-icon">🥈</div>
+            <div class="podium-label">Runners-up</div>
+            <div class="podium-names">Dr Ravi Kothari &amp;<br>Nitin Sawant</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STORY ══ -->
+  <section class="ed-story">
+    <div class="container">
+      <div class="eyebrow">The Story</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Edition Recap</h2>
+      <div class="story-content">
+        <p>A landmark edition — Socials #38 ran with two separate categories for the first time: Beginners Socials and Seniors Socials, each with its own draws, its own tension, and its own stories to tell.</p>
+
+        <div class="pull-quote">
+          <p>"All-new winners across both categories — competition is growing and new pairs are knocking on the door."</p>
+        </div>
+
+        <p>What made it extra special was the tremendous enthusiasm from girls and women who came out in great numbers this time. The energy across both courts was unlike anything we've seen before at a Socials edition.</p>
+
+        <p>Competition is growing with every edition. All-new winners across both categories, new pairs forcing their way into semis and finals — the Socials field is getting deeper and more exciting. Special mention to Sumant Sir and Jaydeep Kaka for partnering with their sons despite the draws being genuinely competitive. It was wonderful to see parents actively encouraging their kids — leading from the front, on court.</p>
+
+        <div class="story-thanks">
+          Special thanks to AWTA — Aniket Wakankar Tennis Academy — for hosting and maintaining the courts beautifully. Great efforts as always from organisers Venky and Amit. Sportsjam, thank you for the continued support.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SPOTLIGHTS ══ -->
+  <section class="ed-spotlights">
+    <div class="container">
+      <div class="eyebrow">Standout Moments</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Players of Note</h2>
+      <div class="spotlights-grid">
+
+        <div class="spotlight-card">
+          <div class="spotlight-emoji">👨‍👦</div>
+          <div class="spotlight-name">Sumant Sir + Son</div>
+          <p class="spotlight-note">Played together despite a competitive draw — leading by example on what tennis can mean for families. This is the spirit Socials was built for.</p>
+          <span class="spotlight-tag">👨‍👦 Father &amp; Son</span>
+        </div>
+
+        <div class="spotlight-card">
+          <div class="spotlight-emoji">👨‍👦</div>
+          <div class="spotlight-name">Jaydeep Kaka + Son</div>
+          <p class="spotlight-note">Encouragement in action — stepping onto the competitive court alongside their kid. Great to see this spirit alive and well at the Socials.</p>
+          <span class="spotlight-tag">👨‍👦 Father &amp; Son</span>
+        </div>
+
+        <div class="spotlight-card">
+          <div class="spotlight-emoji">🙌</div>
+          <div class="spotlight-name">Women's Participation</div>
+          <p class="spotlight-note">Outstanding response from girls and women this edition — the strongest turnout we've seen. The future of Tennisnuts Socials looks very bright indeed.</p>
+          <span class="spotlight-tag">🙌 Special Milestone</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GALLERY ══ -->
+  <section class="ed-gallery">
+    <div class="container">
+      <div class="gallery-header">
+        <div class="eyebrow" style="color:rgba(255,255,255,0.5);">Through the Lens</div>
+        <div class="gallery-label">Edition #38 — Photos</div>
+      </div>
+      <div class="gallery-mosaic">
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 1</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 2</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 3</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 4</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 5</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 6</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 7</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 8</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 9</span></div>
+        <div class="gallery-slot"><span class="gallery-slot-label">Photo 10</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EDITION NAV ══ -->
+  <nav class="ed-nav" aria-label="Edition navigation">
+    <div class="container">
+      <a href="socials-36.html" class="ed-nav-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Edition #36
+      </a>
+      <a href="socials.html" class="ed-nav-center">All Socials</a>
+      <a href="socials-40.html" class="ed-nav-link">
+        Edition #40
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </div>
+  </nav>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>
