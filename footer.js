@@ -43,6 +43,7 @@
     + '<h4>Explore</h4>'
     + '<ul>'
     + '<li><a href="index.html">Home</a></li>'
+    + '<li><a href="story.html">Our Story</a></li>'
     + '<li><a href="academy.html">Academy</a></li>'
     + '<li><a href="partners.html">Partners</a></li>'
     + '<li><a href="blog.html">Blog</a></li>'

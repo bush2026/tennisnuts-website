@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Our Story — How Tennisnuts Began</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.55;
+}
+h1, h2, h3 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+.prose { max-width: 680px; }
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.story-hero {
+  background: var(--ink);
+  padding: 80px 0 88px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+.story-hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(115deg, rgba(255,255,255,0.022) 0 28px, transparent 28px 56px);
+  pointer-events: none;
+}
+.story-hero::after {
+  content: "2021";
+  position: absolute;
+  right: -10px; bottom: -30px;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: clamp(180px, 28vw, 340px);
+  line-height: 1;
+  color: #fff;
+  opacity: 0.035;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.06em;
+}
+.story-hero .container { position: relative; z-index: 1; }
+
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ball); margin-bottom: 28px;
+}
+.hero-kicker::before {
+  content: ""; width: 22px; height: 2px; background: var(--ball); display: block;
+}
+
+.story-hero h1 {
+  font-size: clamp(44px, 7.5vw, 88px);
+  font-weight: 800;
+  line-height: 0.97;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-bottom: 28px;
+  max-width: 14ch;
+}
+.story-hero h1 em {
+  font-style: italic;
+  color: var(--ball);
+}
+
+.hero-dek {
+  font-size: clamp(17px, 2vw, 20px);
+  color: rgba(255,255,255,0.72);
+  max-width: 52ch;
+  line-height: 1.55;
+  margin-bottom: 36px;
+}
+
+.hero-byline {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em;
+}
+.hero-byline .sep { opacity: 0.4; }
+
+/* ══════════════════════════════
+   STORY BODY
+══════════════════════════════ */
+.story-body {
+  background: var(--cream);
+  padding: 80px 0 0;
+}
+
+.chapter {
+  padding: 0 0 72px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 72px;
+}
+.chapter:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.chapter-label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--green);
+  margin-bottom: 20px;
+}
+.chapter-label::before {
+  content: ""; width: 22px; height: 2px; background: var(--ball); display: block;
+}
+
+.chapter h2 {
+  font-size: clamp(26px, 3.5vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-bottom: 28px;
+  max-width: 22ch;
+  color: var(--ink);
+}
+
+.chapter p {
+  font-size: 17.5px;
+  color: var(--ink-2);
+  line-height: 1.75;
+  margin-bottom: 22px;
+  max-width: 65ch;
+}
+.chapter p:last-of-type { margin-bottom: 0; }
+
+.pull-quote {
+  border-left: 4px solid var(--ball);
+  padding: 20px 28px;
+  margin: 36px 0;
+  background: rgba(205,220,57,0.07);
+  border-radius: 0 14px 14px 0;
+  max-width: 620px;
+}
+.pull-quote p {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(19px, 2.5vw, 24px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  font-style: italic;
+  margin: 0;
+  max-width: unset;
+}
+
+/* ══════════════════════════════
+   FOUNDING MOMENT CARD
+══════════════════════════════ */
+.founding-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  max-width: 620px;
+  margin: 36px 0;
+  box-shadow: 0 16px 40px -16px rgba(58,92,44,0.18);
+}
+.founding-card-header {
+  background: var(--green-2);
+  padding: 20px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.founding-card-header-left span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); display: block; margin-bottom: 4px;
+}
+.founding-card-header-left strong {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 17px; font-weight: 700; color: #fff; letter-spacing: -0.02em;
+}
+.founding-card-badge {
+  background: var(--ball); color: var(--green-2);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 999px;
+}
+.founding-card-body {
+  padding: 24px 28px;
+}
+.founding-venue {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--ink-2); margin-bottom: 20px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--line);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px; letter-spacing: 0.04em;
+}
+.founding-players-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 12px;
+}
+.founding-players {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.founding-player {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--green-soft); color: var(--green-2);
+  border: 1px solid rgba(58,92,44,0.15);
+  font-size: 13.5px; font-weight: 600;
+  padding: 6px 14px; border-radius: 999px;
+}
+.founding-player .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ball); flex-shrink: 0; }
+.founding-card-footer {
+  padding: 14px 28px 18px;
+  background: rgba(205,220,57,0.06);
+  border-top: 1px solid var(--line);
+  font-size: 13px; color: var(--ink-2); font-style: italic; line-height: 1.5;
+}
+
+/* ══════════════════════════════
+   STAT ROW
+══════════════════════════════ */
+.stat-row {
+  display: flex; gap: 36px; flex-wrap: wrap;
+  margin: 36px 0;
+  padding: 28px;
+  background: #fff; border-radius: 16px; border: 1px solid var(--line);
+  max-width: 620px;
+}
+.stat-item { }
+.stat-num {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 2.6rem; font-weight: 700; color: var(--green);
+  line-height: 1; margin-bottom: 4px; letter-spacing: -0.03em;
+}
+.stat-label {
+  font-size: 13px; color: var(--ink-2); font-weight: 500; line-height: 1.4;
+}
+
+/* ══════════════════════════════
+   TIMELINE ENTRY
+══════════════════════════════ */
+.timeline {
+  position: relative;
+  margin: 36px 0;
+  padding-left: 28px;
+  border-left: 2px solid var(--line);
+  max-width: 580px;
+}
+.timeline-entry {
+  position: relative;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px dashed rgba(0,0,0,0.08);
+}
+.timeline-entry:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.timeline-entry::before {
+  content: "";
+  position: absolute;
+  left: -37px; top: 5px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--ball);
+  border: 2.5px solid var(--cream);
+  box-shadow: 0 0 0 2px var(--green);
+}
+.timeline-date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 6px;
+}
+.timeline-entry p {
+  font-size: 15px; color: var(--ink-2); line-height: 1.6; margin: 0; max-width: unset;
+}
+.timeline-entry strong { color: var(--ink); }
+
+/* ══════════════════════════════
+   VALUES SECTION
+══════════════════════════════ */
+.values-section {
+  background: var(--green-soft);
+  padding: 80px 0;
+}
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+  max-width: 800px;
+}
+.value-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 26px 24px;
+  border: 1px solid rgba(58,92,44,0.1);
+}
+.value-icon { font-size: 26px; margin-bottom: 12px; line-height: 1; }
+.value-card h3 {
+  font-size: 17px; letter-spacing: -0.01em; color: var(--ink);
+  margin-bottom: 8px;
+}
+.value-card p { font-size: 14px; color: var(--ink-2); line-height: 1.6; margin: 0; }
+
+/* ══════════════════════════════
+   CLOSING
+══════════════════════════════ */
+.story-close {
+  background: var(--green-2);
+  padding: 80px 0;
+  text-align: center;
+  color: #fff;
+  position: relative; overflow: hidden;
+}
+.story-close::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 28px, transparent 28px 56px);
+  pointer-events: none;
+}
+.story-close .container { position: relative; z-index: 1; }
+.story-close-line {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(24px, 4.5vw, 46px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #fff;
+  line-height: 1.15;
+  max-width: 22ch;
+  margin: 0 auto 20px;
+}
+.story-close-line em { font-style: italic; color: var(--ball); }
+.story-close p {
+  font-size: 17px; color: rgba(255,255,255,0.75);
+  max-width: 50ch; margin: 0 auto 36px; line-height: 1.6;
+}
+.story-close .btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border-radius: 999px; font-weight: 600; font-size: 16px;
+  font-family: "DM Sans", sans-serif;
+  background: var(--ball); color: var(--green-2);
+  text-decoration: none; transition: transform .15s, background .15s;
+}
+.story-close .btn:hover { background: #d8e85a; transform: translateY(-2px); }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 760px) {
+  .values-grid { grid-template-columns: 1fr; max-width: 480px; }
+  .stat-row { gap: 24px; }
+}
+@media (max-width: 560px) {
+  .story-hero { padding: 60px 0 72px; }
+  .story-body { padding: 56px 0 0; }
+  .chapter { padding-bottom: 52px; margin-bottom: 52px; }
+  .container { padding: 0 20px; }
+  .founding-card-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .pull-quote { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<main>
+
+  <!-- ══ HERO ══ -->
+  <section class="story-hero">
+    <div class="container">
+      <div class="hero-kicker">Our Story</div>
+      <h1>How a game became a <em>community.</em></h1>
+      <p class="hero-dek">Communities rarely begin with ambition. They begin with people who want to keep showing up. This is the story of how Tennisnuts came to be — rally by rally, court by court, Sunday by Sunday.</p>
+      <div class="hero-byline">
+        <span>Founded in Pune</span>
+        <span class="sep">·</span>
+        <span>Est. 2021</span>
+        <span class="sep">·</span>
+        <span>800+ members and counting</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STORY BODY ══ -->
+  <section class="story-body">
+    <div class="container">
+
+      <!-- CHAPTER 1 -->
+      <div class="chapter">
+        <div class="chapter-label">Chapter 1</div>
+        <h2>An idea travels and finds a home.</h2>
+        <p>In the early 2000s, adult recreational tennis in Pune had limited outlets. Courts existed. Players existed. But there was little connective tissue between them. Tennis was often seen as either highly competitive or academy-driven, leaving casual adult players caught somewhere in between — wanting to play, unsure where to go.</p>
+        <p>Exposure to social tennis abroad helped introduce a different way of thinking about the sport. One of the early carriers of this perspective was Sudhir Pisal — an IT professional who encountered tennis not as a performance sport, but as a repeatable, learnable, social experience. The idea was simple but radical: tennis could be welcoming, forgiving, and shared.</p>
+
+        <div class="pull-quote">
+          <p>"The idea itself mattered more than the individual. Tennis could be a space where you show up, belong, and come back."</p>
+        </div>
+
+        <p>When that mindset returned to Pune, it resonated immediately with people who had been looking for exactly the same thing. A different kind of court. A different kind of welcome.</p>
+      </div>
+
+      <!-- CHAPTER 2 -->
+      <div class="chapter">
+        <div class="chapter-label">Chapter 2</div>
+        <h2>Choosing tennis. Finding people.</h2>
+        <p>Like many working professionals, Sudhir and others had to make conscious choices about how they spent their mornings. Morning batches became gathering points, and familiar faces gradually turned into regular playing partners. Conversations after sessions often lasted longer than the matches themselves.</p>
+        <p>Around this time, WhatsApp quietly became an enabler. Initially used to simply coordinate play — "courts booked for Sunday, who's coming?" — it soon became a space for exchanging ideas, fixing games, and experimenting with formats. What felt like logistics slowly became the backbone of something much larger.</p>
+
+        <div class="timeline">
+          <div class="timeline-entry">
+            <div class="timeline-date">Early Days</div>
+            <p>Morning batches at Pune courts. Same faces, every week. The routine builds trust.</p>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-date">The WhatsApp Era</div>
+            <p>Coordination moves to chat. A <strong>single group</strong> becomes the nervous system — fixture updates, new players, post-match banter.</p>
+          </div>
+          <div class="timeline-entry">
+            <div class="timeline-date">The Question</div>
+            <p>What if Sunday could mean more than one match? What if people could <strong>stay all day and keep playing?</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER 3 -->
+      <div class="chapter">
+        <div class="chapter-label">Chapter 3</div>
+        <h2>The first Sunday that changed everything.</h2>
+        <p>A defining moment came through conversations at venues like NCL, where Sudhir crossed paths with Capt. Santosh Chitnis — a passionate player preparing to return to life at sea. One suggestion from those discussions stood out above all others: longer Sunday sessions where players could play multiple matches without the elimination of a tournament format.</p>
+        <p>That question unlocked something. With help from friends like Arjun, and with no prior experience in organising events, a simple round-robin format was drafted late one night. No playbook. No template. Just intent and a notepad.</p>
+        <p>The next day, at Mhalunge Balewadi, a small group of players gathered to try something new. Skill levels varied. Experience varied. But the intent was shared. Matches flowed, players rotated, and the atmosphere felt unmistakably different from a typical tournament. There was competition — but no pressure to go home early.</p>
+
+        <div class="founding-card">
+          <div class="founding-card-header">
+            <div class="founding-card-header-left">
+              <span>The First Tennisnuts Social</span>
+              <strong>Mhalunge Balewadi, Pune</strong>
+            </div>
+            <div class="founding-card-badge">Edition 1</div>
+          </div>
+          <div class="founding-card-body">
+            <div class="founding-venue">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Round-robin format &nbsp;·&nbsp; Sunday morning &nbsp;·&nbsp; Multiple matches, no eliminations
+            </div>
+            <div class="founding-players-label">Players on the Day</div>
+            <div class="founding-players">
+              <span class="founding-player"><span class="dot"></span>Santosh Chitnis</span>
+              <span class="founding-player"><span class="dot"></span>Manish Tipnis</span>
+              <span class="founding-player"><span class="dot"></span>Girish Kukreja</span>
+              <span class="founding-player"><span class="dot"></span>Sudhakar Sir</span>
+              <span class="founding-player"><span class="dot"></span>Deepak Patil</span>
+              <span class="founding-player"><span class="dot"></span>+ more</span>
+            </div>
+          </div>
+          <div class="founding-card-footer">
+            That Sunday didn't feel like the start of a movement. It felt like a good day of tennis. In hindsight, it was the template for everything that followed.
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAPTER 4 -->
+      <div class="chapter">
+        <div class="chapter-label">Chapter 4</div>
+        <h2>From one experiment to an unbroken rhythm.</h2>
+        <p>The format worked because it was genuinely inclusive. Players stayed longer, played more, and left wanting to return. Nobody had to win to have had a great day. Word spread naturally — across Aundh, Baner, Sangvi, PCMC, Nigdi, and beyond Pune.</p>
+        <p>What followed wasn't rapid expansion or a viral moment. It was something more valuable: consistency. Week after week, Sundays became synonymous with social tennis. Organisation improved with each edition. Volunteers emerged. Responsibilities spread across more hands. Sudhir continued to play a coordinating role, but the community no longer depended on any single person.</p>
+
+        <div class="pull-quote">
+          <p>"The community didn't need a leader. It needed people who kept showing up. And they did."</p>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">44+</div>
+            <div class="stat-label">Tennisnuts Socials run<br>and counting</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">800+</div>
+            <div class="stat-label">Players across<br>Pune</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">4+</div>
+            <div class="stat-label">Annual tournament<br>formats</div>
+          </div>
+        </div>
+
+        <p>Today, 44 Tennisnuts Socials stand not as events, but as proof of continuity. Each one a Sunday that someone chose to show up. Each one another strand in the same fabric.</p>
+      </div>
+
+      <!-- CHAPTER 5 -->
+      <div class="chapter">
+        <div class="chapter-label">Chapter 5</div>
+        <h2>Bridging community and professional tennis.</h2>
+        <p>As participation deepened, so did exposure to the broader tennis world. Members of the community, including Sudhir, began volunteering at ATP Challengers and ATP 250 events held in Pune — gaining a close-up view of professional tennis operations and bringing those perspectives back into the community.</p>
+        <p>Sudhir also contributed as team manager for BIPL Rising Eagles, owned by Sameer Bhamre — creating closer interactions with coaches, juniors, and tennis parents across the city. These connections helped bridge the gap between recreational tennis and the broader ecosystem, benefiting members who wanted to go deeper into the sport.</p>
+        <p>The community grew not just in size, but in connection — to the sport's wider world, its professional players, and its coaches. What had started as a WhatsApp group for Sunday coordination was now a genuine part of Pune's tennis fabric.</p>
+      </div>
+
+    </div><!-- /.container -->
+  </section>
+
+  <!-- ══ VALUES ══ -->
+  <section class="values-section">
+    <div class="container">
+      <div class="chapter-label">What Tennisnuts Represents</div>
+      <h2 style="font-size:clamp(28px,3.5vw,42px);letter-spacing:-0.03em;margin-bottom:10px;">Not defined by who started it.<br>Defined by who sustains it.</h2>
+      <p style="font-size:17px;color:var(--ink-2);max-width:58ch;margin-top:12px;line-height:1.65;">Sudhir Pisal's role — like that of many others — has been that of an enabler. He helped ideas move, formats take shape, and people stay connected. But the community itself belongs to everyone who stepped onto the court and chose to return.</p>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">🚪</div>
+          <h3>A space for all</h3>
+          <p>For adults who want to start tennis, restart after a break, or rediscover it after years away. No experience required to belong here.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">⚖️</div>
+          <h3>Compete and connect</h3>
+          <p>Competition and camaraderie don't cancel each other out. The best rallies happen when both sides are trying their hardest — and laughing about it after.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <h3>No hierarchy</h3>
+          <p>Contribution matters more than title. The person who books the courts and the person who's played for 20 years are equally essential.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">📅</div>
+          <h3>Showing up builds something</h3>
+          <p>Tennisnuts was not built in a day, a month, or a year. It was built by the sum of everyone who kept choosing to return next Sunday.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CLOSING ══ -->
+  <section class="story-close">
+    <div class="container">
+      <p class="story-close-line">The birth of Pune's tennis community was not announced. It unfolded <em>rally by rally.</em></p>
+      <p>And it continues, every time someone new joins in and feels that first clean shot cross the net.</p>
+      <a href="index.html" class="btn">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg>
+        Join the community
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>
