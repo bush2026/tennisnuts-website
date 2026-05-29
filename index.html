@@ -123,7 +123,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 
 /* ACTIVITIES */
 .activities { background: #fff; }
-.act-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.act-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .act-card { border-radius: 20px; background: #fff; border: 1px solid var(--line); overflow: hidden; display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; cursor: pointer; }
 .act-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -25px rgba(58,92,44,0.35); border-color: var(--green); }
 .act-card .head { background: var(--green); color: #fff; padding: 18px 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -138,19 +138,6 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 /* EVENTS */
 
 /* TESTIMONIALS */
-.testimonials { background: var(--green-soft); position: relative; overflow: hidden; }
-.testimonials::before { content: ""; position: absolute; right: -120px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #e8f76e 0%, var(--ball) 60%, #a3b82a 100%); opacity: 0.4; }
-.testimonials::after { content: ""; position: absolute; left: -100px; bottom: -100px; width: 280px; height: 280px; border-radius: 50%; background: var(--green); opacity: 0.08; }
-.testimonials .container { position: relative; z-index: 1; }
-.test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.test-card { background: #fff; border-radius: 24px; padding: 36px 36px 32px; border: 1px solid rgba(58,92,44,0.08); box-shadow: 0 24px 50px -30px rgba(58,92,44,0.4); position: relative; }
-.test-quote-mark { font-family: "Bricolage Grotesque", serif; font-size: 80px; color: var(--ball); line-height: 0.6; margin-bottom: 4px; font-weight: 700; }
-.test-card .stars { display: flex; gap: 4px; color: var(--ball); margin-bottom: 16px; }
-.test-card blockquote { font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; line-height: 1.35; letter-spacing: -0.015em; font-weight: 500; color: var(--ink); margin: 0 0 28px; }
-.test-author { display: flex; align-items: center; gap: 14px; }
-.test-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--green-3), var(--green)); color: #fff; display: flex; align-items: center; justify-content: center; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 16px; flex: none; }
-.test-author .name { font-weight: 600; font-size: 15px; }
-.test-author .role { font-size: 13px; color: var(--ink-2); }
 
 /* PARTNERS */
 .partners { background: #fff; padding: 80px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -217,7 +204,6 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .who-grid { grid-template-columns: 1fr; gap: 48px; }
   .section-head { grid-template-columns: 1fr; gap: 16px; }
   .act-grid { grid-template-columns: repeat(2, 1fr); }
-  .test-grid { grid-template-columns: 1fr; }
   .partners-row { grid-template-columns: 1fr; gap: 28px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .section { padding: 80px 0; }
@@ -262,21 +248,15 @@ const Ic = {
 };
 
 const ACTIVITIES = [
-  { i: <Ic.Confetti/>, t: "Tennisnuts Socials",    d: "Weekend mixer sessions where rallies turn into friendships.", url: "socials.html" },
-  { i: <Ic.Trophy/>,   t: "Sopal Club Championship", d: "Pune's premier inter-club tennis championship, held annually in memory of Narendra Sopal.", url: "sopal-trophy.html" },
-  { i: <Ic.Briefcase/>,t: "Corporate Tournament",  d: "Bring your team, leave the spreadsheets. Game on.", url: "corporate-tournament.html" },
-  { i: <Ic.Racket/>,   t: "Tennis Clinics",        d: "Open-format clinics for beginners to club-level players.", url: "tennis-clinics.html" },
-  { i: <Ic.Target/>,   t: "Focused Coaching",      d: "Targeted drills with pros to sharpen one weak spot at a time.", url: "academy.html" },
-  { i: <Ic.Mic/>,      t: "Tennis Bytes Podcast",  d: "Conversations with players, coaches, and people who love the game.", url: "tennis-bytes.html" },
-  { i: <Ic.Pen/>,      t: "Nuts Blog",             d: "Stories from the court — match notes, tips, and player journeys.", url: "blog.html" },
-  { i: <Ic.Heart/>,    t: "Community Impact",      d: "Putting rackets in more hands — free clinics, equipment drives, and more.", url: "social-work.html" },
+  { i: <Ic.Confetti/>, t: "Tennisnuts Socials",       d: "Weekend round-robins where rallies turn into friendships. The heartbeat of the community.", url: "socials.html" },
+  { i: <Ic.Racket/>,   t: "Seniors Tennis",            d: "PMDTA-sanctioned S35+ and S50+ doubles. Competitive, experienced, unforgiving.", url: "seniors.html" },
+  { i: <Ic.Target/>,   t: "Tennisnuts Open",           d: "All ages, one draw. Singles and doubles — the most competitive format we run.", url: "open.html" },
+  { i: <Ic.Trophy/>,   t: "Sopal Club Championship",   d: "Pune's most-coveted community trophy. Held annually in memory of Narendra Sopal.", url: "sopal-trophy.html" },
+  { i: <Ic.Briefcase/>,t: "Corporate Tournament",      d: "Bring your team. Leave the spreadsheets. Settle it on court.", url: "corporate-tournament.html" },
+  { i: <Ic.Heart/>,    t: "Tennis Clinics",            d: "Open-format clinics run by coaches who want you to get better, not just show up.", url: "tennis-clinics.html" },
 ];
 
 
-const TESTIMONIALS = [
-  { q:"Tennisnuts didn't just get me back on court — it gave me a Sunday morning crew I genuinely look forward to. Best decision of the year.", n:"Aditi Rane",   r:"4.0 player, Koregaon Park", a:"AR" },
-  { q:"Walked in nervous, no club, no doubles partner. Walked out with eight new friends and a tournament entry. That's the magic.",           n:"Karan Mehta", r:"Returning player, Baner",   a:"KM" },
-];
 
 const LOGOS = ["Manegrow","Capovítèz","Solinco","SportsJam","PMDTA"];
 
@@ -359,7 +339,7 @@ function Hero() {
             <p className="hero-sub">Open courts, easy doubles, big tournaments, and the kind of post-match chai sessions that turn opponents into your weekend regulars.</p>
             <div className="hero-ctas">
               <a href="#" className="btn btn-ball">Join WhatsApp <Ic.Arrow/></a>
-              <a href="socials.html" className="btn btn-ghost"><Ic.Play/> Explore Events</a>
+              <a href="#activities" className="btn btn-ghost"><Ic.Play/> Explore Events</a>
             </div>
             <div className="hero-stats">
               <div className="stat"><div className="num">800+</div><div className="label">Active Members</div></div>
@@ -391,9 +371,9 @@ function Who() {
         <div className="who-grid">
           <div className="who-copy">
             <div className="section-eyebrow">Who we are</div>
-            <h2>A tennis club that doesn't feel like one.</h2>
-            <p>Tennisnuts started with a few friends in Pune who wanted somewhere to play that wasn't stiff, wasn't expensive, and didn't require knowing the right people. Five years later we're still that — just with more of us.</p>
-            <p>We run weekend socials, organise the city's most-loved invitationals, put new players on court with coaches who care, and keep the chai flowing well past stumps. <b>Fair play, real friendships, and a healthy obsession with tennis.</b></p>
+            <h2>The group chat that became a community.</h2>
+            <p>Not a club. A WhatsApp community that never sleeps — court bookings at 6am, local match drama by noon, ATP and WTA hot takes by midnight. The groups are full energy, full opinion, and completely obsessed with tennis.</p>
+            <p>Engineers, doctors, lawyers, builders, consultants. Some of the sharpest people in Pune. All here for the same reason: <b>they genuinely love this sport.</b></p>
             <div className="who-tags">
               <span className="who-tag"><span className="b"></span> Open to all levels</span>
               <span className="who-tag"><span className="b"></span> Singles · Doubles · Mixed</span>
@@ -423,7 +403,7 @@ function Activities() {
         <div className="section-head">
           <div>
             <div className="section-eyebrow">What we do</div>
-            <h2>Eight ways to be a Tennisnut.</h2>
+            <h2>Six ways to be a Tennisnut.</h2>
           </div>
           <div className="right">From low-key Sunday socials to the city's most chased trophy. Show up for one, stay for all of them.</div>
         </div>
@@ -448,36 +428,6 @@ function Activities() {
 }
 
 
-function Testimonials() {
-  return (
-    <section className="section testimonials">
-      <div className="container">
-        <div className="section-head">
-          <div>
-            <div className="section-eyebrow">From the courts</div>
-            <h2>Players say it best.</h2>
-          </div>
-        </div>
-        <div className="test-grid">
-          {TESTIMONIALS.map((t,i) => (
-            <div key={i} className="test-card">
-              <div className="test-quote-mark">"</div>
-              <div className="stars">{Array.from({length:5}).map((_,k) => <Ic.Star key={k}/>)}</div>
-              <blockquote>{t.q}</blockquote>
-              <div className="test-author">
-                <div className="test-avatar">{t.a}</div>
-                <div>
-                  <div className="name">{t.n}</div>
-                  <div className="role">{t.r}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Partners() {
   return (
@@ -572,7 +522,6 @@ function App() {
         <Hero/>
         <Who/>
         <Activities/>
-        <Testimonials/>
         <Partners/>
         <Join/>
       </main>
