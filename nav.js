@@ -65,7 +65,7 @@
     + '</div>'
     + '</li>'
     + '</ul>'
-    + '<a href="#" class="nav-wa"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg> Join WhatsApp</a>'
+    + '<a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." class="nav-wa" target="_blank" rel="noopener"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg> Join WhatsApp</a>'
     + '<button class="nav-burger" id="nav-burger-btn" aria-label="Toggle menu"><span></span><span></span><span></span></button>'
     + '</div>'
     + '</nav>';

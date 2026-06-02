@@ -72,7 +72,7 @@
     + '</ul>'
     + '<div class="footer-socials">'
     + '<a href="https://www.instagram.com/tennisnuts_punecommunity?igsh=emlma3lseTQzYjNv" aria-label="Instagram" target="_blank" rel="noopener"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>'
-    + '<a href="#" aria-label="WhatsApp"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5z"/></svg></a>'
+    + '<a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." aria-label="WhatsApp" target="_blank" rel="noopener"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5z"/></svg></a>'
     + '<a href="https://www.facebook.com/TennisnutsPune/" aria-label="Facebook" target="_blank" rel="noopener"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 21v-8.2h2.8l.4-3.2h-3.2v-2c0-.9.3-1.6 1.6-1.6h1.7V3.2A23 23 0 0014.4 3c-2.4 0-4 1.5-4 4.1v2.5H7.6v3.2h2.8V21h3.1z"/></svg></a>'
     + '</div>'
     + '</div>'
