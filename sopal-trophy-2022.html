@@ -115,6 +115,19 @@
     .prize-sponsors-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
     @media(max-width:760px){.prize-sponsors-grid{grid-template-columns:1fr;gap:48px}}
 
+    /* FEEDBACK CARDS */
+    .feedback-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+    @media(max-width:900px){.feedback-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.feedback-grid{grid-template-columns:1fr}}
+    .feedback-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px 28px;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+    .feedback-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,0,0,0.1)}
+    .feedback-quote-mark{font-family:"Bricolage Grotesque",sans-serif;font-size:64px;line-height:0.6;color:var(--ball);margin-bottom:20px;font-weight:800}
+    .feedback-text{font-size:0.975rem;color:var(--ink-2);line-height:1.7;flex:1;margin-bottom:24px}
+    .feedback-author{display:flex;align-items:center;gap:12px;padding-top:20px;border-top:1px solid var(--line)}
+    .feedback-avatar{width:38px;height:38px;border-radius:50%;background:var(--green-soft);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--green);flex-shrink:0}
+    .feedback-name{font-weight:700;font-size:14px;color:var(--ink);line-height:1.2}
+    .feedback-affil{font-size:12px;color:var(--ink-2);margin-top:2px}
+
     /* FOOTER CTA */
     .footer-cta{background:var(--green-2);padding:64px 40px;text-align:center;position:relative;overflow:hidden}
     .footer-cta::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--ball) 0 40px,var(--green-3) 40px 80px)}
@@ -254,6 +267,53 @@
             <p class="highlight-desc">Two teams from Phaltan made the journey to Balewadi and competed beautifully — among several clubs new to the tournament scene who made their mark at the very first edition.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAYER FEEDBACK -->
+  <section class="section cream-bg">
+    <div class="container">
+      <div class="section-label">What Players Said</div>
+      <h2 class="section-title">Voices from the Tournament</h2>
+      <div class="feedback-grid">
+
+        <div class="feedback-card">
+          <div class="feedback-quote-mark">"</div>
+          <p class="feedback-text">Just to join the multitude and say what a fantastic and incredibly well organised tournament you hosted. Absolute credit to you guys for making it run on such smooth wheels. Thoroughly enjoyed every aspect — huge trophies, mega prize money, centre court access, refreshments, punctual scheduling and endless other conveniences. No one can't do better than the maximum, which you comfortably achieved. Looking forward to the next edition.</p>
+          <div class="feedback-author">
+            <div class="feedback-avatar">M</div>
+            <div>
+              <div class="feedback-name">Team MWTA</div>
+              <div class="feedback-affil">Runners-up, 2022 Edition</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feedback-card">
+          <div class="feedback-quote-mark">"</div>
+          <p class="feedback-text">To organise a team tournament with around 25+ clubs and complete it in 3 days is a mammoth task. The team organisers exceeded all expectations from a tournament of this grandeur. Scheduling, ATP standard courts, food, mushroom stall — all very good. Unforgettable players party. Narendra Sopal tournament was truly a memorable experience.</p>
+          <div class="feedback-author">
+            <div class="feedback-avatar">D</div>
+            <div>
+              <div class="feedback-name">Deepak Patil</div>
+              <div class="feedback-affil">Participant, 2022 Edition</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feedback-card">
+          <div class="feedback-quote-mark">"</div>
+          <p class="feedback-text">Excellent tournament. It stands out as one of the most professionally executed tournaments with excellent facilities for the participants. Kudos to the organizing committee for the super experience.</p>
+          <div class="feedback-author">
+            <div class="feedback-avatar">J</div>
+            <div>
+              <div class="feedback-name">Joy Banerjee</div>
+              <div class="feedback-affil">Participant, 2022 Edition</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
