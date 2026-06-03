@@ -3,12 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>S35+ Open Doubles 2025 — Tennisnuts Seniors Tennis</title>
+<title>PMDTA Tennisnuts Tour Feb 2023 — Seniors Tennis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-/* ── Design tokens ── */
 :root {
   --green: #3a5c2c;
   --green-2: #2c4621;
@@ -43,7 +42,6 @@ img, svg { display: block; max-width: 100%; }
 
 .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
 
-/* ── Section eyebrow ── */
 .eyebrow {
   font-family: "JetBrains Mono", monospace;
   font-size: 11px;
@@ -64,9 +62,7 @@ img, svg { display: block; max-width: 100%; }
   display: block;
 }
 
-/* ═══════════════════════════════
-   HERO
-═══════════════════════════════ */
+/* ═══ HERO ═══ */
 .ed-hero {
   background: var(--ink);
   position: relative;
@@ -81,14 +77,14 @@ img, svg { display: block; max-width: 100%; }
   background: repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 24px, transparent 24px 48px);
   pointer-events: none;
 }
-.hero-bg-season {
+.hero-bg-watermark {
   position: absolute;
   right: -10px;
   top: 50%;
   transform: translateY(-50%);
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 800;
-  font-size: clamp(140px, 20vw, 240px);
+  font-size: clamp(120px, 18vw, 200px);
   line-height: 1;
   color: #fff;
   opacity: 0.04;
@@ -108,7 +104,6 @@ img, svg { display: block; max-width: 100%; }
   transition: color .15s;
 }
 .breadcrumb:hover { color: rgba(255,255,255,0.85); }
-.breadcrumb svg { flex-shrink: 0; }
 
 .tournament-chip {
   display: inline-block;
@@ -124,41 +119,22 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 20px;
 }
 
-.season-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 999px;
-  padding: 5px 14px;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-left: 10px;
-  margin-bottom: 20px;
-  vertical-align: middle;
-}
-
 .ed-hero h1 {
-  font-size: clamp(48px, 8vw, 88px);
+  font-size: clamp(42px, 7vw, 80px);
   font-weight: 800;
   color: #fff;
   line-height: 0.95;
   letter-spacing: -0.04em;
   margin-bottom: 18px;
 }
-
 .hero-tagline {
-  font-size: clamp(16px, 2.5vw, 22px);
+  font-size: clamp(16px, 2.5vw, 20px);
   color: rgba(255,255,255,0.72);
   font-style: italic;
   margin-bottom: 28px;
   max-width: 44ch;
   line-height: 1.4;
 }
-
 .hero-meta {
   display: flex;
   align-items: center;
@@ -170,22 +146,37 @@ img, svg { display: block; max-width: 100%; }
 }
 .hero-meta .dot { opacity: 0.4; }
 
-/* ═══════════════════════════════
-   PODIUM
-═══════════════════════════════ */
+/* ═══ PODIUM — dual category ═══ */
 .ed-podium {
   background: #fff;
   padding: 80px 0;
 }
-.podium-grid {
+.podium-categories {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 32px;
   margin-top: 36px;
+}
+.podium-category-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ball);
+  display: inline-block;
+}
+.podium-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 .podium-card {
   border-radius: 20px;
-  padding: 32px 30px;
+  padding: 28px 26px;
   position: relative;
   overflow: hidden;
 }
@@ -196,9 +187,7 @@ img, svg { display: block; max-width: 100%; }
 .podium-card.winners::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 4px;
   background: var(--ball);
 }
@@ -207,11 +196,7 @@ img, svg { display: block; max-width: 100%; }
   border: 1.5px solid var(--line);
   color: var(--ink);
 }
-.podium-icon {
-  font-size: 32px;
-  margin-bottom: 12px;
-  line-height: 1;
-}
+.podium-icon { font-size: 28px; margin-bottom: 10px; line-height: 1; }
 .podium-label {
   font-family: "JetBrains Mono", monospace;
   font-size: 10px;
@@ -219,21 +204,21 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.65;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .podium-card.winners .podium-label { color: rgba(255,255,255,0.75); }
 .podium-card.runners .podium-label { color: var(--ink-2); }
 .podium-names {
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 700;
-  font-size: clamp(20px, 3vw, 28px);
+  font-size: clamp(18px, 2.5vw, 24px);
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
 .podium-card.winners .podium-names { color: #fff; }
 .podium-card.runners .podium-names { color: var(--ink); }
 .podium-note {
-  margin-top: 14px;
+  margin-top: 10px;
   font-size: 13px;
   opacity: 0.75;
   line-height: 1.5;
@@ -241,17 +226,9 @@ img, svg { display: block; max-width: 100%; }
 .podium-card.winners .podium-note { color: rgba(255,255,255,0.8); }
 .podium-card.runners .podium-note { color: var(--ink-2); }
 
-/* ═══════════════════════════════
-   STORY
-═══════════════════════════════ */
-.ed-story {
-  background: var(--cream);
-  padding: 80px 0;
-}
-.story-content {
-  max-width: 720px;
-  margin-top: 28px;
-}
+/* ═══ STORY ═══ */
+.ed-story { background: var(--cream); padding: 80px 0; }
+.story-content { max-width: 720px; margin-top: 28px; }
 .story-content p {
   font-size: 17px;
   color: var(--ink-2);
@@ -281,7 +258,6 @@ img, svg { display: block; max-width: 100%; }
   border-top: 1px solid var(--line);
   font-size: 14px;
   color: var(--ink-2);
-  opacity: 0.8;
   line-height: 1.6;
 }
 .whats-next {
@@ -308,13 +284,8 @@ img, svg { display: block; max-width: 100%; }
 }
 .whats-next p:last-child { margin-bottom: 0; }
 
-/* ═══════════════════════════════
-   SPOTLIGHTS
-═══════════════════════════════ */
-.ed-spotlights {
-  background: var(--green-soft);
-  padding: 80px 0;
-}
+/* ═══ SPOTLIGHTS ═══ */
+.ed-spotlights { background: var(--green-soft); padding: 80px 0; }
 .spotlights-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -332,11 +303,7 @@ img, svg { display: block; max-width: 100%; }
   transform: translateY(-4px);
   box-shadow: 0 16px 40px -12px rgba(58,92,44,0.2);
 }
-.spotlight-emoji {
-  font-size: 30px;
-  margin-bottom: 14px;
-  line-height: 1;
-}
+.spotlight-emoji { font-size: 30px; margin-bottom: 14px; line-height: 1; }
 .spotlight-name {
   font-family: "Bricolage Grotesque", sans-serif;
   font-size: 19px;
@@ -345,12 +312,7 @@ img, svg { display: block; max-width: 100%; }
   margin-bottom: 8px;
   letter-spacing: -0.02em;
 }
-.spotlight-note {
-  font-size: 14px;
-  color: var(--ink-2);
-  line-height: 1.55;
-  margin-bottom: 16px;
-}
+.spotlight-note { font-size: 14px; color: var(--ink-2); line-height: 1.55; margin-bottom: 16px; }
 .spotlight-tag {
   display: inline-flex;
   align-items: center;
@@ -367,18 +329,8 @@ img, svg { display: block; max-width: 100%; }
   border: 1px solid rgba(58,92,44,0.15);
 }
 
-/* ═══════════════════════════════
-   GALLERY
-═══════════════════════════════ */
-.ed-gallery {
-  background: var(--ink);
-  padding: 80px 0;
-}
-.gallery-header {
-  margin-bottom: 36px;
-}
-.gallery-header .eyebrow { color: rgba(255,255,255,0.55); }
-.gallery-header .eyebrow::before { background: var(--ball); opacity: 0.7; }
+/* ═══ GALLERY ═══ */
+.ed-gallery { background: var(--ink); padding: 80px 0; }
 .gallery-label {
   font-family: "Bricolage Grotesque", sans-serif;
   font-size: clamp(24px, 4vw, 36px);
@@ -386,10 +338,7 @@ img, svg { display: block; max-width: 100%; }
   color: #fff;
   letter-spacing: -0.02em;
 }
-.gallery-mosaic {
-  columns: 3;
-  column-gap: 14px;
-}
+.gallery-mosaic { columns: 3; column-gap: 14px; }
 .gallery-slot {
   break-inside: avoid;
   border-radius: 12px;
@@ -398,15 +347,13 @@ img, svg { display: block; max-width: 100%; }
   position: relative;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-start;
 }
 .gallery-slot:nth-child(3n+1) { aspect-ratio: 4/3; }
 .gallery-slot:nth-child(3n+2) { aspect-ratio: 3/4; }
 .gallery-slot:nth-child(3n)   { aspect-ratio: 1/1; }
 .gallery-slot-label {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 10px; left: 10px;
   font-family: "JetBrains Mono", monospace;
   font-size: 10px;
   color: rgba(255,255,255,0.6);
@@ -415,25 +362,17 @@ img, svg { display: block; max-width: 100%; }
   border-radius: 4px;
   backdrop-filter: blur(4px);
 }
+.gallery-slot:nth-child(1) { background: linear-gradient(135deg, #2c4621, #4d7239); }
+.gallery-slot:nth-child(2) { background: linear-gradient(160deg, #3a5c2c, #6b8c4f); }
+.gallery-slot:nth-child(3) { background: linear-gradient(120deg, #1c2218, #3a5c2c); }
+.gallery-slot:nth-child(4) { background: linear-gradient(150deg, #4d7239, #cddc39 200%); }
+.gallery-slot:nth-child(5) { background: linear-gradient(100deg, #2c4621, #4a5240); }
+.gallery-slot:nth-child(6) { background: linear-gradient(170deg, #3a5c2c, #2c4621); }
+.gallery-slot:nth-child(7) { background: linear-gradient(130deg, #1c2218, #4d7239); }
+.gallery-slot:nth-child(8) { background: linear-gradient(115deg, #4d7239, #3a5c2c); }
 
-.gallery-slot:nth-child(1)  { background: linear-gradient(135deg, #2c4621, #4d7239); }
-.gallery-slot:nth-child(2)  { background: linear-gradient(160deg, #3a5c2c, #6b8c4f); }
-.gallery-slot:nth-child(3)  { background: linear-gradient(120deg, #1c2218, #3a5c2c); }
-.gallery-slot:nth-child(4)  { background: linear-gradient(150deg, #4d7239, #cddc39 200%); }
-.gallery-slot:nth-child(5)  { background: linear-gradient(100deg, #2c4621, #4a5240); }
-.gallery-slot:nth-child(6)  { background: linear-gradient(170deg, #3a5c2c, #2c4621); }
-.gallery-slot:nth-child(7)  { background: linear-gradient(130deg, #1c2218, #4d7239); }
-.gallery-slot:nth-child(8)  { background: linear-gradient(115deg, #4d7239, #3a5c2c); }
-.gallery-slot:nth-child(9)  { background: linear-gradient(145deg, #2c4621, #1c2218); }
-.gallery-slot:nth-child(10) { background: linear-gradient(125deg, #3a5c2c, #6b8c4f); }
-
-/* ═══════════════════════════════
-   EDITION NAV
-═══════════════════════════════ */
-.ed-nav {
-  background: var(--green-2);
-  padding: 36px 0;
-}
+/* ═══ EDITION NAV ═══ */
+.ed-nav { background: var(--green-2); padding: 36px 0; }
 .ed-nav .container {
   display: flex;
   align-items: center;
@@ -466,19 +405,15 @@ img, svg { display: block; max-width: 100%; }
 }
 .ed-nav-center:hover { opacity: 0.8; }
 
-/* ═══════════════════════════════
-   RESPONSIVE
-═══════════════════════════════ */
-@media (max-width: 700px) {
-  .podium-grid { grid-template-columns: 1fr; }
-  .ed-hero { padding: 56px 0 52px; }
-  .ed-podium, .ed-story, .ed-spotlights, .ed-gallery { padding: 60px 0; }
-}
+/* ═══ RESPONSIVE ═══ */
 @media (max-width: 760px) {
+  .podium-categories { grid-template-columns: 1fr; gap: 40px; }
   .gallery-mosaic { columns: 2; }
   .spotlights-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
+  .ed-hero { padding: 56px 0 52px; }
+  .ed-podium, .ed-story, .ed-spotlights, .ed-gallery { padding: 60px 0; }
   .gallery-mosaic { columns: 1; }
   .spotlights-grid { grid-template-columns: 1fr; }
   .ed-nav .container { flex-direction: column; gap: 12px; text-align: center; }
@@ -493,21 +428,21 @@ img, svg { display: block; max-width: 100%; }
 
   <!-- ══ HERO ══ -->
   <section class="ed-hero">
-    <div class="hero-bg-season">S35+</div>
+    <div class="hero-bg-watermark">FEB '23</div>
     <div class="container">
       <a href="seniors.html" class="breadcrumb">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         Seniors Tennis
       </a>
       <div class="tournament-chip">PMDTA · Tennisnuts Tour</div>
-      <h1>S35+ Open<br>Doubles</h1>
-      <p class="hero-tagline">"Chemistry forged on court, not in practice — a debut partnership lifts the trophy"</p>
+      <h1>S35+ Singles<br>&amp; Doubles</h1>
+      <p class="hero-tagline">"Two Kotharis, two draws, one unforgettable weekend of seniors tennis"</p>
       <div class="hero-meta">
-        <span>📍 Pune</span>
+        <span>📍 AWTA NCL &amp; CPR, Pune</span>
         <span class="dot">·</span>
-        <span>Season 2025–26 Opener</span>
+        <span>February 2023</span>
         <span class="dot">·</span>
-        <span>Powered by Sportsjam</span>
+        <span>Under aegis of PMDTA</span>
       </div>
     </div>
   </section>
@@ -517,19 +452,46 @@ img, svg { display: block; max-width: 100%; }
     <div class="container">
       <div class="eyebrow">Results</div>
       <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">The Podium</h2>
-      <div class="podium-grid">
-        <div class="podium-card winners">
-          <div class="podium-icon">🏆</div>
-          <div class="podium-label">Winners</div>
-          <div class="podium-names">Ajinkya &amp;<br>Sumant</div>
-          <p class="podium-note">First time playing together — special chemistry that clicked from the very first point.</p>
+      <div class="podium-categories">
+
+        <!-- Singles -->
+        <div>
+          <div class="podium-category-label">Singles</div>
+          <div class="podium-pair">
+            <div class="podium-card winners">
+              <div class="podium-icon">🏆</div>
+              <div class="podium-label">Winner</div>
+              <div class="podium-names">Dr Rahul Kothari</div>
+              <p class="podium-note">Clinical, composed, and relentless — settled a fierce family rivalry to take the singles crown.</p>
+            </div>
+            <div class="podium-card runners">
+              <div class="podium-icon">🥈</div>
+              <div class="podium-label">Runner-up</div>
+              <div class="podium-names">Dr Ravi Kothari</div>
+              <p class="podium-note">The Iron Man of the tournament. Extraordinary fitness and gutsy play right to the end.</p>
+            </div>
+          </div>
         </div>
-        <div class="podium-card runners">
-          <div class="podium-icon">🥈</div>
-          <div class="podium-label">Runners-up</div>
-          <div class="podium-names">Sunil &amp;<br>Joy</div>
-          <p class="podium-note">Gutsy through every round, came desperately close in a tightly contested final.</p>
+
+        <!-- Doubles -->
+        <div>
+          <div class="podium-category-label">Doubles</div>
+          <div class="podium-pair">
+            <div class="podium-card winners">
+              <div class="podium-icon">🏆</div>
+              <div class="podium-label">Winners</div>
+              <div class="podium-names">Sandeep Belludi<br>&amp; Joy Banerjee</div>
+              <p class="podium-note">Incredible hands at the net from Sandeep, power and precision from Joy — a complete doubles pairing.</p>
+            </div>
+            <div class="podium-card runners">
+              <div class="podium-icon">🥈</div>
+              <div class="podium-label">Runners-up</div>
+              <div class="podium-names">Amit Kindo<br>&amp; Sunil Lulla</div>
+              <p class="podium-note">A great combination — chemistry, communication, and quality tennis right through the draw.</p>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -540,27 +502,29 @@ img, svg { display: block; max-width: 100%; }
       <div class="eyebrow">The Story</div>
       <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Tournament Recap</h2>
       <div class="story-content">
-        <p>The PMDTA Tennisnuts Tour kicked off its 2025–26 season with the S35+ Open Doubles — and true to form, it refused to make things easy. Rain delays tested everyone's patience, the draw was confirmed with less than 16 hours' notice, and three powerful groups promised no easy matches from round one.</p>
+
+        <p>An overwhelming response from senior players across the city set the tone from the very start. The PMDTA Tennisnuts Tour Feb '23 — the first seniors edition to include both Singles and Doubles categories — was held across two venues: AWTA NCL and CPR, Pune. Clay courts, quality tennis, and the kind of atmosphere that only the seniors circuit seems to produce.</p>
 
         <div class="pull-quote">
-          <p>"Ajinkya and Sumant had never played together before — but on the day, they played like they'd been partners for years."</p>
+          <p>"The match between Sheeladitya and Dr Ravi Kothari was bliss to watch — a semifinal that went to a tiebreak, with amazing points played between two warriors."</p>
         </div>
 
-        <p>The real story of the tournament was the winning pair. Ajinkya and Sumant took the court as first-time partners, no shared practice, no rehearsed patterns. What they had instead was instinct, trust, and the kind of on-court communication that can't be manufactured. They read each other effortlessly, covered ground without words, and when the final arrived, they were simply the better team — composed, clinical, and completely in sync.</p>
+        <p>The Singles draw produced the tournament's most talked-about storyline: a final between brothers. Dr Rahul Kothari and Dr Ravi Kothari — two outstanding players, one extraordinary family rivalry. Dr Ravi was the undisputed Iron Man of the tournament, playing with extraordinary fitness and gutsy intensity throughout, including a sensational semifinal tiebreak against Sheeladitya that had everyone watching. But in the final, Dr Rahul was the better player on the day, taking the title in what the crowd agreed was a beautiful match to witness.</p>
 
-        <p>Sunil and Joy made them earn every point. The runners-up were gutsy and relentless, bringing intensity to every rally and pushing the final to its limits. Their campaign through the draw was impressive, and they left the court knowing they'd given everything. A podium fully deserved.</p>
+        <p>The Doubles draw told an equally compelling story. Sandeep Belludi and Joy Banerjee were simply outstanding — Sandeep's hands at the net were called the best seen at the tournament, while Joy's serve was a weapon all week. Together they were a complete pair, and their title was fully deserved. Amit Kindo and Sunil Lulla pushed them hard; their combination and understanding of each other's game made them formidable right through the draw.</p>
 
-        <p>Beyond the finalists, this was a tournament full of quality. Three powerful groups meant that upsets lurked around every corner, and the matches across all groups were competitive, well-contested, and exactly what the PMDTA Tennisnuts Tour was built for — serious tennis in a genuine community setting.</p>
+        <p>Other names that made an impression: the Baramati pair of Shashank Mane Sir and Dr Avinash, who made the journey to Pune and played wonderful tennis; Ganesh's serving alongside Joy; and Tennisnuts Panchayat's own players competing with full dedication for the love of the game.</p>
 
         <div class="story-thanks">
-          A big thank you to Sportsjam for their continued support in making these events possible. Sincere thanks to Venky, Atul, and Amit K for all the effort behind the scenes, and to Mahesh Sir for keeping the courts in shape despite a stubborn weather forecast.
+          Heartfelt thanks to <strong>Venky</strong> for ground-0 operations and <strong>Amit Kindo</strong> for the challenging task of scheduling. To <strong>Aniket Wakankar Sir, Nilesh Sir, and Gopal Sir</strong> for keeping the courts in excellent condition — a fine clay experience throughout. To <strong>Kumar</strong> for stepping in to help run CPR on Saturday's second half. And to <strong>Chetan and team</strong> for their sincerity on court maintenance and watering. Thanks also to Abhishek Tamhane Sir and Himanshu Gosavi Sir of PMDTA for their constant guidance and support.
         </div>
 
         <div class="whats-next">
-          <div class="whats-next-label">What's Next</div>
-          <p>Registrations are open for the <strong>Pune Seniors Doubles League</strong> — a new format, more matches, same community.</p>
-          <p>Mark your calendars: <strong>Tennisnuts Club Championship Edition II</strong> — 30–31 Oct &amp; 1–2 Nov. Details coming soon.</p>
+          <div class="whats-next-label">Categories for 2023</div>
+          <p>Following the success of this edition, the PMDTA Tennisnuts Tour officially announced four categories for the 2023 seniors circuit:</p>
+          <p><strong>35+</strong> &nbsp;·&nbsp; <strong>45+</strong> &nbsp;·&nbsp; <strong>55+</strong> &nbsp;·&nbsp; <strong>Open Seniors (15+)</strong> — all pros, coaches, and community players welcome.</p>
         </div>
+
       </div>
     </div>
   </section>
@@ -568,29 +532,43 @@ img, svg { display: block; max-width: 100%; }
   <!-- ══ SPOTLIGHTS ══ -->
   <section class="ed-spotlights">
     <div class="container">
-      <div class="eyebrow">Standout Pairs</div>
+      <div class="eyebrow">Match Moments</div>
       <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Players of Note</h2>
       <div class="spotlights-grid">
 
         <div class="spotlight-card">
-          <div class="spotlight-emoji">⚡</div>
-          <div class="spotlight-name">Deepak &amp; Salil</div>
-          <p class="spotlight-note">One of the most impressive pairs through the group stages — consistent, aggressive, and brought a high level throughout. Made their opponents work for every point.</p>
-          <span class="spotlight-tag">⚡ Standout Pair</span>
+          <div class="spotlight-emoji">⚔️</div>
+          <div class="spotlight-name">Kothari Brothers Final</div>
+          <p class="spotlight-note">When the Singles draw produced a Kothari vs Kothari final, everyone stopped. Dr Rahul and Dr Ravi — identical baseline pedigree, different game plans. Dr Rahul edged it, but the match was a spectacle from start to finish.</p>
+          <span class="spotlight-tag">⚔️ Family Rivalry</span>
         </div>
 
         <div class="spotlight-card">
-          <div class="spotlight-emoji">🎯</div>
-          <div class="spotlight-name">Saurabh &amp; Prathmesh</div>
-          <p class="spotlight-note">Tactical, smart, and remarkably solid under pressure. Their reading of the game and controlled aggression made them one of the tournament's most watchable pairs.</p>
-          <span class="spotlight-tag">🎯 Tactical Brilliance</span>
+          <div class="spotlight-emoji">🔥</div>
+          <div class="spotlight-name">Sheeladitya vs Dr Ravi</div>
+          <p class="spotlight-note">The semifinal that stole the show. Both players raised their level with every point — it went to a tiebreak, and the quality of tennis had everyone watching in silence. A defining match of the tournament.</p>
+          <span class="spotlight-tag">🔥 Semifinal Thriller</span>
         </div>
 
         <div class="spotlight-card">
-          <div class="spotlight-emoji">👨‍⚕️</div>
-          <div class="spotlight-name">Dr Rahul &amp; Dr Ravi</div>
-          <p class="spotlight-note">Precision on both sides of the court — a partnership built on patience and placement. Showed exactly why experience at the seniors level is such a powerful weapon.</p>
-          <span class="spotlight-tag">👨‍⚕️ Experience Wins</span>
+          <div class="spotlight-emoji">🤲</div>
+          <div class="spotlight-name">Sandeep Belludi</div>
+          <p class="spotlight-note">Described in the post-tournament notes as having "incredible hands" — Sandeep's net game was the talk of the Doubles draw. Quick, decisive, and able to change the point with a single touch.</p>
+          <span class="spotlight-tag">🤲 Best Hands</span>
+        </div>
+
+        <div class="spotlight-card">
+          <div class="spotlight-emoji">🏡</div>
+          <div class="spotlight-name">Baramati Pair</div>
+          <p class="spotlight-note">Shashank Mane Sir and Dr Avinash made the trip from Baramati to Pune and played beautiful tennis — a welcome addition to the field and a reminder that Pune's seniors tennis goes well beyond the city limits.</p>
+          <span class="spotlight-tag">🏡 Guests of Honour</span>
+        </div>
+
+        <div class="spotlight-card">
+          <div class="spotlight-emoji">💪</div>
+          <div class="spotlight-name">Dr Ravi Kothari</div>
+          <p class="spotlight-note">The Iron Man of the tournament. His fitness level throughout — across Singles and a tough bracket — drew universal admiration. Played every point like it was the last and never gave an easy game.</p>
+          <span class="spotlight-tag">💪 Iron Man</span>
         </div>
 
       </div>
@@ -600,9 +578,9 @@ img, svg { display: block; max-width: 100%; }
   <!-- ══ GALLERY ══ -->
   <section class="ed-gallery">
     <div class="container">
-      <div class="gallery-header">
+      <div style="margin-bottom:36px">
         <div class="eyebrow" style="color:rgba(255,255,255,0.5);">Through the Lens</div>
-        <div class="gallery-label">S35+ Open Doubles 2025 — Photos</div>
+        <div class="gallery-label">PMDTA Tennisnuts Tour Feb '23 — Photos</div>
       </div>
       <div class="gallery-mosaic">
         <div class="gallery-slot"><span class="gallery-slot-label">Photo 1</span></div>
@@ -613,8 +591,6 @@ img, svg { display: block; max-width: 100%; }
         <div class="gallery-slot"><span class="gallery-slot-label">Photo 6</span></div>
         <div class="gallery-slot"><span class="gallery-slot-label">Photo 7</span></div>
         <div class="gallery-slot"><span class="gallery-slot-label">Photo 8</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 9</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 10</span></div>
       </div>
     </div>
   </section>
@@ -622,22 +598,21 @@ img, svg { display: block; max-width: 100%; }
   <!-- ══ EDITION NAV ══ -->
   <nav class="ed-nav" aria-label="Tournament navigation">
     <div class="container">
-      <a href="seniors-feb-2023.html" class="ed-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        Feb 2023
-      </a>
-      <a href="seniors.html" class="ed-nav-center">All Seniors</a>
       <span class="ed-nav-link disabled">
-        Upcoming
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Previous
       </span>
+      <a href="seniors.html" class="ed-nav-center">All Seniors</a>
+      <a href="seniors-s35-2025.html" class="ed-nav-link">
+        S35+ Doubles 2025
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
     </div>
   </nav>
 
 </main>
 
 <div id="site-footer"></div>
-
 <script src="nav.js"></script>
 <script src="footer.js"></script>
 </body>
