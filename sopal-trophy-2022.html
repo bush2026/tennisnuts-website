@@ -111,6 +111,10 @@
     .prize-table tr:last-child td{border-bottom:none}
     .prize-amount{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;color:var(--green);font-size:1.1rem}
 
+    /* PRIZE + SPONSORS TWO-COL */
+    .prize-sponsors-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+    @media(max-width:760px){.prize-sponsors-grid{grid-template-columns:1fr;gap:48px}}
+
     /* FOOTER CTA */
     .footer-cta{background:var(--green-2);padding:64px 40px;text-align:center;position:relative;overflow:hidden}
     .footer-cta::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--ball) 0 40px,var(--green-3) 40px 80px)}
@@ -308,7 +312,7 @@
   <!-- PRIZE MONEY -->
   <section class="section">
     <div class="container">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+      <div class="prize-sponsors-grid">
         <div>
           <div class="section-label">Prize Structure</div>
           <h2 class="section-title">Full Prize Money</h2>
