@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Open May 2026 — Tennisnuts Open</title>
+<title>Open Jun 2022 — Tennisnuts Open</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -171,39 +171,24 @@ img, svg { display: block; max-width: 100%; }
 .hero-meta .dot { opacity: 0.4; }
 
 /* ═══════════════════════════════
-   PODIUM — DUAL CATEGORY
+   PODIUM — SINGLE CATEGORY
 ═══════════════════════════════ */
 .ed-podium {
   background: #fff;
   padding: 80px 0;
 }
-.podium-categories {
+.podium-simple {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  gap: 20px;
   margin-top: 36px;
-}
-.podium-category-label {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--green-2);
-  background: var(--ball);
-  display: inline-block;
-  padding: 5px 14px;
-  border-radius: 999px;
-  margin-bottom: 16px;
 }
 .podium-card {
   border-radius: 20px;
   padding: 28px 26px;
   position: relative;
   overflow: hidden;
-  margin-bottom: 14px;
 }
-.podium-card:last-child { margin-bottom: 0; }
 .podium-card.winners {
   background: var(--green);
   color: #fff;
@@ -244,9 +229,16 @@ img, svg { display: block; max-width: 100%; }
   font-size: clamp(18px, 2.4vw, 24px);
   line-height: 1.15;
   letter-spacing: -0.02em;
+  margin-bottom: 12px;
 }
 .podium-card.winners .podium-names { color: #fff; }
 .podium-card.runners .podium-names { color: var(--ink); }
+.podium-note {
+  font-size: 14px;
+  line-height: 1.55;
+}
+.podium-card.winners .podium-note { color: rgba(255,255,255,0.75); }
+.podium-card.runners .podium-note { color: var(--ink-2); }
 
 /* ═══════════════════════════════
    STORY
@@ -430,8 +422,6 @@ img, svg { display: block; max-width: 100%; }
 .gallery-slot:nth-child(6)  { background: linear-gradient(170deg, #2c4621, #1c2218); }
 .gallery-slot:nth-child(7)  { background: linear-gradient(130deg, #0e1810, #3a5c2c); }
 .gallery-slot:nth-child(8)  { background: linear-gradient(115deg, #3a5c2c, #2c4621); }
-.gallery-slot:nth-child(9)  { background: linear-gradient(145deg, #1c2218, #0e1810); }
-.gallery-slot:nth-child(10) { background: linear-gradient(125deg, #2c4621, #4d7239); }
 
 /* ═══════════════════════════════
    EDITION NAV
@@ -476,7 +466,7 @@ img, svg { display: block; max-width: 100%; }
    RESPONSIVE
 ═══════════════════════════════ */
 @media (max-width: 700px) {
-  .podium-categories { grid-template-columns: 1fr; }
+  .podium-simple { grid-template-columns: 1fr; }
   .ed-hero { padding: 56px 0 52px; }
   .ed-podium, .ed-story, .ed-spotlights, .ed-gallery { padding: 60px 0; }
 }
@@ -499,63 +489,47 @@ img, svg { display: block; max-width: 100%; }
 
   <!-- ══ HERO ══ -->
   <section class="ed-hero">
-    <div class="hero-bg-text">MAY 26</div>
+    <div class="hero-bg-text">JUN '22</div>
     <div class="container">
       <a href="open.html" class="breadcrumb">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         Tennisnuts Open
       </a>
       <div>
-        <span class="tournament-chip">Tennisnuts Open</span>
-        <span class="maiden-badge"><span class="star">★</span> Maiden Edition</span>
+        <span class="tournament-chip">PMDTA · Tennisnuts Open</span>
+        <span class="maiden-badge"><span class="star">★</span> Inaugural Edition</span>
       </div>
-      <h1>Open<br>May 2026</h1>
-      <p class="hero-tagline">"Seniors challenged juniors, juniors fought back — and history was made in the Pune heat"</p>
+      <h1>Amateur<br>Doubles</h1>
+      <p class="hero-tagline">Senior amateurs, retired pros, and one inspiring woman — Pune's first Open draw had everything</p>
       <div class="hero-meta">
-        <span>📍 AWTA, Pune</span>
+        <span>📍 AWTA CPR, Pashan</span>
         <span class="dot">·</span>
-        <span>Singles + Doubles</span>
+        <span>11–12 June 2022</span>
         <span class="dot">·</span>
-        <span>Powered by Sportsjam</span>
+        <span>Inaugural Amateur Doubles edition</span>
       </div>
     </div>
   </section>
 
-  <!-- ══ PODIUM — DUAL CATEGORY ══ -->
+  <!-- ══ PODIUM — SINGLE CATEGORY ══ -->
   <section class="ed-podium">
     <div class="container">
       <div class="eyebrow">Results</div>
-      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">The Podiums</h2>
-      <div class="podium-categories">
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">The Podium</h2>
+      <div class="podium-simple">
 
-        <!-- SINGLES -->
-        <div>
-          <div class="podium-category-label">🎾 Singles</div>
-          <div class="podium-card winners">
-            <div class="podium-icon">🏆</div>
-            <div class="podium-label">Winner</div>
-            <div class="podium-names">Tanishq Jadhav</div>
-          </div>
-          <div class="podium-card runners">
-            <div class="podium-icon">🥈</div>
-            <div class="podium-label">Runner-up</div>
-            <div class="podium-names">Aariz Khan</div>
-          </div>
+        <div class="podium-card winners">
+          <div class="podium-icon">🏆</div>
+          <div class="podium-label">Winners · Amateur Doubles</div>
+          <div class="podium-names">Prasad Ingle &amp;<br>Rohan Phule</div>
+          <p class="podium-note">Claimed the inaugural title — composed, clinical, and deserving through every round.</p>
         </div>
 
-        <!-- DOUBLES -->
-        <div>
-          <div class="podium-category-label">🤝 Doubles</div>
-          <div class="podium-card winners">
-            <div class="podium-icon">🏆</div>
-            <div class="podium-label">Winners</div>
-            <div class="podium-names">Shivam Padia &amp;<br>Sudhanshu Sawant</div>
-          </div>
-          <div class="podium-card runners">
-            <div class="podium-icon">🥈</div>
-            <div class="podium-label">Runners-up</div>
-            <div class="podium-names">Aditya Bhave &amp;<br>Atul Karampurwala</div>
-          </div>
+        <div class="podium-card runners">
+          <div class="podium-icon">🥈</div>
+          <div class="podium-label">Runners-up · Amateur Doubles</div>
+          <div class="podium-names">Dr Ravi Kothari &amp;<br>Dr Rahul Kothari</div>
+          <p class="podium-note">The Kothari brothers reached the final together — remarkable quality from a pairing that makes finals look routine.</p>
         </div>
 
       </div>
@@ -568,25 +542,23 @@ img, svg { display: block; max-width: 100%; }
       <div class="eyebrow">The Story</div>
       <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Tournament Recap</h2>
       <div class="story-content">
-        <p>History. The first-ever Tennisnuts Open — and it delivered on every front. An overwhelming response from players across the city, scorching May heat that tested every participant's resolve, and a draw with no age divisions meant the courts produced exactly what an Open should: unpredictable, emotionally charged, fiercely competitive tennis.</p>
+        <p>The Tennisnuts Open Amateurs Doubles — held on 11–12 June 2022 at AWTA CPR Pashan — drew an overwhelming response from players across the city. Backed by PMDTA and run with the rigour of a proper Open event, it proved beyond doubt that there was a real appetite for competitive open-format tennis in Pune. From the very first round, every match had something at stake — and the courts delivered.</p>
+
+        <p>What made this format special was the cross-generational mix in the draw. Senior amateurs — steady, experienced, tactically sharp — found themselves across the net from younger players who had only recently stepped away from their professional or college careers and entered business life. That collision of generations, of different styles and different stages of the game, produced the kind of tennis that you simply cannot manufacture with age-group restrictions. It was tennis in its truest open spirit.</p>
+
+        <p>Prasad Ingle and Rohan Phule took the title in commanding fashion — composed and clinical from the first round through the final, leaving no doubt that they were the better team on the day. The Kothari brothers — Dr Ravi and Dr Rahul — reached the final once again, their consistency and quality seemingly immune to format or occasion. A pairing that has become a fixture at the sharp end of every draw they enter.</p>
 
         <div class="pull-quote">
-          <p>"Seniors against juniors on the same draw — and the experienced ones gave as good as they got. This is what the Open was built for."</p>
+          <p>"Good level of tennis — senior amateurs matching the game with youngsters who are done with their pro careers. That's exactly the spirit of the Open."</p>
         </div>
 
-        <p>Tanishq Jadhav has been here before. Clinching yet another Open Singles title — following his Flame tournament win — he came through opponents who each believed they had a shot, and proved again why he's one of the most dangerous players in the circuit. Aariz Khan pushed him hard and fully deserved his runner-up finish.</p>
-
-        <p>The Doubles final was a different kind of story. Shivam Padia and Sudhanshu Sawant, riding the momentum of the Wakad tournament win, showed they love a podium — and they love earning it. Aditya Bhave and Atul Karampurwala — veterans of the circuit — proving that experience isn't a handicap in Open tennis, it's a weapon. Senior doubles specialists everywhere will have taken heart from their run to the final.</p>
-
-        <p>Among the highlights: Sunil, Dr Ranade, Ajinkya, Joy, and Dr Ravi — senior players who stepped into an open draw and fought juniors point for point. These battles were some of the most watched of the day. The Open format creates exactly these collisions, and Pune's tennis community is richer for it.</p>
-
         <div class="story-thanks">
-          Huge thanks to Sportsjam for powering the event. AWTA for providing excellent courts. Mahesh and Prakash for maintaining and watering throughout the day in that heat. Amit Kindo and Atul K for running the show on the ground. And a very special thanks to Amit Kindo for navigating the complex scheduling — making sure every player had back-to-back matches and the day stayed tight and competitive.
+          Heartfelt thanks to Venki and Amit for flawless scheduling and player communications — the event ran without a hitch because of their work. To Nilesh Sir, Aniket Wakankar Sir, and the CPR authorities for making the facility available and supporting the vision. A special mention of our YouTube live streaming pilot — we tried, we learned, we'll improve. Every first attempt teaches something, and this one taught us a great deal.
         </div>
 
         <div class="whats-next">
-          <div class="whats-next-label">On Demand — Next Edition</div>
-          <p><strong>Tennisnuts Open with Coaches Allowed</strong> — by popular request. Details coming soon. Watch this space.</p>
+          <div class="whats-next-label">Special Mention</div>
+          <p>Aishwarya was the only woman in the draw — and played gutsy, clean tennis throughout. An inspiring presence that raised the standard for everyone watching.</p>
         </div>
       </div>
     </div>
@@ -600,24 +572,24 @@ img, svg { display: block; max-width: 100%; }
       <div class="spotlights-grid">
 
         <div class="spotlight-card">
-          <div class="spotlight-emoji">👑</div>
-          <div class="spotlight-name">Tanishq Jadhav</div>
-          <p class="spotlight-note">Another Open Singles title for Tanishq — following his Flame win, he showed again that tough opponents only bring out the best in him. Composed, clinical, and decisive when it counted.</p>
-          <span class="spotlight-tag">👑 Singles Champion</span>
+          <div class="spotlight-emoji">🎖️</div>
+          <div class="spotlight-name">Prasad Ingle &amp; Rohan Phule</div>
+          <p class="spotlight-note">Took the inaugural title with composure and quality. A pairing that left no doubts — they were the better team across every match.</p>
+          <span class="spotlight-tag">🎖️ Inaugural Champions</span>
         </div>
 
         <div class="spotlight-card">
-          <div class="spotlight-emoji">🔥</div>
-          <div class="spotlight-name">Shivam Padia</div>
-          <p class="spotlight-note">Back-to-back podiums — Wakad tournament, now Tennisnuts Open Doubles. Shivam just loves a trophy. He and Sudhanshu Sawant were the most consistent pair of the day.</p>
-          <span class="spotlight-tag">🔥 Back-to-Back Champ</span>
+          <div class="spotlight-emoji">👩‍🎾</div>
+          <div class="spotlight-name">Aishwarya</div>
+          <p class="spotlight-note">The only woman in the draw — played gutsy, clean, and inspiring tennis throughout. A special presence at the very first Open edition.</p>
+          <span class="spotlight-tag">👩‍🎾 Most Inspiring</span>
         </div>
 
         <div class="spotlight-card">
-          <div class="spotlight-emoji">💪</div>
-          <div class="spotlight-name">Aditya Bhave &amp; Atul K</div>
-          <p class="spotlight-note">Senior warriors who took the fight to the younger generation and made the Doubles final. Proof that doubles intelligence and experience are as powerful as pace and power at any age.</p>
-          <span class="spotlight-tag">💪 Senior Warriors</span>
+          <div class="spotlight-emoji">🎯</div>
+          <div class="spotlight-name">Dr Ravi &amp; Dr Rahul Kothari</div>
+          <p class="spotlight-note">Reached the final together as brothers — consistent quality across both days. The Kothari combination is becoming a hallmark of Pune's competitive tennis.</p>
+          <span class="spotlight-tag">🎯 Runners-up</span>
         </div>
 
       </div>
@@ -629,7 +601,7 @@ img, svg { display: block; max-width: 100%; }
     <div class="container">
       <div class="gallery-header">
         <div class="eyebrow" style="color:rgba(255,255,255,0.5);">Through the Lens</div>
-        <div class="gallery-label">Open May 2026 — Photos</div>
+        <div class="gallery-label">Open Jun 2022 — Photos</div>
       </div>
       <div class="gallery-mosaic">
         <div class="gallery-slot"><span class="gallery-slot-label">Photo 1</span></div>
@@ -640,8 +612,6 @@ img, svg { display: block; max-width: 100%; }
         <div class="gallery-slot"><span class="gallery-slot-label">Photo 6</span></div>
         <div class="gallery-slot"><span class="gallery-slot-label">Photo 7</span></div>
         <div class="gallery-slot"><span class="gallery-slot-label">Photo 8</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 9</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 10</span></div>
       </div>
     </div>
   </section>
@@ -649,15 +619,15 @@ img, svg { display: block; max-width: 100%; }
   <!-- ══ EDITION NAV ══ -->
   <nav class="ed-nav" aria-label="Tournament navigation">
     <div class="container">
-      <a href="open-jun-2022.html" class="ed-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        Jun 2022
-      </a>
-      <a href="open.html" class="ed-nav-center">All Opens</a>
       <span class="ed-nav-link disabled">
-        Upcoming
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Previous
       </span>
+      <a href="open.html" class="ed-nav-center">All Opens</a>
+      <a href="open-may-2026.html" class="ed-nav-link">
+        May 2026 →
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
     </div>
   </nav>
 
