@@ -493,6 +493,38 @@ img, svg { display: block; max-width: 100%; }
 }
 .ed-nav-center:hover { opacity: 0.8; }
 
+/* ═══ GALLERY ═══ */
+.ed-gallery { background: var(--ink); padding: 80px 0; }
+.gallery-label {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.gallery-mosaic { columns: 3; column-gap: 14px; }
+.gallery-slot {
+  break-inside: avoid;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+.gallery-slot-label {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+  background: rgba(0,0,0,0.4);
+  padding: 3px 8px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+.gallery-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 760px) {
   .podium-pair { grid-template-columns: 1fr; gap: 16px; }
@@ -500,12 +532,14 @@ img, svg { display: block; max-width: 100%; }
   .officials-grid { grid-template-columns: 1fr; gap: 14px; }
   .feedback-grid { grid-template-columns: 1fr; }
   .spotlights-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-mosaic { columns: 2; }
 }
 @media (max-width: 480px) {
   .ed-hero { padding: 56px 0 52px; }
-  .ed-podium, .ed-teams, .ed-story, .ed-spotlights, .ed-officials, .ed-feedback { padding: 60px 0; }
+  .ed-podium, .ed-teams, .ed-story, .ed-spotlights, .ed-officials, .ed-feedback, .ed-gallery { padding: 60px 0; }
   .teams-grid { grid-template-columns: 1fr; }
   .spotlights-grid { grid-template-columns: 1fr; }
+  .gallery-mosaic { columns: 1; }
   .ed-nav .container { flex-direction: column; gap: 12px; text-align: center; }
 }
 </style>
@@ -745,6 +779,46 @@ img, svg { display: block; max-width: 100%; }
       <div class="sponsor-row">
         <span class="sponsor-label">Tournament Supported By</span>
         <span class="sponsor-name">Solinco</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GALLERY ══ -->
+  <section class="ed-gallery">
+    <div class="container">
+      <div style="margin-bottom:36px">
+        <div class="eyebrow" style="color:rgba(255,255,255,0.5);">Through the Lens</div>
+        <div class="gallery-label">Corporate Team Championship Mar '23 — Photos</div>
+      </div>
+      <div class="gallery-mosaic">
+        <div class="gallery-slot" style="aspect-ratio:16/9">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_1200,h_675,c_fill,g_auto,q_auto,f_auto/v1780730001/Start_of_Day_vqbh8s.jpg" alt="Start of Day — Corporate Team Championship Mar 2023">
+          <span class="gallery-slot-label">Start of Day</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780730001/Starting_With_Traditions_udcfh5.jpg" alt="Starting With Traditions">
+          <span class="gallery-slot-label">Starting With Traditions</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780730007/Happy_Faces_p1de6k.jpg" alt="Happy Faces">
+          <span class="gallery-slot-label">Happy Faces</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:16/9">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_1200,h_675,c_fill,g_auto,q_auto,f_auto/v1780730001/Winners_and_Runners_Up_cloamr.jpg" alt="Winners and Runners-up — Cognizant and Probity Software">
+          <span class="gallery-slot-label">Champions &amp; Runners-up</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780730001/Winners_-_Team_Cognizant_ogkszs.jpg" alt="Winners — Team Cognizant">
+          <span class="gallery-slot-label">Winners — Team Cognizant</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780730002/Winners_Team_Cognizant_with_Sunder_Iyer_and_Himanshu_Gosavi_hjv2pd.jpg" alt="Cognizant with Sunder Iyer Sir and Himanshu Gosavi Sir">
+          <span class="gallery-slot-label">Cognizant with Sunder Iyer Sir &amp; Himanshu Gosavi Sir</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780730008/Org_Team_with_Sunder_Sir_and_Himanshu_Sir_vya3pf.jpg" alt="Organising Team with Sunder Sir and Himanshu Sir">
+          <span class="gallery-slot-label">Organising Team with Sunder Sir &amp; Himanshu Sir</span>
+        </div>
       </div>
     </div>
   </section>
