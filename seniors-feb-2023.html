@@ -362,14 +362,11 @@ img, svg { display: block; max-width: 100%; }
   border-radius: 4px;
   backdrop-filter: blur(4px);
 }
-.gallery-slot:nth-child(1) { background: linear-gradient(135deg, #2c4621, #4d7239); }
-.gallery-slot:nth-child(2) { background: linear-gradient(160deg, #3a5c2c, #6b8c4f); }
-.gallery-slot:nth-child(3) { background: linear-gradient(120deg, #1c2218, #3a5c2c); }
-.gallery-slot:nth-child(4) { background: linear-gradient(150deg, #4d7239, #cddc39 200%); }
-.gallery-slot:nth-child(5) { background: linear-gradient(100deg, #2c4621, #4a5240); }
-.gallery-slot:nth-child(6) { background: linear-gradient(170deg, #3a5c2c, #2c4621); }
-.gallery-slot:nth-child(7) { background: linear-gradient(130deg, #1c2218, #4d7239); }
-.gallery-slot:nth-child(8) { background: linear-gradient(115deg, #4d7239, #3a5c2c); }
+.gallery-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Podium photo strip */
+.podium-photo { width: calc(100% + 52px); margin: -28px -26px 20px; border-radius: 16px 16px 0 0; overflow: hidden; }
+.podium-photo img { width: 100%; display: block; object-fit: cover; }
 
 /* ═══ EDITION NAV ═══ */
 .ed-nav { background: var(--green-2); padding: 36px 0; }
@@ -459,12 +456,18 @@ img, svg { display: block; max-width: 100%; }
           <div class="podium-category-label">Singles</div>
           <div class="podium-pair">
             <div class="podium-card winners">
+              <div class="podium-photo" style="height:200px">
+                <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_400,c_fill,g_face,q_auto,f_auto/v1780725639/Singles_Winner_-_Dr_Rahul_Kothari_uky9vw.jpg" alt="Dr Rahul Kothari — Singles Winner">
+              </div>
               <div class="podium-icon">🏆</div>
               <div class="podium-label">Winner</div>
               <div class="podium-names">Dr Rahul Kothari</div>
               <p class="podium-note">Clinical, composed, and relentless — settled a fierce family rivalry to take the singles crown.</p>
             </div>
             <div class="podium-card runners">
+              <div class="podium-photo" style="height:200px">
+                <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_400,c_fill,g_face,q_auto,f_auto/v1780725640/Singles_Runner_Up_-_Dr_Ravi_Kothari_v73x41.jpg" alt="Dr Ravi Kothari — Singles Runner-up">
+              </div>
               <div class="podium-icon">🥈</div>
               <div class="podium-label">Runner-up</div>
               <div class="podium-names">Dr Ravi Kothari</div>
@@ -478,12 +481,18 @@ img, svg { display: block; max-width: 100%; }
           <div class="podium-category-label">Doubles</div>
           <div class="podium-pair">
             <div class="podium-card winners">
+              <div class="podium-photo" style="height:200px">
+                <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_400,c_fill,g_auto,q_auto,f_auto/v1780725639/Doubles_Winners_-_Sandeep_Belludi_-_Joy_Banerjee_brbk5r.jpg" alt="Sandeep Belludi & Joy Banerjee — Doubles Winners">
+              </div>
               <div class="podium-icon">🏆</div>
               <div class="podium-label">Winners</div>
               <div class="podium-names">Sandeep Belludi<br>&amp; Joy Banerjee</div>
               <p class="podium-note">Incredible hands at the net from Sandeep, power and precision from Joy — a complete doubles pairing.</p>
             </div>
             <div class="podium-card runners">
+              <div class="podium-photo" style="height:200px">
+                <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_400,c_fill,g_auto,q_auto,f_auto/v1780725639/Doubles_Runner_Up_-_Amit_Kindo_-_Sunil_Lulla_ylgxmu.jpg" alt="Amit Kindo & Sunil Lulla — Doubles Runners-up">
+              </div>
               <div class="podium-icon">🥈</div>
               <div class="podium-label">Runners-up</div>
               <div class="podium-names">Amit Kindo<br>&amp; Sunil Lulla</div>
@@ -583,14 +592,30 @@ img, svg { display: block; max-width: 100%; }
         <div class="gallery-label">PMDTA Tennisnuts Tour Feb '23 — Photos</div>
       </div>
       <div class="gallery-mosaic">
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 1</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 2</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 3</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 4</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 5</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 6</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 7</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 8</span></div>
+        <div class="gallery-slot" style="aspect-ratio:16/9">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_1200,h_675,c_fill,g_auto,q_auto,f_auto/v1780725688/Banner_Image_hy55ry.jpg" alt="PMDTA Tennisnuts Tour Feb 2023 — Tournament Banner">
+          <span class="gallery-slot-label">Feb 2023 · Tournament Banner</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:3/4">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_800,c_fill,g_face,q_auto,f_auto/v1780725810/Sunil_Lulla_-_Proud_Tennisnut_Part_of_Team_India_tt68o7.jpg" alt="Sunil Lulla — Proud Tennisnut, Part of Team India">
+          <span class="gallery-slot-label">Sunil Lulla — Team India</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780725900/WhatsApp_Image_2023-02-05_at_19.51.39_4_czgiff.jpg" alt="Tournament Moments — Feb 2023">
+          <span class="gallery-slot-label">Tournament Moments</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780725720/Post_Match_Fun_lktzb2.jpg" alt="Post-match fun — PMDTA Tennisnuts Tour Feb 2023">
+          <span class="gallery-slot-label">Post-match fun</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780725639/Org_Team_-_Bhushan_Venky_Sudhir_Amit_wldxcl.jpg" alt="Organising Team — Bhushan, Venky, Sudhir, Amit">
+          <span class="gallery-slot-label">Organising Team — Bhushan, Venky, Sudhir &amp; Amit</span>
+        </div>
+        <div class="gallery-slot" style="aspect-ratio:4/3">
+          <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/w_800,h_600,c_fill,g_auto,q_auto,f_auto/v1780725861/Aniket_and_Nilesh_vhjidn.jpg" alt="Aniket Wakankar Sir & Nilesh Sir — Facility Team">
+          <span class="gallery-slot-label">Aniket Wakankar Sir &amp; Nilesh Sir</span>
+        </div>
       </div>
     </div>
   </section>
