@@ -1,170 +1,401 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Corporate Tournament — Tennisnuts</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:"DM Sans",sans-serif;color:var(--ink,#1c2218);background:#fff}
-    a{text-decoration:none;color:inherit}
-    :root{--green:#3a5c2c;--green-2:#2c4621;--green-3:#4d7239;--green-soft:#eef2e6;--ball:#cddc39;--ball-2:#d8e85a;--ink:#1c2218;--ink-2:#4a5240;--paper:#fff;--cream:#faf8f1;--line:#e6e3d8}
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tennisnuts Corporate Tournament — Team Championship, Pune</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ball-2: #d8e85a;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --paper: #fff;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
 
-    .container{max-width:1200px;margin:0 auto;padding:0 32px}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 
-    /* HERO */
-    .hero{background:var(--ink);min-height:400px;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 40px}
-    .hero h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(3rem,7vw,5rem);color:#fff;letter-spacing:-0.02em;margin-bottom:20px}
-    .hero p{font-size:1.15rem;color:rgba(255,255,255,0.75);max-width:52ch;margin:0 auto}
+.container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
 
-    /* BUTTONS */
-    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:14px 28px;font-weight:600;font-size:15px;transition:transform .15s,background .15s;cursor:pointer;text-decoration:none}
-    .btn-ball{background:var(--ball);color:var(--green-2)}
-    .btn-ball:hover{background:var(--ball-2);transform:translateY(-2px)}
-    .btn-green{background:var(--green);color:#fff}
-    .btn-green:hover{background:var(--green-2);transform:translateY(-2px)}
-    .btn-wa{background:#25D366;color:#fff}
-    .btn-wa:hover{background:#1ebe5c;transform:translateY(-2px)}
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border-radius: 999px; font-weight: 600; font-size: 16px;
+  font-family: "DM Sans", sans-serif; transition: transform .15s, background .15s, color .15s;
+  white-space: nowrap; cursor: pointer; text-decoration: none; border: none;
+}
+.btn-ball { background: var(--ball); color: var(--green-2); }
+.btn-ball:hover { background: var(--ball-2); transform: translateY(-2px); }
+.btn-ghost-white { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.7); }
+.btn-ghost-white:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+.btn-outline {
+  background: transparent; color: var(--green); border: 1.5px solid var(--green);
+  width: 100%; justify-content: center;
+}
+.btn-outline:hover { background: var(--green-soft); }
+.btn-large { padding: 16px 36px; font-size: 17px; }
 
-    /* SECTIONS */
-    .section{padding:80px 0}
-    .section-label{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
-    .section-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-0.02em;color:var(--ink);margin-bottom:16px}
-    .section-body{font-size:1.05rem;color:var(--ink-2);line-height:1.7;max-width:56ch}
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--green); font-weight: 600; font-size: 13px;
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 18px;
+}
+.section-eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--ball); }
 
-    /* ABOUT */
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-    @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:40px}}
-    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .stat-box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
-    .stat-num{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:2.5rem;color:var(--green);line-height:1;margin-bottom:6px}
-    .stat-label{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-2);font-weight:500}
+/* ── HERO ── */
+.page-hero {
+  min-height: 460px; position: relative; overflow: hidden;
+  display: flex; align-items: center; color: #fff; padding: 80px 0 72px;
+}
+.page-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 75% 40%, rgba(205,220,57,0.12), transparent 50%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 28px, transparent 28px 56px),
+    linear-gradient(155deg, #0e1810 0%, #1c2218 50%, #2c4621 100%);
+  z-index: 0;
+}
+.page-hero::after {
+  content: "CORP";
+  position: absolute;
+  right: -20px; bottom: -20px;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: clamp(140px, 22vw, 280px);
+  line-height: 1;
+  color: #fff;
+  opacity: 0.035;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+  z-index: 0;
+}
+.page-hero .container { position: relative; z-index: 1; }
 
-    /* CARDS */
-    .cream-bg{background:var(--cream)}
-    .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-    @media(max-width:900px){.cards-grid{grid-template-columns:1fr}}
-    .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s}
-    .card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,0,0,0.12)}
-    .card-icon{width:48px;height:48px;background:var(--green-soft);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
-    .card-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1.15rem;color:var(--ink);margin-bottom:8px}
-    .card-desc{font-size:0.95rem;color:var(--ink-2);line-height:1.6}
+.hero-eyebrow-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(205,220,57,0.15); border: 1px solid rgba(205,220,57,0.4);
+  padding: 8px 16px; border-radius: 999px; font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ball); margin-bottom: 24px;
+}
+.page-hero h1 {
+  font-size: clamp(52px, 8vw, 90px); line-height: 0.97;
+  letter-spacing: -0.04em; color: #fff; margin-bottom: 18px;
+}
+.page-hero .hero-sub {
+  font-size: 20px; color: rgba(255,255,255,0.82); margin-bottom: 36px; max-width: 50ch;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+.hero-stats-row {
+  font-size: 14px; color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0; letter-spacing: 0.01em;
+}
+.hero-stats-row .sep { margin: 0 12px; opacity: 0.4; }
+.hero-stats-row strong { color: rgba(255,255,255,0.9); font-weight: 600; }
 
-    /* EDITIONS */
-    .editions-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    @media(max-width:760px){.editions-grid{grid-template-columns:1fr}}
-    .edition-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
-    .edition-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px -12px rgba(0,0,0,0.12)}
-    .edition-year{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:3.5rem;color:var(--ink);letter-spacing:-0.03em;line-height:1;margin-bottom:12px}
-    .edition-desc{font-size:0.95rem;color:var(--ink-2);line-height:1.6;flex:1;margin-bottom:20px}
-    .edition-link{font-weight:600;color:var(--green);font-size:14px;display:inline-flex;align-items:center;gap:6px;transition:gap .15s}
-    .edition-link:hover{gap:10px}
+/* ── ABOUT ── */
+.about-section { background: var(--cream); padding: 100px 0; }
+.about-grid {
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: 72px; align-items: center;
+}
+.about-copy h2 {
+  font-size: clamp(32px, 4vw, 50px); line-height: 1.05;
+  letter-spacing: -0.03em; margin-bottom: 24px; max-width: 22ch;
+}
+.about-copy p {
+  font-size: 17px; color: var(--ink-2); line-height: 1.65;
+  margin-bottom: 20px; max-width: 58ch;
+}
+.about-copy p:last-child { margin-bottom: 0; }
 
-    /* REGISTER CTA */
-    .register-cta{background:var(--ink);padding:72px 40px;text-align:center}
-    .register-cta h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(1.6rem,3.5vw,2.2rem);color:#fff;margin-bottom:12px;letter-spacing:-0.02em}
-    .register-cta p{color:rgba(255,255,255,0.65);font-size:1rem;margin-bottom:28px;max-width:50ch;margin-left:auto;margin-right:auto}
-  </style>
+.about-card {
+  background: #fff; border-radius: 20px;
+  box-shadow: 0 20px 50px -20px rgba(28,34,24,0.3);
+  border: 1px solid var(--line); overflow: hidden;
+}
+.about-card-header {
+  background: var(--ink); padding: 20px 28px;
+}
+.about-card-header span {
+  font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+}
+.about-card-header strong {
+  font-family: "Bricolage Grotesque", sans-serif; font-size: 18px;
+  font-weight: 700; color: #fff; letter-spacing: -0.02em; display: block; margin-top: 4px;
+}
+.about-card-body { padding: 28px; display: flex; flex-direction: column; gap: 0; }
+.about-stat { padding: 20px 0; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; }
+.about-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.about-stat:first-child { padding-top: 0; }
+.about-stat-num {
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+  font-size: 2.4rem; color: var(--green); line-height: 1; flex-shrink: 0; min-width: 72px;
+}
+.about-stat-label { font-size: 14px; color: var(--ink-2); font-weight: 500; line-height: 1.4; }
+
+/* ── FORMAT SECTION ── */
+.format-section { background: var(--green-soft); padding: 80px 0; }
+.format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+.format-card {
+  background: #fff; border-radius: 16px; padding: 28px;
+  border: 1px solid rgba(58,92,44,0.1);
+}
+.format-icon { font-size: 32px; margin-bottom: 14px; }
+.format-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--ink); }
+.format-card p { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+/* ── TOURNAMENTS GRID ── */
+.tournaments-section { background: #fff; padding: 100px 0; }
+.tournaments-head { margin-bottom: 56px; }
+.tournaments-head h2 {
+  font-size: clamp(34px, 4vw, 52px); line-height: 1.05;
+  letter-spacing: -0.03em; margin-bottom: 14px;
+}
+.tournaments-head .sub { font-size: 17px; color: var(--ink-2); max-width: 56ch; }
+
+.tournaments-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.tournament-card {
+  border-radius: 20px; border: 1px solid var(--line); overflow: hidden;
+  background: #fff; transition: transform .2s, box-shadow .2s;
+}
+.tournament-card:hover { transform: translateY(-5px); box-shadow: 0 24px 48px -20px rgba(28,34,24,0.25); }
+
+.tournament-banner {
+  height: 200px; position: relative; overflow: hidden;
+  background: repeating-linear-gradient(115deg, #1c2218 0 18px, #2c4621 18px 36px);
+}
+.tournament-banner-label {
+  position: absolute; bottom: 14px; left: 14px;
+  background: rgba(28,34,24,0.65); color: #fff;
+  font-family: "JetBrains Mono", monospace; font-size: 11px;
+  padding: 6px 10px; border-radius: 6px; letter-spacing: 0.04em;
+}
+.tournament-banner-tag {
+  position: absolute; top: 14px; right: 14px;
+  background: var(--ball); color: var(--green-2);
+  font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 999px;
+}
+.tournament-body { padding: 22px; }
+.tournament-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green-2); background: var(--ball);
+  display: inline-block; padding: 3px 10px; border-radius: 999px; margin-bottom: 12px;
+}
+.tournament-body h3 { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 8px; }
+.tournament-meta { font-size: 14px; color: var(--ink-2); margin-bottom: 12px; }
+.tournament-result {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 13px; color: var(--ink); font-weight: 600;
+  background: var(--green-soft); border-radius: 8px; padding: 10px 12px;
+  margin-bottom: 14px;
+}
+.tournament-result .result-row { display: flex; align-items: center; gap: 6px; }
+.tournament-result .result-row .cat {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-2); min-width: 72px;
+}
+.tournament-body p { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+
+/* ── WA CTA ── */
+.wa-cta {
+  position: relative; overflow: hidden; padding: 80px 0; text-align: center; color: #fff;
+}
+.wa-cta::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 28px, transparent 28px 56px),
+    linear-gradient(155deg, #0e1810 0%, #1c2218 100%);
+  z-index: 0;
+}
+.wa-cta .container { position: relative; z-index: 1; }
+.wa-cta h2 { font-size: clamp(32px, 5vw, 52px); color: #fff; letter-spacing: -0.03em; margin-bottom: 18px; }
+.wa-cta p { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 52ch; margin: 0 auto 36px; line-height: 1.6; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .tournaments-grid { grid-template-columns: repeat(2, 1fr); }
+  .format-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-section, .tournaments-section { padding: 72px 0; }
+}
+@media (max-width: 560px) {
+  .tournaments-grid { grid-template-columns: 1fr; }
+  .format-grid { grid-template-columns: 1fr; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; }
+  .about-section, .tournaments-section { padding: 56px 0; }
+  .wa-cta { padding: 60px 0; }
+  .container { padding: 0 20px; }
+}
+</style>
 </head>
 <body>
-  <div id="site-nav"></div>
+
+<div id="site-nav"></div>
+
+<main>
 
   <!-- HERO -->
-  <section class="hero">
-    <div>
-      <h1>Corporate Tournament</h1>
-      <p>Doubles tennis for your workplace. Build team bonds on the court.</p>
+  <section class="page-hero">
+    <div class="container">
+      <div>
+        <span class="hero-eyebrow-chip">Tennisnuts Corporate</span>
+      </div>
+      <h1>Company vs Company.<br>Pune's Corporate Court.</h1>
+      <p class="hero-sub">Teams from Pune's top companies competing for the city's first corporate tennis title. Colleagues become teammates. Companies put their pride on the line.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." target="_blank" rel="noopener" class="btn btn-ball">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg>
+          Register Your Company
+        </a>
+        <a href="#tournaments" class="btn btn-ghost-white">View Tournaments ↓</a>
+      </div>
+      <div class="hero-stats-row">
+        <span><strong>Team Championship</strong> format</span>
+        <span class="sep">·</span>
+        <span>8 companies in inaugural edition</span>
+        <span class="sep">·</span>
+        <span>Under aegis of PMDTA</span>
+        <span class="sep">·</span>
+        <span>Powered by Tennisnuts</span>
+      </div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section class="section">
+  <section class="about-section">
     <div class="container">
       <div class="about-grid">
-        <div>
-          <div class="section-label">About the Tournament</div>
-          <h2 class="section-title">Where Offices Compete on the Court</h2>
-          <p class="section-body">The Tennisnuts Corporate Tournament brings offices and companies together through the shared language of tennis. Teams of colleagues enter as a unit, compete in a doubles-only format, and leave with stronger bonds and unforgettable memories.</p>
-          <p class="section-body" style="margin-top:16px">It's a single-day, fast-paced tournament designed to be fun for players of all skill levels — from seasoned club players to complete beginners picking up a racket for the first time.</p>
+        <div class="about-copy">
+          <div class="section-eyebrow">About the Tournament</div>
+          <h2>Where office colleagues become tennis teammates.</h2>
+          <p>The Tennisnuts Corporate Tournament is Pune's first corporate tennis team championship — a format where companies form teams, players represent their organisations on court, and the competition is as real as it gets. It's not just about who wins; it's about what happens when working professionals who love tennis get to play together, against each other, in the spirit the game demands.</p>
+          <p>The inaugural edition in March 2023 saw eight companies from Pune's IT and corporate sector field teams, some of them finding teammates through the Tennisnuts platform itself. The entire draw was played without a single line call dispute — mature, humble players who came to compete and made new friends in the process.</p>
+          <p>Beyond the competition, the Corporate Tournament is a networking platform: new friendships across company lines, contacts made at the net, and a corporate tennis community in Pune that is only going to grow.</p>
         </div>
-        <div class="stats-row">
-          <div class="stat-box">
-            <div class="stat-num">10+</div>
-            <div class="stat-label">Teams</div>
+        <div class="about-card">
+          <div class="about-card-header">
+            <span>CORPORATE CHAMPIONSHIP</span>
+            <strong>Team Format</strong>
           </div>
-          <div class="stat-box">
-            <div class="stat-num">Day</div>
-            <div class="stat-label">Format</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-num">All</div>
-            <div class="stat-label">Skill Levels</div>
+          <div class="about-card-body">
+            <div class="about-stat">
+              <div class="about-stat-num">8</div>
+              <div class="about-stat-label">Companies in the inaugural 2023 edition</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">🏢</div>
+              <div class="about-stat-label">Team-based — represent your organisation on court</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">🤝</div>
+              <div class="about-stat-label">Networking platform for corporate tennis players across Pune</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WHY ENTER -->
-  <section class="section cream-bg">
+  <!-- FORMAT -->
+  <section class="format-section">
     <div class="container">
-      <div class="section-label">Why Enter</div>
-      <h2 class="section-title" style="margin-bottom:40px">Three Reasons to Bring Your Office</h2>
-      <div class="cards-grid">
-        <div class="card">
-          <div class="card-icon">🤝</div>
-          <div class="card-title">Team Building</div>
-          <p class="card-desc">Nothing builds bonds quite like a doubles tournament. You'll communicate, strategize, and celebrate together — on and off the court. It's team building that actually works.</p>
+      <div class="section-eyebrow">How It Works</div>
+      <h2 style="font-size:clamp(28px,3.5vw,40px);letter-spacing:-0.02em;">Team tennis. Company pride.</h2>
+      <div class="format-grid">
+        <div class="format-card">
+          <div class="format-icon">🏢</div>
+          <h3>Team Championship</h3>
+          <p>Companies field teams of players and compete against each other. Every match counts for the team — a different kind of pressure, and a different kind of reward.</p>
         </div>
-        <div class="card">
-          <div class="card-icon">🏆</div>
-          <div class="card-title">Healthy Competition</div>
-          <p class="card-desc">Friendly rivalry between Pune's top companies makes for incredible energy throughout the day. Bragging rights are at stake — and everyone takes them seriously.</p>
+        <div class="format-card">
+          <div class="format-icon">🤝</div>
+          <h3>Networking on Court</h3>
+          <p>Meet colleagues from across Pune's corporate sector — IT, finance, engineering and beyond. The best connections happen across the net, not just in meeting rooms.</p>
         </div>
-        <div class="card">
-          <div class="card-icon">🎉</div>
-          <div class="card-title">Great Fun</div>
-          <p class="card-desc">Post-match celebrations, trophies, team photos, and memories that last well beyond the final point. This is a corporate outing people will actually look forward to.</p>
+        <div class="format-card">
+          <div class="format-icon">🎾</div>
+          <h3>Real Competition</h3>
+          <p>Under the aegis of PMDTA, on proper clay courts, officiated with the same standards as any Tennisnuts event. Serious tennis with a company badge on.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EDITIONS -->
-  <section class="section">
+  <!-- TOURNAMENTS GRID -->
+  <section class="tournaments-section" id="tournaments">
     <div class="container">
-      <div class="section-label">Editions</div>
-      <h2 class="section-title" style="margin-bottom:40px">Tournament History</h2>
-      <div class="editions-grid">
-        <div class="edition-card">
-          <div class="edition-year">2024</div>
-          <p class="edition-desc">The inaugural corporate doubles showdown — 12 teams from across Pune went head-to-head in a day of competitive, community doubles tennis.</p>
-          <a href="corporate-2024.html" class="edition-link">View Edition →</a>
+      <div class="tournaments-head">
+        <div class="section-eyebrow">Past Tournaments</div>
+        <h2>Champions by year.</h2>
+        <p class="sub">The Corporate Tournament launched in 2023. Pune's corporate tennis history starts here.</p>
+      </div>
+      <div class="tournaments-grid">
+
+        <!-- Mar 2023 — Inaugural -->
+        <div class="tournament-card">
+          <div class="tournament-banner" style="background: repeating-linear-gradient(125deg,#1c2218 0 16px,#2c4621 16px 32px);">
+            <div class="tournament-banner-tag">Inaugural Edition</div>
+            <div class="tournament-banner-label">Corporate Team Championship Mar 2023</div>
+          </div>
+          <div class="tournament-body">
+            <div class="tournament-tag">Mar 2023</div>
+            <h3>Corporate Team Championship</h3>
+            <div class="tournament-meta">📍 AWTA NCL, Pune &nbsp;·&nbsp; March 2023 &nbsp;·&nbsp; 8 Companies</div>
+            <div class="tournament-result">
+              <div class="result-row"><span class="cat">Champions</span> 🏆 Cognizant</div>
+              <div class="result-row"><span class="cat">Runners-up</span> 🥈 Probity Software</div>
+            </div>
+            <p>Pune's first corporate tennis team championship — eight companies, extraordinary spirit, and a new community forged on clay.</p>
+            <a href="corporate-mar-2023.html" class="btn btn-outline" style="margin-top:16px;">View Report →</a>
+          </div>
         </div>
-        <div class="edition-card" style="border-color:var(--green);background:var(--green-soft)">
-          <div class="edition-year" style="color:var(--green-2)">2025</div>
-          <p class="edition-desc">The biggest corporate doubles tournament in Pune — 20+ teams, upgraded format, and registrations now open. Is your office in?</p>
-          <a href="corporate-2025.html" class="edition-link">View Edition →</a>
-        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- REGISTER CTA -->
-  <section class="register-cta">
-    <h2>Register your team for 2025</h2>
-    <p>Spots are limited. Get your office in before registrations close.</p>
-    <a href="https://wa.me/919999999999?text=Hi%2C%20I%27d%20like%20to%20register%20my%20team%20for%20the%20Corporate%20Tournament%202025" class="btn btn-wa" target="_blank" rel="noopener">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Register on WhatsApp
-    </a>
+  <!-- WA CTA -->
+  <section class="wa-cta">
+    <div class="container">
+      <h2>Bring your company to the court</h2>
+      <p>Form a team, represent your company, and play for something that goes beyond any scoreboard. Join the WhatsApp group to register for the next edition.</p>
+      <a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." target="_blank" rel="noopener" class="btn btn-ball btn-large">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg>
+        Register Your Company
+      </a>
+    </div>
   </section>
 
-  <div id="site-footer"></div>
-  <script src="nav.js"></script>
-  <script src="footer.js"></script>
+</main>
+
+<div id="site-footer"></div>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
 </body>
 </html>
