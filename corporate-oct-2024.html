@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Corporate Team Championship Oct 2024 — Tennisnuts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 {
+  font-family: "Bricolage Grotesque", "DM Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--ball);
+  display: block;
+}
+
+/* ═══ HERO ═══ */
+.ed-hero {
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 68px;
+  color: #fff;
+}
+.ed-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 24px, transparent 24px 48px);
+  pointer-events: none;
+}
+.hero-bg-watermark {
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: clamp(120px, 18vw, 200px);
+  line-height: 1;
+  color: #fff;
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+}
+.ed-hero .container { position: relative; z-index: 1; }
+
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 28px;
+  transition: color .15s;
+}
+.breadcrumb:hover { color: rgba(255,255,255,0.85); }
+
+.tournament-chip {
+  display: inline-block;
+  background: var(--ball);
+  color: var(--green-2);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.ed-hero h1 {
+  font-size: clamp(42px, 7vw, 80px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 18px;
+}
+.hero-tagline {
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: rgba(255,255,255,0.72);
+  font-style: italic;
+  margin-bottom: 28px;
+  max-width: 44ch;
+  line-height: 1.4;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  font-family: "JetBrains Mono", monospace;
+}
+.hero-meta .dot { opacity: 0.4; }
+
+/* ═══ PODIUM ═══ */
+.ed-podium { background: #fff; padding: 80px 0; }
+.podium-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 36px;
+}
+.podium-card {
+  border-radius: 20px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.podium-card.winners {
+  background: var(--green);
+  color: #fff;
+}
+.podium-card.winners::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--ball);
+}
+.podium-card.runners {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+}
+.podium-icon { font-size: 32px; margin-bottom: 12px; line-height: 1; }
+.podium-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 8px;
+}
+.podium-card.winners .podium-label { color: rgba(255,255,255,0.75); }
+.podium-card.runners .podium-label { color: var(--ink-2); }
+.podium-names {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 700;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.podium-card.winners .podium-names { color: #fff; }
+.podium-card.runners .podium-names { color: var(--ink); }
+.podium-note {
+  margin-top: 12px;
+  font-size: 14px;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+.podium-card.winners .podium-note { color: rgba(255,255,255,0.82); }
+.podium-card.runners .podium-note { color: var(--ink-2); }
+.podium-revenge {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(205,220,57,0.18);
+  border: 1px solid rgba(205,220,57,0.35);
+  color: var(--ball);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+/* ═══ GALLERY PLACEHOLDER ═══ */
+.ed-gallery { background: var(--ink); padding: 80px 0; }
+.gallery-label {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.gallery-coming-soon {
+  margin-top: 36px;
+  border: 1.5px dashed rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 72px 40px;
+  text-align: center;
+}
+.gallery-cs-icon { font-size: 48px; margin-bottom: 20px; line-height: 1; }
+.gallery-cs-text {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.gallery-cs-sub { font-size: 15px; color: rgba(255,255,255,0.3); }
+
+/* ═══ GROUPS ═══ */
+.ed-groups { background: var(--cream); padding: 80px 0; }
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+}
+.group-card {
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.group-header {
+  background: var(--green);
+  color: #fff;
+  padding: 14px 18px;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+}
+.group-teams {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.group-team {
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.3;
+}
+.group-team::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ball);
+  flex-shrink: 0;
+}
+
+/* ═══ STORY ═══ */
+.ed-story { background: #fff; padding: 80px 0; }
+.story-content { max-width: 720px; margin-top: 28px; }
+.story-content p {
+  font-size: 17px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.story-content p:last-of-type { margin-bottom: 0; }
+.pull-quote {
+  border-left: 4px solid var(--ball);
+  padding: 18px 24px;
+  margin: 32px 0;
+  background: rgba(205,220,57,0.08);
+  border-radius: 0 12px 12px 0;
+}
+.pull-quote p {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  font-style: italic;
+  margin: 0;
+}
+.story-thanks {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+/* ═══ FEEDBACK ═══ */
+.ed-feedback { background: var(--ink); padding: 80px 0; }
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+}
+.feedback-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 32px 28px;
+}
+.feedback-quote-mark {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 64px;
+  line-height: 0.6;
+  color: var(--ball);
+  margin-bottom: 20px;
+}
+.feedback-text {
+  font-size: 15px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 24px;
+}
+.feedback-author {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.feedback-role {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ball);
+  opacity: 0.8;
+}
+
+/* ═══ EDITION NAV ═══ */
+.ed-nav { background: var(--green-2); padding: 36px 0; }
+.ed-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.ed-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  transition: color .15s;
+  font-family: "DM Sans", sans-serif;
+}
+.ed-nav-link:hover { color: #fff; }
+.ed-nav-link.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: default;
+}
+.ed-nav-center {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ball);
+  text-transform: uppercase;
+  transition: opacity .15s;
+}
+.ed-nav-center:hover { opacity: 0.8; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  .groups-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .podium-pair { grid-template-columns: 1fr; gap: 16px; }
+  .feedback-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .ed-hero { padding: 56px 0 52px; }
+  .ed-podium, .ed-gallery, .ed-groups, .ed-story, .ed-feedback { padding: 60px 0; }
+  .groups-grid { grid-template-columns: 1fr; }
+  .gallery-coming-soon { padding: 48px 24px; }
+  .ed-nav .container { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<main>
+
+  <!-- ══ HERO ══ -->
+  <section class="ed-hero">
+    <div class="hero-bg-watermark">OCT '24</div>
+    <div class="container">
+      <a href="corporate-tournament.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Corporate Tournament
+      </a>
+      <div class="tournament-chip">PMDTA · Tennisnuts Corporate</div>
+      <h1>Corporate Team<br>Championship</h1>
+      <p class="hero-tagline">"Twelve companies, four groups, one super tie-break — and sweet revenge for Probity Software"</p>
+      <div class="hero-meta">
+        <span>📍 AWTA NCL, Pune</span>
+        <span class="dot">·</span>
+        <span>October 2024</span>
+        <span class="dot">·</span>
+        <span>Under aegis of PMDTA</span>
+        <span class="dot">·</span>
+        <span>Edition 2</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PODIUM ══ -->
+  <section class="ed-podium">
+    <div class="container">
+      <div class="eyebrow">Results</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Champions &amp; Runners-up</h2>
+      <div class="podium-pair">
+
+        <div class="podium-card winners">
+          <div class="podium-icon">🏆</div>
+          <div class="podium-label">Champions</div>
+          <div class="podium-names">Probity Software</div>
+          <p class="podium-note">Fought through a nail-biting final all the way to a super tie-break — and held their nerve to claim the title. Last year's runners-up became this year's champions.</p>
+          <div class="podium-revenge">🔄 Sweet Revenge · 2023 Runners-up</div>
+        </div>
+
+        <div class="podium-card runners">
+          <div class="podium-icon">🥈</div>
+          <div class="podium-label">Runners-up</div>
+          <div class="podium-names">CTS I</div>
+          <p class="podium-note">The defending champions returned to the same final, played like champions again, and pushed Probity to the very limit. A super tie-break was the only way to separate them.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GALLERY ══ -->
+  <section class="ed-gallery">
+    <div class="container">
+      <div style="margin-bottom:0">
+        <div class="eyebrow" style="color:rgba(255,255,255,0.5);">Through the Lens</div>
+        <div class="gallery-label">Corporate Team Championship Oct '24 — Photos</div>
+      </div>
+      <div class="gallery-coming-soon">
+        <div class="gallery-cs-icon">📸</div>
+        <div class="gallery-cs-text">Photos from this edition are on their way</div>
+        <div class="gallery-cs-sub">Check back soon — the full gallery will be up shortly.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GROUPS ══ -->
+  <section class="ed-groups">
+    <div class="container">
+      <div class="eyebrow">The Field</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">12 Companies. 4 Groups.</h2>
+      <div class="groups-grid">
+
+        <div class="group-card">
+          <div class="group-header">Group A</div>
+          <div class="group-teams">
+            <div class="group-team">Infosys</div>
+            <div class="group-team">KPIT B</div>
+            <div class="group-team">CTS II</div>
+          </div>
+        </div>
+
+        <div class="group-card">
+          <div class="group-header">Group B</div>
+          <div class="group-teams">
+            <div class="group-team">BTC</div>
+            <div class="group-team">KPIT A</div>
+            <div class="group-team">Hydrogen Warriors</div>
+          </div>
+        </div>
+
+        <div class="group-card">
+          <div class="group-header">Group C</div>
+          <div class="group-teams">
+            <div class="group-team">Gopllay</div>
+            <div class="group-team">Serum Institute</div>
+            <div class="group-team">Probity Software</div>
+          </div>
+        </div>
+
+        <div class="group-card">
+          <div class="group-header">Group D</div>
+          <div class="group-teams">
+            <div class="group-team">CTS I</div>
+            <div class="group-team">Siemens</div>
+            <div class="group-team">Sattva Human</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STORY ══ -->
+  <section class="ed-story">
+    <div class="container">
+      <div class="eyebrow">The Story</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Tournament Recap</h2>
+      <div class="story-content">
+
+        <p>If the first edition proved there was appetite for corporate tennis in Pune, the second edition proved it was here to stay. Twelve companies — up from eight in 2023 — formed teams, split into four groups, and turned up across two days for what became one of the most competitive weekends on the Tennisnuts calendar.</p>
+
+        <p>The format stepped up to match the ambition. A full Round Robin group stage on Saturday — two sessions, 9AM to 1PM and then 5:30PM to 9PM — fed into quarter-finals and knockouts on Sunday. Tour Director Venky got the draws done, and Atul took charge of the detailed scheduling. The machine ran smoothly, save for one force of nature: a rain interruption on Day 1 that pushed some group stage matches to Sunday morning before the quarter-finals could begin.</p>
+
+        <div class="pull-quote">
+          <p>"Repeat of last year again — CTS I vs Probity Software in the final. The same two teams, the same intensity, and a super tie-break to decide it all."</p>
+        </div>
+
+        <p>When the dust settled on the knockout rounds, the final produced exactly the rematch everyone wanted: CTS I vs Probity Software. Same final as 2023. Same stage, same pressure — but a very different result. Last year, Cognizant took it. This time, Probity Software held their nerve through a nail-biting match that went to a super tie-break, claiming the title and earning themselves what Alok, watching on, perfectly described as "sweet revenge."</p>
+
+        <p>The quality of tennis throughout the weekend was exceptional — four groups, twelve teams, all competing with the kind of intensity and good spirit that has become the hallmark of this tournament. Not a single complaint from any quarter. Just competitors who love the game, playing hard and making friends along the way.</p>
+
+        <div class="story-thanks">
+          Thanks to <strong>Venky</strong> for Tour Director duties and getting the draws right. To <strong>Atul</strong> for taking on the complex scheduling task. To <strong>Sudhir</strong> for organising and keeping the whole event on track across two days. To <strong>Amit</strong> for his support throughout. And to all the court maintenance staff for keeping the surface in great shape despite the rain interruption.
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FEEDBACK ══ -->
+  <section class="ed-feedback">
+    <div class="container">
+      <div class="eyebrow" style="color:rgba(255,255,255,0.45);">From the Players</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;color:#fff;">What They Said</h2>
+      <div class="feedback-grid">
+
+        <div class="feedback-card">
+          <div class="feedback-quote-mark">"</div>
+          <p class="feedback-text">Congratulations Team Cognizant for fantastic play. It was a hard luck today for you but the match was very close and could have gone either way. Well played! Thank you Sudhir, Atul and Venky sir for the wonderful organisation of the tournament — much appreciated the efforts. Tennisnuts tournaments are always great fun. Congratulations for one more!</p>
+          <div class="feedback-author">Jitendra Joshi</div>
+          <div class="feedback-role">Probity Software · Champions</div>
+        </div>
+
+        <div class="feedback-card">
+          <div class="feedback-quote-mark">"</div>
+          <p class="feedback-text">Thanks Jitu sir — well played you and your team. Very tight match, enjoyed every bit of it. Sanket and Abhishek, great tennis — you both were superb! CTS-2 team, well played too. Thanks to Sudhir, Atul, Amit, Venky for organising this tournament — well done! Thanks to all the court maintenance boys.</p>
+          <div class="feedback-author">C Kumar</div>
+          <div class="feedback-role">CTS I (Cognizant) · Runners-up</div>
+        </div>
+
+        <div class="feedback-card">
+          <div class="feedback-quote-mark">"</div>
+          <p class="feedback-text">Wow, superb. Seems to have been a worthy final. Congrats to Probity for taking sweet revenge, and hard luck CTS — you played like champions.</p>
+          <div class="feedback-author">Alok</div>
+          <div class="feedback-role">Tournament Participant</div>
+        </div>
+
+        <div class="feedback-card">
+          <div class="feedback-quote-mark">"</div>
+          <p class="feedback-text">Congratulations Team Probity — well played Cognizant team. Very well organised tournament, Sudhir, Venky and others involved.</p>
+          <div class="feedback-author">Nitin Phaltankar</div>
+          <div class="feedback-role">Tournament Participant</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EDITION NAV ══ -->
+  <nav class="ed-nav" aria-label="Tournament navigation">
+    <div class="container">
+      <a href="corporate-mar-2023.html" class="ed-nav-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Mar 2023
+      </a>
+      <a href="corporate-tournament.html" class="ed-nav-center">All Corporate</a>
+      <span class="ed-nav-link disabled">
+        More Coming Soon
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </span>
+    </div>
+  </nav>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>
