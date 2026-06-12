@@ -179,6 +179,64 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .socials a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s; color: rgba(255,255,255,0.9); }
 .socials a:hover { background: var(--ball); color: var(--green-2); }
 
+/* HAPPENING */
+.happening { background: #fff; padding: 100px 0 0; }
+.happening-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 44px; }
+.happening-sub { font-size: 17px; color: var(--ink-2); line-height: 1.6; max-width: 40ch; }
+.happening-scroll-outer { padding-bottom: 64px; }
+.h-row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px 4px 16px;
+  cursor: grab;
+}
+.h-row::-webkit-scrollbar { display: none; }
+.h-row:active { cursor: grabbing; }
+.h-card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.h-card:hover { transform: translateY(-5px); box-shadow: 0 20px 44px -16px rgba(28,34,24,0.22); }
+.h-banner { height: 176px; position: relative; overflow: hidden; flex-shrink: 0; }
+.h-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.h-chip {
+  position: absolute; top: 12px; left: 12px;
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 999px;
+  background: var(--ball); color: var(--green-2);
+}
+.h-date {
+  position: absolute; bottom: 10px; right: 10px;
+  font-family: "JetBrains Mono", monospace; font-size: 10px;
+  color: rgba(255,255,255,0.75); background: rgba(0,0,0,0.45);
+  padding: 3px 8px; border-radius: 4px; backdrop-filter: blur(4px);
+}
+.h-body { padding: 20px 18px 22px; flex: 1; display: flex; flex-direction: column; }
+.h-title {
+  font-family: "Bricolage Grotesque", sans-serif; font-size: 17px; font-weight: 700;
+  letter-spacing: -0.02em; color: var(--ink); margin-bottom: 10px; line-height: 1.2;
+}
+.h-desc { font-size: 13px; color: var(--ink-2); line-height: 1.55; flex: 1; margin-bottom: 16px; }
+.h-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 13px; font-weight: 600; color: var(--green); transition: gap .15s; margin-top: auto;
+}
+.h-card:hover .h-link { gap: 9px; }
+
 /* MOBILE NAV */
 html, body { overflow-x: hidden; max-width: 100%; }
 .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px 8px; border-radius: 8px; transition: background .15s; }
@@ -196,6 +254,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 /* RESPONSIVE */
 @media (max-width: 960px) {
+  .happening-head { grid-template-columns: 1fr; gap: 14px; }
+  .happening { padding: 80px 0 0; }
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav-cta { display: none !important; }
@@ -429,6 +489,94 @@ function Activities() {
 
 
 
+const HAPPENINGS = [
+  {
+    url: "open-may-2026.html", cat: "Open", date: "May 2026",
+    title: "Tennisnuts Open",
+    desc: "🏆 Singles: Tanishq Jadhav · 🏆 Doubles: Shivam Padia & Sudhanshu Sawant",
+    img: null,
+    bg: "linear-gradient(145deg,#1c2218 0%,#3a5c2c 100%)",
+  },
+  {
+    url: "corporate-oct-2024.html", cat: "Corporate", date: "Oct 2024",
+    title: "Corporate Team Championship",
+    desc: "🏆 Probity Software · 12 companies, 4 groups, super tie-break final",
+    img: null,
+    bg: "repeating-linear-gradient(125deg,#1c2218 0 14px,#243318 14px 28px)",
+  },
+  {
+    url: "socials-30.html", cat: "Socials", date: "Social #30",
+    title: "NextGen Edition",
+    desc: "Future Tennisnuts theme · Round robin, 6 players, 5 sets of action",
+    img: null,
+    bg: "linear-gradient(160deg,#2c4621 0%,#4d7239 100%)",
+  },
+  {
+    url: "seniors-feb-2023.html", cat: "Seniors", date: "Feb 2023",
+    title: "S35+ Singles & Doubles",
+    desc: "🏆 Singles: Dr Rahul Kothari · 🏆 Doubles: Sandeep Belludi & Joy Banerjee",
+    img: "https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_352,c_fill,g_auto,q_auto,f_auto/v1780725688/Banner_Image_hy55ry.jpg",
+    bg: "#1c2218",
+  },
+  {
+    url: "corporate-mar-2023.html", cat: "Corporate", date: "Mar 2023",
+    title: "Corporate Team Championship",
+    desc: "🏆 Cognizant · Inaugural edition, 8 companies, PMDTA-backed",
+    img: "https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_352,c_fill,g_auto,q_auto,f_auto/v1780730001/Start_of_Day_vqbh8s.jpg",
+    bg: "#1c2218",
+  },
+  {
+    url: "sopal-trophy-2022.html", cat: "Sopal", date: "2022",
+    title: "Narendra Sopal Memorial Championship",
+    desc: "🏆 Tennisnuts Panchayat I · Inaugural inter-club team championship",
+    img: "https://res.cloudinary.com/dwd0abtfo/image/upload/w_600,h_352,c_fill,g_auto,q_auto,f_auto/v1779163605/Banner_ujpzob.jpg",
+    bg: "#1c2218",
+  },
+  {
+    url: "open-jun-2022.html", cat: "Open", date: "Jun 2022",
+    title: "Tennisnuts Open — Inaugural",
+    desc: "🏆 Prasad Ingle & Rohan Phule · First-ever Tennisnuts Open Amateur Doubles",
+    img: null,
+    bg: "linear-gradient(145deg,#0e1810 0%,#2c4621 100%)",
+  },
+];
+
+function Happening() {
+  return (
+    <section className="happening" id="happening">
+      <div className="container">
+        <div className="happening-head">
+          <div>
+            <div className="section-eyebrow">Latest from the Tour</div>
+            <h2 style={{marginBottom:0}}>What's Happening<br/>at Tennisnuts</h2>
+          </div>
+          <p className="happening-sub">Every edition, every category — from weekend socials to city championships. Swipe to explore.</p>
+        </div>
+      </div>
+      <div className="happening-scroll-outer">
+        <div className="container">
+          <div className="h-row">
+            {HAPPENINGS.map(c => (
+              <a key={c.url} href={c.url} className="h-card">
+                <div className="h-banner" style={{background: c.bg}}>
+                  {c.img && <img src={c.img} alt={c.title}/>}
+                  <span className="h-chip">{c.cat}</span>
+                  <span className="h-date">{c.date}</span>
+                </div>
+                <div className="h-body">
+                  <div className="h-title">{c.title}</div>
+                  <div className="h-desc">{c.desc}</div>
+                  <span className="h-link">View Report <Ic.Arrow/></span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Partners() {
   return (
     <section className="partners" id="partners">
@@ -520,6 +668,7 @@ function App() {
       <Nav/>
       <main>
         <Hero/>
+        <Happening/>
         <Who/>
         <Activities/>
         <Partners/>
