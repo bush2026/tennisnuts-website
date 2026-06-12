@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Tennisnuts Grand Slam Predictions — Who Calls the Slams?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ball-2: #d8e85a;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --paper: #fff;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+
+.container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border-radius: 999px; font-weight: 600; font-size: 16px;
+  font-family: "DM Sans", sans-serif; transition: transform .15s, background .15s, color .15s;
+  white-space: nowrap; cursor: pointer; text-decoration: none; border: none;
+}
+.btn-ball { background: var(--ball); color: var(--green-2); }
+.btn-ball:hover { background: var(--ball-2); transform: translateY(-2px); }
+.btn-ghost-white { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.7); }
+.btn-ghost-white:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+.btn-outline {
+  background: transparent; color: var(--green); border: 1.5px solid var(--green);
+  width: 100%; justify-content: center;
+}
+.btn-outline:hover { background: var(--green-soft); }
+.btn-large { padding: 16px 36px; font-size: 17px; }
+
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--green); font-weight: 600; font-size: 13px;
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 18px;
+}
+.section-eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--ball); }
+
+/* ── HERO ── */
+.page-hero {
+  min-height: 460px; position: relative; overflow: hidden;
+  display: flex; align-items: center; color: #fff; padding: 80px 0 72px;
+}
+.page-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 75% 40%, rgba(205,220,57,0.12), transparent 50%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 28px, transparent 28px 56px),
+    linear-gradient(155deg, #0e1810 0%, #1c2218 50%, #2c4621 100%);
+  z-index: 0;
+}
+.page-hero::after {
+  content: "SLAM";
+  position: absolute;
+  right: -20px; bottom: -20px;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: clamp(120px, 20vw, 260px);
+  line-height: 1;
+  color: #fff;
+  opacity: 0.035;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+  z-index: 0;
+}
+.page-hero .container { position: relative; z-index: 1; }
+
+.hero-eyebrow-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(205,220,57,0.15); border: 1px solid rgba(205,220,57,0.4);
+  padding: 8px 16px; border-radius: 999px; font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ball); margin-bottom: 24px;
+}
+.page-hero h1 {
+  font-size: clamp(52px, 8vw, 90px); line-height: 0.97;
+  letter-spacing: -0.04em; color: #fff; margin-bottom: 18px;
+}
+.page-hero .hero-sub {
+  font-size: 20px; color: rgba(255,255,255,0.82); margin-bottom: 36px; max-width: 50ch;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+.hero-stats-row {
+  font-size: 14px; color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0; letter-spacing: 0.01em;
+}
+.hero-stats-row .sep { margin: 0 12px; opacity: 0.4; }
+.hero-stats-row strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+/* ── ABOUT ── */
+.about-section {
+  background: var(--cream); padding: 100px 0;
+}
+.about-grid {
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: 72px; align-items: center;
+}
+.about-copy h2 {
+  font-size: clamp(32px, 4vw, 50px); line-height: 1.05;
+  letter-spacing: -0.03em; margin-bottom: 24px; max-width: 22ch;
+}
+.about-copy p {
+  font-size: 17px; color: var(--ink-2); line-height: 1.65;
+  margin-bottom: 20px; max-width: 58ch;
+}
+.about-copy p:last-child { margin-bottom: 0; }
+
+.about-card {
+  background: #fff; border-radius: 20px;
+  box-shadow: 0 20px 50px -20px rgba(28,34,24,0.3);
+  border: 1px solid var(--line); overflow: hidden;
+}
+.about-card-header {
+  background: var(--ink); padding: 20px 28px;
+  display: flex; align-items: center; gap: 12px;
+}
+.about-card-header span {
+  font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+}
+.about-card-header strong {
+  font-family: "Bricolage Grotesque", sans-serif; font-size: 18px;
+  font-weight: 700; color: #fff; letter-spacing: -0.02em;
+}
+.about-card-body { padding: 28px; display: flex; flex-direction: column; gap: 0; }
+.about-stat { padding: 20px 0; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; }
+.about-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.about-stat:first-child { padding-top: 0; }
+.about-stat-num {
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+  font-size: 2.4rem; color: var(--green); line-height: 1; flex-shrink: 0; min-width: 72px;
+}
+.about-stat-label { font-size: 14px; color: var(--ink-2); font-weight: 500; line-height: 1.4; }
+
+/* ── SLAMS GRID ── */
+.slams-section { background: #fff; padding: 100px 0; }
+.slams-head { margin-bottom: 56px; }
+.slams-head h2 {
+  font-size: clamp(34px, 4vw, 52px); line-height: 1.05;
+  letter-spacing: -0.03em; margin-bottom: 14px;
+}
+.slams-head .sub { font-size: 17px; color: var(--ink-2); max-width: 56ch; }
+
+.slams-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.slam-card {
+  border-radius: 20px; border: 1px solid var(--line); overflow: hidden;
+  background: #fff; transition: transform .2s, box-shadow .2s;
+}
+.slam-card:hover { transform: translateY(-5px); box-shadow: 0 24px 48px -20px rgba(28,34,24,0.25); }
+
+.slam-banner {
+  height: 200px; position: relative; overflow: hidden;
+}
+.slam-banner-label {
+  position: absolute; bottom: 14px; left: 14px;
+  background: rgba(28,34,24,0.65); color: #fff;
+  font-family: "JetBrains Mono", monospace; font-size: 11px;
+  padding: 6px 10px; border-radius: 6px; letter-spacing: 0.04em;
+}
+.slam-banner-tag {
+  position: absolute; top: 14px; right: 14px;
+  background: var(--ball); color: var(--green-2);
+  font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 999px;
+}
+.slam-body { padding: 22px; }
+.slam-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green-2); background: var(--ball);
+  display: inline-block; padding: 3px 10px; border-radius: 999px; margin-bottom: 12px;
+}
+.slam-body h3 { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 8px; }
+.slam-meta { font-size: 14px; color: var(--ink-2); margin-bottom: 12px; }
+.slam-result {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 13px; color: var(--ink); font-weight: 600;
+  background: var(--green-soft); border-radius: 8px; padding: 10px 12px;
+  margin-bottom: 14px;
+}
+.slam-result .result-row { display: flex; align-items: center; gap: 6px; }
+.slam-result .result-row .cat {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-2); min-width: 60px;
+}
+.slam-body p { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+
+/* ── FORMAT SECTION ── */
+.format-section { background: var(--green-soft); padding: 80px 0; }
+.format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+.format-card {
+  background: #fff; border-radius: 16px; padding: 28px;
+  border: 1px solid rgba(58,92,44,0.1);
+}
+.format-icon { font-size: 32px; margin-bottom: 14px; }
+.format-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--ink); }
+.format-card p { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+/* ── WA CTA ── */
+.wa-cta {
+  position: relative; overflow: hidden; padding: 80px 0; text-align: center; color: #fff;
+}
+.wa-cta::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 28px, transparent 28px 56px),
+    linear-gradient(155deg, #0e1810 0%, #1c2218 100%);
+  z-index: 0;
+}
+.wa-cta .container { position: relative; z-index: 1; }
+.wa-cta h2 { font-size: clamp(32px, 5vw, 52px); color: #fff; letter-spacing: -0.03em; margin-bottom: 18px; }
+.wa-cta p { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 52ch; margin: 0 auto 36px; line-height: 1.6; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .slams-grid { grid-template-columns: repeat(2, 1fr); }
+  .format-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-section, .slams-section { padding: 72px 0; }
+}
+@media (max-width: 560px) {
+  .slams-grid { grid-template-columns: 1fr; }
+  .format-grid { grid-template-columns: 1fr; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; }
+  .about-section, .slams-section { padding: 56px 0; }
+  .wa-cta { padding: 60px 0; }
+  .container { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div>
+        <span class="hero-eyebrow-chip">Tennisnuts · Grand Slam Predictions</span>
+      </div>
+      <h1>Who Calls<br>the Slams?</h1>
+      <p class="hero-sub">Before every Grand Slam, Tennisnuts members make their picks. Every correct call earns points. The community's sharpest tennis mind gets crowned at the end.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." target="_blank" rel="noopener" class="btn btn-ball">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg>
+          Join WhatsApp
+        </a>
+        <a href="#editions" class="btn btn-ghost-white">View Editions ↓</a>
+      </div>
+      <div class="hero-stats-row">
+        <span><strong>4 Grand Slams</strong> per year</span>
+        <span class="sep">·</span>
+        <span>AO · Roland Garros · Wimbledon · US Open</span>
+        <span class="sep">·</span>
+        <span>28 predictors in RG 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-copy">
+          <div class="section-eyebrow">About Grand Slam Predictions</div>
+          <h2>Your tennis brain, on the line.</h2>
+          <p>Four times a year, the world's best gather for a Grand Slam — and every Tennisnut gets to put their knowledge to the test. Before the tournament begins, members submit their predictions for who wins the draw. Every correct call earns points on the community leaderboard.</p>
+          <p>It's not just about picking the favourite. Deep rounds reward bold calls. A wildcard semi-finalist no one saw coming? That's points in the bank. The player who watches closely, knows the draws, tracks form — they rise. The casual pick-the-world-number-one player? They get found out.</p>
+          <p>Each edition has its own podium. At the end of the season, the community's sharpest tennis mind earns the ultimate bragging rights: the Tennisnuts Slam Caller.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-header">
+            <div>
+              <span>GRAND SLAM PREDICTIONS</span>
+              <br>
+              <strong>Community Leaderboard</strong>
+            </div>
+          </div>
+          <div class="about-card-body">
+            <div class="about-stat">
+              <div class="about-stat-num">4</div>
+              <div class="about-stat-label">Grand Slams per year — AO, Roland Garros, Wimbledon, US Open</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">28</div>
+              <div class="about-stat-label">Participants in RG 2026, the debut edition</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-num">745</div>
+              <div class="about-stat-label">Top score in RG 2026 — Manoj Sharma, Slam Caller</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAT -->
+  <section class="format-section">
+    <div class="container">
+      <div class="section-eyebrow">How It Works</div>
+      <h2 style="font-size:clamp(28px,3.5vw,40px);letter-spacing:-0.02em;">Three steps to the podium.</h2>
+      <div class="format-grid">
+        <div class="format-card">
+          <div class="format-icon">🎯</div>
+          <h3>Predict the Draw</h3>
+          <p>Before the Slam begins, members submit their predictions via the Tennisnuts WhatsApp group. Who wins each round? Who makes the semis? Who lifts the trophy?</p>
+        </div>
+        <div class="format-card">
+          <div class="format-icon">📊</div>
+          <h3>Earn Points</h3>
+          <p>Every correct pick earns points — deeper rounds score higher. Picking the winner is good. Correctly calling who they beat in the quarters is better.</p>
+        </div>
+        <div class="format-card">
+          <div class="format-icon">🏆</div>
+          <h3>Claim the Podium</h3>
+          <p>Results are tallied after the final. The top three predictors take the edition podium. The highest scorer across all four Slams becomes the season's Slam Caller.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITIONS GRID -->
+  <section class="slams-section" id="editions">
+    <div class="container">
+      <div class="slams-head">
+        <div class="section-eyebrow">Editions</div>
+        <h2>Every Slam, a new leaderboard.</h2>
+        <p class="sub">Grand Slam Predictions kicked off with Roland Garros 2026. More Slams, more editions, more podiums to come.</p>
+      </div>
+      <div class="slams-grid">
+
+        <!-- Roland Garros 2026 -->
+        <div class="slam-card">
+          <div class="slam-banner" style="background: radial-gradient(ellipse at 60% 30%, rgba(205,220,57,0.18), transparent 60%), repeating-linear-gradient(125deg,#1c2218 0 16px,#2c4621 16px 32px);">
+            <div class="slam-banner-tag">Debut Edition</div>
+            <div class="slam-banner-label">Roland Garros · June 2026</div>
+          </div>
+          <div class="slam-body">
+            <div class="slam-tag">Roland Garros 2026</div>
+            <h3>Roland Garros 2026</h3>
+            <div class="slam-meta">📅 June 2026 &nbsp;·&nbsp; 28 participants &nbsp;·&nbsp; Powered by SportJam</div>
+            <div class="slam-result">
+              <div class="result-row"><span class="cat">🥇 Winner</span> Manoj Sharma — 745 pts</div>
+              <div class="result-row"><span class="cat">🥈 Runner</span> Sudhir Pisal — 720 pts</div>
+              <div class="result-row"><span class="cat">🥉 Third</span> Shishir Sanjay Singh — 660 pts</div>
+            </div>
+            <p>The inaugural edition. 28 community members put their tennis brains on the line — and Manoj Sharma read the draw better than anyone.</p>
+            <a href="grandslam-rg-2026.html" class="btn btn-outline" style="margin-top:16px;">View Leaderboard →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WA CTA -->
+  <section class="wa-cta">
+    <div class="container">
+      <h2>Make your picks for the next Slam</h2>
+      <p>Predictions are submitted via the Tennisnuts WhatsApp group before each Grand Slam begins. Join now and don't miss your window.</p>
+      <a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." target="_blank" rel="noopener" class="btn btn-ball btn-large">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg>
+        Join WhatsApp
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>

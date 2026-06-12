@@ -314,6 +314,7 @@ const ACTIVITIES = [
   { i: <Ic.Trophy/>,   t: "Sopal Club Championship",   d: "Pune's most-coveted community trophy. Held annually in memory of Narendra Sopal.", url: "sopal-trophy.html" },
   { i: <Ic.Briefcase/>,t: "Corporate Tournament",      d: "Bring your team. Leave the spreadsheets. Settle it on court.", url: "corporate-tournament.html" },
   { i: <Ic.Heart/>,    t: "Tennis Clinics",            d: "Open-format clinics run by coaches who want you to get better, not just show up.", url: "tennis-clinics.html" },
+  { i: <Ic.Star/>,    t: "Grand Slam Predictions",    d: "Predict the draw, track your points, and crown the community's sharpest tennis mind each Grand Slam.", url: "grandslam-predictions.html" },
 ];
 
 
@@ -350,7 +351,7 @@ function Nav() {
           <div style={{position:'relative'}} onMouseEnter={()=>setOpen('events')} onMouseLeave={()=>setOpen(null)}>
             <button style={btnStyle} onClick={()=>toggle('events')}>Events <Chevron/></button>
             {open==='events' && <div style={dropStyle}>
-              {[['Tennisnuts Socials','socials.html'],['Seniors Tennis','seniors.html'],['Tennisnuts Open','open.html'],['Sopal Club Championship','sopal-trophy.html'],['Corporate Tournament','corporate-tournament.html'],['Tennis Clinics','tennis-clinics.html']].map(([l,h])=><a key={h} href={h} style={dropLinkStyle}>{l}</a>)}
+              {[['Tennisnuts Socials','socials.html'],['Seniors Tennis','seniors.html'],['Tennisnuts Open','open.html'],['Sopal Club Championship','sopal-trophy.html'],['Corporate Tournament','corporate-tournament.html'],['Tennis Clinics','tennis-clinics.html'],['Grand Slam Predictions','grandslam-predictions.html']].map(([l,h])=><a key={h} href={h} style={dropLinkStyle}>{l}</a>)}
             </div>}
           </div>
         </nav>
@@ -377,6 +378,7 @@ function Nav() {
         <a href="sopal-trophy.html" onClick={closeMobile}>Sopal Club Championship</a>
         <a href="corporate-tournament.html" onClick={closeMobile}>Corporate Tournament</a>
         <a href="tennis-clinics.html" onClick={closeMobile}>Tennis Clinics</a>
+        <a href="grandslam-predictions.html" onClick={closeMobile}>Grand Slam Predictions</a>
       </div>
     </header>
   );
@@ -463,7 +465,7 @@ function Activities() {
         <div className="section-head">
           <div>
             <div className="section-eyebrow">What we do</div>
-            <h2>Six ways to be a Tennisnut.</h2>
+            <h2>Seven ways to be a Tennisnut.</h2>
           </div>
           <div className="right">From low-key Sunday socials to the city's most chased trophy. Show up for one, stay for all of them.</div>
         </div>
@@ -490,6 +492,13 @@ function Activities() {
 
 
 const HAPPENINGS = [
+  {
+    url: "grandslam-rg-2026.html", cat: "Predictions", date: "Jun 2026",
+    title: "Roland Garros 2026",
+    desc: "🥇 Manoj Sharma 745 pts · 28 predictors · Debut Grand Slam edition",
+    img: null,
+    bg: "radial-gradient(ellipse at 60% 30%, rgba(205,220,57,0.18), transparent 60%), repeating-linear-gradient(125deg,#1c2218 0 14px,#2c4621 14px 28px)",
+  },
   {
     url: "open-may-2026.html", cat: "Open", date: "May 2026",
     title: "Tennisnuts Open",

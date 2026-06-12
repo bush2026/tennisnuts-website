@@ -62,6 +62,7 @@
     + '<a href="sopal-trophy.html">Sopal Club Championship</a>'
     + '<a href="corporate-tournament.html">Corporate Tournament</a>'
     + '<a href="tennis-clinics.html">Tennis Clinics</a>'
+    + '<a href="grandslam-predictions.html">Grand Slam Predictions</a>'
     + '</div>'
     + '</li>'
     + '</ul>'
