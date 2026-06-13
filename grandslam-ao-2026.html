@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Roland Garros 2026 Predictions — Tennisnuts</title>
+<title>Australian Open 2026 Predictions — Tennisnuts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -86,7 +86,43 @@ img, svg { display: block; max-width: 100%; }
 }
 .hero-meta .dot { opacity: 0.4; }
 
-/* ═══ PODIUM — top 3 predictors ═══ */
+/* ═══ HERO VISUAL ═══ */
+.hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.hero-lb-card {
+  background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 20px; padding: 22px; backdrop-filter: blur(10px);
+}
+.hero-lb-head {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ball);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+}
+.hero-lb-head::before { content: ""; display: block; width: 18px; height: 1.5px; background: var(--ball); }
+.hero-lb-row {
+  display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+  border-radius: 10px; margin-bottom: 5px;
+}
+.hero-lb-row:last-of-type { margin-bottom: 0; }
+.hero-lb-row.r1 { background: rgba(205,220,57,0.15); border: 1px solid rgba(205,220,57,0.3); }
+.hero-lb-row.r2, .hero-lb-row.r3 { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); }
+.hero-lb-row.r4, .hero-lb-row.r5 { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+.hero-lb-pos { font-family: "JetBrains Mono", monospace; font-size: 11px; color: rgba(255,255,255,0.35); min-width: 18px; flex-shrink: 0; }
+.hero-lb-medal { font-size: 15px; flex-shrink: 0; width: 20px; text-align: center; }
+.hero-lb-name { font-size: 13px; font-weight: 600; flex: 1; }
+.hero-lb-row.r1 .hero-lb-name { color: #fff; }
+.hero-lb-row.r2 .hero-lb-name, .hero-lb-row.r3 .hero-lb-name { color: rgba(255,255,255,0.8); }
+.hero-lb-row.r4 .hero-lb-name, .hero-lb-row.r5 .hero-lb-name { color: rgba(255,255,255,0.55); }
+.hero-lb-score { font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 600; }
+.hero-lb-row.r1 .hero-lb-score { color: var(--ball); }
+.hero-lb-row.r2 .hero-lb-score, .hero-lb-row.r3 .hero-lb-score { color: rgba(255,255,255,0.6); font-size: 11px; }
+.hero-lb-row.r4 .hero-lb-score, .hero-lb-row.r5 .hero-lb-score { color: rgba(255,255,255,0.38); font-size: 11px; }
+.hero-lb-footer {
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);
+  font-family: "JetBrains Mono", monospace; font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em;
+}
+@media (max-width: 800px) { .hero-layout { grid-template-columns: 1fr; } .hero-lb-card { display: none; } }
+
+/* ═══ PODIUM ═══ */
 .ed-podium { background: #fff; padding: 80px 0; }
 .podium-three {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px;
@@ -121,6 +157,12 @@ img, svg { display: block; max-width: 100%; }
 .podium-card.silver .podium-pts { color: var(--green); }
 .podium-card.bronze .podium-pts { color: var(--green-2); }
 .podium-pts-label { font-size: 11px; opacity: 0.6; margin-left: 4px; font-family: "DM Sans", sans-serif; font-weight: 400; }
+.podium-note {
+  margin-top: 6px; font-size: 12px; font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.04em;
+}
+.podium-card.gold .podium-note { color: rgba(255,255,255,0.55); }
+.podium-card.silver .podium-note, .podium-card.bronze .podium-note { color: var(--ink-2); }
 
 /* ═══ LEADERBOARD ═══ */
 .ed-leaderboard { background: var(--cream); padding: 80px 0; }
@@ -194,42 +236,6 @@ img, svg { display: block; max-width: 100%; }
 }
 .ed-nav-center:hover { opacity: 0.8; }
 
-/* ═══ HERO VISUAL ═══ */
-.hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-.hero-lb-card {
-  background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.13);
-  border-radius: 20px; padding: 22px; backdrop-filter: blur(10px);
-}
-.hero-lb-head {
-  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
-  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ball);
-  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
-}
-.hero-lb-head::before { content: ""; display: block; width: 18px; height: 1.5px; background: var(--ball); }
-.hero-lb-row {
-  display: flex; align-items: center; gap: 10px; padding: 9px 12px;
-  border-radius: 10px; margin-bottom: 5px;
-}
-.hero-lb-row:last-of-type { margin-bottom: 0; }
-.hero-lb-row.r1 { background: rgba(205,220,57,0.15); border: 1px solid rgba(205,220,57,0.3); }
-.hero-lb-row.r2, .hero-lb-row.r3 { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); }
-.hero-lb-row.r4, .hero-lb-row.r5 { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
-.hero-lb-pos { font-family: "JetBrains Mono", monospace; font-size: 11px; color: rgba(255,255,255,0.35); min-width: 18px; flex-shrink: 0; }
-.hero-lb-medal { font-size: 15px; flex-shrink: 0; width: 20px; text-align: center; }
-.hero-lb-name { font-size: 13px; font-weight: 600; flex: 1; }
-.hero-lb-row.r1 .hero-lb-name { color: #fff; }
-.hero-lb-row.r2 .hero-lb-name, .hero-lb-row.r3 .hero-lb-name { color: rgba(255,255,255,0.8); }
-.hero-lb-row.r4 .hero-lb-name, .hero-lb-row.r5 .hero-lb-name { color: rgba(255,255,255,0.55); }
-.hero-lb-score { font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 600; }
-.hero-lb-row.r1 .hero-lb-score { color: var(--ball); }
-.hero-lb-row.r2 .hero-lb-score, .hero-lb-row.r3 .hero-lb-score { color: rgba(255,255,255,0.6); font-size: 11px; }
-.hero-lb-row.r4 .hero-lb-score, .hero-lb-row.r5 .hero-lb-score { color: rgba(255,255,255,0.38); font-size: 11px; }
-.hero-lb-footer {
-  margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);
-  font-family: "JetBrains Mono", monospace; font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em;
-}
-@media (max-width: 800px) { .hero-layout { grid-template-columns: 1fr; } .hero-lb-card { display: none; } }
-
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 760px) {
   .podium-three { grid-template-columns: 1fr; gap: 14px; }
@@ -250,7 +256,7 @@ img, svg { display: block; max-width: 100%; }
 
   <!-- ══ HERO ══ -->
   <section class="ed-hero">
-    <div class="hero-bg-watermark">RG '26</div>
+    <div class="hero-bg-watermark">AO '26</div>
     <div class="container">
       <div class="hero-layout">
         <div>
@@ -259,12 +265,12 @@ img, svg { display: block; max-width: 100%; }
             Grand Slam Predictions
           </a>
           <div class="tournament-chip">Tennisnuts · Grand Slam Predictions</div>
-          <h1>Roland Garros<br>2026</h1>
-          <p class="hero-tagline">"Clay season called — Tennisnuts answered. One nailed it."</p>
+          <h1>Australian Open<br>2026</h1>
+          <p class="hero-tagline">"Three joint leaders after Week 1. Melbourne was always going to sort it out."</p>
           <div class="hero-meta">
-            <span>🎾 Roland Garros</span>
+            <span>🎾 Australian Open</span>
             <span class="dot">·</span>
-            <span>May–June 2026</span>
+            <span>January 2026</span>
             <span class="dot">·</span>
             <span>30+ Participants</span>
             <span class="dot">·</span>
@@ -275,30 +281,30 @@ img, svg { display: block; max-width: 100%; }
           <div class="hero-lb-head">Final Leaderboard</div>
           <div class="hero-lb-row r1">
             <span class="hero-lb-pos">1</span><span class="hero-lb-medal">🥇</span>
-            <span class="hero-lb-name">Manoj Sharma</span>
-            <span class="hero-lb-score">745 pts</span>
+            <span class="hero-lb-name">Ricardo Gallego</span>
+            <span class="hero-lb-score">835 pts</span>
           </div>
           <div class="hero-lb-row r2">
             <span class="hero-lb-pos">2</span><span class="hero-lb-medal">🥈</span>
-            <span class="hero-lb-name">Sudhir Pisal</span>
-            <span class="hero-lb-score">720 pts</span>
+            <span class="hero-lb-name">Vinit Shahane</span>
+            <span class="hero-lb-score">825 pts</span>
           </div>
           <div class="hero-lb-row r3">
             <span class="hero-lb-pos">3</span><span class="hero-lb-medal">🥉</span>
-            <span class="hero-lb-name">Shishir Sanjay Singh</span>
-            <span class="hero-lb-score">660 pts</span>
+            <span class="hero-lb-name">Nishant Bhagiya</span>
+            <span class="hero-lb-score">810 pts</span>
           </div>
           <div class="hero-lb-row r4">
             <span class="hero-lb-pos">4</span><span class="hero-lb-medal"></span>
-            <span class="hero-lb-name">Rohit Agarwal</span>
-            <span class="hero-lb-score">645 pts</span>
+            <span class="hero-lb-name">Vaibhav Betigiri</span>
+            <span class="hero-lb-score">805 pts</span>
           </div>
           <div class="hero-lb-row r5">
-            <span class="hero-lb-pos">5</span><span class="hero-lb-medal"></span>
-            <span class="hero-lb-name">Usman Nallamandu</span>
-            <span class="hero-lb-score">555 pts</span>
+            <span class="hero-lb-pos">=5</span><span class="hero-lb-medal"></span>
+            <span class="hero-lb-name">Nikhil · Prakash Sir</span>
+            <span class="hero-lb-score">790 pts</span>
           </div>
-          <div class="hero-lb-footer">RG 2026 · Paris · 30+ participants</div>
+          <div class="hero-lb-footer">AO 2026 · Melbourne · 30+ participants</div>
         </div>
       </div>
     </div>
@@ -314,22 +320,25 @@ img, svg { display: block; max-width: 100%; }
         <div class="podium-card gold">
           <div class="podium-medal">🥇</div>
           <div class="podium-label">Grand Predictor</div>
-          <div class="podium-names">Manoj Sharma</div>
-          <div class="podium-pts">745<span class="podium-pts-label">pts</span></div>
+          <div class="podium-names">Ricardo Gallego</div>
+          <div class="podium-pts">835<span class="podium-pts-label">pts</span></div>
+          <div class="podium-note">Week 1 Joint Leader</div>
         </div>
 
         <div class="podium-card silver">
           <div class="podium-medal">🥈</div>
           <div class="podium-label">Runner-up</div>
-          <div class="podium-names">Sudhir Pisal</div>
-          <div class="podium-pts">720<span class="podium-pts-label">pts</span></div>
+          <div class="podium-names">Vinit Shahane</div>
+          <div class="podium-pts">825<span class="podium-pts-label">pts</span></div>
+          <div class="podium-note">Week 1 Joint Leader</div>
         </div>
 
         <div class="podium-card bronze">
           <div class="podium-medal">🥉</div>
           <div class="podium-label">Third Place</div>
-          <div class="podium-names">Shishir Sanjay Singh</div>
-          <div class="podium-pts">660<span class="podium-pts-label">pts</span></div>
+          <div class="podium-names">Nishant Bhagiya</div>
+          <div class="podium-pts">810<span class="podium-pts-label">pts</span></div>
+          <div class="podium-note">Week 1 Joint Leader</div>
         </div>
 
       </div>
@@ -345,198 +354,177 @@ img, svg { display: block; max-width: 100%; }
 
         <div class="lb-row lb-gold">
           <span class="lb-rank">1</span><span class="lb-medal">🥇</span>
-          <span class="lb-name">Manoj Sharma</span>
+          <span class="lb-name">Ricardo Gallego</span>
           <div class="lb-bar-wrap"><div class="lb-bar" style="width:100%"></div></div>
-          <span class="lb-score">745</span>
+          <span class="lb-score">835</span>
         </div>
 
         <div class="lb-row lb-silver">
           <span class="lb-rank">2</span><span class="lb-medal">🥈</span>
-          <span class="lb-name">Sudhir Pisal</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:97%"></div></div>
-          <span class="lb-score">720</span>
+          <span class="lb-name">Vinit Shahane</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:99%"></div></div>
+          <span class="lb-score">825</span>
         </div>
 
         <div class="lb-row lb-bronze">
           <span class="lb-rank">3</span><span class="lb-medal">🥉</span>
-          <span class="lb-name">Shishir Sanjay Singh</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:89%"></div></div>
-          <span class="lb-score">660</span>
+          <span class="lb-name">Nishant Bhagiya</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:97%"></div></div>
+          <span class="lb-score">810</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">4</span><span class="lb-medal"></span>
-          <span class="lb-name">Rohit Agarwal</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:87%"></div></div>
-          <span class="lb-score">645</span>
+          <span class="lb-name">Vaibhav Betigiri</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:96%"></div></div>
+          <span class="lb-score">805</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">5</span><span class="lb-medal"></span>
-          <span class="lb-name">Usman Nallamandu</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:74%"></div></div>
-          <span class="lb-score">555</span>
+          <span class="lb-rank">=5</span><span class="lb-medal"></span>
+          <span class="lb-name">Nikhil Habib</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:95%"></div></div>
+          <span class="lb-score">790</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">6</span><span class="lb-medal"></span>
-          <span class="lb-name">Shailesh Arun Mistry</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:72%"></div></div>
-          <span class="lb-score">540</span>
+          <span class="lb-rank">=5</span><span class="lb-medal"></span>
+          <span class="lb-name">Prakash Suryavanshi</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:95%"></div></div>
+          <span class="lb-score">790</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">7</span><span class="lb-medal"></span>
-          <span class="lb-name">Rachit Tiwari</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:71%"></div></div>
-          <span class="lb-score">530</span>
+          <span class="lb-name">Shishir Singh</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:92%"></div></div>
+          <span class="lb-score">765</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">8</span><span class="lb-medal"></span>
-          <span class="lb-name">Neha</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:66%"></div></div>
-          <span class="lb-score">495</span>
+          <span class="lb-name">Shailesh Mistry</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:90%"></div></div>
+          <span class="lb-score">755</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">9</span><span class="lb-medal"></span>
-          <span class="lb-name">Anup Ashokkumar</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:64%"></div></div>
-          <span class="lb-score">480</span>
+          <span class="lb-name">Pratik Dhoot</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:88%"></div></div>
+          <span class="lb-score">735</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">10</span><span class="lb-medal"></span>
-          <span class="lb-name">Santosh Chitnis</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:64%"></div></div>
-          <span class="lb-score">475</span>
+          <span class="lb-name">Sudhir Pisal</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:87%"></div></div>
+          <span class="lb-score">725</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">11</span><span class="lb-medal"></span>
-          <span class="lb-name">Pratik Desai</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:57%"></div></div>
-          <span class="lb-score">425</span>
+          <span class="lb-name">Neha Pisal</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:86%"></div></div>
+          <span class="lb-score">715</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">12</span><span class="lb-medal"></span>
-          <span class="lb-name">Anks</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:56%"></div></div>
-          <span class="lb-score">415</span>
+          <span class="lb-name">Aum Raut</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:81%"></div></div>
+          <span class="lb-score">680</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">=13</span><span class="lb-medal"></span>
-          <span class="lb-name">Jitendra</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:52%"></div></div>
-          <span class="lb-score">385</span>
+          <span class="lb-rank">13</span><span class="lb-medal"></span>
+          <span class="lb-name">Ravikiran Deshpande</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:81%"></div></div>
+          <span class="lb-score">675</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">=13</span><span class="lb-medal"></span>
-          <span class="lb-name">Nishant Bhagiya</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:52%"></div></div>
-          <span class="lb-score">385</span>
+          <span class="lb-rank">14</span><span class="lb-medal"></span>
+          <span class="lb-name">Usman Nallamandu</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:80%"></div></div>
+          <span class="lb-score">670</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">15</span><span class="lb-medal"></span>
-          <span class="lb-name">Kaushal Inamdar</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:50%"></div></div>
-          <span class="lb-score">375</span>
+          <span class="lb-rank">=15</span><span class="lb-medal"></span>
+          <span class="lb-name">Adarsh Gopal</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:79%"></div></div>
+          <span class="lb-score">660</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">16</span><span class="lb-medal"></span>
-          <span class="lb-name">Shivraj Irkal</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:45%"></div></div>
-          <span class="lb-score">335</span>
+          <span class="lb-rank">=15</span><span class="lb-medal"></span>
+          <span class="lb-name">Yogesh Shahapurkar</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:79%"></div></div>
+          <span class="lb-score">660</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">17</span><span class="lb-medal"></span>
-          <span class="lb-name">Ibrahim</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:39%"></div></div>
-          <span class="lb-score">290</span>
+          <span class="lb-name">Anup</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:78%"></div></div>
+          <span class="lb-score">655</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">18</span><span class="lb-medal"></span>
-          <span class="lb-name">Pranshu Paliwal</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:18%"></div></div>
-          <span class="lb-score">135</span>
+          <span class="lb-name">Ashutosh</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:78%"></div></div>
+          <span class="lb-score">650</span>
         </div>
 
         <div class="lb-row">
           <span class="lb-rank">19</span><span class="lb-medal"></span>
-          <span class="lb-name">Harsh Iunawat</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:16%"></div></div>
-          <span class="lb-score">120</span>
+          <span class="lb-name">Alok</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:73%"></div></div>
+          <span class="lb-score">610</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">20</span><span class="lb-medal"></span>
-          <span class="lb-name">Shirsendu Banerjee</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:15%"></div></div>
-          <span class="lb-score">110</span>
+          <span class="lb-rank">=20</span><span class="lb-medal"></span>
+          <span class="lb-name">Chetan Kuchan</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:72%"></div></div>
+          <span class="lb-score">605</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">21</span><span class="lb-medal"></span>
-          <span class="lb-name">Satyajeet Avasthi</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:11%"></div></div>
-          <span class="lb-score">85</span>
+          <span class="lb-rank">=20</span><span class="lb-medal"></span>
+          <span class="lb-name">Shivraj Irkal</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:72%"></div></div>
+          <span class="lb-score">605</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">=22</span><span class="lb-medal"></span>
-          <span class="lb-name">Abhishek De</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:9%"></div></div>
-          <span class="lb-score">65</span>
+          <span class="lb-rank">22</span><span class="lb-medal"></span>
+          <span class="lb-name">Deepak Patil</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:71%"></div></div>
+          <span class="lb-score">590</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">=22</span><span class="lb-medal"></span>
-          <span class="lb-name">Rishikesh Salunke</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:9%"></div></div>
-          <span class="lb-score">65</span>
+          <span class="lb-rank">23</span><span class="lb-medal"></span>
+          <span class="lb-name">Anks</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:69%"></div></div>
+          <span class="lb-score">575</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">24</span><span class="lb-medal"></span>
-          <span class="lb-name">Sahil Khare</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:8%"></div></div>
-          <span class="lb-score">60</span>
+          <span class="lb-rank">=24</span><span class="lb-medal"></span>
+          <span class="lb-name">Pratik Desai</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:68%"></div></div>
+          <span class="lb-score">565</span>
         </div>
 
         <div class="lb-row">
-          <span class="lb-rank">=25</span><span class="lb-medal"></span>
-          <span class="lb-name">Rajesh Iyer</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:6%"></div></div>
-          <span class="lb-score">45</span>
-        </div>
-
-        <div class="lb-row">
-          <span class="lb-rank">=25</span><span class="lb-medal"></span>
-          <span class="lb-name">Rohan Shirude</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:6%"></div></div>
-          <span class="lb-score">45</span>
-        </div>
-
-        <div class="lb-row">
-          <span class="lb-rank">=27</span><span class="lb-medal"></span>
-          <span class="lb-name">Aamir</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:3%"></div></div>
-          <span class="lb-score">20</span>
-        </div>
-
-        <div class="lb-row">
-          <span class="lb-rank">=27</span><span class="lb-medal"></span>
-          <span class="lb-name">Angadsingh Patheja</span>
-          <div class="lb-bar-wrap"><div class="lb-bar" style="width:3%"></div></div>
-          <span class="lb-score">20</span>
+          <span class="lb-rank">=24</span><span class="lb-medal"></span>
+          <span class="lb-name">Santosh Chitnis</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:68%"></div></div>
+          <span class="lb-score">565</span>
         </div>
 
       </div>
@@ -548,26 +536,29 @@ img, svg { display: block; max-width: 100%; }
   <section class="ed-story">
     <div class="container">
       <div class="eyebrow">How It Played Out</div>
-      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">A Two-Week<br>Chase on Clay</h2>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Melbourne's<br>Tightest Finish</h2>
       <div class="story-content">
 
-        <p>Before each day's play at Roland Garros 2026, Tennisnuts members filled in a fresh set of predictions for that day's matches — picks locked in before the first ball struck, round by round, across the full fortnight in Paris.</p>
+        <p>Before each day's play at Melbourne Park, Tennisnuts members filled in a fresh set of predictions for that day's matches — picks locked in before the first ball of the session, round by round, across two weeks of Australian Open tennis. Neha Pisal coordinated the entire operation: creating the form each matchday, capturing results, and updating the leaderboard for more than thirty participants throughout the fortnight.</p>
 
-        <p>After Week 1 — the first rounds through to the round of 16 — Manoj Sharma sat at the top of the leaderboard with 325 points. His lead over the chasing pack was clear: Shailesh Arun Mistry and Shishir Sanjay Singh were joint-second at 270, with Usman Nallamandu (265) and Neha (260) not far behind. But 7th-placed Sudhir Pisal, sitting on 245, was quietly positioned just 80 points off the lead with the quarterfinals, semis, and final still to come.</p>
+        <p>After Week 1 — the rounds through to the round of 16 — three players sat joint-first: Nishant Bhagiya, Ricardo Gallego, and Vinit Shahane, all on 400 points. Aum Raut was just 5 behind at 395. The cluster at the top was extraordinary — four players separated by 5 points heading into the business end of the tournament. The prediction game had never felt more alive.</p>
 
         <div class="pull-quote">
-          <p>"Sudhir had the best Week 2 of anyone — 475 points. But Manoj's lead from the first week was 25 more than he could overcome."</p>
+          <p>"The top four in the final standings were separated by just 30 points across two weeks of Melbourne tennis."</p>
         </div>
 
-        <p>Week 2 turned the leaderboard upside down. Sudhir Pisal was the story of the second half — he scored 475 points across the quarterfinals through to the final, the highest of any participant, suggesting he had nailed the back half of the draw with remarkable precision. Rohit Agarwal was next with 430 in Week 2, climbing from 10th to 4th overall. Manoj, meanwhile, added 420 — third-best Week 2 in the field — to seal his win at 745. Sudhir's charge was extraordinary, but Manoj's 80-point cushion from Week 1 held. The final margin: 25 points.</p>
+        <p>Week 2 shook the order. Vaibhav Betigiri — who had been 13th after Week 1 with 350 points — had the best second week of anyone in the field with 455 points, taking the Week 2 leaderboard outright. Ricardo and Shishir Singh were joint second for the week at 435. Prakash Suryavanshi claimed third. But the final standings would be decided on cumulative points, and the three who had co-led Week 1 still had the advantage.</p>
 
-        <p>Beyond the podium, the second week produced some outstanding individual performances. Santosh Chitnis barely featured after Week 1 (14th, 130 pts) but added 345 in Week 2 — the sixth best — to climb to 10th. Jitendra didn't register a score in Week 1 at all, yet a 385-point Week 2 earned him joint 13th overall. Shailesh Arun Mistry, who had looked like a title contender after Week 1, was held to 270 in the back half — matching his first-week total — and slipped to sixth.</p>
+        <p>When the final totals were counted, Ricardo Gallego stood at the top with 835 points. Vinit Shahane (825) and Nishant Bhagiya (810) were right behind — the same three who shared the Week 1 lead, now separated by 25 points. Despite dominating the second half, Vaibhav (805) finished 30 points back. The four players at the top of the final leaderboard were separated by just 30 points across two weeks of tennis — among the tightest prediction finishes the community has seen.</p>
 
-        <p>More than thirty members put their tennis minds on the line across the fortnight. The format delivered: the leaderboard stayed alive all the way to the Paris final, and the winner was only confirmed when the last match was done. Manoj Sharma is the Roland Garros 2026 Slam Caller. Wimbledon is next.</p>
+        <p>Shishir Singh's Week 2 surge (joint 2nd with 435 points) earned him 7th overall. Aum Raut, so close after Week 1 (4th, 395), had a more difficult second week and fell to 12th. Neha Pisal — the coordinator who also played — finished 11th, one of the more remarkable double-acts in the game's history.</p>
+
+        <p>During the tournament, Tennisnuts' equipment partner Sportsjam ran an exclusive discount for community members — a small celebration of the AO excitement and the participation in the predictions game. Members could simply show the WhatsApp message at the Sportsjam store on FC Road, Pune, valid through February 1st. It was a reminder that the predictions game is as much about community spirit as it is about calling the winner.</p>
 
         <div class="powered-row">
           <span class="powered-label">Powered by</span>
           <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px;color:var(--ink);">SportJam</span>
+          <span style="color:var(--ink-2);font-size:13px;">· Coordination: Neha Pisal 🙏</span>
         </div>
 
       </div>
@@ -577,15 +568,15 @@ img, svg { display: block; max-width: 100%; }
   <!-- ══ EDITION NAV ══ -->
   <nav class="ed-nav" aria-label="Edition navigation">
     <div class="container">
-      <a href="grandslam-ao-2026.html" class="ed-nav-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        Australian Open 2026
-      </a>
-      <a href="grandslam-predictions.html" class="ed-nav-center">All Grand Slams</a>
       <span class="ed-nav-link disabled">
-        More Coming Soon
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Previous
       </span>
+      <a href="grandslam-predictions.html" class="ed-nav-center">All Grand Slams</a>
+      <a href="grandslam-rg-2026.html" class="ed-nav-link">
+        Roland Garros 2026
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
     </div>
   </nav>
 
