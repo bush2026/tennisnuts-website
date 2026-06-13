@@ -44,26 +44,26 @@
 
   // B. Inject nav HTML
   var chevronSVG = '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>';
-  var logoImg = '<img src="images/website-sections/logo/tennisnuts-logo-transparent.png" alt="Tennisnuts" style="height:54px;display:block">';
+  var logoImg = '<img src="/images/website-sections/logo/tennisnuts-logo-transparent.png" alt="Tennisnuts" style="height:54px;display:block">';
   var navHTML = '<nav class="site-nav" id="main-nav">'
     + '<div class="nav-inner">'
-    + '<a href="index.html" class="brand">' + logoImg + '</a>'
+    + '<a href="/index.html" class="brand">' + logoImg + '</a>'
     + '<ul class="nav-links">'
-    + '<li><a href="index.html">Home</a></li>'
-    + '<li><a href="academy.html">Academy</a></li>'
-    + '<li><a href="partners.html">Partners</a></li>'
-    + '<li><a href="blog.html">Blog</a></li>'
-    + '<li><a href="predictions/index.html">Predictions</a></li>'
+    + '<li><a href="/index.html">Home</a></li>'
+    + '<li><a href="/academy.html">Academy</a></li>'
+    + '<li><a href="/partners.html">Partners</a></li>'
+    + '<li><a href="/blog.html">Blog</a></li>'
+    + '<li><a href="/predictions/index.html">Predictions</a></li>'
     + '<li>'
     + '<button aria-haspopup="true">Events ' + chevronSVG + '</button>'
     + '<div class="dropdown-menu">'
-    + '<a href="socials.html">Tennisnuts Socials</a>'
-    + '<a href="seniors.html">Seniors Tennis</a>'
-    + '<a href="open.html">Tennisnuts Open</a>'
-    + '<a href="sopal-trophy.html">Sopal Club Championship</a>'
-    + '<a href="corporate-tournament.html">Corporate Tournament</a>'
-    + '<a href="tennis-clinics.html">Tennis Clinics</a>'
-    + '<a href="grandslam-predictions.html">Grand Slam Predictions</a>'
+    + '<a href="/socials.html">Tennisnuts Socials</a>'
+    + '<a href="/seniors.html">Seniors Tennis</a>'
+    + '<a href="/open.html">Tennisnuts Open</a>'
+    + '<a href="/sopal-trophy.html">Sopal Club Championship</a>'
+    + '<a href="/corporate-tournament.html">Corporate Tournament</a>'
+    + '<a href="/tennis-clinics.html">Tennis Clinics</a>'
+    + '<a href="/grandslam-predictions.html">Grand Slam Predictions</a>'
     + '</div>'
     + '</li>'
     + '</ul>'
@@ -113,15 +113,17 @@
     e.stopPropagation();
   });
 
-  // Active link highlighting
+  // Active link highlighting (hrefs are now root-relative, e.g. /index.html)
   var currentPath = window.location.pathname;
-  var currentFile = currentPath.split('/').pop() || 'index.html';
+  // Normalise: /index.html and / are the same
+  var normPath = currentPath === '/' ? '/index.html' : currentPath;
   document.querySelectorAll('.site-nav .nav-links a').forEach(function (a) {
     var href = a.getAttribute('href') || '';
-    if (href === currentFile || currentPath.endsWith('/' + href)) a.classList.add('nav-active');
+    if (href && normPath === href) a.classList.add('nav-active');
   });
   document.querySelectorAll('.site-nav .dropdown-menu a').forEach(function (a) {
-    if (a.getAttribute('href') === currentFile) {
+    var href = a.getAttribute('href') || '';
+    if (href && normPath === href) {
       a.classList.add('nav-active');
       a.closest('li').querySelector('button').style.color = '#3a5c2c';
     }
