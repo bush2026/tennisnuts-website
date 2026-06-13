@@ -236,6 +236,27 @@ img, svg { display: block; max-width: 100%; }
 }
 .ed-nav-center:hover { opacity: 0.8; }
 
+/* ═══ STORY EXTRAS ═══ */
+.story-content strong { color: var(--ink); font-weight: 700; }
+.story-subhead {
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+  font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); margin: 32px 0 10px; display: flex; align-items: center; gap: 10px;
+}
+.story-subhead::before { content: ""; width: 20px; height: 2px; background: var(--ball); flex-shrink: 0; }
+.offer-block {
+  background: var(--ball); border-radius: 16px; padding: 24px 28px;
+  margin: 32px 0; display: flex; align-items: flex-start; gap: 16px;
+}
+.offer-icon { font-size: 28px; flex-shrink: 0; line-height: 1; }
+.offer-content { flex: 1; }
+.offer-label {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-2); margin-bottom: 10px;
+}
+.offer-desc { font-size: 15px; color: var(--green-2); font-weight: 500; line-height: 1.55; }
+.offer-fine { font-size: 12px; color: rgba(44,70,33,0.65); margin-top: 6px; }
+
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 760px) {
   .podium-three { grid-template-columns: 1fr; gap: 14px; }
@@ -539,26 +560,41 @@ img, svg { display: block; max-width: 100%; }
       <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Melbourne's<br>Tightest Finish</h2>
       <div class="story-content">
 
-        <p>Before each day's play at Melbourne Park, Tennisnuts members filled in a fresh set of predictions for that day's matches — picks locked in before the first ball of the session, round by round, across two weeks of Australian Open tennis. Neha Pisal coordinated the entire operation: creating the form each matchday, capturing results, and updating the leaderboard for more than thirty participants throughout the fortnight.</p>
+        <p>Before each day's play at Melbourne Park, Tennisnuts members filled in their predictions for that day's matches — a fresh form every matchday, picks locked in before the first ball of the session. <strong>Neha Pisal</strong> coordinated the entire operation: creating forms, tracking results, and updating the leaderboard across two weeks of Australian Open tennis.</p>
 
-        <p>After Week 1 — the rounds through to the round of 16 — three players sat joint-first: Nishant Bhagiya, Ricardo Gallego, and Vinit Shahane, all on 400 points. Aum Raut was just 5 behind at 395. The cluster at the top was extraordinary — four players separated by 5 points heading into the business end of the tournament. The prediction game had never felt more alive.</p>
+        <h3 class="story-subhead">After Week 1</h3>
+
+        <p>Three players arrived at an exact tie on <strong>400 points</strong>: <strong>Nishant Bhagiya</strong>, <strong>Ricardo Gallego</strong>, and <strong>Vinit Shahane</strong>. Just <strong>5 points behind</strong>, <strong>Aum Raut</strong> sat in 4th at <strong>395</strong>. Four players separated by 5 points — heading into Melbourne's second week, nothing was decided.</p>
 
         <div class="pull-quote">
-          <p>"The top four in the final standings were separated by just 30 points across two weeks of Melbourne tennis."</p>
+          <p>"Three players tied on 400 after Week 1. Melbourne's second week would separate them."</p>
         </div>
 
-        <p>Week 2 shook the order. Vaibhav Betigiri — who had been 13th after Week 1 with 350 points — had the best second week of anyone in the field with 455 points, taking the Week 2 leaderboard outright. Ricardo and Shishir Singh were joint second for the week at 435. Prakash Suryavanshi claimed third. But the final standings would be decided on cumulative points, and the three who had co-led Week 1 still had the advantage.</p>
+        <h3 class="story-subhead">The Week 2 Turnaround</h3>
 
-        <p>When the final totals were counted, Ricardo Gallego stood at the top with 835 points. Vinit Shahane (825) and Nishant Bhagiya (810) were right behind — the same three who shared the Week 1 lead, now separated by 25 points. Despite dominating the second half, Vaibhav (805) finished 30 points back. The four players at the top of the final leaderboard were separated by just 30 points across two weeks of tennis — among the tightest prediction finishes the community has seen.</p>
+        <p><strong>Vaibhav Betigiri</strong> had been 13th after Week 1 on <strong>350 points</strong>. He had the best second week of anyone — <strong>455 points</strong> — taking the Week 2 leaderboard outright. <strong>Ricardo Gallego</strong> and <strong>Shishir Singh</strong> were joint second for the week at <strong>435 each</strong>. <strong>Prakash Suryavanshi</strong> third at <strong>430</strong>. <strong>Vinit Shahane</strong> added <strong>425</strong>. The Week 1 joint leaders were still in contention — but it was no longer a given.</p>
 
-        <p>Shishir Singh's Week 2 surge (joint 2nd with 435 points) earned him 7th overall. Aum Raut, so close after Week 1 (4th, 395), had a more difficult second week and fell to 12th. Neha Pisal — the coordinator who also played — finished 11th, one of the more remarkable double-acts in the game's history.</p>
+        <h3 class="story-subhead">The Final Standings</h3>
 
-        <p>During the tournament, Tennisnuts' equipment partner Sportsjam ran an exclusive discount for community members — a small celebration of the AO excitement and the participation in the predictions game. Members could simply show the WhatsApp message at the Sportsjam store on FC Road, Pune, valid through February 1st. It was a reminder that the predictions game is as much about community spirit as it is about calling the winner.</p>
+        <p>When the totals were counted: <strong>Ricardo Gallego — 835 pts. Vinit Shahane — 825. Nishant Bhagiya — 810.</strong> The same three who had tied in Week 1, now separated by <strong>25 points</strong> across the full fortnight.</p>
+
+        <p><strong>Vaibhav</strong> (4th, <strong>805</strong>) had dominated Week 2 but couldn't bridge the overall gap. The top four in the final standings were separated by just <strong>30 points</strong> — the tightest leaderboard this game has seen.</p>
+
+        <p>One note: <strong>Neha Pisal</strong> finished <strong>11th overall on 715 points</strong> — while also running the entire predictions operation. Coordinating and competing, simultaneously.</p>
+
+        <div class="offer-block">
+          <div class="offer-icon">🎾</div>
+          <div class="offer-content">
+            <div class="offer-label">Sportsjam Community Offer · AO 2026</div>
+            <div class="offer-desc">Tennisnuts' equipment partner <strong>Sportsjam</strong> ran an exclusive discount for the community during the Australian Open — a celebration of the participation in predictions. Show this message at the <strong>Sportsjam store, FC Road, Pune</strong> to avail the discount.</div>
+            <div class="offer-fine">Valid till 1 February 2026 · Tennisnuts × Sportsjam</div>
+          </div>
+        </div>
 
         <div class="powered-row">
           <span class="powered-label">Powered by</span>
           <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px;color:var(--ink);">SportJam</span>
-          <span style="color:var(--ink-2);font-size:13px;">· Coordination: Neha Pisal 🙏</span>
+          <span style="color:var(--ink-2);font-size:13px;">· Coordination: <strong>Neha Pisal</strong> 🙏</span>
         </div>
 
       </div>

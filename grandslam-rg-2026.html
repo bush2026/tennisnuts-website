@@ -230,6 +230,15 @@ img, svg { display: block; max-width: 100%; }
 }
 @media (max-width: 800px) { .hero-layout { grid-template-columns: 1fr; } .hero-lb-card { display: none; } }
 
+/* ═══ STORY EXTRAS ═══ */
+.story-content strong { color: var(--ink); font-weight: 700; }
+.story-subhead {
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+  font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); margin: 32px 0 10px; display: flex; align-items: center; gap: 10px;
+}
+.story-subhead::before { content: ""; width: 20px; height: 2px; background: var(--ball); flex-shrink: 0; }
+
 /* ═══ RESPONSIVE ═══ */
 @media (max-width: 760px) {
   .podium-three { grid-template-columns: 1fr; gap: 14px; }
@@ -551,19 +560,29 @@ img, svg { display: block; max-width: 100%; }
       <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">A Two-Week<br>Chase on Clay</h2>
       <div class="story-content">
 
-        <p>Before each day's play at Roland Garros 2026, Tennisnuts members filled in a fresh set of predictions for that day's matches — picks locked in before the first ball struck, round by round, across the full fortnight in Paris.</p>
+        <p>Before each day's play at Roland Garros 2026, Tennisnuts members filled in their predictions for that day's matches — a fresh form every matchday, picks locked in before the first ball, round by round across the Paris fortnight.</p>
 
-        <p>After Week 1 — the first rounds through to the round of 16 — Manoj Sharma sat at the top of the leaderboard with 325 points. His lead over the chasing pack was clear: Shailesh Arun Mistry and Shishir Sanjay Singh were joint-second at 270, with Usman Nallamandu (265) and Neha (260) not far behind. But 7th-placed Sudhir Pisal, sitting on 245, was quietly positioned just 80 points off the lead with the quarterfinals, semis, and final still to come.</p>
+        <h3 class="story-subhead">After Week 1</h3>
+
+        <p><strong>Manoj Sharma</strong> led the field with <strong>325 points</strong> — a <strong>55-point lead</strong> over joint second. <strong>Shailesh Arun Mistry</strong> and <strong>Shishir Sanjay Singh</strong> shared second on <strong>270</strong>, with <strong>Usman Nallamandu</strong> (265) and <strong>Neha</strong> (260) close behind.</p>
+
+        <p>In 7th, <strong>Sudhir Pisal</strong> sat at <strong>245 points</strong> — watching from <strong>80 back</strong>, but with the quarterfinals, semis, and final still to come.</p>
 
         <div class="pull-quote">
-          <p>"Sudhir had the best Week 2 of anyone — 475 points. But Manoj's lead from the first week was 25 more than he could overcome."</p>
+          <p>"Sudhir had the best Week 2 of anyone — 475 points. But Manoj's Week 1 lead was 25 more than he could overcome."</p>
         </div>
 
-        <p>Week 2 turned the leaderboard upside down. Sudhir Pisal was the story of the second half — he scored 475 points across the quarterfinals through to the final, the highest of any participant, suggesting he had nailed the back half of the draw with remarkable precision. Rohit Agarwal was next with 430 in Week 2, climbing from 10th to 4th overall. Manoj, meanwhile, added 420 — third-best Week 2 in the field — to seal his win at 745. Sudhir's charge was extraordinary, but Manoj's 80-point cushion from Week 1 held. The final margin: 25 points.</p>
+        <h3 class="story-subhead">The Week 2 Charge</h3>
 
-        <p>Beyond the podium, the second week produced some outstanding individual performances. Santosh Chitnis barely featured after Week 1 (14th, 130 pts) but added 345 in Week 2 — the sixth best — to climb to 10th. Jitendra didn't register a score in Week 1 at all, yet a 385-point Week 2 earned him joint 13th overall. Shailesh Arun Mistry, who had looked like a title contender after Week 1, was held to 270 in the back half — matching his first-week total — and slipped to sixth.</p>
+        <p><strong>Sudhir Pisal</strong> was the story of the second half. He scored <strong>475 points</strong> — the best of any participant in Week 2 — across the quarters, semis, and final. Despite that extraordinary charge, <strong>Manoj</strong> added <strong>420 of his own</strong> — third-best in the field — to close the tournament at <strong>745 points</strong> and hold on by <strong>25</strong>.</p>
 
-        <p>More than thirty members put their tennis minds on the line across the fortnight. The format delivered: the leaderboard stayed alive all the way to the Paris final, and the winner was only confirmed when the last match was done. Manoj Sharma is the Roland Garros 2026 Slam Caller. Wimbledon is next.</p>
+        <p><strong>Rohit Agarwal</strong> surged from 10th to 4th on the back of <strong>430 Week 2 points</strong>. <strong>Santosh Chitnis</strong> went from 14th at half-time to 10th overall, adding <strong>345 in Week 2</strong>. <strong>Jitendra</strong> posted <strong>zero in Week 1</strong> but scored <strong>385 in the second half</strong> to finish joint 13th. <strong>Shailesh Mistry</strong>, joint-second after Week 1, had only <strong>270 in Week 2</strong> and fell to 6th.</p>
+
+        <h3 class="story-subhead">The Final Margin</h3>
+
+        <p><strong>Manoj Sharma — 745 pts. Sudhir Pisal — 720. Shishir Sanjay Singh — 660.</strong> The Slam Caller was decided by <strong>25 points</strong>, confirmed only on the last day of the tournament.</p>
+
+        <p>More than thirty members put their tennis minds on the line across the Paris fortnight. The leaderboard stayed live all the way to the final. <strong>Manoj Sharma</strong> is the Roland Garros 2026 Slam Caller. Wimbledon is next.</p>
 
         <div class="powered-row">
           <span class="powered-label">Powered by</span>
