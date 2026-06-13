@@ -348,6 +348,7 @@ function Nav() {
           <a href="academy.html">Academy</a>
           <a href="partners.html">Partners</a>
           <a href="blog.html">Blog</a>
+          <a href="predictions/index.html" style={{fontWeight:600,color:'var(--green)'}}>Predictions</a>
           <div style={{position:'relative'}} onMouseEnter={()=>setOpen('events')} onMouseLeave={()=>setOpen(null)}>
             <button style={btnStyle} onClick={()=>toggle('events')}>Events <Chevron/></button>
             {open==='events' && <div style={dropStyle}>
@@ -370,6 +371,7 @@ function Nav() {
         <a href="academy.html" onClick={closeMobile}>Academy</a>
         <a href="partners.html" onClick={closeMobile}>Partners</a>
         <a href="blog.html" onClick={closeMobile}>Blog</a>
+        <a href="predictions/index.html" onClick={closeMobile} style={{fontWeight:600,color:'var(--green)'}}>🎾 Predictions</a>
         <div className="mob-divider"></div>
         <div className="mob-label">Events</div>
         <a href="socials.html" onClick={closeMobile}>Tennisnuts Socials</a>
