@@ -179,63 +179,32 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .socials a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s; color: rgba(255,255,255,0.9); }
 .socials a:hover { background: var(--ball); color: var(--green-2); }
 
-/* HAPPENING */
-.happening { background: #fff; padding: 100px 0 0; }
-.happening-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 44px; }
-.happening-sub { font-size: 17px; color: var(--ink-2); line-height: 1.6; max-width: 40ch; }
-.happening-scroll-outer { padding-bottom: 64px; }
-.h-row {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 4px 4px 16px;
-  cursor: grab;
+/* HAPPENING — auto-scroll strip */
+.happening { background: #0e1810; padding: 100px 0 0; overflow: hidden; }
+.happening-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 52px; }
+.happening-sub { font-size: 17px; color: rgba(255,255,255,.6); line-height: 1.6; max-width: 40ch; }
+.happening h2 { color: #fff; }
+.happening .section-eyebrow { color: var(--ball); }
+.happening .section-eyebrow::before { background: var(--ball); }
+.tour-strip { overflow: hidden; padding-bottom: 80px; }
+.tour-track { display: flex; gap: 18px; width: max-content; animation: tourScroll 45s linear infinite; }
+.tour-track:hover { animation-play-state: paused; }
+@keyframes tourScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.t-card {
+  flex: 0 0 360px; height: 300px; border-radius: 20px; overflow: hidden;
+  position: relative; text-decoration: none; display: block;
+  box-shadow: 0 20px 50px -16px rgba(0,0,0,0.55);
+  transition: transform .25s ease, box-shadow .25s ease;
 }
-.h-row::-webkit-scrollbar { display: none; }
-.h-row:active { cursor: grabbing; }
-.h-card {
-  flex: 0 0 300px;
-  scroll-snap-align: start;
-  border-radius: 20px;
-  border: 1px solid var(--line);
-  overflow: hidden;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: var(--ink);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-.h-card:hover { transform: translateY(-5px); box-shadow: 0 20px 44px -16px rgba(28,34,24,0.22); }
-.h-banner { height: 176px; position: relative; overflow: hidden; flex-shrink: 0; }
-.h-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.h-chip {
-  position: absolute; top: 12px; left: 12px;
-  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 5px 11px; border-radius: 999px;
-  background: var(--ball); color: var(--green-2);
-}
-.h-date {
-  position: absolute; bottom: 10px; right: 10px;
-  font-family: "JetBrains Mono", monospace; font-size: 10px;
-  color: rgba(255,255,255,0.75); background: rgba(0,0,0,0.45);
-  padding: 3px 8px; border-radius: 4px; backdrop-filter: blur(4px);
-}
-.h-body { padding: 20px 18px 22px; flex: 1; display: flex; flex-direction: column; }
-.h-title {
-  font-family: "Bricolage Grotesque", sans-serif; font-size: 17px; font-weight: 700;
-  letter-spacing: -0.02em; color: var(--ink); margin-bottom: 10px; line-height: 1.2;
-}
-.h-desc { font-size: 13px; color: var(--ink-2); line-height: 1.55; flex: 1; margin-bottom: 16px; }
-.h-link {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 13px; font-weight: 600; color: var(--green); transition: gap .15s; margin-top: auto;
-}
-.h-card:hover .h-link { gap: 9px; }
+.t-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 32px 64px -20px rgba(0,0,0,0.7); }
+.t-bg { position: absolute; inset: 0; }
+.t-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.t-grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,24,16,.95) 0%, rgba(14,24,16,.35) 55%, transparent 100%); }
+.t-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 22px 24px; color: #fff; }
+.t-chip { display: inline-flex; align-items: center; padding: 4px 11px; background: var(--ball); color: var(--green-2); font-family: "JetBrains Mono", monospace; font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; border-radius: 999px; margin-bottom: 10px; }
+.t-date { font-family: "JetBrains Mono", monospace; font-size: 10px; color: rgba(255,255,255,.5); margin-left: 8px; }
+.t-title { font-family: "Bricolage Grotesque", sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 7px; }
+.t-desc { font-size: 12.5px; color: rgba(255,255,255,.7); line-height: 1.5; }
 
 /* MOBILE NAV */
 html, body { overflow-x: hidden; max-width: 100%; }
@@ -256,6 +225,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 @media (max-width: 960px) {
   .happening-head { grid-template-columns: 1fr; gap: 14px; }
   .happening { padding: 80px 0 0; }
+  .t-card { flex: 0 0 280px; height: 240px; }
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav-cta { display: none !important; }
@@ -553,6 +523,7 @@ const HAPPENINGS = [
 ];
 
 function Happening() {
+  const doubled = [...HAPPENINGS, ...HAPPENINGS];
   return (
     <section className="happening" id="happening">
       <div className="container">
@@ -561,27 +532,24 @@ function Happening() {
             <div className="section-eyebrow">Latest from the Tour</div>
             <h2 style={{marginBottom:0}}>What's Happening<br/>at Tennisnuts</h2>
           </div>
-          <p className="happening-sub">Every edition, every category — from weekend socials to city championships. Swipe to explore.</p>
+          <p className="happening-sub">Every edition, every category — from weekend socials to city championships. <span style={{color:'rgba(255,255,255,.35)',fontSize:14}}>Hover to pause.</span></p>
         </div>
       </div>
-      <div className="happening-scroll-outer">
-        <div className="container">
-          <div className="h-row">
-            {HAPPENINGS.map(c => (
-              <a key={c.url} href={c.url} className="h-card">
-                <div className="h-banner" style={{background: c.bg}}>
-                  {c.img && <img src={c.img} alt={c.title}/>}
-                  <span className="h-chip">{c.cat}</span>
-                  <span className="h-date">{c.date}</span>
-                </div>
-                <div className="h-body">
-                  <div className="h-title">{c.title}</div>
-                  <div className="h-desc">{c.desc}</div>
-                  <span className="h-link">View Report <Ic.Arrow/></span>
-                </div>
-              </a>
-            ))}
-          </div>
+      <div className="tour-strip">
+        <div className="tour-track">
+          {doubled.map((c, i) => (
+            <a key={i} href={c.url} className="t-card">
+              <div className="t-bg" style={{background: c.bg}}>
+                {c.img && <img src={c.img} alt={c.title}/>}
+              </div>
+              <div className="t-grad"/>
+              <div className="t-body">
+                <div><span className="t-chip">{c.cat}</span><span className="t-date">{c.date}</span></div>
+                <div className="t-title">{c.title}</div>
+                <div className="t-desc">{c.desc}</div>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>
