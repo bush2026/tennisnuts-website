@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Admin — Tennisnuts Predictions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+:root{--green:#3a5c2c;--green-2:#2c4621;--green-3:#4d7239;--green-soft:#eef2e6;--ball:#cddc39;--ball-2:#d8e85a;--ink:#1c2218;--ink-2:#4a5240;--paper:#fff;--cream:#faf8f1;--line:#e6e3d8;}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;overflow-x:hidden;}
+body{font-family:"DM Sans",sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.5;}
+h1,h2,h3,h4{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;letter-spacing:-.02em;margin:0;}
+p{margin:0;}a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:0;background:none;}
+input,select,textarea{font-family:inherit;}
+.container{max-width:1100px;margin:0 auto;padding:0 24px;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 20px;border-radius:999px;font-weight:600;font-size:14px;transition:all .15s;white-space:nowrap;cursor:pointer;text-decoration:none;border:none;}
+.btn-ball{background:var(--ball);color:var(--green-2);}
+.btn-ball:hover{background:var(--ball-2);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:var(--green-2);}
+.btn-red{background:#e74c3c;color:#fff;}
+.btn-red:hover{background:#c0392b;}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);}
+.btn-ghost:hover{background:#fff;}
+.btn-sm{padding:6px 14px;font-size:13px;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* ADMIN HEADER */
+.admin-header{background:var(--ink);padding:0;position:sticky;top:0;z-index:200;}
+.admin-header .inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px;}
+.admin-header .brand{font-family:"Bricolage Grotesque",sans-serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:-.02em;}
+.admin-header .brand span{color:var(--ball);}
+.admin-user{font-size:13px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:12px;}
+.admin-user strong{color:rgba(255,255,255,.85);}
+
+/* LOGIN */
+.login-wrap{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+.login-card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 50px -20px rgba(28,34,24,.25);max-width:420px;width:100%;overflow:hidden;}
+.login-card-head{background:var(--ink);padding:20px 28px;}
+.login-card-head h2{color:#fff;font-size:22px;}
+.login-card-head p{color:rgba(255,255,255,.55);font-size:14px;margin-top:4px;}
+.login-card-body{padding:28px;}
+
+/* TABS */
+.tabs-bar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:60px;z-index:100;}
+.tabs-bar .inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;gap:0;}
+.tab-btn{padding:14px 20px;font-size:14px;font-weight:600;color:var(--ink-2);border-bottom:3px solid transparent;margin-bottom:-1px;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:color .15s,border-color .15s;}
+.tab-btn.active{color:var(--green);border-bottom-color:var(--green);}
+.tab-btn:hover:not(.active){color:var(--ink);}
+
+/* PANELS */
+.panels{padding:32px 0 64px;}
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* CARDS */
+.admin-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:20px;}
+.admin-card-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--cream);}
+.admin-card-head h3{font-size:16px;letter-spacing:-.01em;}
+.admin-card-body{padding:20px;}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-grid.three{grid-template-columns:1fr 1fr 1fr;}
+.form-grid.one{grid-template-columns:1fr;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:12px;font-weight:600;color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase;}
+.field input,.field select,.field textarea{padding:10px 13px;border:1.5px solid var(--line);border-radius:9px;font-size:14px;color:var(--ink);background:#fff;outline:none;transition:border-color .15s;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);}
+.field-hint{font-size:11px;color:var(--ink-2);margin-top:2px;}
+.form-actions{margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.form-msg{font-size:13px;font-weight:600;padding:8px 14px;border-radius:8px;display:none;}
+.form-msg.ok{background:var(--green-soft);color:var(--green);}
+.form-msg.err{background:#fde8e8;color:#c0392b;}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;font-size:14px;}
+.data-table th{text-align:left;padding:10px 14px;border-bottom:2px solid var(--line);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);background:var(--cream);}
+.data-table td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:middle;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--cream);}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;}
+.badge-green{background:var(--green-soft);color:var(--green);}
+.badge-ball{background:rgba(205,220,57,.3);color:var(--green-2);}
+.badge-gray{background:rgba(0,0,0,.06);color:var(--ink-2);}
+.badge-red{background:#fde8e8;color:#c0392b;}
+.mono{font-family:"JetBrains Mono",monospace;font-size:12px;}
+
+.actions-cell{display:flex;gap:6px;flex-wrap:wrap;}
+.empty-row td{text-align:center;padding:28px;color:var(--ink-2);font-size:14px;}
+
+@media(max-width:700px){
+  .form-grid,.form-grid.three{grid-template-columns:1fr;}
+  .data-table{font-size:13px;}
+  .tab-btn{padding:12px 14px;font-size:13px;}
+  .container,.admin-header .inner,.tabs-bar .inner{padding:0 16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ADMIN HEADER -->
+<div class="admin-header" id="admin-header" style="display:none">
+  <div class="inner">
+    <div class="brand">Tennisnuts <span>Admin</span></div>
+    <div class="admin-user"><strong id="admin-name"></strong><button class="btn btn-ghost btn-sm" onclick="logout()" style="color:#fff;border-color:rgba(255,255,255,.2)">Log out</button></div>
+  </div>
+</div>
+
+<!-- LOGIN (shown when not admin) -->
+<div class="login-wrap" id="login-wrap">
+  <div class="login-card">
+    <div class="login-card-head">
+      <h2>Admin Login</h2>
+      <p>Sign in with your admin email and PIN</p>
+    </div>
+    <div class="login-card-body">
+      <div class="field" style="margin-bottom:14px"><label>Email</label><input type="email" id="adm-email" placeholder="admin@email.com"/></div>
+      <div class="field" style="margin-bottom:18px"><label>PIN</label><input type="password" id="adm-pin" inputmode="numeric" maxlength="6" placeholder="••••"/></div>
+      <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doAdminLogin()">Log in</button>
+      <div class="form-msg err" id="adm-err" style="margin-top:12px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-bar" id="tabs-bar" style="display:none">
+  <div class="inner">
+    <button class="tab-btn active" onclick="showTab('tournaments')">Tournaments</button>
+    <button class="tab-btn" onclick="showTab('members')">Members</button>
+    <button class="tab-btn" onclick="showTab('matches')">Matches</button>
+    <button class="tab-btn" onclick="showTab('results')">Results</button>
+  </div>
+</div>
+
+<div class="panels" id="panels-wrap" style="display:none">
+<div class="container">
+
+<!-- TOURNAMENTS -->
+<div class="panel active" id="panel-tournaments">
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>Add Tournament</h3></div>
+    <div class="admin-card-body">
+      <div class="form-grid">
+        <div class="field"><label>Name</label><input id="t-name" placeholder="Wimbledon 2026"/></div>
+        <div class="field"><label>Status</label>
+          <select id="t-status"><option value="upcoming">Upcoming</option><option value="live">Live</option><option value="completed">Completed</option></select>
+        </div>
+      </div>
+      <div class="field" style="margin-top:12px"><label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:14px;cursor:pointer"><input type="checkbox" id="t-active" style="width:auto;padding:0;border:none"> Set as active tournament (replaces current)</label></div>
+      <div class="form-actions">
+        <button class="btn btn-green" onclick="addTournament()">Add tournament</button>
+        <div class="form-msg" id="t-msg"></div>
+      </div>
+    </div>
+  </div>
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>All Tournaments</h3></div>
+    <div class="admin-card-body" style="padding:0">
+      <table class="data-table" id="t-table">
+        <thead><tr><th>Name</th><th>Status</th><th>Active</th><th>Actions</th></tr></thead>
+        <tbody id="t-tbody"><tr class="empty-row"><td colspan="4">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBERS -->
+<div class="panel" id="panel-members">
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>Add Member</h3></div>
+    <div class="admin-card-body">
+      <div class="form-grid three">
+        <div class="field"><label>Email</label><input id="m-email" type="email" placeholder="member@email.com"/></div>
+        <div class="field"><label>Display Name</label><input id="m-name" placeholder="Manoj Sharma"/></div>
+        <div class="field"><label>Initial PIN (4–6 digits)</label><input id="m-pin" type="text" inputmode="numeric" maxlength="6" placeholder="1234"/></div>
+      </div>
+      <div class="field" style="margin-top:12px"><label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:14px;cursor:pointer"><input type="checkbox" id="m-isadmin" style="width:auto;padding:0;border:none"> Grant admin access</label></div>
+      <div class="form-actions">
+        <button class="btn btn-green" onclick="addMember()">Add member</button>
+        <div class="form-msg" id="m-msg"></div>
+      </div>
+    </div>
+  </div>
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>All Members</h3></div>
+    <div class="admin-card-body" style="padding:0">
+      <table class="data-table" id="m-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="m-tbody"><tr class="empty-row"><td colspan="5">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- MATCHES -->
+<div class="panel" id="panel-matches">
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>Add Match</h3></div>
+    <div class="admin-card-body">
+      <div class="form-grid" style="margin-bottom:12px">
+        <div class="field"><label>Tournament</label>
+          <select id="ma-tournament"><option value="">— select tournament —</option></select>
+        </div>
+        <div class="field"><label>Format</label>
+          <select id="ma-format"><option value="bo5">Best of 5</option><option value="bo3">Best of 3</option></select>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-bottom:12px">
+        <div class="field"><label>Player 1</label><input id="ma-p1" placeholder="Jannik Sinner"/></div>
+        <div class="field"><label>Player 2</label><input id="ma-p2" placeholder="Taylor Fritz"/></div>
+      </div>
+      <div class="form-grid three" style="margin-bottom:12px">
+        <div class="field"><label>Points if Player 1 wins</label><input id="ma-pts1" type="number" min="0" placeholder="10"/></div>
+        <div class="field"><label>Points if Player 2 wins</label><input id="ma-pts2" type="number" min="0" placeholder="15"/></div>
+        <div class="field"><label>Set score bonus</label><input id="ma-bonus" type="number" min="0" value="5" placeholder="5"/>
+          <span class="field-hint">Bonus only if winner AND set score correct</span>
+        </div>
+      </div>
+      <div class="form-grid one">
+        <div class="field"><label>Lock time (predictions close)</label><input id="ma-lock" type="datetime-local"/>
+          <span class="field-hint">Members cannot edit after this time — enforced server-side</span>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-green" onclick="addMatch()">Add match</button>
+        <div class="form-msg" id="ma-msg"></div>
+      </div>
+    </div>
+  </div>
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>All Matches</h3></div>
+    <div class="admin-card-body" style="padding:0">
+      <table class="data-table">
+        <thead><tr><th>Tournament</th><th>Match</th><th>Format</th><th>Pts</th><th>Lock Time</th><th>Status</th></tr></thead>
+        <tbody id="ma-tbody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="panel" id="panel-results">
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>Enter Match Result</h3>
+      <small style="font-size:13px;color:var(--ink-2)">Auto-scores all predictions on save</small>
+    </div>
+    <div class="admin-card-body">
+      <div class="form-grid" style="margin-bottom:14px">
+        <div class="field"><label>Match</label>
+          <select id="res-match" onchange="onResMatchChange()"><option value="">— select match —</option></select>
+        </div>
+        <div class="field"><label>Winner</label>
+          <select id="res-winner"><option value="">— pick match first —</option></select>
+        </div>
+      </div>
+      <div class="form-grid one">
+        <div class="field"><label>Set score</label>
+          <select id="res-score"><option value="">— pick match first —</option></select>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-green" onclick="enterResult()">Save result + auto-score</button>
+        <div class="form-msg" id="res-msg"></div>
+      </div>
+    </div>
+  </div>
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>Matches awaiting results</h3></div>
+    <div class="admin-card-body" style="padding:0">
+      <table class="data-table">
+        <thead><tr><th>Match</th><th>Format</th><th>Lock Time</th><th>Result</th><th>Scored</th></tr></thead>
+        <tbody id="res-tbody"><tr class="empty-row"><td colspan="5">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+</div><!-- /panels-wrap -->
+
+<div id="site-footer" style="display:none"></div>
+
+<!-- PIN RESET MODAL -->
+<div id="pin-modal" style="display:none;position:fixed;inset:0;background:rgba(28,34,24,.55);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:16px;max-width:380px;width:100%;overflow:hidden;box-shadow:0 24px 60px -20px rgba(0,0,0,.3)">
+    <div style="background:var(--ink);padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+      <h3 style="color:#fff;font-size:17px">Reset PIN</h3>
+      <button onclick="closePinModal()" style="color:#fff;opacity:.6;font-size:20px;background:none;border:none;cursor:pointer">×</button>
+    </div>
+    <div style="padding:20px">
+      <p style="font-size:14px;color:var(--ink-2);margin-bottom:16px">Set a new PIN for <strong id="pin-modal-name"></strong>. Share it with them privately.</p>
+      <div class="field" style="margin-bottom:16px"><label>New PIN (4–6 digits)</label><input id="pin-new" type="text" inputmode="numeric" maxlength="6" placeholder="1234"/></div>
+      <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doResetPin()">Save new PIN</button>
+      <div class="form-msg err" id="pin-msg" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../nav.js"></script>
+<script src="../footer.js"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script>
+let adminSession = null;
+let allTournaments = [];
+let allMatches = [];
+let pinResetMemberId = null;
+
+async function init() {
+  adminSession = await restoreSession();
+  if (adminSession?.is_admin) {
+    showAdminUI();
+    await loadAll();
+  } else {
+    adminSession = null;
+    document.getElementById('login-wrap').style.display = '';
+  }
+}
+
+function showAdminUI() {
+  document.getElementById('login-wrap').style.display = 'none';
+  document.getElementById('admin-header').style.display = '';
+  document.getElementById('tabs-bar').style.display = '';
+  document.getElementById('panels-wrap').style.display = '';
+  document.getElementById('admin-name').textContent = adminSession.display_name;
+}
+
+async function doAdminLogin() {
+  const email = document.getElementById('adm-email').value.trim();
+  const pin   = document.getElementById('adm-pin').value.trim();
+  const errEl = document.getElementById('adm-err');
+  errEl.style.display = 'none';
+  const result = await login(email, pin);
+  if (!result?.success) {
+    errEl.textContent = result?.message || 'Login failed';
+    errEl.style.display = 'flex';
+    return;
+  }
+  if (!result.is_admin) {
+    errEl.textContent = 'This account does not have admin access.';
+    errEl.style.display = 'flex';
+    clearSession();
+    return;
+  }
+  adminSession = result;
+  showAdminUI();
+  await loadAll();
+}
+
+async function loadAll() {
+  await Promise.all([loadTournaments(), loadMembers(), loadMatches()]);
+  populateMatchDropdowns();
+}
+
+// ── TOURNAMENTS ──────────────────────────────────────────────
+
+async function loadTournaments() {
+  const { data } = await db.from('tournaments').select('*').order('created_at', { ascending: false });
+  allTournaments = data || [];
+  const tbody = document.getElementById('t-tbody');
+  if (!allTournaments.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="4">No tournaments yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = allTournaments.map(t => `
+    <tr>
+      <td><strong>${esc(t.name)}</strong></td>
+      <td><span class="badge ${t.status==='live'?'badge-green':t.status==='completed'?'badge-gray':'badge-ball'}">${t.status}</span></td>
+      <td>${t.is_active ? '<span class="badge badge-green">Active</span>' : '—'}</td>
+      <td class="actions-cell">
+        ${!t.is_active ? `<button class="btn btn-ghost btn-sm" onclick="setTournamentActive('${t.id}')">Set active</button>` : ''}
+        <button class="btn btn-ghost btn-sm" onclick="cycleTournamentStatus('${t.id}','${t.status}')">
+          ${t.status==='upcoming'?'→ Live':t.status==='live'?'→ Completed':'Reset'}
+        </button>
+      </td>
+    </tr>`).join('');
+}
+
+async function addTournament() {
+  const name = document.getElementById('t-name').value.trim();
+  const status = document.getElementById('t-status').value;
+  const isActive = document.getElementById('t-active').checked;
+  const msgEl = document.getElementById('t-msg');
+  if (!name) { showMsg(msgEl, 'Enter a tournament name', false); return; }
+  const { data } = await db.rpc('admin_add_tournament', {
+    p_session_token: adminSession.session_token,
+    p_name: name, p_status: status, p_is_active: isActive
+  });
+  if (data?.success) {
+    showMsg(msgEl, 'Tournament added!', true);
+    document.getElementById('t-name').value = '';
+    document.getElementById('t-active').checked = false;
+    await loadTournaments();
+    populateMatchDropdowns();
+  } else {
+    showMsg(msgEl, data?.message || 'Error', false);
+  }
+}
+
+async function setTournamentActive(id) {
+  const { data } = await db.rpc('admin_update_tournament', {
+    p_session_token: adminSession.session_token,
+    p_id: id, p_is_active: true
+  });
+  if (data?.success) await loadTournaments();
+}
+
+async function cycleTournamentStatus(id, current) {
+  const next = current==='upcoming' ? 'live' : current==='live' ? 'completed' : 'upcoming';
+  const { data } = await db.rpc('admin_update_tournament', {
+    p_session_token: adminSession.session_token,
+    p_id: id, p_status: next
+  });
+  if (data?.success) await loadTournaments();
+}
+
+// ── MEMBERS ──────────────────────────────────────────────────
+
+async function loadMembers() {
+  const { data } = await db.rpc('admin_get_members', { p_session_token: adminSession.session_token });
+  const tbody = document.getElementById('m-tbody');
+  if (!data?.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No members yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(m => `
+    <tr>
+      <td><strong>${esc(m.display_name)}</strong></td>
+      <td class="mono">${esc(m.email)}</td>
+      <td>${m.is_admin ? '<span class="badge badge-ball">Admin</span>' : '<span class="badge badge-gray">Member</span>'}</td>
+      <td>${m.is_active ? '<span class="badge badge-green">Active</span>' : '<span class="badge badge-red">Inactive</span>'}</td>
+      <td class="actions-cell">
+        <button class="btn btn-ghost btn-sm" onclick="openPinModal('${m.id}','${esc(m.display_name)}')">Reset PIN</button>
+        <button class="btn btn-ghost btn-sm" onclick="toggleMemberActive('${m.id}',${m.is_active})">${m.is_active?'Deactivate':'Activate'}</button>
+      </td>
+    </tr>`).join('');
+}
+
+async function addMember() {
+  const email = document.getElementById('m-email').value.trim();
+  const name  = document.getElementById('m-name').value.trim();
+  const pin   = document.getElementById('m-pin').value.trim();
+  const isAdmin = document.getElementById('m-isadmin').checked;
+  const msgEl = document.getElementById('m-msg');
+  if (!email || !name || !pin) { showMsg(msgEl, 'Fill all fields', false); return; }
+  if (!/^\d{4,6}$/.test(pin)) { showMsg(msgEl, 'PIN must be 4–6 digits', false); return; }
+  const pin_hash = await hashPin(email, pin);
+  const { data } = await db.rpc('admin_add_member', {
+    p_session_token: adminSession.session_token,
+    p_email: email, p_display_name: name,
+    p_pin_hash: pin_hash, p_is_admin: isAdmin
+  });
+  if (data?.success) {
+    showMsg(msgEl, `${name} added! Share PIN ${pin} privately.`, true);
+    document.getElementById('m-email').value = '';
+    document.getElementById('m-name').value = '';
+    document.getElementById('m-pin').value = '';
+    document.getElementById('m-isadmin').checked = false;
+    await loadMembers();
+  } else {
+    showMsg(msgEl, data?.message || 'Error', false);
+  }
+}
+
+async function toggleMemberActive(id, current) {
+  const { data } = await db.rpc('admin_set_member_active', {
+    p_session_token: adminSession.session_token,
+    p_member_id: id, p_is_active: !current
+  });
+  if (data?.success) await loadMembers();
+}
+
+function openPinModal(id, name) {
+  pinResetMemberId = id;
+  document.getElementById('pin-modal-name').textContent = name;
+  document.getElementById('pin-new').value = '';
+  document.getElementById('pin-msg').style.display = 'none';
+  document.getElementById('pin-modal').style.display = 'flex';
+}
+function closePinModal() {
+  document.getElementById('pin-modal').style.display = 'none';
+  pinResetMemberId = null;
+}
+
+async function doResetPin() {
+  const newPin = document.getElementById('pin-new').value.trim();
+  const msgEl  = document.getElementById('pin-msg');
+  if (!/^\d{4,6}$/.test(newPin)) { showMsg(msgEl, 'PIN must be 4–6 digits', false); return; }
+  // We need the member's email to hash correctly — fetch it
+  const { data: members } = await db.rpc('admin_get_members', { p_session_token: adminSession.session_token });
+  const member = members?.find(m => m.id === pinResetMemberId);
+  if (!member) { showMsg(msgEl, 'Member not found', false); return; }
+  const pin_hash = await hashPin(member.email, newPin);
+  const { data } = await db.rpc('admin_reset_member_pin', {
+    p_session_token: adminSession.session_token,
+    p_member_id: pinResetMemberId,
+    p_new_pin_hash: pin_hash
+  });
+  if (data?.success) {
+    closePinModal();
+    alert(`PIN reset. New PIN: ${newPin} — share it privately.`);
+  } else {
+    showMsg(msgEl, data?.message || 'Error', false);
+  }
+}
+
+// ── MATCHES ──────────────────────────────────────────────────
+
+async function loadMatches() {
+  const { data } = await db.from('matches')
+    .select('*, tournaments(name)')
+    .order('lock_time', { ascending: false });
+  allMatches = data || [];
+  const tbody = document.getElementById('ma-tbody');
+  if (!allMatches.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No matches yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = allMatches.map(m => {
+    const locked = new Date(m.lock_time) <= Date.now();
+    const hasResult = !!m.result_winner;
+    return `<tr>
+      <td style="font-size:12px;color:var(--ink-2)">${esc(m.tournaments?.name||'')}</td>
+      <td><strong>${esc(m.player1)}</strong> vs <strong>${esc(m.player2)}</strong></td>
+      <td class="mono">${m.format.toUpperCase()}</td>
+      <td class="mono">${m.points_player1}/${m.points_player2}+${m.set_score_bonus}</td>
+      <td style="font-size:13px">${fmtDate(m.lock_time)}</td>
+      <td>${hasResult
+        ? `<span class="badge badge-green">✓ ${esc(m.result_winner)} ${m.result_set_score||''}</span>`
+        : locked
+          ? '<span class="badge badge-gray">Locked</span>'
+          : '<span class="badge badge-ball">Open</span>'
+      }</td>
+    </tr>`;
+  }).join('');
+  populateMatchDropdowns();
+}
+
+function populateMatchDropdowns() {
+  // Tournament dropdown for add-match form
+  const tSel = document.getElementById('ma-tournament');
+  tSel.innerHTML = '<option value="">— select tournament —</option>' +
+    allTournaments.map(t => `<option value="${t.id}">${esc(t.name)}</option>`).join('');
+
+  // Results match dropdown — only locked matches
+  const resSel = document.getElementById('res-match');
+  const locked = allMatches.filter(m => new Date(m.lock_time) <= Date.now());
+  resSel.innerHTML = '<option value="">— select match —</option>' +
+    locked.map(m => `<option value="${m.id}">${esc(m.player1)} vs ${esc(m.player2)} (${esc(m.tournaments?.name||'')})</option>`).join('');
+
+  renderResultsTable();
+}
+
+async function addMatch() {
+  const tid    = document.getElementById('ma-tournament').value;
+  const p1     = document.getElementById('ma-p1').value.trim();
+  const p2     = document.getElementById('ma-p2').value.trim();
+  const fmt    = document.getElementById('ma-format').value;
+  const pts1   = parseInt(document.getElementById('ma-pts1').value);
+  const pts2   = parseInt(document.getElementById('ma-pts2').value);
+  const bonus  = parseInt(document.getElementById('ma-bonus').value) || 0;
+  const lockVal= document.getElementById('ma-lock').value;
+  const msgEl  = document.getElementById('ma-msg');
+
+  if (!tid||!p1||!p2||!lockVal||isNaN(pts1)||isNaN(pts2)) {
+    showMsg(msgEl, 'Fill all required fields', false); return;
+  }
+
+  // Convert local datetime to ISO with timezone
+  const lockTime = new Date(lockVal).toISOString();
+
+  const { data } = await db.rpc('admin_add_match', {
+    p_session_token: adminSession.session_token,
+    p_tournament_id: tid, p_player1: p1, p_player2: p2,
+    p_format: fmt, p_points_player1: pts1, p_points_player2: pts2,
+    p_set_score_bonus: bonus, p_lock_time: lockTime
+  });
+  if (data?.success) {
+    showMsg(msgEl, 'Match added!', true);
+    ['ma-p1','ma-p2','ma-pts1','ma-pts2','ma-lock'].forEach(id => { document.getElementById(id).value = ''; });
+    document.getElementById('ma-bonus').value = '5';
+    await loadMatches();
+  } else {
+    showMsg(msgEl, data?.message || 'Error', false);
+  }
+}
+
+// ── RESULTS ──────────────────────────────────────────────────
+
+function onResMatchChange() {
+  const matchId = document.getElementById('res-match').value;
+  const winSel  = document.getElementById('res-winner');
+  const scoreSel= document.getElementById('res-score');
+  const m = allMatches.find(x => x.id === matchId);
+  if (!m) {
+    winSel.innerHTML = '<option value="">— pick match first —</option>';
+    scoreSel.innerHTML = '<option value="">— pick match first —</option>';
+    return;
+  }
+  winSel.innerHTML =
+    `<option value="">— select winner —</option>` +
+    `<option value="${esc(m.player1)}">${esc(m.player1)}</option>` +
+    `<option value="${esc(m.player2)}">${esc(m.player2)}</option>`;
+
+  if (m.result_winner) winSel.value = m.result_winner;
+
+  const scores = setScoreOptions(m.format);
+  scoreSel.innerHTML = '<option value="">— select set score —</option>' +
+    scores.map(s => `<option value="${s}"${m.result_set_score===s?' selected':''}>${s}</option>`).join('');
+}
+
+async function enterResult() {
+  const matchId = document.getElementById('res-match').value;
+  const winner  = document.getElementById('res-winner').value;
+  const score   = document.getElementById('res-score').value;
+  const msgEl   = document.getElementById('res-msg');
+  if (!matchId||!winner||!score) { showMsg(msgEl, 'Select match, winner and set score', false); return; }
+  const { data } = await db.rpc('admin_enter_result', {
+    p_session_token:    adminSession.session_token,
+    p_match_id:         matchId,
+    p_result_winner:    winner,
+    p_result_set_score: score
+  });
+  if (data?.success) {
+    showMsg(msgEl, 'Result saved — all predictions scored!', true);
+    await loadMatches();
+    document.getElementById('res-match').value = '';
+    onResMatchChange();
+  } else {
+    showMsg(msgEl, data?.message || 'Error', false);
+  }
+}
+
+function renderResultsTable() {
+  const tbody = document.getElementById('res-tbody');
+  const locked = allMatches.filter(m => new Date(m.lock_time) <= Date.now());
+  if (!locked.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No locked matches yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = locked.map(m => `
+    <tr>
+      <td><strong>${esc(m.player1)}</strong> vs <strong>${esc(m.player2)}</strong></td>
+      <td class="mono">${m.format.toUpperCase()}</td>
+      <td style="font-size:13px">${fmtDate(m.lock_time)}</td>
+      <td>${m.result_winner
+        ? `<span class="badge badge-green">${esc(m.result_winner)} ${m.result_set_score||''}</span>`
+        : '<span class="badge badge-gray">Pending</span>'}</td>
+      <td>${m.result_winner ? '<span class="badge badge-green">✓ Scored</span>' : '<span class="badge badge-ball">Not yet</span>'}</td>
+    </tr>`).join('');
+}
+
+// ── UI HELPERS ───────────────────────────────────────────────
+
+function showTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function showMsg(el, msg, ok) {
+  el.textContent = msg;
+  el.className = 'form-msg ' + (ok ? 'ok' : 'err');
+  el.style.display = 'flex';
+  if (ok) setTimeout(() => { el.style.display = 'none'; }, 4000);
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+init();
+</script>
+</body>
+</html>

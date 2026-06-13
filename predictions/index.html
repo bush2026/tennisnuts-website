@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Grand Slam Predictions — Tennisnuts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+:root{--green:#3a5c2c;--green-2:#2c4621;--green-3:#4d7239;--green-soft:#eef2e6;--ball:#cddc39;--ball-2:#d8e85a;--ink:#1c2218;--ink-2:#4a5240;--paper:#fff;--cream:#faf8f1;--line:#e6e3d8;}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;overflow-x:hidden;}
+body{font-family:"DM Sans","Helvetica Neue",sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.55;}
+h1,h2,h3,h4{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;letter-spacing:-0.02em;margin:0;}
+p{margin:0;}a{color:inherit;text-decoration:none;}img,svg{display:block;max-width:100%;}
+button{font-family:inherit;cursor:pointer;border:0;background:none;}
+.container{max-width:1240px;margin:0 auto;padding:0 28px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:999px;font-weight:600;font-size:15px;font-family:"DM Sans",sans-serif;transition:transform .15s,background .15s,color .15s;white-space:nowrap;cursor:pointer;text-decoration:none;border:none;}
+.btn-ball{background:var(--ball);color:var(--green-2);}
+.btn-ball:hover{background:var(--ball-2);transform:translateY(-2px);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:var(--green-2);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);}
+.btn-ghost:hover{background:var(--green-soft);border-color:var(--green);}
+.btn-sm{padding:8px 18px;font-size:14px;}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important;}
+
+/* HERO */
+.hero{min-height:380px;position:relative;overflow:hidden;display:flex;align-items:center;color:#fff;padding:80px 0 64px;}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 75% 40%,rgba(205,220,57,.12),transparent 50%),repeating-linear-gradient(115deg,rgba(255,255,255,.025) 0 28px,transparent 28px 56px),linear-gradient(155deg,#0e1810 0%,#1c2218 50%,#2c4621 100%);z-index:0;}
+.hero::after{content:"PREDICT";position:absolute;right:-20px;bottom:-20px;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(100px,18vw,240px);line-height:1;color:#fff;opacity:.03;pointer-events:none;user-select:none;letter-spacing:-.05em;z-index:0;}
+.hero .container{position:relative;z-index:1;}
+.eyebrow-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(205,220,57,.15);border:1px solid rgba(205,220,57,.4);padding:7px 14px;border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ball);margin-bottom:20px;}
+.hero h1{font-size:clamp(44px,7vw,80px);line-height:.97;letter-spacing:-.04em;color:#fff;margin-bottom:14px;}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.8);margin-bottom:28px;max-width:48ch;}
+.hero-meta{display:flex;align-items:center;flex-wrap:wrap;gap:0;font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.01em;}
+.hero-meta .sep{margin:0 10px;opacity:.4;}
+.hero-meta strong{color:rgba(255,255,255,.88);font-weight:600;}
+
+/* SESSION BAR */
+.session-bar{background:var(--green-soft);border-bottom:1px solid rgba(58,92,44,.15);padding:10px 0;}
+.session-bar .container{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.session-bar .sbar-left{font-size:14px;font-weight:500;color:var(--green-2);}
+.session-bar .sbar-right{display:flex;gap:8px;}
+
+/* LOGIN CARD */
+.login-section{background:var(--cream);padding:56px 0;}
+.login-card{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 16px 48px -20px rgba(28,34,24,.2);max-width:440px;margin:0 auto;overflow:hidden;}
+.login-card-head{background:var(--ink);padding:20px 28px;display:flex;align-items:center;gap:12px;}
+.login-card-head .chip{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);}
+.login-card-head strong{font-family:"Bricolage Grotesque",sans-serif;font-size:18px;color:#fff;letter-spacing:-.02em;}
+.login-card-body{padding:28px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:6px;letter-spacing:.02em;}
+.field input,.field select{width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;font-family:"DM Sans",sans-serif;font-size:15px;color:var(--ink);background:#fff;outline:none;transition:border-color .15s;}
+.field input:focus,.field select:focus{border-color:var(--green);}
+.field input[type=number]{-moz-appearance:textfield;}
+.login-err{color:#c0392b;font-size:13px;margin-top:10px;display:none;}
+.login-footer{margin-top:14px;font-size:13px;color:var(--ink-2);text-align:center;}
+.login-footer a{color:var(--green);font-weight:600;cursor:pointer;}
+
+/* MATCHES */
+.matches-section{padding:72px 0;background:#fff;}
+.section-head{margin-bottom:40px;}
+.section-eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--green);font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;}
+.section-eyebrow::before{content:"";width:24px;height:2px;background:var(--ball);}
+.section-head h2{font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:-.03em;}
+.section-head .sub{font-size:16px;color:var(--ink-2);margin-top:10px;}
+
+.matches-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;}
+
+.match-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;transition:box-shadow .2s;}
+.match-card:hover{box-shadow:0 12px 32px -12px rgba(28,34,24,.18);}
+.match-card.locked{opacity:.8;}
+
+.match-head{background:var(--green-2);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.match-format{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.match-lock-badge{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:rgba(205,220,57,.18);color:var(--ball);}
+.match-lock-badge.locked{background:rgba(255,255,255,.1);color:rgba(255,255,255,.45);}
+
+.match-body{padding:16px;}
+.vs-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-bottom:14px;}
+.player{display:flex;flex-direction:column;gap:3px;}
+.player.right{text-align:right;align-items:flex-end;}
+.player-name{font-family:"Bricolage Grotesque",sans-serif;font-size:17px;font-weight:700;line-height:1.1;letter-spacing:-.01em;}
+.player-pts{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--green);font-weight:600;}
+.vs-sep{font-family:"Bricolage Grotesque",sans-serif;font-size:20px;font-weight:800;color:var(--line);letter-spacing:-.03em;}
+
+.match-result-chip{display:inline-flex;align-items:center;gap:6px;background:var(--green-soft);border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;color:var(--green-2);margin-bottom:10px;width:100%;}
+.match-result-chip .res-score{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-2);}
+
+/* Prediction form inside card */
+.pred-form{border-top:1px solid var(--line);padding:14px 16px;background:var(--cream);}
+.pred-form .pick-label{font-size:12px;font-weight:600;color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
+.pick-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.pick-btn{flex:1;min-width:100px;padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;transition:all .15s;text-align:center;}
+.pick-btn:hover{border-color:var(--green);color:var(--green);}
+.pick-btn.selected{background:var(--green);border-color:var(--green);color:#fff;}
+.score-row{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.score-btn{padding:7px 14px;border-radius:8px;border:1.5px solid var(--line);background:#fff;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--ink-2);cursor:pointer;transition:all .15s;}
+.score-btn:hover{border-color:var(--ball);color:var(--green-2);}
+.score-btn.selected{background:var(--ball);border-color:var(--ball);color:var(--green-2);}
+.pred-saved{font-size:12px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:5px;}
+.pred-locked-row{font-size:12px;color:var(--ink-2);display:flex;align-items:center;gap:6px;}
+.pred-points-chip{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;background:var(--ball);color:var(--green-2);padding:3px 8px;border-radius:999px;}
+
+/* LEADERBOARD */
+.lb-section{background:var(--cream);padding:80px 0;}
+.podium-row{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:14px;margin-bottom:36px;align-items:end;}
+.podium-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 16px;text-align:center;position:relative;overflow:hidden;}
+.podium-card.first{border-color:var(--ball);box-shadow:0 8px 24px -8px rgba(205,220,57,.35);}
+.podium-medal{font-size:28px;margin-bottom:8px;}
+.podium-name{font-family:"Bricolage Grotesque",sans-serif;font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;}
+.podium-pts{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--green);}
+.podium-rank{position:absolute;top:10px;right:12px;font-family:"JetBrains Mono",monospace;font-size:10px;color:rgba(0,0,0,.2);}
+
+.lb-table{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+.lb-row{display:grid;grid-template-columns:48px 1fr auto;align-items:center;padding:14px 20px;border-bottom:1px solid var(--line);transition:background .12s;}
+.lb-row:last-child{border-bottom:none;}
+.lb-row:hover{background:var(--cream);}
+.lb-row.me{background:rgba(205,220,57,.12);}
+.lb-rank{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--ink-2);}
+.lb-name{font-size:15px;font-weight:600;}
+.lb-pts{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--green);}
+
+/* SPONSOR PLACEHOLDER */
+.sponsor-section{padding:48px 0;background:#fff;border-top:1px solid var(--line);}
+.sponsor-block{border:2px dashed var(--line);border-radius:16px;padding:32px;text-align:center;color:var(--ink-2);}
+.sponsor-block p{font-size:14px;margin-top:6px;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,34,24,.55);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.open{display:flex;}
+.modal{background:#fff;border-radius:20px;box-shadow:0 32px 80px -20px rgba(0,0,0,.3);max-width:400px;width:100%;overflow:hidden;}
+.modal-head{background:var(--ink);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;}
+.modal-head h3{font-size:18px;color:#fff;letter-spacing:-.02em;}
+.modal-close{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;border:none;}
+.modal-close:hover{background:rgba(255,255,255,.2);}
+.modal-body{padding:24px;}
+.modal-err{color:#c0392b;font-size:13px;margin-top:10px;display:none;}
+
+.empty-state{text-align:center;padding:48px 20px;color:var(--ink-2);}
+.empty-state h3{font-size:22px;color:var(--ink);margin-bottom:8px;}
+.empty-state p{font-size:15px;}
+
+@media(max-width:760px){
+  .matches-grid{grid-template-columns:1fr;}
+  .podium-row{grid-template-columns:1fr 1fr 1fr;gap:8px;}
+  .podium-card{padding:14px 10px;}
+  .podium-name{font-size:13px;}
+}
+@media(max-width:480px){
+  .container{padding:0 16px;}
+  .hero{padding:56px 0 48px;}
+  .hero h1{font-size:42px;}
+  .podium-row{grid-template-columns:1fr;}
+  .podium-row .podium-card:nth-child(2){order:-1;}
+}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<!-- SESSION BAR (shown when logged in) -->
+<div class="session-bar" id="session-bar" style="display:none">
+  <div class="container">
+    <div class="sbar-left">Logged in as <strong id="sbar-name"></strong></div>
+    <div class="sbar-right">
+      <a href="my-picks.html" class="btn btn-ghost btn-sm">My Picks</a>
+      <button class="btn btn-ghost btn-sm" onclick="logout()">Log out</button>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow-chip">Tennisnuts · Grand Slam Predictions</span>
+    <h1 id="hero-title">Grand Slam<br>Predictions</h1>
+    <p class="hero-sub" id="hero-sub">Pick the winners before each match locks. Every correct call earns points. The community's sharpest tennis mind gets crowned.</p>
+    <div class="hero-meta" id="hero-meta"></div>
+  </div>
+</section>
+
+<!-- LOGIN (shown when not logged in) -->
+<section class="login-section" id="login-section" style="display:none">
+  <div class="container">
+    <div class="login-card">
+      <div class="login-card-head">
+        <div><div class="chip">Tennisnuts Predictions</div><strong>Log in to predict</strong></div>
+      </div>
+      <div class="login-card-body">
+        <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="yourname@email.com" autocomplete="email"/></div>
+        <div class="field"><label>PIN (4–6 digits)</label><input type="password" id="login-pin" placeholder="••••" inputmode="numeric" maxlength="6" autocomplete="current-password"/></div>
+        <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doLogin()">Log in</button>
+        <div class="login-err" id="login-err"></div>
+        <div class="login-footer">Not registered? Ask an admin to add you via WhatsApp.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATCHES -->
+<section class="matches-section" id="matches-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Matches</div>
+      <h2 id="matches-heading">Loading…</h2>
+      <div class="sub" id="matches-sub"></div>
+    </div>
+    <div class="matches-grid" id="matches-grid">
+      <div class="empty-state"><h3>Loading matches…</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERBOARD -->
+<section class="lb-section" id="lb-section" style="display:none">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Leaderboard</div>
+      <h2>Live Standings</h2>
+      <div class="sub">Updated as results are entered. Tie ranks shown as =N.</div>
+    </div>
+    <div class="podium-row" id="podium-row"></div>
+    <div class="lb-table" id="lb-table"></div>
+  </div>
+</section>
+
+<!-- SPONSOR PLACEHOLDER (v1: static block, future: CMS) -->
+<section class="sponsor-section">
+  <div class="container">
+    <div class="sponsor-block">
+      <strong>🏆 Powered by Sportsjam</strong>
+      <p>Sponsor display area — contact Tennisnuts to feature your brand here.</p>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="../nav.js"></script>
+<script src="../footer.js"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script>
+let session = null;
+let activeTournament = null;
+let matches = [];
+let myPredictions = {}; // match_id → {pick_winner, pick_set_score, points_awarded}
+let pendingPicks = {};  // match_id → {winner, setScore}
+
+async function init() {
+  session = await restoreSession();
+  renderSessionBar();
+  await loadActiveTournament();
+}
+
+function renderSessionBar() {
+  const bar = document.getElementById('session-bar');
+  const loginSec = document.getElementById('login-section');
+  if (session) {
+    bar.style.display = '';
+    document.getElementById('sbar-name').textContent = session.display_name;
+    loginSec.style.display = 'none';
+  } else {
+    bar.style.display = 'none';
+    loginSec.style.display = '';
+  }
+}
+
+async function loadActiveTournament() {
+  const { data: tournaments } = await db.from('tournaments').select('*').eq('is_active', true).limit(1);
+  if (!tournaments?.length) {
+    activeTournament = null;
+    document.getElementById('hero-title').textContent = 'Grand Slam Predictions';
+    document.getElementById('hero-sub').textContent = 'No active tournament right now. Check back soon.';
+    document.getElementById('matches-heading').textContent = 'No active tournament';
+    document.getElementById('matches-grid').innerHTML = '<div class="empty-state"><h3>No active tournament</h3><p>An admin will activate one soon.</p></div>';
+    return;
+  }
+  activeTournament = tournaments[0];
+  document.getElementById('hero-title').innerHTML = activeTournament.name.replace(' ', '<br>');
+
+  const statusLabel = { upcoming: 'Coming Soon', live: 'Live Now', completed: 'Completed' }[activeTournament.status] || '';
+  document.getElementById('hero-meta').innerHTML =
+    '<strong>' + statusLabel + '</strong><span class="sep">·</span>Pick winners before each match locks';
+  document.getElementById('matches-heading').textContent = activeTournament.name;
+  document.getElementById('matches-sub').textContent = 'Pick the winner and set score before each match locks to earn points.';
+
+  await Promise.all([loadMatches(), loadMyPredictions(), loadLeaderboard()]);
+}
+
+async function loadMatches() {
+  const { data } = await db.from('matches')
+    .select('*')
+    .eq('tournament_id', activeTournament.id)
+    .order('lock_time', { ascending: true });
+  matches = data || [];
+  renderMatches();
+}
+
+async function loadMyPredictions() {
+  if (!session) { myPredictions = {}; return; }
+  const { data } = await db.rpc('get_my_predictions', {
+    p_session_token: session.session_token,
+    p_tournament_id: activeTournament.id
+  });
+  myPredictions = {};
+  (data || []).forEach(r => {
+    if (r.pick_winner) {
+      myPredictions[r.match_id] = {
+        pick_winner: r.pick_winner,
+        pick_set_score: r.pick_set_score,
+        points_awarded: r.points_awarded
+      };
+    }
+  });
+  renderMatches();
+}
+
+async function loadLeaderboard() {
+  const { data } = await db.from('tournament_leaderboard')
+    .select('*')
+    .eq('tournament_id', activeTournament.id)
+    .order('total_points', { ascending: false });
+  if (!data?.length) { document.getElementById('lb-section').style.display = 'none'; return; }
+  document.getElementById('lb-section').style.display = '';
+  const ranked = rankList(data, 'total_points');
+  renderPodium(ranked.slice(0, 3));
+  renderLbTable(ranked);
+}
+
+function renderMatches() {
+  const grid = document.getElementById('matches-grid');
+  if (!matches.length) {
+    grid.innerHTML = '<div class="empty-state"><h3>No matches yet</h3><p>The admin will add matches soon.</p></div>';
+    return;
+  }
+  grid.innerHTML = matches.map(m => renderMatchCard(m)).join('');
+  // Start countdowns
+  matches.forEach(m => {
+    if (new Date(m.lock_time) > Date.now()) {
+      const el = document.getElementById('countdown-' + m.id);
+      if (el) {
+        const iv = setInterval(() => {
+          const t = countdownText(m.lock_time);
+          if (el) el.textContent = t;
+          if (t === 'Locked') clearInterval(iv);
+        }, 30000);
+      }
+    }
+  });
+}
+
+function renderMatchCard(m) {
+  const locked = new Date(m.lock_time) <= Date.now();
+  const pred = myPredictions[m.id];
+  const pending = pendingPicks[m.id] || {};
+
+  let resultChip = '';
+  if (m.result_winner) {
+    resultChip = `<div class="match-result-chip">
+      <span>✓ ${m.result_winner}</span>
+      <span class="res-score">${m.result_set_score || ''}</span>
+    </div>`;
+  }
+
+  let predSection = '';
+  if (!session) {
+    predSection = locked
+      ? `<div class="pred-form"><div class="pred-locked-row">🔒 Match locked</div></div>`
+      : `<div class="pred-form"><div class="pred-locked-row">Log in to predict</div></div>`;
+  } else if (locked) {
+    if (pred?.pick_winner) {
+      let ptsChip = pred.points_awarded !== null && pred.points_awarded !== undefined
+        ? `<span class="pred-points-chip">${pred.points_awarded} pts</span>` : '';
+      predSection = `<div class="pred-form">
+        <div class="pred-locked-row">🔒 Your pick: <strong>${pred.pick_winner}</strong>${pred.pick_set_score ? ' · '+pred.pick_set_score : ''} ${ptsChip}</div>
+      </div>`;
+    } else {
+      predSection = `<div class="pred-form"><div class="pred-locked-row">🔒 You didn't predict this match</div></div>`;
+    }
+  } else {
+    // Active match — show prediction form
+    const pickWinner = pending.winner || pred?.pick_winner || '';
+    const pickScore  = pending.setScore !== undefined ? pending.setScore : (pred?.pick_set_score || '');
+    const scores = setScoreOptions(m.format);
+    const p1Btn = `<button class="pick-btn${pickWinner===m.player1?' selected':''}" onclick="setPick('${m.id}','winner',1)">${esc(m.player1)}<br><small>${m.points_player1} pts</small></button>`;
+    const p2Btn = `<button class="pick-btn${pickWinner===m.player2?' selected':''}" onclick="setPick('${m.id}','winner',2)">${esc(m.player2)}<br><small>${m.points_player2} pts</small></button>`;
+    const scoreBtns = scores.map(s =>
+      `<button class="score-btn${pickScore===s?' selected':''}" onclick="setPick('${m.id}','score','${s}')">${s}</button>`
+    ).join('');
+    const savedNote = pred?.pick_winner
+      ? `<div class="pred-saved" id="saved-${m.id}">✓ Saved · ${pred.pick_winner}${pred.pick_set_score?' · '+pred.pick_set_score:''}</div>` : '';
+    predSection = `<div class="pred-form">
+      <div class="pick-label">Pick winner</div>
+      <div class="pick-row" id="pick-winner-${m.id}">${p1Btn}${p2Btn}</div>
+      <div class="pick-label">Set score <span style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0">(optional · +${m.set_score_bonus} pts)</span></div>
+      <div class="score-row" id="pick-score-${m.id}">${scoreBtns}</div>
+      <button class="btn btn-green btn-sm" style="width:100%;justify-content:center" onclick="submitPick('${m.id}')">Save pick</button>
+      ${savedNote}
+    </div>`;
+  }
+
+  return `<div class="match-card${locked?' locked':''}">
+    <div class="match-head">
+      <span class="match-format">${m.format.toUpperCase()}</span>
+      <span class="match-lock-badge${locked?' locked':''}" id="countdown-${m.id}">${locked ? 'Locked' : countdownText(m.lock_time)}</span>
+    </div>
+    <div class="match-body">
+      ${resultChip}
+      <div class="vs-row">
+        <div class="player">
+          <div class="player-name">${esc(m.player1)}</div>
+          <div class="player-pts">${m.points_player1} pts if win</div>
+        </div>
+        <div class="vs-sep">vs</div>
+        <div class="player right">
+          <div class="player-name">${esc(m.player2)}</div>
+          <div class="player-pts">${m.points_player2} pts if win</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--ink-2);text-align:center;margin-bottom:2px">🔒 ${fmtDate(m.lock_time)}</div>
+    </div>
+    ${predSection}
+  </div>`;
+}
+
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function setPick(matchId, type, value) {
+  const m = matches.find(x => x.id === matchId);
+  if (!m) return;
+  // value is 1/2 for winner picks, set-score string for score picks
+  const resolvedValue = type === 'winner' ? (value === 1 ? m.player1 : m.player2) : value;
+  if (!pendingPicks[matchId]) {
+    const pred = myPredictions[matchId] || {};
+    pendingPicks[matchId] = { winner: pred.pick_winner || '', setScore: pred.pick_set_score || '' };
+  }
+  if (type === 'winner') {
+    pendingPicks[matchId].winner = resolvedValue;
+    if (myPredictions[matchId]?.pick_winner !== resolvedValue) pendingPicks[matchId].setScore = '';
+  } else {
+    pendingPicks[matchId].setScore = pendingPicks[matchId].setScore === resolvedValue ? '' : resolvedValue;
+  }
+  // Re-render only this card
+  if (m) {
+    const grid = document.getElementById('matches-grid');
+    const cards = grid.querySelectorAll('.match-card');
+    const idx = matches.indexOf(m);
+    if (cards[idx]) cards[idx].outerHTML = renderMatchCard(m);
+  }
+}
+
+async function submitPick(matchId) {
+  const m = matches.find(x => x.id === matchId);
+  if (!m || !session) return;
+  const pending = pendingPicks[matchId] || {};
+  const winner = pending.winner || myPredictions[matchId]?.pick_winner;
+  if (!winner) { alert('Please pick a winner first.'); return; }
+  const setScore = pending.setScore || null;
+
+  const { data, error } = await db.rpc('upsert_prediction', {
+    p_session_token:  session.session_token,
+    p_match_id:       matchId,
+    p_pick_winner:    winner,
+    p_pick_set_score: setScore
+  });
+  if (error || !data?.success) {
+    alert(data?.message || error?.message || 'Error saving pick');
+    return;
+  }
+  myPredictions[matchId] = { pick_winner: winner, pick_set_score: setScore, points_awarded: null };
+  delete pendingPicks[matchId];
+  renderMatches();
+}
+
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pin   = document.getElementById('login-pin').value.trim();
+  const errEl = document.getElementById('login-err');
+  errEl.style.display = 'none';
+  if (!email || !pin) { errEl.textContent = 'Enter your email and PIN.'; errEl.style.display = ''; return; }
+  const result = await login(email, pin);
+  if (!result?.success) {
+    errEl.textContent = result?.message || 'Login failed.';
+    errEl.style.display = '';
+    return;
+  }
+  session = result;
+  renderSessionBar();
+  await loadMyPredictions();
+}
+
+function renderPodium(top3) {
+  const medals = ['🥇','🥈','🥉'];
+  const order  = [1, 0, 2]; // 2nd, 1st, 3rd visually
+  const row = document.getElementById('podium-row');
+  const placeholders = ['—','—','—'].map((_, i) => {
+    const entry = top3[i];
+    return `<div class="podium-card${i===0?' first':''}">
+      <div class="podium-rank">${entry?.rank||''}</div>
+      <div class="podium-medal">${medals[i]}</div>
+      <div class="podium-name">${entry?.display_name||'—'}</div>
+      <div class="podium-pts">${entry!==undefined ? entry.total_points+' pts' : ''}</div>
+    </div>`;
+  });
+  // Visual order: 2nd, 1st, 3rd
+  row.innerHTML = [placeholders[1], placeholders[0], placeholders[2]].join('');
+}
+
+function renderLbTable(ranked) {
+  const myId = session?.member_id;
+  document.getElementById('lb-table').innerHTML = ranked.map(r => `
+    <div class="lb-row${r.member_id===myId?' me':''}">
+      <div class="lb-rank">${r.rank}</div>
+      <div class="lb-name">${esc(r.display_name)}${r.member_id===myId?' <small style="color:var(--green-3);font-weight:400">(you)</small>':''}</div>
+      <div class="lb-pts">${r.total_points} pts</div>
+    </div>`).join('');
+}
+
+init();
+</script>
+</body>
+</html>

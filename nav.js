@@ -53,6 +53,7 @@
     + '<li><a href="academy.html">Academy</a></li>'
     + '<li><a href="partners.html">Partners</a></li>'
     + '<li><a href="blog.html">Blog</a></li>'
+    + '<li><a href="predictions/index.html">Predictions</a></li>'
     + '<li>'
     + '<button aria-haspopup="true">Events ' + chevronSVG + '</button>'
     + '<div class="dropdown-menu">'
@@ -113,9 +114,11 @@
   });
 
   // Active link highlighting
-  var currentFile = window.location.pathname.split('/').pop() || 'index.html';
+  var currentPath = window.location.pathname;
+  var currentFile = currentPath.split('/').pop() || 'index.html';
   document.querySelectorAll('.site-nav .nav-links a').forEach(function (a) {
-    if (a.getAttribute('href') === currentFile) a.classList.add('nav-active');
+    var href = a.getAttribute('href') || '';
+    if (href === currentFile || currentPath.endsWith('/' + href)) a.classList.add('nav-active');
   });
   document.querySelectorAll('.site-nav .dropdown-menu a').forEach(function (a) {
     if (a.getAttribute('href') === currentFile) {
