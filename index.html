@@ -191,7 +191,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .tour-track:hover { animation-play-state: paused; }
 @keyframes tourScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .t-card {
-  flex: 0 0 360px; height: 300px; border-radius: 20px; overflow: hidden;
+  flex: 0 0 360px; height: 400px; border-radius: 20px; overflow: hidden;
   position: relative; text-decoration: none; display: block;
   box-shadow: 0 20px 50px -16px rgba(0,0,0,0.55);
   transition: transform .25s ease, box-shadow .25s ease;
@@ -199,12 +199,11 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .t-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 32px 64px -20px rgba(0,0,0,0.7); }
 .t-bg { position: absolute; inset: 0; }
 .t-bg img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.t-grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,24,16,.95) 0%, rgba(14,24,16,.35) 55%, transparent 100%); }
-.t-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 22px 24px; color: #fff; }
-.t-chip { display: inline-flex; align-items: center; padding: 4px 11px; background: var(--ball); color: var(--green-2); font-family: "JetBrains Mono", monospace; font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; border-radius: 999px; margin-bottom: 10px; }
+.t-grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,24,16,.98) 0%, rgba(14,24,16,.4) 50%, transparent 100%); }
+.t-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 24px 28px; color: #fff; }
+.t-chip { display: inline-flex; align-items: center; padding: 4px 11px; background: var(--ball); color: var(--green-2); font-family: "JetBrains Mono", monospace; font-size: 9px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; border-radius: 999px; margin-bottom: 12px; }
 .t-date { font-family: "JetBrains Mono", monospace; font-size: 10px; color: rgba(255,255,255,.5); margin-left: 8px; }
-.t-title { font-family: "Bricolage Grotesque", sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 7px; }
-.t-desc { font-size: 12.5px; color: rgba(255,255,255,.7); line-height: 1.5; }
+.t-title { font-family: "Bricolage Grotesque", sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -.03em; line-height: 1.1; }
 
 /* MOBILE NAV */
 html, body { overflow-x: hidden; max-width: 100%; }
@@ -225,7 +224,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 @media (max-width: 960px) {
   .happening-head { grid-template-columns: 1fr; gap: 14px; }
   .happening { padding: 80px 0 0; }
-  .t-card { flex: 0 0 280px; height: 240px; }
+  .t-card { flex: 0 0 260px; height: 340px; }
+  .t-title { font-size: 20px; }
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav-cta { display: none !important; }
@@ -546,7 +546,6 @@ function Happening() {
               <div className="t-body">
                 <div><span className="t-chip">{c.cat}</span><span className="t-date">{c.date}</span></div>
                 <div className="t-title">{c.title}</div>
-                <div className="t-desc">{c.desc}</div>
               </div>
             </a>
           ))}
