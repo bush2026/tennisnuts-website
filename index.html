@@ -65,11 +65,11 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .btn-small { padding: 10px 18px; font-size: 14px; }
 
 /* HERO */
-.hero { position: relative; min-height: 720px; color: #fff; overflow: hidden; isolation: isolate; display: flex; align-items: stretch; }
+.hero { position: relative; min-height: 600px; color: #fff; overflow: hidden; isolation: isolate; display: flex; align-items: stretch; }
 .hero-bg { position: absolute; inset: 0; z-index: -2; background: radial-gradient(ellipse at 78% 62%, rgba(0,0,0,0.55), transparent 45%), linear-gradient(180deg, rgba(58,92,44,0.55) 0%, rgba(34,52,22,0.85) 100%), repeating-linear-gradient(115deg, #6b8c4f 0 38px, #5d7d44 38px 78px), #4d7239; }
 .hero-photo { position: absolute; inset: 0; z-index: -1; opacity: 0.55; background-image: linear-gradient(transparent 0, transparent calc(50% - 1px), rgba(255,255,255,0.35) calc(50% - 1px), rgba(255,255,255,0.35) calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(90deg, transparent 9%, rgba(255,255,255,0.25) 9%, rgba(255,255,255,0.25) calc(9% + 2px), transparent calc(9% + 2px), transparent 91%, rgba(255,255,255,0.25) 91%, rgba(255,255,255,0.25) calc(91% + 2px), transparent calc(91% + 2px)); transform: perspective(900px) rotateX(60deg) scale(1.6) translateY(40%); transform-origin: 50% 100%; filter: blur(0.5px); }
 .hero-noise { position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 20% 30%, rgba(205,220,57,0.15), transparent 40%), radial-gradient(circle at 85% 75%, rgba(0,0,0,0.4), transparent 50%); mix-blend-mode: overlay; }
-.hero-content { position: relative; width: 100%; display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 60px; padding: 80px 0 110px; }
+.hero-content { position: relative; width: 100%; max-width: 760px; padding: 88px 0 100px; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; backdrop-filter: blur(6px); margin-bottom: 28px; }
 .hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ball); box-shadow: 0 0 0 4px rgba(205,220,57,0.25); animation: pulse 1.8s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { box-shadow: 0 0 0 4px rgba(205,220,57,0.25); } 50% { box-shadow: 0 0 0 8px rgba(205,220,57,0.05); } }
@@ -82,16 +82,6 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .hero-stats .stat { border-left: 2px solid rgba(205,220,57,0.6); padding-left: 14px; }
 .hero-stats .stat .num { font-family: "Bricolage Grotesque", sans-serif; font-size: 32px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
 .hero-stats .stat .label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 6px; }
-.hero-collage { position: relative; height: 520px; }
-.hero-card { position: absolute; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); border: 4px solid #fff; }
-.hero-card .ph { width: 100%; height: 100%; display: flex; align-items: flex-end; padding: 16px; font-family: "JetBrains Mono", monospace; font-size: 11px; color: rgba(255,255,255,0.85); }
-.hero-card-1 { top: 0; right: 40px; width: 280px; height: 360px; transform: rotate(-4deg); background: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 14px, rgba(255,255,255,0) 14px 28px), linear-gradient(160deg, #d8e85a 0%, #a3b82a 100%); }
-.hero-card-2 { top: 80px; left: 0; width: 220px; height: 280px; transform: rotate(5deg); background: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 14px, transparent 14px 28px), linear-gradient(180deg, #5d7d44 0%, #3a5c2c 100%); }
-.hero-card-3 { bottom: 0; right: 100px; width: 240px; height: 200px; transform: rotate(2deg); background: repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 14px, transparent 14px 28px), linear-gradient(200deg, #f5f3e8 0%, #d8d4bf 100%); }
-.hero-card-3 .ph { color: var(--green-2); }
-.hero-ball { position: absolute; width: 110px; height: 110px; border-radius: 50%; bottom: 60px; left: 110px; background: radial-gradient(circle at 30% 30%, #e8f76e 0%, var(--ball) 60%, #a3b82a 100%); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4), inset 0 -8px 14px rgba(0,0,0,0.15); z-index: 2; }
-.hero-ball::before, .hero-ball::after { content: ""; position: absolute; inset: 0; border: 2.5px solid #fff; border-radius: 50%; clip-path: ellipse(58% 38% at 50% -8%); }
-.hero-ball::after { clip-path: ellipse(58% 38% at 50% 108%); }
 .hero-ribbon { position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: var(--ball); display: flex; align-items: center; overflow: hidden; font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 18px; color: var(--green-2); }
 .hero-ribbon .marquee { display: flex; gap: 28px; white-space: nowrap; animation: marquee 30s linear infinite; padding-left: 28px; }
 .hero-ribbon span { display: inline-flex; align-items: center; gap: 28px; }
@@ -229,8 +219,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .nav-cta { display: none !important; }
-  .hero-content { grid-template-columns: 1fr; gap: 30px; padding-bottom: 130px; }
-  .hero-collage { height: 380px; }
+  .hero-content { padding: 64px 0 88px; }
   .who-grid { grid-template-columns: 1fr; gap: 48px; }
   .section-head { grid-template-columns: 1fr; gap: 16px; }
   .act-grid { grid-template-columns: repeat(2, 1fr); }
@@ -364,28 +353,20 @@ function Hero() {
       <div className="hero-noise"></div>
       <div className="container">
         <div className="hero-content">
-          <div>
-            <div className="hero-eyebrow">
-              <span className="dot"></span>
-              Pune's friendliest tennis community · 800+ members
-            </div>
-            <h1>The <span className="accent">Social</span> Side<br/>of Tennis.</h1>
-            <p className="hero-sub">Open courts, easy doubles, big tournaments, and the kind of post-match chai sessions that turn opponents into your weekend regulars.</p>
-            <div className="hero-ctas">
-              <a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." target="_blank" rel="noopener" className="btn btn-ball">Join WhatsApp <Ic.Arrow/></a>
-              <a href="#activities" className="btn btn-ghost"><Ic.Play/> Explore Events</a>
-            </div>
-            <div className="hero-stats">
-              <div className="stat"><div className="num">800+</div><div className="label">Active Members</div></div>
-              <div className="stat"><div className="num">40+</div><div className="label">Events / Year</div></div>
-              <div className="stat"><div className="num">12</div><div className="label">Partner Courts</div></div>
-            </div>
+          <div className="hero-eyebrow">
+            <span className="dot"></span>
+            Pune's friendliest tennis community · 800+ members
           </div>
-          <div className="hero-collage">
-            <div className="hero-card hero-card-1"><div className="ph">/* action shot — forehand at sunset */</div></div>
-            <div className="hero-card hero-card-2"><div className="ph">/* group huddle, post match */</div></div>
-            <div className="hero-card hero-card-3"><div className="ph">/* trophy presentation */</div></div>
-            <div className="hero-ball"></div>
+          <h1>The <span className="accent">Social</span> Side<br/>of Tennis.</h1>
+          <p className="hero-sub">Open courts, easy doubles, big tournaments, and the kind of post-match chai sessions that turn opponents into your weekend regulars.</p>
+          <div className="hero-ctas">
+            <a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." target="_blank" rel="noopener" className="btn btn-ball">Join WhatsApp <Ic.Arrow/></a>
+            <a href="#activities" className="btn btn-ghost"><Ic.Play/> Explore Events</a>
+          </div>
+          <div className="hero-stats">
+            <div className="stat"><div className="num">800+</div><div className="label">Active Members</div></div>
+            <div className="stat"><div className="num">40+</div><div className="label">Events / Year</div></div>
+            <div className="stat"><div className="num">12</div><div className="label">Partner Courts</div></div>
           </div>
         </div>
       </div>
