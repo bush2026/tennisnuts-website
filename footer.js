@@ -16,8 +16,10 @@
     '.site-footer .footer-col li,.site-footer .footer-col a{font-size:14px;color:rgba(255,255,255,0.75);}',
     '.site-footer .footer-col a:hover{color:#cddc39;}',
     '.site-footer .footer-socials{display:flex;gap:8px;margin-top:18px;}',
-    '.site-footer .footer-socials a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.85);transition:background .15s,color .15s;}',
-    '.site-footer .footer-socials a:hover{background:#cddc39;color:#2c4621;}',
+    '.site-footer .footer-socials a,.site-footer .footer-socials button{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.85);transition:background .15s,color .15s;border:none;cursor:pointer;padding:0;font-family:inherit;}',
+    '.site-footer .footer-socials a:hover,.site-footer .footer-socials button:hover{background:#cddc39;color:#2c4621;}',
+    '.share-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(10px);background:#1c2218;color:#fff;font-size:13px;font-weight:600;padding:10px 22px;border-radius:999px;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:9999;font-family:"DM Sans",sans-serif;white-space:nowrap;}',
+    '.share-toast.visible{opacity:1;transform:translateX(-50%) translateY(0);}'
     '.site-footer .footer-bottom{max-width:1240px;margin:0 auto;padding:20px 28px 0;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px;color:rgba(255,255,255,0.45);}',
     '@media(max-width:960px){.site-footer .footer-grid{grid-template-columns:1fr 1fr;}}',
     '@media(max-width:560px){.site-footer .footer-grid{grid-template-columns:1fr;}}'
@@ -77,6 +79,7 @@
     + '<a href="https://www.instagram.com/tennisnuts_punecommunity?igsh=emlma3lseTQzYjNv" aria-label="Instagram" target="_blank" rel="noopener"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>'
     + '<a href="https://wa.me/919881125831?text=Hi%2C%20I%20want%20to%20join%20Tennisnuts." aria-label="WhatsApp" target="_blank" rel="noopener"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5z"/></svg></a>'
     + '<a href="https://www.facebook.com/TennisnutsPune/" aria-label="Facebook" target="_blank" rel="noopener"><svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 21v-8.2h2.8l.4-3.2h-3.2v-2c0-.9.3-1.6 1.6-1.6h1.7V3.2A23 23 0 0014.4 3c-2.4 0-4 1.5-4 4.1v2.5H7.6v3.2h2.8V21h3.1z"/></svg></a>'
+    + '<button class="footer-share-btn" aria-label="Share this page" title="Share this page"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>'
     + '</div>'
     + '</div>'
 
@@ -91,5 +94,37 @@
   var footerContainer = document.getElementById('site-footer');
   if (footerContainer) {
     footerContainer.innerHTML = footerHTML;
+  }
+
+  // Share button
+  var toast = document.createElement('div');
+  toast.className = 'share-toast';
+  toast.id = 'share-toast';
+  document.body.appendChild(toast);
+
+  var shareBtn = document.querySelector('.footer-share-btn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function () {
+      var url = window.location.href;
+      var title = document.title;
+      if (navigator.share) {
+        navigator.share({ title: title, url: url }).catch(function () {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(function () {
+          showToast('✓ Link copied!');
+        }).catch(function () {
+          showToast('Copy the URL from your address bar');
+        });
+      } else {
+        showToast('Copy the URL from your address bar');
+      }
+    });
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { toast.classList.remove('visible'); }, 2200);
   }
 })();
