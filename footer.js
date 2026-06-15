@@ -62,6 +62,7 @@
     + '<li><a href="/corporate-tournament.html">Corporate Tournament</a></li>'
     + '<li><a href="/tennis-clinics.html">Tennis Clinics</a></li>'
     + '<li><a href="/grandslam-predictions.html">Grand Slam Predictions</a></li>'
+    + '<li><a href="/flexi-league.html">Flexi League</a></li>'
     + '</ul>'
     + '</div>'
 

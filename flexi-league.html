@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Flexi League — Tennisnuts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ball-2: #d8e85a;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --paper: #fff;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+
+.container { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 28px; border-radius: 999px; font-weight: 600; font-size: 16px;
+  font-family: "DM Sans", sans-serif; transition: transform .15s, background .15s, color .15s;
+  white-space: nowrap; cursor: pointer; text-decoration: none; border: none;
+}
+.btn-ball { background: var(--ball); color: var(--green-2); }
+.btn-ball:hover { background: var(--ball-2); transform: translateY(-2px); }
+.btn-ghost-white { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.7); }
+.btn-ghost-white:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+.btn-outline {
+  background: transparent; color: var(--green); border: 1.5px solid var(--green);
+  width: 100%; justify-content: center;
+}
+.btn-outline:hover { background: var(--green-soft); }
+.btn-large { padding: 16px 36px; font-size: 17px; }
+
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--green); font-weight: 600; font-size: 13px;
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 18px;
+}
+.section-eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--ball); }
+
+/* ── HERO ── */
+.page-hero {
+  min-height: 460px; position: relative; overflow: hidden;
+  display: flex; align-items: center; color: #fff; padding: 88px 0 80px;
+}
+.page-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(205,220,57,0.12), transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(205,220,57,0.06), transparent 45%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 28px, transparent 28px 56px),
+    linear-gradient(155deg, #1a2d14 0%, #2c4621 50%, #3a5c2c 100%);
+  z-index: 0;
+}
+.page-hero .container { position: relative; z-index: 1; }
+
+.hero-eyebrow-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(205,220,57,0.15); border: 1px solid rgba(205,220,57,0.4);
+  padding: 8px 16px; border-radius: 999px; font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ball); margin-bottom: 24px;
+}
+.page-hero h1 {
+  font-size: clamp(52px, 8vw, 88px); line-height: 1;
+  letter-spacing: -0.04em; color: #fff; margin-bottom: 18px;
+}
+.page-hero .hero-sub {
+  font-size: 20px; color: rgba(255,255,255,0.82); margin-bottom: 36px; max-width: 52ch; line-height: 1.5;
+}
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+.hero-stats-row {
+  font-size: 14px; color: rgba(255,255,255,0.65);
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0; letter-spacing: 0.01em;
+}
+.hero-stats-row .sep { margin: 0 12px; opacity: 0.4; }
+.hero-stats-row strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+/* ── ABOUT ── */
+.about-section { background: var(--cream); padding: 100px 0; }
+.about-grid {
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: 72px; align-items: center;
+}
+.about-copy h2 {
+  font-size: clamp(32px, 4vw, 50px); line-height: 1.05;
+  letter-spacing: -0.03em; margin-bottom: 24px; max-width: 22ch;
+}
+.about-copy p {
+  font-size: 17px; color: var(--ink-2); line-height: 1.65;
+  margin-bottom: 20px; max-width: 58ch;
+}
+.about-copy p:last-child { margin-bottom: 0; }
+
+.about-card {
+  background: #fff; border-radius: 20px;
+  box-shadow: 0 20px 50px -20px rgba(58,92,44,0.25);
+  border: 1px solid var(--line); overflow: hidden;
+}
+.about-card-header {
+  background: var(--green-2); padding: 20px 28px;
+  display: flex; align-items: center; gap: 12px;
+}
+.about-card-header span {
+  font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6);
+}
+.about-card-header strong {
+  font-family: "Bricolage Grotesque", sans-serif; font-size: 18px;
+  font-weight: 700; color: #fff; letter-spacing: -0.02em;
+}
+.about-card-body { padding: 28px; display: flex; flex-direction: column; gap: 0; }
+.about-stat { padding: 20px 0; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 16px; }
+.about-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.about-stat:first-child { padding-top: 0; }
+.about-stat-icon {
+  font-size: 1.5rem; flex-shrink: 0; min-width: 40px; text-align: center;
+}
+.about-stat-detail { flex: 1; }
+.about-stat-label { font-size: 13px; color: var(--ink-2); font-weight: 500; line-height: 1.4; }
+.about-stat-value { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-top: 2px; }
+
+/* ── FORMAT SECTION ── */
+.format-section { background: #fff; padding: 100px 0; }
+.format-section-head { margin-bottom: 56px; }
+.format-section-head h2 {
+  font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.03em; margin-bottom: 14px;
+}
+.format-section-head .sub { font-size: 17px; color: var(--ink-2); max-width: 56ch; }
+.format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.format-card {
+  background: var(--cream); border-radius: 20px; padding: 36px 32px;
+  border: 1px solid var(--line); transition: transform .2s, box-shadow .2s;
+}
+.format-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -16px rgba(58,92,44,0.2); }
+.format-icon { font-size: 36px; margin-bottom: 20px; }
+.format-card h3 { font-size: 1.2rem; margin-bottom: 12px; color: var(--ink); }
+.format-card p { font-size: 15px; color: var(--ink-2); line-height: 1.65; }
+.format-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; background: var(--ball); color: var(--green-2);
+  border-radius: 50%; font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 700; margin-bottom: 20px;
+}
+
+/* ── RULES STRIP ── */
+.rules-section {
+  background: var(--green-soft); padding: 80px 0;
+}
+.rules-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; margin-top: 48px;
+}
+.rules-card {
+  background: #fff; border-radius: 16px; padding: 32px;
+  border: 1px solid rgba(58,92,44,0.1);
+}
+.rules-card h4 {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 18px;
+}
+.rules-card ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.rules-card li {
+  font-size: 15px; color: var(--ink-2); line-height: 1.55;
+  padding-left: 18px; position: relative;
+}
+.rules-card li::before {
+  content: "—"; position: absolute; left: 0; color: var(--ball); font-weight: 700;
+}
+
+/* ── EDITIONS ── */
+.editions-section { background: #fff; padding: 100px 0; }
+.editions-head { margin-bottom: 56px; }
+.editions-head h2 {
+  font-size: clamp(34px, 4vw, 52px); line-height: 1.05;
+  letter-spacing: -0.03em; margin-bottom: 14px;
+}
+.editions-head .sub { font-size: 17px; color: var(--ink-2); max-width: 56ch; }
+
+.edition-card {
+  border-radius: 20px; border: 1px solid var(--line); overflow: hidden;
+  background: #fff; max-width: 480px;
+  transition: transform .2s, box-shadow .2s;
+}
+.edition-card:hover { transform: translateY(-5px); box-shadow: 0 24px 48px -20px rgba(58,92,44,0.3); }
+
+.edition-banner {
+  height: 220px; position: relative; overflow: hidden;
+  background: repeating-linear-gradient(115deg, #2c4621 0 18px, #3a5c2c 18px 36px);
+  display: flex; align-items: center; justify-content: center;
+}
+.edition-banner-inner {
+  text-align: center; color: #fff;
+}
+.edition-banner-inner .big { font-family: "Bricolage Grotesque", sans-serif; font-size: 48px; font-weight: 800; color: var(--ball); line-height: 1; }
+.edition-banner-inner .label { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(255,255,255,0.6); margin-top: 8px; text-transform: uppercase; }
+.edition-badge-open {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--ball); color: var(--green-2);
+  font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 999px;
+}
+.edition-badge-coming {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.3);
+  font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 999px;
+}
+.edition-body { padding: 28px; }
+.edition-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green-2); background: var(--ball);
+  display: inline-block; padding: 3px 10px; border-radius: 999px; margin-bottom: 14px;
+}
+.edition-body h3 { font-size: 22px; letter-spacing: -0.02em; margin-bottom: 8px; line-height: 1.2; }
+.edition-meta { font-size: 14px; color: var(--ink-2); margin-bottom: 16px; }
+.edition-details {
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--cream); border-radius: 12px; padding: 16px; margin-bottom: 20px;
+}
+.edition-detail {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px;
+}
+.edition-detail .key { color: var(--ink-2); }
+.edition-detail .val { font-weight: 600; color: var(--ink); }
+
+/* ── WA CTA ── */
+.wa-cta {
+  position: relative; overflow: hidden; padding: 80px 0; text-align: center; color: #fff;
+}
+.wa-cta::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.03) 0 28px, transparent 28px 56px),
+    linear-gradient(155deg, #2c4621 0%, #3a5c2c 100%);
+  z-index: 0;
+}
+.wa-cta .container { position: relative; z-index: 1; }
+.wa-cta h2 { font-size: clamp(32px, 5vw, 52px); color: #fff; letter-spacing: -0.03em; margin-bottom: 18px; }
+.wa-cta p { font-size: 18px; color: rgba(255,255,255,0.8); max-width: 52ch; margin: 0 auto 36px; line-height: 1.6; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .format-grid { grid-template-columns: repeat(2, 1fr); }
+  .rules-grid { grid-template-columns: 1fr; }
+  .about-section, .format-section, .editions-section { padding: 72px 0; }
+}
+@media (max-width: 560px) {
+  .format-grid { grid-template-columns: 1fr; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; }
+  .about-section, .format-section, .editions-section { padding: 56px 0; }
+  .wa-cta { padding: 60px 0; }
+  .container { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="hero-eyebrow-chip">Tennisnuts Community · Pune</div>
+      <h1>Flexi League</h1>
+      <p class="hero-sub">Competitive doubles played on your own schedule — round-robin groups across weeks, knockout weekend to crown the champions.</p>
+      <div class="hero-ctas">
+        <a href="https://docs.google.com/forms/d/1ECZzYszz9-vBHHIgVY9TmrHYmGUplxGVG8VmQzIiPr0/viewform" target="_blank" rel="noopener" class="btn btn-ball">
+          Register Now →
+        </a>
+        <a href="#how-it-works" class="btn btn-ghost-white">How it works ↓</a>
+      </div>
+      <div class="hero-stats-row">
+        <span><strong>Doubles</strong> format</span>
+        <span class="sep">·</span>
+        <span>Self-scheduled league matches</span>
+        <span class="sep">·</span>
+        <span>Round Robin → Knockout Weekend</span>
+        <span class="sep">·</span>
+        <span>Hosted at CPR, Pune</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-copy">
+          <div class="section-eyebrow">About Flexi League</div>
+          <h2>A league you fit around your life.</h2>
+          <p>The Tennisnuts Flexi League is competitive doubles reimagined for real life. Instead of one packed weekend, the league runs over several weeks — giving you the competitive edge of a proper league format with the flexibility to play when both teams are ready.</p>
+          <p>Register as a pair, get placed into a balanced group, and coordinate directly with the opposing team to pick a time and venue that works. Split the court costs, play your match, and update the standings. No organisers, no fixed slots — just two teams who want to compete.</p>
+          <p>Once every team in your group has played, the top pairs advance to a Knockout Weekend hosted at CPR — quarterfinals, semifinals, and a final all in one day. Trophies, T-shirts, and full media coverage for every participant.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-header">
+            <div>
+              <span>TENNISNUTS</span>
+              <br>
+              <strong>Flexi League Format</strong>
+            </div>
+          </div>
+          <div class="about-card-body">
+            <div class="about-stat">
+              <div class="about-stat-icon">🎾</div>
+              <div class="about-stat-detail">
+                <div class="about-stat-label">Match format</div>
+                <div class="about-stat-value">Best of 3 Sets</div>
+              </div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-icon">⚡</div>
+              <div class="about-stat-detail">
+                <div class="about-stat-label">Third set</div>
+                <div class="about-stat-value">Super Tie-Break (10 pts)</div>
+              </div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-icon">🔄</div>
+              <div class="about-stat-detail">
+                <div class="about-stat-label">League stage</div>
+                <div class="about-stat-value">Round Robin</div>
+              </div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-icon">🏆</div>
+              <div class="about-stat-detail">
+                <div class="about-stat-label">Knockout stage</div>
+                <div class="about-stat-value">QF · SF · Final (1 weekend)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="format-section" id="how-it-works">
+    <div class="container">
+      <div class="format-section-head">
+        <div class="section-eyebrow">How It Works</div>
+        <h2>Three steps to the trophy.</h2>
+        <p class="sub">A proper competitive structure — without the constraint of showing up on one specific day for your league matches.</p>
+      </div>
+      <div class="format-grid">
+        <div class="format-card">
+          <div class="format-num">01</div>
+          <div class="format-icon">📋</div>
+          <h3>Register Your Pair</h3>
+          <p>Sign up with your doubles partner. You'll be placed into a balanced group based on experience. Entry fee is per team and covers the full league including the Knockout Weekend.</p>
+        </div>
+        <div class="format-card">
+          <div class="format-num">02</div>
+          <div class="format-icon">📅</div>
+          <h3>Schedule Your Matches</h3>
+          <p>Contact the other teams in your group and agree on a time, date, and venue that suits both sides. Court booking costs and balls are shared equally. Play anytime during the league window.</p>
+        </div>
+        <div class="format-card">
+          <div class="format-num">03</div>
+          <div class="format-icon">🏆</div>
+          <h3>Knockout Weekend</h3>
+          <p>Top 2 teams from each group advance. Quarterfinals, semifinals, and the final are all held on a single designated weekend at CPR — no court fees for knockout matches.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATCH RULES -->
+  <section class="rules-section">
+    <div class="container">
+      <div class="section-eyebrow">Match Rules</div>
+      <h2 style="font-size:clamp(28px,3.5vw,42px);letter-spacing:-0.02em;margin-bottom:8px;">Proper tennis. Properly scored.</h2>
+      <p style="font-size:17px;color:var(--ink-2);max-width:56ch;">No short sets or super tiebreakers to rush things — league matches are full tennis. Here's the scoring detail.</p>
+      <div class="rules-grid">
+        <div class="rules-card">
+          <h4>League Stage</h4>
+          <ul>
+            <li>Round Robin format within groups</li>
+            <li>Best of 3 sets per match</li>
+            <li>Full sets played — no short-set format</li>
+            <li>Deuce: Best-of-3 point format (first to win 2 points)</li>
+            <li>At 6–6: standard 7-point tie-break (win by 2)</li>
+            <li>Third set: Super Tie-Break, first to 10 points (win by 2)</li>
+            <li>Top 2 teams from each group qualify for knockouts</li>
+          </ul>
+        </div>
+        <div class="rules-card">
+          <h4>Scheduling &amp; Logistics</h4>
+          <ul>
+            <li>Teams mutually agree on venue and match time</li>
+            <li>Court booking charges shared equally</li>
+            <li>Balls: Wilson Tour or Sky Warrior recommended</li>
+            <li>CPR courts available throughout the league at 15% off during off-peak hours</li>
+            <li>All knockout matches held at CPR, no court fees</li>
+            <li>Top 4 league teams are seeded for knockout draw</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITIONS -->
+  <section class="editions-section" id="editions">
+    <div class="container">
+      <div class="editions-head">
+        <div class="section-eyebrow">Editions</div>
+        <h2>Each edition, a new chapter.</h2>
+        <p class="sub">Flexi League runs seasonally. Register early — groups fill fast.</p>
+      </div>
+
+      <!-- Placeholder: first/upcoming edition -->
+      <div class="edition-card">
+        <div class="edition-banner">
+          <div class="edition-badge-open">Registration Open</div>
+          <div class="edition-banner-inner">
+            <div class="big">2026</div>
+            <div class="label">Jun · Jul · Aug</div>
+          </div>
+        </div>
+        <div class="edition-body">
+          <div class="edition-tag">Elite Division</div>
+          <h3>PMDTA Seniors Doubles Flexi League</h3>
+          <div class="edition-meta">📍 CPR, Pune &nbsp;·&nbsp; Under aegis of PMDTA</div>
+          <div class="edition-details">
+            <div class="edition-detail">
+              <span class="key">Season</span>
+              <span class="val">June – August 2026</span>
+            </div>
+            <div class="edition-detail">
+              <span class="key">Category</span>
+              <span class="val">Doubles · Age 25+</span>
+            </div>
+            <div class="edition-detail">
+              <span class="key">Entry fee</span>
+              <span class="val">₹1,000 per team</span>
+            </div>
+            <div class="edition-detail">
+              <span class="key">Prizes</span>
+              <span class="val">Trophies + T-Shirts</span>
+            </div>
+          </div>
+          <a href="https://docs.google.com/forms/d/1ECZzYszz9-vBHHIgVY9TmrHYmGUplxGVG8VmQzIiPr0/viewform" target="_blank" rel="noopener" class="btn btn-ball" style="width:100%;justify-content:center;">
+            Register Now — Spots Limited →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WA CTA -->
+  <section class="wa-cta">
+    <div class="container">
+      <h2>Get notified for the next edition</h2>
+      <p>Flexi League editions open a few weeks before the season. Join the WhatsApp group so you're first in the draw.</p>
+      <a href="https://wa.me/919881125831?text=Hi%2C%20I%27m%20interested%20in%20the%20Tennisnuts%20Flexi%20League." class="btn btn-ball btn-large" target="_blank" rel="noopener">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 3.5A10 10 0 003.4 16.3L2 22l5.9-1.4A10 10 0 0020.5 3.5zM12 20.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3.5.9.9-3.4-.2-.3a8.2 8.2 0 1115.5-3.7A8.2 8.2 0 0112 20.2z"/></svg>
+        Join WhatsApp Group
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="nav.js?v=3"></script>
+<script src="footer.js?v=6"></script>
+</body>
+</html>
