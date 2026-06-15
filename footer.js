@@ -83,6 +83,7 @@
     + '<div class="footer-bottom">'
     + '<span>© 2026 Tennisnuts Community · Pune, India · All rights reserved.</span>'
     + '<span>Built by players, for players.</span>'
+    + '<a href="/predictions/admin.html" style="color:rgba(255,255,255,.2);font-size:11px;letter-spacing:.05em;transition:color .15s" onmouseover="this.style.color=\'rgba(255,255,255,.5)\'" onmouseout="this.style.color=\'rgba(255,255,255,.2)\'">Admin ↗</a>'
     + '</div>'
     + '</footer>';
 

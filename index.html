@@ -238,6 +238,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 <body>
 <div id="root"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/predictions/config.js"></script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
@@ -622,10 +624,45 @@ function Footer() {
   );
 }
 
+function AnnouncementBanner() {
+  const [events, setEvents] = React.useState([]);
+  const [hidden, setHidden] = React.useState(new Set());
+  React.useEffect(() => {
+    if (typeof db === 'undefined') return;
+    db.rpc('get_open_registration_events').then(({ data }) => {
+      if (data?.length) setEvents(data);
+    }).catch(() => {});
+  }, []);
+  const visible = events.filter(e => !hidden.has(e.id));
+  if (!visible.length) return null;
+  return (
+    <div style={{background:'var(--ball)',color:'var(--green-2)'}}>
+      {visible.map(e => {
+        const spotsLeft = e.capacity ? (e.capacity - Number(e.entry_count)) : null;
+        return (
+          <div key={e.id} style={{padding:'10px 0',borderBottom:'1px solid rgba(44,70,33,.15)'}}>
+            <div className="container" style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,flexWrap:'wrap'}}>
+              <div style={{display:'flex',alignItems:'center',gap:16,flexWrap:'wrap',fontSize:15}}>
+                <span style={{fontFamily:'"JetBrains Mono",monospace',fontSize:10,fontWeight:600,letterSpacing:'.12em',textTransform:'uppercase',opacity:.65}}>Now open</span>
+                <strong>{e.name}</strong>
+                {e.event_date && <span style={{opacity:.7,fontSize:14}}>{new Date(e.event_date+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</span>}
+                {spotsLeft !== null && <span style={{opacity:.7,fontSize:13}}>{spotsLeft} spots left</span>}
+                <a href={'/register.html?event='+e.id} style={{fontWeight:700,color:'var(--green-2)',textDecoration:'underline',fontSize:14}}>Register →</a>
+              </div>
+              <button onClick={() => setHidden(new Set([...hidden, e.id]))} style={{background:'rgba(44,70,33,.15)',border:'none',cursor:'pointer',borderRadius:'50%',width:24,height:24,display:'flex',alignItems:'center',justifyContent:'center',fontSize:16,color:'var(--green-2)',flexShrink:0}}>×</button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function App() {
   return (
     <>
       <Nav/>
+      <AnnouncementBanner/>
       <main>
         <Hero/>
         <Happening/>

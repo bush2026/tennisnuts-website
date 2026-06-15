@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Admin — Tennisnuts Predictions</title>
+<title>Admin — Tennisnuts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -134,6 +134,7 @@ input,select,textarea{font-family:inherit;}
     <button class="tab-btn" onclick="showTab('members')">Members</button>
     <button class="tab-btn" onclick="showTab('matches')">Matches</button>
     <button class="tab-btn" onclick="showTab('results')">Results</button>
+    <button class="tab-btn" onclick="showTab('registrations')">Registrations</button>
   </div>
 </div>
 
@@ -280,10 +281,77 @@ input,select,textarea{font-family:inherit;}
   </div>
 </div>
 
+<!-- REGISTRATIONS -->
+<div class="panel" id="panel-registrations">
+  <div class="admin-card">
+    <div class="admin-card-head"><h3>Create Registration Event</h3></div>
+    <div class="admin-card-body">
+      <div class="form-grid" style="margin-bottom:12px">
+        <div class="field"><label>Event Name</label><input id="re-name" placeholder="Socials #45"/></div>
+        <div class="field"><label>Type</label>
+          <select id="re-type">
+            <option value="social">Social</option><option value="open">Open</option>
+            <option value="seniors">Seniors</option><option value="corporate">Corporate</option>
+            <option value="clinic">Clinic</option><option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid" style="margin-bottom:12px">
+        <div class="field"><label>Event Date</label><input id="re-date" type="date"/></div>
+        <div class="field"><label>Venue</label><input id="re-venue" placeholder="Balewadi Sports Complex"/></div>
+      </div>
+      <div class="form-grid" style="margin-bottom:12px">
+        <div class="field"><label>Capacity <span style="font-weight:400;text-transform:none;font-size:11px">(blank = unlimited)</span></label><input id="re-capacity" type="number" min="1" placeholder="24"/></div>
+        <div class="field"><label>Auto-close at <span style="font-weight:400;text-transform:none;font-size:11px">(optional)</span></label><input id="re-closes" type="datetime-local"/>
+          <span class="field-hint">Leave blank to close manually</span>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:14px"><label>Description <span style="font-weight:400;text-transform:none;font-size:11px">(optional)</span></label>
+        <textarea id="re-desc" rows="2" placeholder="Round-robin format, 6 courts…" style="resize:vertical"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-green" onclick="createRegEvent()">Create event</button>
+        <div class="form-msg" id="re-msg"></div>
+      </div>
+    </div>
+  </div>
+  <div class="admin-card">
+    <div class="admin-card-head">
+      <h3>All Registration Events</h3>
+      <small style="font-size:13px;color:var(--ink-2)">Public link: /register.html?event=ID</small>
+    </div>
+    <div class="admin-card-body" style="padding:0">
+      <table class="data-table">
+        <thead><tr><th>Event</th><th>Date</th><th>Type</th><th>Entries</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="re-tbody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 </div><!-- /container -->
 </div><!-- /panels-wrap -->
 
 <div id="site-footer" style="display:none"></div>
+
+<!-- ENTRIES MODAL -->
+<div id="entries-modal" style="display:none;position:fixed;inset:0;background:rgba(28,34,24,.55);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:16px;max-width:620px;width:100%;overflow:hidden;box-shadow:0 24px 60px -20px rgba(0,0,0,.3);max-height:82vh;display:flex;flex-direction:column">
+    <div style="background:var(--ink);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+      <div>
+        <h3 style="color:#fff;font-size:17px" id="entries-modal-title">Entries</h3>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:2px" id="entries-modal-link"></div>
+      </div>
+      <button onclick="closeEntriesModal()" style="color:#fff;opacity:.6;font-size:22px;background:none;border:none;cursor:pointer;line-height:1">×</button>
+    </div>
+    <div style="overflow-y:auto;flex:1">
+      <table class="data-table" style="font-size:13px">
+        <thead><tr><th>#</th><th>Name</th><th>Phone</th><th>Email</th><th>When</th><th></th></tr></thead>
+        <tbody id="entries-modal-tbody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 <!-- PIN RESET MODAL -->
 <div id="pin-modal" style="display:none;position:fixed;inset:0;background:rgba(28,34,24,.55);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center;padding:20px;">
@@ -302,14 +370,16 @@ input,select,textarea{font-family:inherit;}
 </div>
 
 <script src="../nav.js?v=2"></script>
-<script src="../footer.js?v=4"></script>
+<script src="../footer.js?v=5"></script>
 <script src="config.js"></script>
 <script src="auth.js"></script>
 <script>
 let adminSession = null;
 let allTournaments = [];
 let allMatches = [];
+let allRegEvents = [];
 let pinResetMemberId = null;
+let viewingEventId = null;
 
 async function init() {
   adminSession = await restoreSession();
@@ -353,7 +423,7 @@ async function doAdminLogin() {
 }
 
 async function loadAll() {
-  await Promise.all([loadTournaments(), loadMembers(), loadMatches()]);
+  await Promise.all([loadTournaments(), loadMembers(), loadMatches(), loadRegEvents()]);
   populateMatchDropdowns();
 }
 
@@ -653,6 +723,130 @@ function renderResultsTable() {
         : '<span class="badge badge-gray">Pending</span>'}</td>
       <td>${m.result_winner ? '<span class="badge badge-green">✓ Scored</span>' : '<span class="badge badge-ball">Not yet</span>'}</td>
     </tr>`).join('');
+}
+
+// ── REGISTRATIONS ────────────────────────────────────────────
+
+async function loadRegEvents() {
+  const { data } = await db.rpc('admin_get_reg_events', { p_session_token: adminSession.session_token });
+  allRegEvents = data || [];
+  renderRegEvents();
+}
+
+function renderRegEvents() {
+  const tbody = document.getElementById('re-tbody');
+  if (!allRegEvents.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">No registration events yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = allRegEvents.map(e => {
+    const isOpen = e.is_open && (!e.closes_at || new Date(e.closes_at) > Date.now());
+    const capStr = e.capacity ? `${e.entry_count}/${e.capacity}` : String(e.entry_count);
+    const dateStr = e.event_date
+      ? new Date(e.event_date + 'T00:00:00').toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })
+      : '—';
+    return `<tr>
+      <td><strong>${esc(e.name)}</strong>${e.venue ? `<br><small style="color:var(--ink-2);font-size:11px">${esc(e.venue)}</small>` : ''}</td>
+      <td>${dateStr}</td>
+      <td><span class="badge badge-gray">${e.event_type}</span></td>
+      <td class="mono">${capStr}</td>
+      <td>${isOpen ? '<span class="badge badge-green">Open</span>' : '<span class="badge badge-red">Closed</span>'}</td>
+      <td class="actions-cell">
+        <button class="btn btn-ghost btn-sm" onclick="viewEntries('${e.id}','${esc(e.name)}')">Entries</button>
+        <button class="btn btn-ghost btn-sm" onclick="copyRegLink('${e.id}')">Copy link</button>
+        <button class="btn btn-ghost btn-sm" onclick="toggleRegOpen('${e.id}',${e.is_open})">${e.is_open ? 'Close' : 'Open'}</button>
+        <button class="btn btn-red btn-sm" onclick="deleteRegEvent('${e.id}')">Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function createRegEvent() {
+  const name     = document.getElementById('re-name').value.trim();
+  const type     = document.getElementById('re-type').value;
+  const date     = document.getElementById('re-date').value || null;
+  const venue    = document.getElementById('re-venue').value.trim() || null;
+  const capacity = parseInt(document.getElementById('re-capacity').value) || null;
+  const closesRaw = document.getElementById('re-closes').value;
+  const closes   = closesRaw ? new Date(closesRaw).toISOString() : null;
+  const desc     = document.getElementById('re-desc').value.trim() || null;
+  const msgEl    = document.getElementById('re-msg');
+  if (!name) { showMsg(msgEl, 'Event name is required', false); return; }
+  const { data } = await db.rpc('admin_create_reg_event', {
+    p_session_token: adminSession.session_token,
+    p_name: name, p_event_date: date, p_event_type: type,
+    p_description: desc, p_venue: venue, p_capacity: capacity, p_closes_at: closes
+  });
+  if (data?.success) {
+    showMsg(msgEl, 'Event created! Share: /register.html?event=' + data.id, true);
+    ['re-name','re-date','re-venue','re-capacity','re-closes','re-desc'].forEach(id => { document.getElementById(id).value = ''; });
+    await loadRegEvents();
+  } else {
+    showMsg(msgEl, data?.message || 'Error', false);
+  }
+}
+
+async function toggleRegOpen(id, isOpen) {
+  const ev = allRegEvents.find(e => e.id === id);
+  if (!ev) return;
+  const { data } = await db.rpc('admin_update_reg_event', {
+    p_session_token: adminSession.session_token,
+    p_id: id, p_name: ev.name, p_is_open: !isOpen
+  });
+  if (data?.success) await loadRegEvents();
+}
+
+async function deleteRegEvent(id) {
+  if (!confirm('Delete this event and ALL its registrations? This cannot be undone.')) return;
+  const { data } = await db.rpc('admin_delete_reg_event', {
+    p_session_token: adminSession.session_token, p_id: id
+  });
+  if (data?.success) await loadRegEvents();
+}
+
+async function viewEntries(eventId, eventName) {
+  viewingEventId = eventId;
+  document.getElementById('entries-modal-title').textContent = eventName;
+  document.getElementById('entries-modal-link').textContent = window.location.origin + '/register.html?event=' + eventId;
+  document.getElementById('entries-modal-tbody').innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px">Loading…</td></tr>';
+  document.getElementById('entries-modal').style.display = 'flex';
+  const { data } = await db.rpc('admin_get_reg_entries', {
+    p_session_token: adminSession.session_token, p_event_id: eventId
+  });
+  if (!data?.length) {
+    document.getElementById('entries-modal-tbody').innerHTML = '<tr class="empty-row"><td colspan="6">No entries yet</td></tr>';
+    return;
+  }
+  document.getElementById('entries-modal-tbody').innerHTML = data.map((r, i) => `
+    <tr>
+      <td class="mono" style="color:var(--ink-2)">${i+1}</td>
+      <td><strong>${esc(r.name)}</strong></td>
+      <td class="mono">${esc(r.phone)}</td>
+      <td style="color:var(--ink-2)">${esc(r.email||'—')}</td>
+      <td style="color:var(--ink-2)">${fmtDate(r.submitted_at)}</td>
+      <td><button class="btn btn-red btn-sm" onclick="deleteEntry('${r.id}')">Remove</button></td>
+    </tr>`).join('');
+}
+
+function closeEntriesModal() {
+  document.getElementById('entries-modal').style.display = 'none';
+  viewingEventId = null;
+}
+
+async function deleteEntry(id) {
+  if (!confirm('Remove this registration?')) return;
+  const { data } = await db.rpc('admin_delete_reg_entry', {
+    p_session_token: adminSession.session_token, p_id: id
+  });
+  if (data?.success) {
+    const title = document.getElementById('entries-modal-title').textContent;
+    await viewEntries(viewingEventId, title);
+  }
+}
+
+function copyRegLink(id) {
+  const url = window.location.origin + '/register.html?event=' + id;
+  navigator.clipboard.writeText(url).then(() => alert('Link copied: ' + url));
 }
 
 // ── UI HELPERS ───────────────────────────────────────────────
