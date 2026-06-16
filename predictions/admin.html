@@ -45,10 +45,16 @@ input,select,textarea{font-family:inherit;}
 .login-card-head p{color:rgba(255,255,255,.55);font-size:14px;margin-top:4px;}
 .login-card-body{padding:28px;}
 
-/* TABS */
-.tabs-bar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:60px;z-index:100;}
-.tabs-bar .inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;gap:0;}
-.tab-btn{padding:14px 20px;font-size:14px;font-weight:600;color:var(--ink-2);border-bottom:3px solid transparent;margin-bottom:-1px;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:color .15s,border-color .15s;}
+/* TABS — two-level */
+.tabs-groups{background:var(--green-2);position:sticky;top:60px;z-index:101;}
+.tabs-groups .inner{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;gap:0;}
+.group-btn{padding:11px 20px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.45);background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-1px;cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap;}
+.group-btn.active{color:#fff;border-bottom-color:var(--ball);}
+.group-btn:hover:not(.active){color:rgba(255,255,255,.75);}
+.tabs-bar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:101px;z-index:100;}
+.tabs-bar .inner{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tabs-bar .inner::-webkit-scrollbar{display:none;}
+.tab-btn{padding:13px 18px;font-size:14px;font-weight:600;color:var(--ink-2);border-bottom:3px solid transparent;margin-bottom:-1px;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:color .15s,border-color .15s;white-space:nowrap;flex-shrink:0;}
 .tab-btn.active{color:var(--green);border-bottom-color:var(--green);}
 .tab-btn:hover:not(.active){color:var(--ink);}
 
@@ -96,8 +102,9 @@ input,select,textarea{font-family:inherit;}
 @media(max-width:700px){
   .form-grid,.form-grid.three{grid-template-columns:1fr;}
   .data-table{font-size:13px;}
-  .tab-btn{padding:12px 14px;font-size:13px;}
-  .container,.admin-header .inner,.tabs-bar .inner{padding:0 16px;}
+  .tab-btn{padding:11px 14px;font-size:13px;}
+  .group-btn{padding:10px 16px;font-size:12px;}
+  .container,.admin-header .inner,.tabs-bar .inner,.tabs-groups .inner{padding:0 16px;}
 }
 </style>
 </head>
@@ -127,14 +134,21 @@ input,select,textarea{font-family:inherit;}
   </div>
 </div>
 
-<!-- TABS -->
+<!-- GROUP BAR -->
+<div class="tabs-groups" id="tabs-groups" style="display:none">
+  <div class="inner">
+    <button class="group-btn active" onclick="showGroup('predictions')">Predictions</button>
+    <button class="group-btn" onclick="showGroup('registrations')">Registrations</button>
+  </div>
+</div>
+
+<!-- SUB-TABS (predictions only) -->
 <div class="tabs-bar" id="tabs-bar" style="display:none">
   <div class="inner">
     <button class="tab-btn active" onclick="showTab('tournaments')">Tournaments</button>
     <button class="tab-btn" onclick="showTab('members')">Members</button>
     <button class="tab-btn" onclick="showTab('matches')">Matches</button>
     <button class="tab-btn" onclick="showTab('results')">Results</button>
-    <button class="tab-btn" onclick="showTab('registrations')">Registrations</button>
   </div>
 </div>
 
@@ -395,6 +409,7 @@ async function init() {
 function showAdminUI() {
   document.getElementById('login-wrap').style.display = 'none';
   document.getElementById('admin-header').style.display = '';
+  document.getElementById('tabs-groups').style.display = '';
   document.getElementById('tabs-bar').style.display = '';
   document.getElementById('panels-wrap').style.display = '';
   document.getElementById('admin-name').textContent = adminSession.display_name;
@@ -851,11 +866,26 @@ function copyRegLink(id) {
 
 // ── UI HELPERS ───────────────────────────────────────────────
 
+function showGroup(name) {
+  document.querySelectorAll('.group-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const tabsBar = document.getElementById('tabs-bar');
+  if (name === 'registrations') {
+    tabsBar.style.display = 'none';
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-registrations').classList.add('active');
+  } else {
+    tabsBar.style.display = '';
+    showTab('tournaments');
+  }
+}
+
 function showTab(name) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + name).classList.add('active');
-  event.currentTarget.classList.add('active');
+  const btn = document.querySelector(`.tab-btn[onclick="showTab('${name}')"]`);
+  if (btn) btn.classList.add('active');
 }
 
 function showMsg(el, msg, ok) {
