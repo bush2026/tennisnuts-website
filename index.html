@@ -310,9 +310,6 @@ function Nav() {
 
         <nav className="nav-links" aria-label="Primary">
           <a href="/index.html">Home</a>
-          <a href="/academy.html">Academy</a>
-          <a href="/partners.html">Partners</a>
-          <a href="/blog.html">Blog</a>
           <a href="/predictions/index.html" style={{fontWeight:600,color:'var(--green)'}}>Predictions</a>
           <div style={{position:'relative'}} onMouseEnter={()=>setOpen('events')} onMouseLeave={()=>setOpen(null)}>
             <button style={btnStyle} onClick={()=>toggle('events')}>Events <Chevron/></button>
@@ -333,9 +330,6 @@ function Nav() {
 
       <div className={"mobile-menu" + (mobileOpen ? " open" : "")}>
         <a href="/index.html" onClick={closeMobile}>Home</a>
-        <a href="/academy.html" onClick={closeMobile}>Academy</a>
-        <a href="/partners.html" onClick={closeMobile}>Partners</a>
-        <a href="/blog.html" onClick={closeMobile}>Blog</a>
         <a href="/predictions/index.html" onClick={closeMobile} style={{fontWeight:600,color:'var(--green)'}}>🎾 Predictions</a>
         <div className="mob-divider"></div>
         <div className="mob-label">Events</div>
@@ -588,9 +582,6 @@ function Footer() {
             <ul>
               <li><a href="/index.html">Home</a></li>
               <li><a href="/story.html">Our Story</a></li>
-              <li><a href="/academy.html">Academy</a></li>
-              <li><a href="/partners.html">Partners</a></li>
-              <li><a href="/blog.html">Blog</a></li>
               <li><a href="/predictions/index.html">Predictions</a></li>
             </ul>
           </div>
