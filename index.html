@@ -451,6 +451,17 @@ const HAPPENINGS = [
     title: "Roland Garros 2026",
     img: null,
     bg: "linear-gradient(150deg,#0e1810 0%,#1c2218 55%,#2c4621 100%)",
+    content: <div style={{position:'absolute',inset:0,display:'flex',flexDirection:'column',justifyContent:'center',padding:'14px 16px',gap:4}}>
+      <div style={{display:'flex',alignItems:'center',gap:8,background:'rgba(205,220,57,0.14)',border:'1px solid rgba(205,220,57,0.3)',borderRadius:6,padding:'6px 10px'}}>
+        <span style={{fontSize:12}}>🥇</span><span style={{fontFamily:'"DM Sans",sans-serif',fontSize:12,fontWeight:600,color:'#fff',flex:1}}>Manoj Sharma</span><span style={{fontFamily:'"JetBrains Mono",monospace',fontSize:11,fontWeight:600,color:'#cddc39'}}>745</span>
+      </div>
+      <div style={{display:'flex',alignItems:'center',gap:8,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:6,padding:'6px 10px'}}>
+        <span style={{fontSize:12}}>🥈</span><span style={{fontFamily:'"DM Sans",sans-serif',fontSize:12,fontWeight:600,color:'rgba(255,255,255,0.82)',flex:1}}>Sudhir Pisal</span><span style={{fontFamily:'"JetBrains Mono",monospace',fontSize:11,color:'rgba(255,255,255,0.55)'}}>720</span>
+      </div>
+      <div style={{display:'flex',alignItems:'center',gap:8,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:6,padding:'6px 10px'}}>
+        <span style={{fontSize:12}}>🥉</span><span style={{fontFamily:'"DM Sans",sans-serif',fontSize:12,fontWeight:600,color:'rgba(255,255,255,0.82)',flex:1}}>Shishir Sanjay Singh</span><span style={{fontFamily:'"JetBrains Mono",monospace',fontSize:11,color:'rgba(255,255,255,0.55)'}}>660</span>
+      </div>
+    </div>,
   },
   {
     url: "open-may-2026.html", cat: "Open", date: "May 2026",
@@ -487,6 +498,17 @@ const HAPPENINGS = [
     title: "Australian Open 2026",
     img: null,
     bg: "linear-gradient(150deg,#0e1810 0%,#1c2218 55%,#243318 100%)",
+    content: <div style={{position:'absolute',inset:0,display:'flex',flexDirection:'column',justifyContent:'center',padding:'14px 16px',gap:4}}>
+      <div style={{display:'flex',alignItems:'center',gap:8,background:'rgba(205,220,57,0.14)',border:'1px solid rgba(205,220,57,0.3)',borderRadius:6,padding:'6px 10px'}}>
+        <span style={{fontSize:12}}>🥇</span><span style={{fontFamily:'"DM Sans",sans-serif',fontSize:12,fontWeight:600,color:'#fff',flex:1}}>Ricardo Gallego</span><span style={{fontFamily:'"JetBrains Mono",monospace',fontSize:11,fontWeight:600,color:'#cddc39'}}>835</span>
+      </div>
+      <div style={{display:'flex',alignItems:'center',gap:8,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:6,padding:'6px 10px'}}>
+        <span style={{fontSize:12}}>🥈</span><span style={{fontFamily:'"DM Sans",sans-serif',fontSize:12,fontWeight:600,color:'rgba(255,255,255,0.82)',flex:1}}>Vinit Shahane</span><span style={{fontFamily:'"JetBrains Mono",monospace',fontSize:11,color:'rgba(255,255,255,0.55)'}}>825</span>
+      </div>
+      <div style={{display:'flex',alignItems:'center',gap:8,background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:6,padding:'6px 10px'}}>
+        <span style={{fontSize:12}}>🥉</span><span style={{fontFamily:'"DM Sans",sans-serif',fontSize:12,fontWeight:600,color:'rgba(255,255,255,0.82)',flex:1}}>Nishant Bhagiya</span><span style={{fontFamily:'"JetBrains Mono",monospace',fontSize:11,color:'rgba(255,255,255,0.55)'}}>810</span>
+      </div>
+    </div>,
   },
 ];
 
@@ -509,6 +531,7 @@ function Happening() {
             <a key={i} href={c.url} className="t-card">
               <div className="t-bg" style={{background: c.bg}}>
                 {c.img && <img src={c.img} alt={c.title}/>}
+                {c.content}
               </div>
               <div className="t-grad"/>
               <div className="t-body">
