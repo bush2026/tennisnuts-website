@@ -433,6 +433,19 @@ img, svg { display: block; max-width: 100%; }
 .gallery-slot:nth-child(9)  { background: linear-gradient(145deg, #1c2218, #0e1810); }
 .gallery-slot:nth-child(10) { background: linear-gradient(125deg, #2c4621, #4d7239); }
 
+.hero-bg-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.28;
+}
+
 /* ═══════════════════════════════
    EDITION NAV
 ═══════════════════════════════ */
@@ -499,6 +512,7 @@ img, svg { display: block; max-width: 100%; }
 
   <!-- ══ HERO ══ -->
   <section class="ed-hero">
+    <div class="hero-bg-photo"><img src="https://res.cloudinary.com/dwd0abtfo/image/upload/c_fill,g_auto,q_auto,f_auto,w_1400/v1782058701/Podium_Finishers_fmkl8c.jpg" alt="Open May 2026 Podium Finishers"/></div>
     <div class="hero-bg-text">MAY 26</div>
     <div class="container">
       <a href="open.html" class="breadcrumb">
@@ -632,16 +646,12 @@ img, svg { display: block; max-width: 100%; }
         <div class="gallery-label">Open May 2026 — Photos</div>
       </div>
       <div class="gallery-mosaic">
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 1</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 2</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 3</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 4</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 5</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 6</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 7</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 8</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 9</span></div>
-        <div class="gallery-slot"><span class="gallery-slot-label">Photo 10</span></div>
+        <div class="gallery-slot"><img src="https://res.cloudinary.com/dwd0abtfo/image/upload/c_fill,g_auto,q_auto,f_auto,w_800/v1782058701/Podium_Finishers_fmkl8c.jpg" alt="Podium Finishers" style="width:100%;height:100%;object-fit:cover;"/><span class="gallery-slot-label">Podium Finishers</span></div>
+        <div class="gallery-slot"><img src="https://res.cloudinary.com/dwd0abtfo/image/upload/c_fill,g_auto,q_auto,f_auto,w_800/v1782058702/Singles_Winner_tsq8le.jpg" alt="Singles Winner" style="width:100%;height:100%;object-fit:cover;"/><span class="gallery-slot-label">Singles Winner</span></div>
+        <div class="gallery-slot"><img src="https://res.cloudinary.com/dwd0abtfo/image/upload/c_fill,g_auto,q_auto,f_auto,w_800/v1782058702/Singles_Winner_and_Runners_Up_ij3dy8.jpg" alt="Singles Winner &amp; Runners-up" style="width:100%;height:100%;object-fit:cover;"/><span class="gallery-slot-label">Singles Podium</span></div>
+        <div class="gallery-slot"><img src="https://res.cloudinary.com/dwd0abtfo/image/upload/c_fill,g_auto,q_auto,f_auto,w_800/v1782058700/Doubles_Winners_gss5bf.jpg" alt="Doubles Winners" style="width:100%;height:100%;object-fit:cover;"/><span class="gallery-slot-label">Doubles Winners</span></div>
+        <div class="gallery-slot"><img src="https://res.cloudinary.com/dwd0abtfo/image/upload/c_fill,g_auto,q_auto,f_auto,w_800/v1782058702/Doubles_Winners_and_Runners_Up_hafc3j.jpg" alt="Doubles Winners &amp; Runners-up" style="width:100%;height:100%;object-fit:cover;"/><span class="gallery-slot-label">Doubles Podium</span></div>
+        <div class="gallery-slot"><img src="https://res.cloudinary.com/dwd0abtfo/image/upload/c_fill,g_auto,q_auto,f_auto,w_800/v1782058703/Doubles_Runners_Up_ex5lay.jpg" alt="Doubles Runners-up" style="width:100%;height:100%;object-fit:cover;"/><span class="gallery-slot-label">Doubles Runners-up</span></div>
       </div>
     </div>
   </section>
