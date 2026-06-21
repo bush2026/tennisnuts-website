@@ -120,6 +120,26 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 .sponsor-block{border:2px dashed var(--line);border-radius:16px;padding:32px;text-align:center;color:var(--ink-2);}
 .sponsor-block p{font-size:14px;margin-top:6px;}
 
+/* BADGE */
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;}
+.badge-green{background:var(--green-soft);color:var(--green);}
+.badge-ball{background:rgba(205,220,57,.3);color:var(--green-2);}
+.badge-gray{background:rgba(0,0,0,.06);color:var(--ink-2);}
+
+/* TOURNAMENT DIVIDER */
+.tournament-divider{border:none;border-top:4px solid var(--cream);margin:0;}
+
+/* ENTRIES CLOSED NOTICE */
+.entries-closed-notice{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.04);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px;color:var(--ink-2);margin-top:12px;}
+
+/* COMPLETED SECTION */
+.completed-section{background:var(--cream);padding:72px 0;border-top:1px solid var(--line);}
+.completed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:32px;}
+.completed-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;opacity:.65;transition:opacity .2s;}
+.completed-card:hover{opacity:.9;}
+.completed-badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;background:rgba(0,0,0,.06);color:var(--ink-2);margin-bottom:10px;}
+.completed-card h3{font-size:17px;letter-spacing:-.01em;margin-bottom:4px;}
+
 /* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,34,24,.55);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex;}
@@ -168,47 +188,21 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 <section class="hero">
   <div class="container">
     <span class="eyebrow-chip">Tennisnuts · Grand Slam Predictions</span>
-    <h1 id="hero-title">Grand Slam<br>Predictions</h1>
-    <p class="hero-sub" id="hero-sub">Pick the winners before each match locks. Every correct call earns points. The community's sharpest tennis mind gets crowned.</p>
-    <div class="hero-meta" id="hero-meta"></div>
+    <h1>Grand Slam<br>Predictions</h1>
+    <p class="hero-sub">Pick match winners before each match locks. Every correct call earns points. The community's sharpest tennis mind gets crowned.</p>
     <div id="hero-login-btn" style="display:none;margin-top:24px">
       <button class="btn btn-ball" onclick="openLoginModal()">Log in to pick →</button>
     </div>
   </div>
 </section>
 
-<!-- MATCHES -->
-<section class="matches-section" id="matches-section">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-eyebrow">Matches</div>
-      <h2 id="matches-heading">Loading…</h2>
-      <div class="sub" id="matches-sub"></div>
-    </div>
-    <div class="matches-grid" id="matches-grid">
-      <div class="empty-state"><h3>Loading matches…</h3></div>
-    </div>
-  </div>
-</section>
+<!-- MAIN CONTENT — rendered by JS -->
+<div id="tournaments-wrap"></div>
 
-<!-- LEADERBOARD -->
-<section class="lb-section" id="lb-section" style="display:none">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-eyebrow">Leaderboard</div>
-      <h2>Live Standings</h2>
-      <div class="sub">Updated as results are entered. Tie ranks shown as =N.</div>
-    </div>
-    <div class="podium-row" id="podium-row"></div>
-    <div class="lb-table" id="lb-table"></div>
-  </div>
-</section>
-
-<!-- SPONSOR PLACEHOLDER (v1: static block, future: CMS) -->
+<!-- SPONSOR -->
 <div style="text-align:center;padding:12px 0;border-top:1px solid var(--line);background:#fff">
   <a href="admin.html" style="font-size:12px;color:var(--ink-2);opacity:.5">Admin ↗</a>
 </div>
-
 <section class="sponsor-section">
   <div class="container">
     <div class="sponsor-block">
@@ -243,27 +237,26 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 <script src="auth.js"></script>
 <script>
 let session = null;
-let activeTournament = null;
-let matches = [];
-let myPredictions = {}; // match_id → {pick_winner, pick_set_score, points_awarded}
-let pendingPicks = {};  // match_id → {winner, setScore}
+let visibleTournaments = [];
+let tournamentData = {}; // { [tid]: { matches, myPredictions, leaderboard } }
+let pendingPicks = {};   // { [matchId]: { winner, setScore, tid } }
 
 async function init() {
   session = await restoreSession();
   renderSessionBar();
-  await loadActiveTournament();
+  await loadVisibleTournaments();
 }
 
 function renderSessionBar() {
-  const bar = document.getElementById('session-bar');
+  const bar    = document.getElementById('session-bar');
   const heroBtn = document.getElementById('hero-login-btn');
   if (session) {
     bar.style.display = '';
     document.getElementById('sbar-name').textContent = session.display_name;
-    heroBtn.style.display = 'none';
+    if (heroBtn) heroBtn.style.display = 'none';
   } else {
     bar.style.display = 'none';
-    heroBtn.style.display = '';
+    if (heroBtn) heroBtn.style.display = '';
   }
 }
 
@@ -277,151 +270,212 @@ function closeLoginModal() {
   document.getElementById('login-err').style.display = 'none';
 }
 
-// Close modal on backdrop click
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('login-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeLoginModal();
-  });
+  const modal = document.getElementById('login-modal');
+  if (modal) modal.addEventListener('click', function(e) { if (e.target === this) closeLoginModal(); });
 });
 
-async function loadActiveTournament() {
-  const { data: tournaments } = await db.from('tournaments').select('*').eq('is_active', true).limit(1);
-  if (!tournaments?.length) {
-    activeTournament = null;
-    document.getElementById('hero-title').textContent = 'Grand Slam Predictions';
-    document.getElementById('hero-sub').textContent = 'No active tournament right now. Check back soon.';
-    document.getElementById('matches-heading').textContent = 'No active tournament';
-    document.getElementById('matches-grid').innerHTML = '<div class="empty-state"><h3>No active tournament</h3><p>An admin will activate one soon.</p></div>';
-    return;
-  }
-  activeTournament = tournaments[0];
-  document.getElementById('hero-title').innerHTML = activeTournament.name.replace(' ', '<br>');
+async function loadVisibleTournaments() {
+  const { data } = await db.from('tournaments')
+    .select('*').eq('is_visible', true).order('created_at', { ascending: false });
 
-  const statusLabel = { upcoming: 'Coming Soon', live: 'Live Now', completed: 'Completed' }[activeTournament.status] || '';
-  document.getElementById('hero-meta').innerHTML =
-    '<strong>' + statusLabel + '</strong><span class="sep">·</span>Pick winners before each match locks';
-  document.getElementById('matches-heading').textContent = activeTournament.name;
-  document.getElementById('matches-sub').textContent = 'Pick the winner and set score before each match locks to earn points.';
-
-  await Promise.all([loadMatches(), loadMyPredictions(), loadLeaderboard()]);
-}
-
-async function loadMatches() {
-  const { data } = await db.from('matches')
-    .select('*')
-    .eq('tournament_id', activeTournament.id)
-    .order('lock_time', { ascending: true });
-  matches = data || [];
-  renderMatches();
-}
-
-async function loadMyPredictions() {
-  if (!session) { myPredictions = {}; return; }
-  const { data } = await db.rpc('get_my_predictions', {
-    p_session_token: session.session_token,
-    p_tournament_id: activeTournament.id
+  visibleTournaments = (data || []).sort((a, b) => {
+    const o = { live: 0, upcoming: 1, completed: 2 };
+    return (o[a.status] ?? 3) - (o[b.status] ?? 3);
   });
-  myPredictions = {};
+
+  const active = visibleTournaments.filter(t => t.status !== 'completed');
+  await Promise.all(active.map(t => loadTournamentData(t)));
+  renderAll();
+}
+
+async function loadTournamentData(t) {
+  tournamentData[t.id] = { matches: [], myPredictions: {}, leaderboard: [] };
+  await Promise.all([loadMatches(t.id), loadMyPredictions(t.id), loadLeaderboard(t.id)]);
+}
+
+async function loadMatches(tid) {
+  const { data } = await db.from('matches').select('*').eq('tournament_id', tid).order('lock_time', { ascending: true });
+  tournamentData[tid].matches = data || [];
+}
+
+async function loadMyPredictions(tid) {
+  if (!session) return;
+  const { data } = await db.rpc('get_my_predictions', { p_session_token: session.session_token, p_tournament_id: tid });
+  tournamentData[tid].myPredictions = {};
   (data || []).forEach(r => {
-    if (r.pick_winner) {
-      myPredictions[r.match_id] = {
-        pick_winner: r.pick_winner,
-        pick_set_score: r.pick_set_score,
-        points_awarded: r.points_awarded
-      };
-    }
+    if (r.pick_winner) tournamentData[tid].myPredictions[r.match_id] = {
+      pick_winner: r.pick_winner, pick_set_score: r.pick_set_score, points_awarded: r.points_awarded
+    };
   });
-  renderMatches();
 }
 
-async function loadLeaderboard() {
-  const { data } = await db.from('tournament_leaderboard')
-    .select('*')
-    .eq('tournament_id', activeTournament.id)
-    .order('total_points', { ascending: false });
-  if (!data?.length) { document.getElementById('lb-section').style.display = 'none'; return; }
-  document.getElementById('lb-section').style.display = '';
-  const ranked = rankList(data, 'total_points');
-  renderPodium(ranked.slice(0, 3));
-  renderLbTable(ranked);
+async function loadLeaderboard(tid) {
+  const { data } = await db.from('tournament_leaderboard').select('*').eq('tournament_id', tid).order('total_points', { ascending: false });
+  tournamentData[tid].leaderboard = data || [];
 }
 
-function renderMatches() {
-  const grid = document.getElementById('matches-grid');
-  if (!matches.length) {
-    grid.innerHTML = '<div class="empty-state"><h3>No matches yet</h3><p>The admin will add matches soon.</p></div>';
+function renderAll() {
+  const wrap      = document.getElementById('tournaments-wrap');
+  const active    = visibleTournaments.filter(t => t.status !== 'completed');
+  const completed = visibleTournaments.filter(t => t.status === 'completed');
+
+  if (!visibleTournaments.length) {
+    wrap.innerHTML = `<section class="matches-section"><div class="container">
+      <div class="empty-state"><h3>No active tournaments</h3><p>Check back when the next Grand Slam predictions open.</p></div>
+    </div></section>`;
     return;
   }
-  grid.innerHTML = matches.map(m => renderMatchCard(m)).join('');
+
+  let html = '';
+  active.forEach((t, i) => { html += buildTournamentHTML(t, i > 0); });
+  if (completed.length) html += buildCompletedHTML(completed);
+  wrap.innerHTML = html;
+
   // Start countdowns
-  matches.forEach(m => {
-    if (new Date(m.lock_time) > Date.now()) {
-      const el = document.getElementById('countdown-' + m.id);
-      if (el) {
+  active.forEach(t => {
+    (tournamentData[t.id]?.matches || []).forEach(m => {
+      if (new Date(m.lock_time) > Date.now()) {
         const iv = setInterval(() => {
-          const t = countdownText(m.lock_time);
-          if (el) el.textContent = t;
-          if (t === 'Locked') clearInterval(iv);
+          const el = document.getElementById('countdown-' + m.id);
+          if (!el) { clearInterval(iv); return; }
+          const txt = countdownText(m.lock_time);
+          el.textContent = txt;
+          if (txt === 'Locked') clearInterval(iv);
         }, 30000);
       }
-    }
+    });
   });
 }
 
-function renderMatchCard(m) {
-  const locked = new Date(m.lock_time) <= Date.now();
-  const pred = myPredictions[m.id];
-  const pending = pendingPicks[m.id] || {};
+function buildTournamentHTML(t, withDivider) {
+  const d       = tournamentData[t.id] || {};
+  const matches = d.matches || [];
+  const lb      = rankList(d.leaderboard || [], 'total_points');
+  const statusLabel = t.status === 'live' ? 'Live Now' : 'Upcoming';
+  const statusClass = t.status === 'live' ? 'badge-green' : 'badge-ball';
+
+  let html = withDivider ? '<hr class="tournament-divider">' : '';
+
+  html += `<section class="matches-section">
+    <div class="container">
+      <div class="section-head">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px">
+          <div class="section-eyebrow" style="margin-bottom:0">Matches</div>
+          <span class="badge ${statusClass}">${statusLabel}</span>
+        </div>
+        <h2>${esc(t.name)}</h2>`;
+
+  if (!t.is_accepting_entries) {
+    html += `<div class="entries-closed-notice">🔒 Entries are closed for this tournament — results and standings are still visible below.</div>`;
+  } else {
+    html += `<div class="sub">Pick the winner and set score before each match locks to earn points.</div>`;
+  }
+
+  html += `</div>`;
+
+  if (!matches.length) {
+    html += `<div class="empty-state"><h3>No matches yet</h3><p>The admin will add matches soon.</p></div>`;
+  } else {
+    html += `<div class="matches-grid" data-tournament-matches="${t.id}">${matches.map(m => renderMatchCard(m, t)).join('')}</div>`;
+  }
+
+  html += `</div></section>`;
+
+  if (lb.length) {
+    const myId = session?.member_id;
+    html += `<section class="lb-section">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-eyebrow">Leaderboard</div>
+          <h2>Live Standings</h2>
+          <div class="sub">Updated as results are entered. Tie ranks shown as =N.</div>
+        </div>
+        <div class="podium-row">${buildPodiumHTML(lb.slice(0, 3))}</div>
+        <div class="lb-table">${buildLbHTML(lb, myId)}</div>
+      </div>
+    </section>`;
+  }
+
+  return html;
+}
+
+function buildCompletedHTML(tournaments) {
+  return `<section class="completed-section">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-eyebrow">Past Editions</div>
+        <h2>Completed Predictions</h2>
+        <div class="sub">View full reports and historical standings on the Grand Slam Predictions page.</div>
+      </div>
+      <div class="completed-grid">
+        ${tournaments.map(t => `
+          <div class="completed-card">
+            <div class="completed-badge">Completed</div>
+            <h3>${esc(t.name)}</h3>
+            <a href="/grandslam-predictions.html#editions" class="btn btn-ghost btn-sm" style="margin-top:14px;width:100%;justify-content:center">View Report →</a>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
+function renderMatchCard(m, t) {
+  const locked       = new Date(m.lock_time) <= Date.now();
+  const entriesClosed = !t.is_accepting_entries;
+  const myPreds      = tournamentData[t.id]?.myPredictions || {};
+  const pred         = myPreds[m.id];
+  const pending      = pendingPicks[m.id] || {};
+  const showLocked   = locked || entriesClosed;
 
   let resultChip = '';
   if (m.result_winner) {
     resultChip = `<div class="match-result-chip">
-      <span>✓ ${m.result_winner}</span>
+      <span>✓ ${esc(m.result_winner)}</span>
       <span class="res-score">${m.result_set_score || ''}</span>
     </div>`;
   }
 
   let predSection = '';
   if (!session) {
-    predSection = locked
-      ? `<div class="pred-form"><div class="pred-locked-row">🔒 Match locked</div></div>`
+    predSection = showLocked
+      ? `<div class="pred-form"><div class="pred-locked-row">🔒 ${entriesClosed && !locked ? 'Entries closed' : 'Match locked'}</div></div>`
       : `<div class="pred-form"><div class="pred-locked-row" style="justify-content:center"><button class="btn btn-ghost btn-sm" style="font-size:12px" onclick="openLoginModal()">Log in to pick</button></div></div>`;
-  } else if (locked) {
+  } else if (showLocked) {
     if (pred?.pick_winner) {
-      let ptsChip = pred.points_awarded !== null && pred.points_awarded !== undefined
+      const ptsChip = pred.points_awarded !== null && pred.points_awarded !== undefined
         ? `<span class="pred-points-chip">${pred.points_awarded} pts</span>` : '';
       predSection = `<div class="pred-form">
-        <div class="pred-locked-row">🔒 Your pick: <strong>${pred.pick_winner}</strong>${pred.pick_set_score ? ' · '+pred.pick_set_score : ''} ${ptsChip}</div>
+        <div class="pred-locked-row">🔒 Your pick: <strong>${esc(pred.pick_winner)}</strong>${pred.pick_set_score ? ' · ' + pred.pick_set_score : ''} ${ptsChip}</div>
       </div>`;
     } else {
-      predSection = `<div class="pred-form"><div class="pred-locked-row">🔒 You didn't predict this match</div></div>`;
+      predSection = `<div class="pred-form"><div class="pred-locked-row">🔒 ${entriesClosed && !locked ? 'Entries closed' : "You didn't predict this match"}</div></div>`;
     }
   } else {
-    // Active match — show prediction form
     const pickWinner = pending.winner || pred?.pick_winner || '';
     const pickScore  = pending.setScore !== undefined ? pending.setScore : (pred?.pick_set_score || '');
-    const scores = setScoreOptions(m.format);
-    const p1Btn = `<button class="pick-btn${pickWinner===m.player1?' selected':''}" onclick="setPick('${m.id}','winner',1)">${esc(m.player1)}<br><small>${m.points_player1} pts</small></button>`;
-    const p2Btn = `<button class="pick-btn${pickWinner===m.player2?' selected':''}" onclick="setPick('${m.id}','winner',2)">${esc(m.player2)}<br><small>${m.points_player2} pts</small></button>`;
-    const scoreBtns = scores.map(s =>
-      `<button class="score-btn${pickScore===s?' selected':''}" onclick="setPick('${m.id}','score','${s}')">${s}</button>`
+    const scores     = setScoreOptions(m.format);
+    const p1Btn      = `<button class="pick-btn${pickWinner === m.player1 ? ' selected' : ''}" onclick="setPick('${m.id}','${t.id}','winner',1)">${esc(m.player1)}<br><small>${m.points_player1} pts</small></button>`;
+    const p2Btn      = `<button class="pick-btn${pickWinner === m.player2 ? ' selected' : ''}" onclick="setPick('${m.id}','${t.id}','winner',2)">${esc(m.player2)}<br><small>${m.points_player2} pts</small></button>`;
+    const scoreBtns  = scores.map(s =>
+      `<button class="score-btn${pickScore === s ? ' selected' : ''}" onclick="setPick('${m.id}','${t.id}','score','${s}')">${s}</button>`
     ).join('');
-    const savedNote = pred?.pick_winner
-      ? `<div class="pred-saved" id="saved-${m.id}">✓ Saved · ${pred.pick_winner}${pred.pick_set_score?' · '+pred.pick_set_score:''}</div>` : '';
+    const savedNote  = pred?.pick_winner
+      ? `<div class="pred-saved" id="saved-${m.id}">✓ Saved · ${esc(pred.pick_winner)}${pred.pick_set_score ? ' · ' + pred.pick_set_score : ''}</div>` : '';
     predSection = `<div class="pred-form">
       <div class="pick-label">Pick winner</div>
-      <div class="pick-row" id="pick-winner-${m.id}">${p1Btn}${p2Btn}</div>
+      <div class="pick-row">${p1Btn}${p2Btn}</div>
       <div class="pick-label">Set score <span style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0">(optional · +${m.set_score_bonus} pts)</span></div>
-      <div class="score-row" id="pick-score-${m.id}">${scoreBtns}</div>
-      <button class="btn btn-green btn-sm" style="width:100%;justify-content:center" onclick="submitPick('${m.id}')">Save pick</button>
+      <div class="score-row">${scoreBtns}</div>
+      <button class="btn btn-green btn-sm" style="width:100%;justify-content:center" onclick="submitPick('${m.id}','${t.id}')">Save pick</button>
       ${savedNote}
     </div>`;
   }
 
-  return `<div class="match-card${locked?' locked':''}">
+  return `<div class="match-card${locked ? ' locked' : ''}">
     <div class="match-head">
       <span class="match-format">${m.format.toUpperCase()}</span>
-      <span class="match-lock-badge${locked?' locked':''}" id="countdown-${m.id}">${locked ? 'Locked' : countdownText(m.lock_time)}</span>
+      <span class="match-lock-badge${locked ? ' locked' : ''}" id="countdown-${m.id}">${locked ? 'Locked' : countdownText(m.lock_time)}</span>
     </div>
     <div class="match-body">
       ${resultChip}
@@ -442,55 +496,54 @@ function renderMatchCard(m) {
   </div>`;
 }
 
-function esc(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function setPick(matchId, type, value) {
+function setPick(matchId, tid, type, value) {
+  const t = visibleTournaments.find(x => x.id === tid);
+  if (!t) return;
+  const matches = tournamentData[tid]?.matches || [];
   const m = matches.find(x => x.id === matchId);
   if (!m) return;
-  // value is 1/2 for winner picks, set-score string for score picks
+
   const resolvedValue = type === 'winner' ? (value === 1 ? m.player1 : m.player2) : value;
+  const myPreds = tournamentData[tid]?.myPredictions || {};
+
   if (!pendingPicks[matchId]) {
-    const pred = myPredictions[matchId] || {};
-    pendingPicks[matchId] = { winner: pred.pick_winner || '', setScore: pred.pick_set_score || '' };
+    pendingPicks[matchId] = { winner: myPreds[matchId]?.pick_winner || '', setScore: myPreds[matchId]?.pick_set_score || '', tid };
   }
   if (type === 'winner') {
     pendingPicks[matchId].winner = resolvedValue;
-    if (myPredictions[matchId]?.pick_winner !== resolvedValue) pendingPicks[matchId].setScore = '';
+    if (myPreds[matchId]?.pick_winner !== resolvedValue) pendingPicks[matchId].setScore = '';
   } else {
     pendingPicks[matchId].setScore = pendingPicks[matchId].setScore === resolvedValue ? '' : resolvedValue;
   }
-  // Re-render only this card
-  if (m) {
-    const grid = document.getElementById('matches-grid');
-    const cards = grid.querySelectorAll('.match-card');
-    const idx = matches.indexOf(m);
-    if (cards[idx]) cards[idx].outerHTML = renderMatchCard(m);
-  }
+
+  const grid = document.querySelector(`[data-tournament-matches="${tid}"]`);
+  if (grid) grid.innerHTML = matches.map(mx => renderMatchCard(mx, t)).join('');
 }
 
-async function submitPick(matchId) {
+async function submitPick(matchId, tid) {
+  const t = visibleTournaments.find(x => x.id === tid);
+  if (!t || !session) return;
+  const matches = tournamentData[tid]?.matches || [];
   const m = matches.find(x => x.id === matchId);
-  if (!m || !session) return;
+  if (!m) return;
+
   const pending = pendingPicks[matchId] || {};
-  const winner = pending.winner || myPredictions[matchId]?.pick_winner;
+  const winner  = pending.winner || tournamentData[tid]?.myPredictions?.[matchId]?.pick_winner;
   if (!winner) { alert('Please pick a winner first.'); return; }
-  const setScore = pending.setScore || null;
 
   const { data, error } = await db.rpc('upsert_prediction', {
     p_session_token:  session.session_token,
     p_match_id:       matchId,
     p_pick_winner:    winner,
-    p_pick_set_score: setScore
+    p_pick_set_score: pending.setScore || null
   });
-  if (error || !data?.success) {
-    alert(data?.message || error?.message || 'Error saving pick');
-    return;
-  }
-  myPredictions[matchId] = { pick_winner: winner, pick_set_score: setScore, points_awarded: null };
+  if (error || !data?.success) { alert(data?.message || error?.message || 'Error saving pick'); return; }
+
+  tournamentData[tid].myPredictions[matchId] = { pick_winner: winner, pick_set_score: pending.setScore || null, points_awarded: null };
   delete pendingPicks[matchId];
-  renderMatches();
+
+  const grid = document.querySelector(`[data-tournament-matches="${tid}"]`);
+  if (grid) grid.innerHTML = matches.map(mx => renderMatchCard(mx, t)).join('');
 }
 
 async function doLogin() {
@@ -500,42 +553,40 @@ async function doLogin() {
   errEl.style.display = 'none';
   if (!email || !pin) { errEl.textContent = 'Enter your email and PIN.'; errEl.style.display = ''; return; }
   const result = await login(email, pin);
-  if (!result?.success) {
-    errEl.textContent = result?.message || 'Login failed.';
-    errEl.style.display = '';
-    return;
-  }
+  if (!result?.success) { errEl.textContent = result?.message || 'Login failed.'; errEl.style.display = ''; return; }
   session = result;
   closeLoginModal();
   renderSessionBar();
-  await loadMyPredictions();
+  const active = visibleTournaments.filter(t => t.status !== 'completed');
+  await Promise.all(active.map(t => loadMyPredictions(t.id)));
+  renderAll();
 }
 
-function renderPodium(top3) {
-  const medals = ['🥇','🥈','🥉'];
-  const order  = [1, 0, 2]; // 2nd, 1st, 3rd visually
-  const row = document.getElementById('podium-row');
-  const placeholders = ['—','—','—'].map((_, i) => {
+function buildPodiumHTML(top3) {
+  const medals = ['🥇', '🥈', '🥉'];
+  const cards = [0, 1, 2].map(i => {
     const entry = top3[i];
-    return `<div class="podium-card${i===0?' first':''}">
-      <div class="podium-rank">${entry?.rank||''}</div>
+    return `<div class="podium-card${i === 0 ? ' first' : ''}">
+      <div class="podium-rank">${entry?.rank || ''}</div>
       <div class="podium-medal">${medals[i]}</div>
-      <div class="podium-name">${entry?.display_name||'—'}</div>
-      <div class="podium-pts">${entry!==undefined ? entry.total_points+' pts' : ''}</div>
+      <div class="podium-name">${entry?.display_name || '—'}</div>
+      <div class="podium-pts">${entry !== undefined ? entry.total_points + ' pts' : ''}</div>
     </div>`;
   });
-  // Visual order: 2nd, 1st, 3rd
-  row.innerHTML = [placeholders[1], placeholders[0], placeholders[2]].join('');
+  return [cards[1], cards[0], cards[2]].join('');
 }
 
-function renderLbTable(ranked) {
-  const myId = session?.member_id;
-  document.getElementById('lb-table').innerHTML = ranked.map(r => `
-    <div class="lb-row${r.member_id===myId?' me':''}">
+function buildLbHTML(ranked, myId) {
+  return ranked.map(r => `
+    <div class="lb-row${r.member_id === myId ? ' me' : ''}">
       <div class="lb-rank">${r.rank}</div>
-      <div class="lb-name">${esc(r.display_name)}${r.member_id===myId?' <small style="color:var(--green-3);font-weight:400">(you)</small>':''}</div>
+      <div class="lb-name">${esc(r.display_name)}${r.member_id === myId ? ' <small style="color:var(--green-3);font-weight:400">(you)</small>' : ''}</div>
       <div class="lb-pts">${r.total_points} pts</div>
     </div>`).join('');
+}
+
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 init();

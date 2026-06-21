@@ -166,7 +166,10 @@ input,select,textarea{font-family:inherit;}
           <select id="t-status"><option value="upcoming">Upcoming</option><option value="live">Live</option><option value="completed">Completed</option></select>
         </div>
       </div>
-      <div class="field" style="margin-top:12px"><label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:14px;cursor:pointer"><input type="checkbox" id="t-active" style="width:auto;padding:0;border:none"> Set as active tournament (replaces current)</label></div>
+      <div class="form-grid" style="margin-top:12px">
+        <div class="field"><label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:14px;cursor:pointer"><input type="checkbox" id="t-visible" checked style="width:auto;padding:0;border:none"> Visible on Predictions page</label></div>
+        <div class="field"><label style="display:flex;align-items:center;gap:8px;text-transform:none;font-size:14px;cursor:pointer"><input type="checkbox" id="t-accepting" checked style="width:auto;padding:0;border:none"> Accepting Entries</label></div>
+      </div>
       <div class="form-actions">
         <button class="btn btn-green" onclick="addTournament()">Add tournament</button>
         <div class="form-msg" id="t-msg"></div>
@@ -177,8 +180,8 @@ input,select,textarea{font-family:inherit;}
     <div class="admin-card-head"><h3>All Tournaments</h3></div>
     <div class="admin-card-body" style="padding:0">
       <table class="data-table" id="t-table">
-        <thead><tr><th>Name</th><th>Status</th><th>Active</th><th>Actions</th></tr></thead>
-        <tbody id="t-tbody"><tr class="empty-row"><td colspan="4">Loading…</td></tr></tbody>
+        <thead><tr><th>Name</th><th>Status</th><th>Visible</th><th>Entries</th><th>Actions</th></tr></thead>
+        <tbody id="t-tbody"><tr class="empty-row"><td colspan="5">Loading…</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -291,6 +294,35 @@ input,select,textarea{font-family:inherit;}
         <thead><tr><th>Match</th><th>Format</th><th>Lock Time</th><th>Result</th><th>Scored</th></tr></thead>
         <tbody id="res-tbody"><tr class="empty-row"><td colspan="5">Loading…</td></tr></tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- DAILY REPORT (inside panel-results) -->
+  <div class="admin-card" id="daily-report-card" style="display:none">
+    <div class="admin-card-head">
+      <h3>Daily Report</h3>
+      <small style="font-size:13px;color:var(--ink-2)">Shareable summary — copy and paste into WhatsApp or email</small>
+    </div>
+    <div class="admin-card-body">
+      <div class="form-grid" style="margin-bottom:14px">
+        <div class="field"><label>Tournament</label>
+          <select id="rpt-tournament"><option value="">— select tournament —</option></select>
+        </div>
+        <div class="field"><label>Date</label>
+          <input type="date" id="rpt-date"/>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-green" onclick="generateReport()">Generate Report</button>
+        <div class="form-msg" id="rpt-msg"></div>
+      </div>
+      <div id="rpt-output" style="display:none;margin-top:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <span style="font-size:13px;font-weight:600;color:var(--ink-2)">Copy and share via WhatsApp or email</span>
+          <button class="btn btn-ghost btn-sm" onclick="copyReport()">📋 Copy</button>
+        </div>
+        <textarea id="rpt-text" rows="18" readonly style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;resize:vertical;background:var(--cream);color:var(--ink);outline:none"></textarea>
+      </div>
     </div>
   </div>
 </div>
@@ -449,37 +481,44 @@ async function loadTournaments() {
   allTournaments = data || [];
   const tbody = document.getElementById('t-tbody');
   if (!allTournaments.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="4">No tournaments yet</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No tournaments yet</td></tr>';
     return;
   }
   tbody.innerHTML = allTournaments.map(t => `
     <tr>
       <td><strong>${esc(t.name)}</strong></td>
       <td><span class="badge ${t.status==='live'?'badge-green':t.status==='completed'?'badge-gray':'badge-ball'}">${t.status}</span></td>
-      <td>${t.is_active ? '<span class="badge badge-green">Active</span>' : '—'}</td>
+      <td>${t.is_visible ? '<span class="badge badge-green">Visible</span>' : '<span class="badge badge-gray">Hidden</span>'}</td>
+      <td>${t.is_accepting_entries ? '<span class="badge badge-ball">Open</span>' : '<span class="badge badge-gray">Closed</span>'}</td>
       <td class="actions-cell">
-        ${!t.is_active ? `<button class="btn btn-ghost btn-sm" onclick="setTournamentActive('${t.id}')">Set active</button>` : ''}
+        <button class="btn btn-ghost btn-sm" onclick="toggleTournamentVisible('${t.id}',${t.is_visible})">${t.is_visible ? 'Hide' : 'Show'}</button>
+        <button class="btn btn-ghost btn-sm" onclick="toggleTournamentEntries('${t.id}',${t.is_accepting_entries})">${t.is_accepting_entries ? 'Close entries' : 'Open entries'}</button>
         <button class="btn btn-ghost btn-sm" onclick="cycleTournamentStatus('${t.id}','${t.status}')">
-          ${t.status==='upcoming'?'→ Live':t.status==='live'?'→ Completed':'Reset'}
+          ${t.status==='upcoming'?'→ Live':t.status==='live'?'→ Completed':'↺ Reset'}
         </button>
       </td>
     </tr>`).join('');
 }
 
 async function addTournament() {
-  const name = document.getElementById('t-name').value.trim();
-  const status = document.getElementById('t-status').value;
-  const isActive = document.getElementById('t-active').checked;
+  const name      = document.getElementById('t-name').value.trim();
+  const status    = document.getElementById('t-status').value;
+  const isVisible = document.getElementById('t-visible').checked;
+  const isAccepting = document.getElementById('t-accepting').checked;
   const msgEl = document.getElementById('t-msg');
   if (!name) { showMsg(msgEl, 'Enter a tournament name', false); return; }
   const { data } = await db.rpc('admin_add_tournament', {
-    p_session_token: adminSession.session_token,
-    p_name: name, p_status: status, p_is_active: isActive
+    p_session_token:        adminSession.session_token,
+    p_name:                 name,
+    p_status:               status,
+    p_is_visible:           isVisible,
+    p_is_accepting_entries: isAccepting
   });
   if (data?.success) {
     showMsg(msgEl, 'Tournament added!', true);
     document.getElementById('t-name').value = '';
-    document.getElementById('t-active').checked = false;
+    document.getElementById('t-visible').checked = true;
+    document.getElementById('t-accepting').checked = true;
     await loadTournaments();
     populateMatchDropdowns();
   } else {
@@ -487,10 +526,18 @@ async function addTournament() {
   }
 }
 
-async function setTournamentActive(id) {
+async function toggleTournamentVisible(id, current) {
   const { data } = await db.rpc('admin_update_tournament', {
     p_session_token: adminSession.session_token,
-    p_id: id, p_is_active: true
+    p_id: id, p_is_visible: !current
+  });
+  if (data?.success) await loadTournaments();
+}
+
+async function toggleTournamentEntries(id, current) {
+  const { data } = await db.rpc('admin_update_tournament', {
+    p_session_token: adminSession.session_token,
+    p_id: id, p_is_accepting_entries: !current
   });
   if (data?.success) await loadTournaments();
 }
@@ -637,6 +684,23 @@ function populateMatchDropdowns() {
   const locked = allMatches.filter(m => new Date(m.lock_time) <= Date.now());
   resSel.innerHTML = '<option value="">— select match —</option>' +
     locked.map(m => `<option value="${m.id}">${esc(m.player1)} vs ${esc(m.player2)} (${esc(m.tournaments?.name||'')})</option>`).join('');
+
+  // Daily report tournament dropdown
+  const rptSel = document.getElementById('rpt-tournament');
+  if (rptSel) {
+    rptSel.innerHTML = '<option value="">— select tournament —</option>' +
+      allTournaments.map(t => `<option value="${t.id}">${esc(t.name)}</option>`).join('');
+  }
+  // Default report date to today
+  const rptDate = document.getElementById('rpt-date');
+  if (rptDate && !rptDate.value) {
+    rptDate.value = new Date().toISOString().split('T')[0];
+  }
+  // Show daily report card now that we have tournaments
+  if (allTournaments.length) {
+    const card = document.getElementById('daily-report-card');
+    if (card) card.style.display = '';
+  }
 
   renderResultsTable();
 }
@@ -862,6 +926,102 @@ async function deleteEntry(id) {
 function copyRegLink(id) {
   const url = window.location.origin + '/register.html?event=' + id;
   navigator.clipboard.writeText(url).then(() => alert('Link copied: ' + url));
+}
+
+// ── DAILY REPORT ─────────────────────────────────────────────
+
+async function generateReport() {
+  const tid  = document.getElementById('rpt-tournament').value;
+  const date = document.getElementById('rpt-date').value;
+  const msgEl = document.getElementById('rpt-msg');
+  if (!tid)  { showMsg(msgEl, 'Select a tournament', false); return; }
+  if (!date) { showMsg(msgEl, 'Select a date', false); return; }
+  const { data } = await db.rpc('admin_get_daily_report', {
+    p_session_token: adminSession.session_token,
+    p_tournament_id: tid,
+    p_date: date
+  });
+  if (!data || data.error) { showMsg(msgEl, data?.error || 'Error generating report', false); return; }
+  document.getElementById('rpt-text').value = buildReportText(data);
+  document.getElementById('rpt-output').style.display = '';
+  document.getElementById('rpt-msg').style.display = 'none';
+}
+
+function buildReportText(d) {
+  const dateStr = new Date(d.date + 'T12:00:00').toLocaleDateString('en-IN', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+  });
+  const lines = [];
+  lines.push(`📊 ${d.tournament_name} — Daily Report`);
+  lines.push(dateStr);
+  lines.push('');
+
+  const matches = d.matches || [];
+  if (!matches.length) {
+    lines.push('No match results were entered on this date.');
+    return lines.join('\n');
+  }
+
+  lines.push(`MATCHES (${matches.length})`);
+  lines.push('—'.repeat(40));
+  matches.forEach(m => {
+    const loser = m.result_winner === m.player1 ? m.player2 : m.player1;
+    const upsetTag = m.is_upset ? '  🔥 UPSET' : '';
+    lines.push(`${m.result_winner} def. ${loser}  ${m.result_set_score || ''}${upsetTag}`);
+    const preds = m.predictions || [];
+    const correct = preds.filter(p => p.correct).map(p => p.name);
+    const wrong   = preds.filter(p => !p.correct).map(p => p.name);
+    if (correct.length) lines.push(`  ✓ Right: ${correct.join(', ')}`);
+    if (wrong.length)   lines.push(`  ✗ Missed: ${wrong.join(', ')}`);
+    lines.push('');
+  });
+
+  // Per-member scores today
+  const today = {};
+  matches.forEach(m => {
+    (m.predictions || []).forEach(p => {
+      if (!today[p.name]) today[p.name] = { correct: 0, total: 0, pts: 0 };
+      today[p.name].total++;
+      if (p.correct) today[p.name].correct++;
+      today[p.name].pts += (p.pts || 0);
+    });
+  });
+  const ranked = Object.entries(today).sort((a, b) => b[1].pts - a[1].pts || b[1].correct - a[1].correct);
+
+  if (ranked.length) {
+    const [starName, starData] = ranked[0];
+    lines.push('STAR OF THE DAY');
+    lines.push('—'.repeat(40));
+    lines.push(`🌟 ${starName} — ${starData.correct}/${starData.total} correct (+${starData.pts} pts today)`);
+    if (ranked.length > 1) {
+      const [lastN, lastD] = ranked[ranked.length - 1];
+      if (lastN !== starName) lines.push(`   Tough day: ${lastN} — ${lastD.correct}/${lastD.total} correct`);
+    }
+    lines.push('');
+  }
+
+  const standings = d.standings || [];
+  if (standings.length) {
+    lines.push('OVERALL STANDINGS');
+    lines.push('—'.repeat(40));
+    standings.forEach(s => {
+      const medal = s.rank === 1 ? '🥇' : s.rank === 2 ? '🥈' : s.rank === 3 ? '🥉' : `#${s.rank} `;
+      lines.push(`${medal}  ${String(s.name).padEnd(24)}${s.pts} pts`);
+    });
+  }
+
+  return lines.join('\n');
+}
+
+function copyReport() {
+  const text = document.getElementById('rpt-text').value;
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.currentTarget;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
 }
 
 // ── UI HELPERS ───────────────────────────────────────────────
