@@ -33,7 +33,7 @@
     // Col 1 — Brand
     + '<div>'
     + '<img src="/images/website-sections/logo/tennisnuts-logo-transparent.png" alt="Tennisnuts" class="footer-brand-logo"/>'
-    + '<p class="footer-tagline">The Social Side of Tennis. Founded in Pune in 2021. Open courts, easy doubles, lifelong rallies.</p>'
+    + '<p class="footer-tagline">The Social Side of Tennis. Founded in Pune in 2011. Open courts, easy doubles, lifelong rallies.</p>'
     + '<div class="footer-newsletter">'
     + '<input type="email" placeholder="Email — get weekly fixtures"/>'
     + '<button>Subscribe</button>'
