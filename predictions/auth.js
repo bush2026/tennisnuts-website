@@ -15,6 +15,17 @@ function clearSession() {
   sessionStorage.removeItem(SESSION_KEY);
 }
 
+async function register(email, displayName, pin) {
+  const pin_hash = await hashPin(email.toLowerCase().trim(), pin);
+  const { data, error } = await db.rpc('member_register', {
+    p_email:        email.toLowerCase().trim(),
+    p_display_name: displayName.trim(),
+    p_pin_hash:     pin_hash
+  });
+  if (error) return { success: false, message: error.message };
+  return data;
+}
+
 async function login(email, pin) {
   const pin_hash = await hashPin(email, pin);
   const { data, error } = await db.rpc('authenticate_member', {

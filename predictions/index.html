@@ -216,15 +216,27 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 <div class="modal-overlay" id="login-modal">
   <div class="modal">
     <div class="modal-head">
-      <h3>Log in to pick</h3>
+      <h3 id="modal-title">Log in to pick</h3>
       <button class="modal-close" onclick="closeLoginModal()">×</button>
     </div>
     <div class="modal-body">
-      <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="yourname@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <div class="field"><label>PIN (4–6 digits)</label><input type="password" id="login-pin" placeholder="••••" inputmode="numeric" maxlength="6" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doLogin()">Log in</button>
+      <div style="display:flex;margin-bottom:18px;border:1px solid var(--line);border-radius:8px;overflow:hidden;">
+        <button id="tab-login" onclick="setModalTab('login')" style="flex:1;padding:9px;font-size:14px;font-weight:600;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:inherit;">Log in</button>
+        <button id="tab-register" onclick="setModalTab('register')" style="flex:1;padding:9px;font-size:14px;font-weight:600;background:#fff;color:var(--ink-2);border:none;cursor:pointer;font-family:inherit;">Register</button>
+      </div>
+      <div id="fields-login">
+        <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="yourname@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+        <div class="field"><label>PIN (4–6 digits)</label><input type="password" id="login-pin" placeholder="••••" inputmode="numeric" maxlength="6" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+        <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doLogin()">Log in</button>
+      </div>
+      <div id="fields-register" style="display:none">
+        <div class="field"><label>Email</label><input type="email" id="reg-email" placeholder="yourname@email.com" autocomplete="email"/></div>
+        <div class="field"><label>Your name</label><input type="text" id="reg-name" placeholder="Bhushan S" maxlength="40" autocomplete="name"/></div>
+        <div class="field"><label>Choose a PIN (4–6 digits)</label><input type="password" id="reg-pin" placeholder="••••" inputmode="numeric" maxlength="6"/></div>
+        <div class="field"><label>Confirm PIN</label><input type="password" id="reg-pin2" placeholder="••••" inputmode="numeric" maxlength="6" onkeydown="if(event.key==='Enter')doRegister()"/></div>
+        <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doRegister()">Create account</button>
+      </div>
       <div class="modal-err" id="login-err"></div>
-      <div style="margin-top:14px;font-size:13px;color:var(--ink-2);text-align:center">Not registered? Ask an admin to add you.</div>
     </div>
   </div>
 </div>
@@ -260,8 +272,19 @@ function renderSessionBar() {
   }
 }
 
+function setModalTab(tab) {
+  const login = tab === 'login';
+  document.getElementById('fields-login').style.display    = login ? '' : 'none';
+  document.getElementById('fields-register').style.display = login ? 'none' : '';
+  document.getElementById('modal-title').textContent = login ? 'Log in to pick' : 'Create your account';
+  document.getElementById('tab-login').style.cssText    = `flex:1;padding:9px;font-size:14px;font-weight:600;background:${login?'var(--green)':'#fff'};color:${login?'#fff':'var(--ink-2)'};border:none;cursor:pointer;font-family:inherit;`;
+  document.getElementById('tab-register').style.cssText = `flex:1;padding:9px;font-size:14px;font-weight:600;background:${login?'#fff':'var(--green)'};color:${login?'var(--ink-2)':'#fff'};border:none;cursor:pointer;font-family:inherit;`;
+  document.getElementById('login-err').style.display = 'none';
+}
+
 function openLoginModal() {
   document.getElementById('login-modal').classList.add('open');
+  setModalTab('login');
   setTimeout(() => document.getElementById('login-email').focus(), 50);
 }
 
@@ -295,7 +318,7 @@ async function loadTournamentData(t) {
 }
 
 async function loadMatches(tid) {
-  const { data } = await db.from('matches').select('*').eq('tournament_id', tid).order('lock_time', { ascending: true });
+  const { data } = await db.from('matches').select('*').eq('tournament_id', tid).eq('is_hidden', false).order('lock_time', { ascending: true });
   tournamentData[tid].matches = data || [];
 }
 
@@ -555,6 +578,28 @@ async function doLogin() {
   const result = await login(email, pin);
   if (!result?.success) { errEl.textContent = result?.message || 'Login failed.'; errEl.style.display = ''; return; }
   session = result;
+  closeLoginModal();
+  renderSessionBar();
+  const active = visibleTournaments.filter(t => t.status !== 'completed');
+  await Promise.all(active.map(t => loadMyPredictions(t.id)));
+  renderAll();
+}
+
+async function doRegister() {
+  const email = document.getElementById('reg-email').value.trim();
+  const name  = document.getElementById('reg-name').value.trim();
+  const pin   = document.getElementById('reg-pin').value.trim();
+  const pin2  = document.getElementById('reg-pin2').value.trim();
+  const errEl = document.getElementById('login-err');
+  errEl.style.display = 'none';
+  if (!email || !name || !pin) { errEl.textContent = 'All fields are required.'; errEl.style.display = ''; return; }
+  if (pin.length < 4) { errEl.textContent = 'PIN must be at least 4 digits.'; errEl.style.display = ''; return; }
+  if (pin !== pin2) { errEl.textContent = 'PINs do not match.'; errEl.style.display = ''; return; }
+  const result = await register(email, name, pin);
+  if (!result?.success) { errEl.textContent = result?.message || 'Registration failed.'; errEl.style.display = ''; return; }
+  const loginResult = await login(email, pin);
+  if (!loginResult?.success) { errEl.textContent = 'Account created! Please log in.'; errEl.style.display = ''; setModalTab('login'); return; }
+  session = loginResult;
   closeLoginModal();
   renderSessionBar();
   const active = visibleTournaments.filter(t => t.status !== 'completed');

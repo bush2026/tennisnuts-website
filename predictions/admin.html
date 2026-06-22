@@ -254,8 +254,8 @@ input,select,textarea{font-family:inherit;}
     <div class="admin-card-head"><h3>All Matches</h3></div>
     <div class="admin-card-body" style="padding:0">
       <table class="data-table">
-        <thead><tr><th>Tournament</th><th>Match</th><th>Format</th><th>Pts</th><th>Lock Time</th><th>Status</th></tr></thead>
-        <tbody id="ma-tbody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody>
+        <thead><tr><th>Tournament</th><th>Match</th><th>Format</th><th>Pts</th><th>Lock Time</th><th>Status</th><th></th></tr></thead>
+        <tbody id="ma-tbody"><tr class="empty-row"><td colspan="7">Loading…</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -656,9 +656,9 @@ async function loadMatches() {
   tbody.innerHTML = allMatches.map(m => {
     const locked = new Date(m.lock_time) <= Date.now();
     const hasResult = !!m.result_winner;
-    return `<tr>
+    return `<tr${m.is_hidden ? ' style="opacity:0.45"' : ''}>
       <td style="font-size:12px;color:var(--ink-2)">${esc(m.tournaments?.name||'')}</td>
-      <td><strong>${esc(m.player1)}</strong> vs <strong>${esc(m.player2)}</strong></td>
+      <td><strong>${esc(m.player1)}</strong> vs <strong>${esc(m.player2)}</strong>${m.is_hidden ? ' <span style="font-size:11px;color:#999">[hidden]</span>' : ''}</td>
       <td class="mono">${m.format.toUpperCase()}</td>
       <td class="mono">${m.points_player1}/${m.points_player2}+${m.set_score_bonus}</td>
       <td style="font-size:13px">${fmtDate(m.lock_time)}</td>
@@ -668,6 +668,7 @@ async function loadMatches() {
           ? '<span class="badge badge-gray">Locked</span>'
           : '<span class="badge badge-ball">Open</span>'
       }</td>
+      <td class="actions-cell"><button class="btn btn-ghost btn-sm" onclick="toggleMatchHidden('${m.id}',${!!m.is_hidden})">${m.is_hidden ? 'Show' : 'Hide'}</button></td>
     </tr>`;
   }).join('');
   populateMatchDropdowns();
@@ -736,6 +737,18 @@ async function addMatch() {
     await loadMatches();
   } else {
     showMsg(msgEl, data?.message || 'Error', false);
+  }
+}
+
+async function toggleMatchHidden(id, isHidden) {
+  const { data } = await db.rpc('admin_toggle_match_hidden', {
+    p_session_token: adminSession.session_token,
+    p_match_id: id
+  });
+  if (data?.success) {
+    await loadMatches();
+  } else {
+    alert(data?.message || 'Error toggling match visibility');
   }
 }
 
