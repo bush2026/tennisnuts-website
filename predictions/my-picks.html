@@ -126,88 +126,117 @@ async function init() {
 
   document.getElementById('sbar-name').textContent = session.display_name;
 
-  // Get active tournament
-  const { data: tournaments } = await db.from('tournaments').select('*').eq('is_active', true).limit(1);
+  // Load all visible, non-completed tournaments (not just is_active — see migration 006)
+  const { data: tournaments } = await db.from('tournaments')
+    .select('*')
+    .eq('is_visible', true)
+    .neq('status', 'completed')
+    .order('created_at', { ascending: false });
+
   if (!tournaments?.length) {
-    document.getElementById('picks-list').innerHTML = '<div class="empty-state"><h3>No active tournament</h3></div>';
-    return;
-  }
-  const tournament = tournaments[0];
-  document.getElementById('tournament-chip').textContent = 'Tennisnuts · ' + tournament.name;
-  document.getElementById('page-sub').textContent = 'Your predictions and points for ' + tournament.name + '.';
-
-  // Load picks
-  const { data: picks } = await db.rpc('get_my_predictions', {
-    p_session_token: session.session_token,
-    p_tournament_id: tournament.id
-  });
-  if (!picks?.length) {
-    document.getElementById('picks-list').innerHTML = '<div class="empty-state"><h3>No matches yet</h3><p>Check back once matches are added.</p></div>';
+    document.getElementById('tournament-chip').textContent = 'Tennisnuts Predictions';
+    document.getElementById('page-sub').textContent = 'No active tournaments right now.';
+    document.getElementById('score-banner').style.display = 'none';
+    document.getElementById('picks-list').innerHTML = '<div class="empty-state"><h3>No active tournament</h3><p>Check back when the next predictions open.</p></div>';
     return;
   }
 
-  let totalPts = 0;
-  let scoredCount = 0;
-  let totalMatches = picks.length;
+  const multiTournament = tournaments.length > 1;
+  document.getElementById('tournament-chip').textContent = multiTournament
+    ? 'Tennisnuts Predictions'
+    : 'Tennisnuts · ' + tournaments[0].name;
+  document.getElementById('page-sub').textContent = multiTournament
+    ? 'Your predictions across all active tournaments.'
+    : 'Your predictions and points for ' + tournaments[0].name + '.';
 
-  const rows = picks.map(p => {
-    const locked = new Date(p.lock_time) <= Date.now();
-    const hasResult = !!p.result_winner;
-    const hasPick = !!p.pick_winner;
+  let overallPts = 0;
+  let overallScored = 0;
+  let overallTotal = 0;
+  const sections = [];
 
-    let pts = null;
-    if (p.points_awarded !== null && p.points_awarded !== undefined) {
-      pts = p.points_awarded;
-      totalPts += pts;
-      scoredCount++;
-    }
+  for (const tournament of tournaments) {
+    const { data: picks } = await db.rpc('get_my_predictions', {
+      p_session_token: session.session_token,
+      p_tournament_id: tournament.id
+    });
 
-    let winnerClass = '';
-    if (hasResult && hasPick) {
-      winnerClass = p.pick_winner === p.result_winner ? 'correct' : 'wrong';
-    }
+    if (!picks?.length) continue;
 
-    let ptsChip = '';
-    if (hasResult && hasPick) {
-      ptsChip = `<span class="pts-chip${pts===0?' zero':''}">${pts} pts</span>`;
-    } else if (hasPick) {
-      ptsChip = `<span class="pts-chip pending">pending</span>`;
-    } else {
-      ptsChip = `<span class="no-pick">—</span>`;
-    }
+    let tPts = 0;
+    let tScored = 0;
 
-    const resultCol = hasResult
-      ? `<div class="pick-col-label">Result</div><div class="pick-col-val">${esc(p.result_winner)} ${p.result_set_score||''}</div>`
-      : `<div class="pick-col-label">Result</div><div class="pick-col-val" style="color:var(--ink-2);font-size:13px">Not played</div>`;
+    const rows = picks.map(p => {
+      const locked    = new Date(p.lock_time) <= Date.now();
+      const hasResult = !!p.result_winner;
+      const hasPick   = !!p.pick_winner;
 
-    return `<div class="pick-row">
-      <div class="pick-row-head">
-        <div class="match-label">${esc(p.player1)} vs ${esc(p.player2)}</div>
-        <span class="lock-badge${locked?' locked':''}">${locked ? '🔒 Locked' : '🕐 ' + fmtDate(p.lock_time)}</span>
-      </div>
-      <div class="pick-row-body">
-        <div class="pick-col">
-          <div class="pick-col-label">Your pick</div>
-          ${hasPick
-            ? `<div class="pick-col-val ${winnerClass}">${esc(p.pick_winner)}${p.pick_set_score ? ' · '+p.pick_set_score : ''}</div>`
-            : `<span class="no-pick">No pick submitted</span>`}
+      if (p.points_awarded !== null && p.points_awarded !== undefined) {
+        tPts += p.points_awarded;
+        tScored++;
+      }
+
+      let winnerClass = '';
+      if (hasResult && hasPick) {
+        winnerClass = p.pick_winner === p.result_winner ? 'correct' : 'wrong';
+      }
+
+      let ptsChip = '';
+      if (hasResult && hasPick) {
+        ptsChip = `<span class="pts-chip${p.points_awarded === 0 ? ' zero' : ''}">${p.points_awarded} pts</span>`;
+      } else if (hasPick) {
+        ptsChip = `<span class="pts-chip pending">pending</span>`;
+      } else {
+        ptsChip = `<span class="no-pick">—</span>`;
+      }
+
+      const resultCol = hasResult
+        ? `<div class="pick-col-label">Result</div><div class="pick-col-val">${esc(p.result_winner)} ${p.result_set_score || ''}</div>`
+        : `<div class="pick-col-label">Result</div><div class="pick-col-val" style="color:var(--ink-2);font-size:13px">Not played</div>`;
+
+      return `<div class="pick-row">
+        <div class="pick-row-head">
+          <div class="match-label">${esc(p.player1)} vs ${esc(p.player2)}</div>
+          <span class="lock-badge${locked ? ' locked' : ''}">${locked ? '🔒 Locked' : '🕐 ' + fmtDate(p.lock_time)}</span>
         </div>
-        <div class="pick-col">${resultCol}</div>
-        <div class="pick-col">
-          <div class="pick-col-label">Points</div>
-          ${ptsChip}
+        <div class="pick-row-body">
+          <div class="pick-col">
+            <div class="pick-col-label">Your pick</div>
+            ${hasPick
+              ? `<div class="pick-col-val ${winnerClass}">${esc(p.pick_winner)}${p.pick_set_score ? ' · ' + p.pick_set_score : ''}</div>`
+              : `<span class="no-pick">No pick submitted</span>`}
+          </div>
+          <div class="pick-col">${resultCol}</div>
+          <div class="pick-col">
+            <div class="pick-col-label">Points</div>
+            ${ptsChip}
+          </div>
         </div>
-      </div>
-    </div>`;
-  });
+      </div>`;
+    });
 
-  document.getElementById('picks-list').innerHTML = rows.join('');
-  document.getElementById('total-pts').textContent = totalPts;
-  document.getElementById('scored-label').textContent = `${scoredCount} of ${totalMatches} matches scored`;
+    overallPts += tPts;
+    overallScored += tScored;
+    overallTotal += picks.length;
+
+    const header = multiTournament
+      ? `<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0 12px;border-bottom:2px solid var(--line);margin-bottom:16px${sections.length > 0 ? ';margin-top:36px' : ''}">
+           <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)">${esc(tournament.name)}</span>
+           <span style="font-size:13px;color:var(--ink-2)">${tPts} pts &middot; ${tScored}/${picks.length} scored</span>
+         </div>`
+      : '';
+
+    sections.push(header + rows.join(''));
+  }
+
+  document.getElementById('total-pts').textContent = overallPts;
+  document.getElementById('scored-label').textContent = `${overallScored} of ${overallTotal} matches scored`;
+  document.getElementById('picks-list').innerHTML = sections.length
+    ? sections.join('')
+    : '<div class="empty-state"><h3>No picks yet</h3><p>Head to the predictions page to submit your first pick.</p></div>';
 }
 
 function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 init();
