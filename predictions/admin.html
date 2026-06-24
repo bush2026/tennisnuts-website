@@ -702,9 +702,9 @@ function populateMatchDropdowns() {
   tSel.innerHTML = '<option value="">— select tournament —</option>' +
     allTournaments.map(t => `<option value="${t.id}">${esc(t.name)}</option>`).join('');
 
-  // Results match dropdown — only locked matches
+  // Results match dropdown — only locked, non-hidden matches
   const resSel = document.getElementById('res-match');
-  const locked = allMatches.filter(m => new Date(m.lock_time) <= Date.now());
+  const locked = allMatches.filter(m => new Date(m.lock_time) <= Date.now() && !m.is_hidden);
   resSel.innerHTML = '<option value="">— select match —</option>' +
     locked.map(m => `<option value="${m.id}">${esc(m.player1)} vs ${esc(m.player2)} (${esc(m.tournaments?.name||'')})</option>`).join('');
 
@@ -830,7 +830,7 @@ async function enterResult() {
 
 function renderResultsTable() {
   const tbody = document.getElementById('res-tbody');
-  const locked = allMatches.filter(m => new Date(m.lock_time) <= Date.now());
+  const locked = allMatches.filter(m => new Date(m.lock_time) <= Date.now() && !m.is_hidden);
   if (!locked.length) {
     tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No locked matches yet</td></tr>';
     return;

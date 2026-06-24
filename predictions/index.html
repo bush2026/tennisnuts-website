@@ -631,8 +631,8 @@ async function doRegister() {
   if (!email) { showModalError('Please enter your email address.'); document.getElementById('reg-email').focus(); return; }
   if (!name)  { showModalError('Please enter your name.');          document.getElementById('reg-name').focus();  return; }
   if (!pin)   { showModalError('Please choose a PIN.');             document.getElementById('reg-pin').focus();   return; }
-  if (pin.length < 4) { showModalError('PIN must be at least 4 digits.'); document.getElementById('reg-pin').focus(); return; }
-  if (pin !== pin2)   { showModalError('PINs do not match — please re-enter.'); document.getElementById('reg-pin2').value = ''; document.getElementById('reg-pin2').focus(); return; }
+  if (!/^\d{4,6}$/.test(pin)) { showModalError('PIN must be 4–6 digits (numbers only).'); document.getElementById('reg-pin').focus(); return; }
+  if (pin !== pin2)            { showModalError('PINs do not match — please re-enter.');   document.getElementById('reg-pin2').value = ''; document.getElementById('reg-pin2').focus(); return; }
   const result = await register(email, name, pin);
   if (!result?.success) {
     if (result?.message?.includes('email already exists')) {
