@@ -149,6 +149,7 @@ input,select,textarea{font-family:inherit;}
     <button class="tab-btn" onclick="showTab('members')">Members</button>
     <button class="tab-btn" onclick="showTab('matches')">Matches</button>
     <button class="tab-btn" onclick="showTab('results')">Results</button>
+    <button class="tab-btn" onclick="showTab('submissions')">Submissions</button>
   </div>
 </div>
 
@@ -370,6 +371,27 @@ input,select,textarea{font-family:inherit;}
       <table class="data-table">
         <thead><tr><th>Event</th><th>Date</th><th>Type</th><th>Entries</th><th>Status</th><th>Actions</th></tr></thead>
         <tbody id="re-tbody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMISSIONS -->
+<div class="panel" id="panel-submissions">
+  <div class="admin-card">
+    <div class="admin-card-head">
+      <h3>All Submissions</h3>
+      <div style="display:flex;align-items:center;gap:12px">
+        <select id="sub-tournament" onchange="loadSubmissions(this.value)" style="padding:7px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;font-family:inherit;color:var(--ink);background:#fff;outline:none">
+          <option value="">All tournaments</option>
+        </select>
+        <span id="sub-count" style="font-size:13px;color:var(--ink-2)"></span>
+      </div>
+    </div>
+    <div class="admin-card-body" style="padding:0">
+      <table class="data-table" id="sub-table">
+        <thead><tr><th>Member</th><th>Tournament</th><th>Match</th><th>Pick</th><th>Set Score</th><th>Last Updated</th><th>Points</th><th>Outcome</th></tr></thead>
+        <tbody id="sub-tbody"><tr class="empty-row"><td colspan="8">Choose a tournament above or load all</td></tr></tbody>
       </table>
     </div>
   </div>
@@ -686,6 +708,14 @@ function populateMatchDropdowns() {
   resSel.innerHTML = '<option value="">— select match —</option>' +
     locked.map(m => `<option value="${m.id}">${esc(m.player1)} vs ${esc(m.player2)} (${esc(m.tournaments?.name||'')})</option>`).join('');
 
+  // Submissions tournament dropdown
+  const subSel = document.getElementById('sub-tournament');
+  if (subSel) {
+    const prev = subSel.value;
+    subSel.innerHTML = '<option value="">All tournaments</option>' +
+      allTournaments.map(t => `<option value="${t.id}"${prev===t.id?' selected':''}>${esc(t.name)}</option>`).join('');
+  }
+
   // Daily report tournament dropdown
   const rptSel = document.getElementById('rpt-tournament');
   if (rptSel) {
@@ -815,6 +845,46 @@ function renderResultsTable() {
         : '<span class="badge badge-gray">Pending</span>'}</td>
       <td>${m.result_winner ? '<span class="badge badge-green">✓ Scored</span>' : '<span class="badge badge-ball">Not yet</span>'}</td>
     </tr>`).join('');
+}
+
+// ── SUBMISSIONS ──────────────────────────────────────────────
+
+async function loadSubmissions(tournamentId) {
+  const tbody = document.getElementById('sub-tbody');
+  const countEl = document.getElementById('sub-count');
+  tbody.innerHTML = '<tr class="empty-row"><td colspan="8">Loading…</td></tr>';
+  countEl.textContent = '';
+  const params = { p_session_token: adminSession.session_token };
+  if (tournamentId) params.p_tournament_id = tournamentId;
+  const { data, error } = await db.rpc('admin_get_all_predictions', params);
+  if (error || (data && data.error)) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="8">Error: ${esc(error?.message || data?.error || 'Unknown error')}</td></tr>`;
+    return;
+  }
+  const rows = Array.isArray(data) ? data : [];
+  countEl.textContent = rows.length ? `${rows.length} submission${rows.length !== 1 ? 's' : ''}` : '';
+  if (!rows.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">No submissions yet</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => {
+    let outcome = '<span class="badge badge-gray">Pending</span>';
+    if (r.result_winner) {
+      outcome = r.pick_winner === r.result_winner
+        ? '<span class="badge badge-green">✓ Correct</span>'
+        : '<span class="badge badge-red">✗ Wrong</span>';
+    }
+    return `<tr>
+      <td><strong>${esc(r.member_name)}</strong></td>
+      <td style="font-size:12px;color:var(--ink-2)">${esc(r.tournament)}</td>
+      <td>${esc(r.match_label)}</td>
+      <td>${esc(r.pick_winner)}</td>
+      <td class="mono">${esc(r.pick_set_score || '—')}</td>
+      <td style="font-size:12px;color:var(--ink-2)">${fmtDate(r.updated_at)}</td>
+      <td class="mono">${r.points_awarded != null ? r.points_awarded : '—'}</td>
+      <td>${outcome}</td>
+    </tr>`;
+  }).join('');
 }
 
 // ── REGISTRATIONS ────────────────────────────────────────────
@@ -1059,6 +1129,7 @@ function showTab(name) {
   document.getElementById('panel-' + name).classList.add('active');
   const btn = document.querySelector(`.tab-btn[onclick="showTab('${name}')"]`);
   if (btn) btn.classList.add('active');
+  if (name === 'submissions') loadSubmissions(document.getElementById('sub-tournament')?.value || '');
 }
 
 function showMsg(el, msg, ok) {
