@@ -64,3 +64,56 @@ $$;
 
 GRANT EXECUTE ON FUNCTION admin_toggle_match_hidden(text, uuid) TO anon;
 GRANT EXECUTE ON FUNCTION member_register(text, text, text)     TO anon;
+
+-- ── BETTER AUTH ERRORS ────────────────────────────────────────────────────────
+-- Replace generic "Invalid email or PIN" with specific per-case messages
+-- Adds a 'code' field so the UI can offer smart actions (e.g. "Register instead?")
+
+CREATE OR REPLACE FUNCTION authenticate_member(p_email text, p_pin_hash text)
+RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
+DECLARE
+  v_member members%ROWTYPE;
+  v_token  text;
+BEGIN
+  p_email := lower(trim(p_email));
+
+  IF NOT EXISTS (SELECT 1 FROM members WHERE email = p_email) THEN
+    RETURN jsonb_build_object(
+      'success', false, 'code', 'EMAIL_NOT_FOUND',
+      'message', 'No account found for this email.'
+    );
+  END IF;
+
+  IF EXISTS (SELECT 1 FROM members WHERE email = p_email AND is_active = false) THEN
+    RETURN jsonb_build_object(
+      'success', false, 'code', 'INACTIVE',
+      'message', 'Your account is inactive — contact admin.'
+    );
+  END IF;
+
+  SELECT * INTO v_member FROM members
+  WHERE email = p_email AND pin_hash = p_pin_hash AND is_active = true;
+
+  IF v_member.id IS NULL THEN
+    RETURN jsonb_build_object(
+      'success', false, 'code', 'WRONG_PIN',
+      'message', 'Incorrect PIN — please try again.'
+    );
+  END IF;
+
+  DELETE FROM member_sessions WHERE member_id = v_member.id AND expires_at < now();
+  INSERT INTO member_sessions (member_id, is_admin)
+  VALUES (v_member.id, v_member.is_admin)
+  RETURNING session_token INTO v_token;
+
+  RETURN jsonb_build_object(
+    'success',       true,
+    'session_token', v_token,
+    'member_id',     v_member.id,
+    'display_name',  v_member.display_name,
+    'is_admin',      v_member.is_admin
+  );
+END;
+$$;
+
+GRANT EXECUTE ON FUNCTION authenticate_member(text, text) TO anon;
