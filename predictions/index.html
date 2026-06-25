@@ -343,6 +343,16 @@ async function loadTournamentData(t) {
 
 async function loadMatches(tid) {
   const { data } = await db.from('matches').select('*').eq('tournament_id', tid).eq('is_hidden', false).order('lock_time', { ascending: true });
+  if (data) {
+    const now = Date.now();
+    data.sort((a, b) => {
+      const aLocked = new Date(a.lock_time) <= now;
+      const bLocked = new Date(b.lock_time) <= now;
+      if (aLocked !== bLocked) return aLocked ? 1 : -1;          // open first
+      if (!aLocked) return new Date(a.lock_time) - new Date(b.lock_time);  // open: soonest deadline first
+      return new Date(b.lock_time) - new Date(a.lock_time);       // locked: most recent first
+    });
+  }
   tournamentData[tid].matches = data || [];
 }
 
