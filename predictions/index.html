@@ -406,14 +406,18 @@ function renderAll() {
 }
 
 function buildTournamentHTML(t, withDivider) {
-  const d       = tournamentData[t.id] || {};
-  const matches = d.matches || [];
-  const lb      = rankList(d.leaderboard || [], 'total_points');
+  const d           = tournamentData[t.id] || {};
+  const matches     = d.matches || [];
+  const lb          = rankList(d.leaderboard || [], 'total_points');
   const statusLabel = t.status === 'live' ? 'Live Now' : 'Upcoming';
   const statusClass = t.status === 'live' ? 'badge-green' : 'badge-ball';
+  const now         = Date.now();
+  const openMatches = matches.filter(m => new Date(m.lock_time) > now);
+  const pastMatches = matches.filter(m => new Date(m.lock_time) <= now);
 
   let html = withDivider ? '<hr class="tournament-divider">' : '';
 
+  // ── Open matches (today's picks) ──
   html += `<section class="matches-section">
     <div class="container">
       <div class="section-head">
@@ -433,12 +437,15 @@ function buildTournamentHTML(t, withDivider) {
 
   if (!matches.length) {
     html += `<div class="empty-state"><h3>No matches yet</h3><p>The admin will add matches soon.</p></div>`;
+  } else if (openMatches.length) {
+    html += `<div class="matches-grid" data-tournament-open="${t.id}">${openMatches.map(m => renderMatchCard(m, t)).join('')}</div>`;
   } else {
-    html += `<div class="matches-grid" data-tournament-matches="${t.id}">${matches.map(m => renderMatchCard(m, t)).join('')}</div>`;
+    html += `<div style="text-align:center;padding:20px 0 8px;color:var(--ink-2);font-size:14px">All matches locked — results below.</div>`;
   }
 
   html += `</div></section>`;
 
+  // ── Live Standings (moved above past matches) ──
   if (lb.length) {
     const myId = session?.member_id;
     html += `<section class="lb-section">
@@ -450,6 +457,19 @@ function buildTournamentHTML(t, withDivider) {
         </div>
         <div class="podium-row">${buildPodiumHTML(lb.slice(0, 3))}</div>
         <div class="lb-table">${buildLbHTML(lb, myId)}</div>
+      </div>
+    </section>`;
+  }
+
+  // ── Past matches (locked, greyed out) ──
+  if (pastMatches.length) {
+    html += `<section class="matches-section" style="padding-top:40px;padding-bottom:56px;background:var(--cream)">
+      <div class="container">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px">
+          <div class="section-eyebrow" style="margin-bottom:0">Past Matches</div>
+          <span style="font-size:13px;color:var(--ink-2)">${pastMatches.length} match${pastMatches.length !== 1 ? 'es' : ''}</span>
+        </div>
+        <div class="matches-grid" data-tournament-past="${t.id}">${pastMatches.map(m => renderMatchCard(m, t)).join('')}</div>
       </div>
     </section>`;
   }
@@ -529,7 +549,7 @@ function renderMatchCard(m, t) {
     </div>`;
   }
 
-  return `<div class="match-card${locked ? ' locked' : ''}">
+  return `<div class="match-card${locked ? ' locked' : ''}"${m.result_winner ? ' style="opacity:.5"' : ''}>
     <div class="match-head">
       <span class="match-format">${m.format.toUpperCase()}</span>
       <span class="match-lock-badge${locked ? ' locked' : ''}" id="countdown-${m.id}">${locked ? 'Locked' : countdownText(m.lock_time)}</span>
@@ -573,8 +593,11 @@ function setPick(matchId, tid, type, value) {
     pendingPicks[matchId].setScore = pendingPicks[matchId].setScore === resolvedValue ? '' : resolvedValue;
   }
 
-  const grid = document.querySelector(`[data-tournament-matches="${tid}"]`);
-  if (grid) grid.innerHTML = matches.map(mx => renderMatchCard(mx, t)).join('');
+  const grid = document.querySelector(`[data-tournament-open="${tid}"]`);
+  if (grid) {
+    const openMs = matches.filter(mx => new Date(mx.lock_time) > Date.now());
+    grid.innerHTML = openMs.map(mx => renderMatchCard(mx, t)).join('');
+  }
 }
 
 async function submitPick(matchId, tid) {
@@ -599,8 +622,11 @@ async function submitPick(matchId, tid) {
   tournamentData[tid].myPredictions[matchId] = { pick_winner: winner, pick_set_score: pending.setScore || null, points_awarded: null };
   delete pendingPicks[matchId];
 
-  const grid = document.querySelector(`[data-tournament-matches="${tid}"]`);
-  if (grid) grid.innerHTML = matches.map(mx => renderMatchCard(mx, t)).join('');
+  const grid = document.querySelector(`[data-tournament-open="${tid}"]`);
+  if (grid) {
+    const openMs = matches.filter(mx => new Date(mx.lock_time) > Date.now());
+    grid.innerHTML = openMs.map(mx => renderMatchCard(mx, t)).join('');
+  }
 }
 
 async function doLogin() {
