@@ -223,7 +223,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
       <button class="modal-close" onclick="closeLoginModal()">×</button>
     </div>
     <div class="modal-body">
-      <div style="display:flex;margin-bottom:18px;border:1px solid var(--line);border-radius:8px;overflow:hidden;">
+      <div id="modal-tabs" style="display:flex;margin-bottom:18px;border:1px solid var(--line);border-radius:8px;overflow:hidden;">
         <button id="tab-login" onclick="setModalTab('login')" style="flex:1;padding:9px;font-size:14px;font-weight:600;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:inherit;">Log in</button>
         <button id="tab-register" onclick="setModalTab('register')" style="flex:1;padding:9px;font-size:14px;font-weight:600;background:#fff;color:var(--ink-2);border:none;cursor:pointer;font-family:inherit;">Register</button>
       </div>
@@ -231,6 +231,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
         <div class="field"><label>Email</label><input type="email" id="login-email" placeholder="yourname@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')doLogin()"/></div>
         <div class="field"><label>PIN (4–6 digits)</label><input type="password" id="login-pin" placeholder="••••" inputmode="numeric" maxlength="6" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"/></div>
         <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doLogin()">Log in</button>
+        <div style="text-align:center;margin-top:12px"><button style="background:none;border:none;color:var(--ink-2);font-size:13px;cursor:pointer;font-family:inherit;text-decoration:underline;text-underline-offset:2px" onclick="setModalTab('reset')">Forgot PIN?</button></div>
       </div>
       <div id="fields-register" style="display:none">
         <div class="field"><label>Email</label><input type="email" id="reg-email" placeholder="yourname@email.com" autocomplete="email"/></div>
@@ -239,7 +240,16 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
         <div class="field"><label>Confirm PIN</label><input type="password" id="reg-pin2" placeholder="••••" inputmode="numeric" maxlength="6" onkeydown="if(event.key==='Enter')doRegister()"/></div>
         <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doRegister()">Create account</button>
       </div>
+      <div id="fields-reset" style="display:none">
+        <button style="background:none;border:none;color:var(--ink-2);font-size:13px;cursor:pointer;font-family:inherit;padding:0;margin-bottom:16px;display:flex;align-items:center;gap:4px" onclick="setModalTab('login')">← Back to login</button>
+        <div class="field"><label>Email</label><input type="email" id="reset-email" placeholder="yourname@email.com" autocomplete="email"/></div>
+        <div class="field"><label>Display name (exactly as registered)</label><input type="text" id="reset-name" placeholder="Bhushan S" maxlength="40"/></div>
+        <div class="field"><label>New PIN (4–6 digits)</label><input type="password" id="reset-pin" placeholder="••••" inputmode="numeric" maxlength="6"/></div>
+        <div class="field"><label>Confirm new PIN</label><input type="password" id="reset-pin2" placeholder="••••" inputmode="numeric" maxlength="6" onkeydown="if(event.key==='Enter')doResetPin()"/></div>
+        <button class="btn btn-green" style="width:100%;justify-content:center" onclick="doResetPin()">Reset PIN</button>
+      </div>
       <div class="modal-err" id="login-err"></div>
+      <div id="login-success" style="display:none;margin-top:14px;padding:11px 14px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;color:#15803d;font-size:13px;line-height:1.5;"></div>
     </div>
   </div>
 </div>
@@ -297,13 +307,21 @@ function showModalError(msg, actionLabel, actionFn) {
 }
 
 function setModalTab(tab) {
-  const login = tab === 'login';
-  document.getElementById('fields-login').style.display    = login ? '' : 'none';
-  document.getElementById('fields-register').style.display = login ? 'none' : '';
-  document.getElementById('modal-title').textContent = login ? 'Log in to pick' : 'Create your account';
-  document.getElementById('tab-login').style.cssText    = `flex:1;padding:9px;font-size:14px;font-weight:600;background:${login?'var(--green)':'#fff'};color:${login?'#fff':'var(--ink-2)'};border:none;cursor:pointer;font-family:inherit;`;
-  document.getElementById('tab-register').style.cssText = `flex:1;padding:9px;font-size:14px;font-weight:600;background:${login?'#fff':'var(--green)'};color:${login?'var(--ink-2)':'#fff'};border:none;cursor:pointer;font-family:inherit;`;
-  document.getElementById('login-err').style.display = 'none';
+  const isReset    = tab === 'reset';
+  const isLogin    = tab === 'login';
+  document.getElementById('fields-login').style.display    = isLogin ? '' : 'none';
+  document.getElementById('fields-register').style.display = tab === 'register' ? '' : 'none';
+  document.getElementById('fields-reset').style.display    = isReset ? '' : 'none';
+  document.getElementById('modal-tabs').style.display      = isReset ? 'none' : '';
+  document.getElementById('login-err').style.display       = 'none';
+  document.getElementById('login-success').style.display   = 'none';
+  if (isReset) {
+    document.getElementById('modal-title').textContent = 'Reset your PIN';
+  } else {
+    document.getElementById('modal-title').textContent = isLogin ? 'Log in to pick' : 'Create your account';
+    document.getElementById('tab-login').style.cssText    = `flex:1;padding:9px;font-size:14px;font-weight:600;background:${isLogin?'var(--green)':'#fff'};color:${isLogin?'#fff':'var(--ink-2)'};border:none;cursor:pointer;font-family:inherit;`;
+    document.getElementById('tab-register').style.cssText = `flex:1;padding:9px;font-size:14px;font-weight:600;background:${isLogin?'#fff':'var(--green)'};color:${isLogin?'var(--ink-2)':'#fff'};border:none;cursor:pointer;font-family:inherit;`;
+  }
 }
 
 function openLoginModal() {
@@ -660,6 +678,37 @@ async function doLogin() {
   const active = visibleTournaments.filter(t => t.status !== 'completed');
   await Promise.all(active.map(t => loadMyPredictions(t.id)));
   renderAll();
+}
+
+function showModalSuccess(msg) {
+  const el = document.getElementById('login-success');
+  el.textContent = msg;
+  el.style.display = 'block';
+  document.getElementById('login-err').style.display = 'none';
+}
+
+async function doResetPin() {
+  const email = document.getElementById('reset-email').value.trim();
+  const name  = document.getElementById('reset-name').value.trim();
+  const pin   = document.getElementById('reset-pin').value.trim();
+  const pin2  = document.getElementById('reset-pin2').value.trim();
+  if (!email) { showModalError('Please enter your email address.'); document.getElementById('reset-email').focus(); return; }
+  if (!name)  { showModalError('Please enter your display name.');  document.getElementById('reset-name').focus();  return; }
+  if (!pin)   { showModalError('Please enter a new PIN.');          document.getElementById('reset-pin').focus();   return; }
+  if (!/^\d{4,6}$/.test(pin)) { showModalError('PIN must be 4–6 digits (numbers only).'); document.getElementById('reset-pin').focus(); return; }
+  if (pin !== pin2)            { showModalError('PINs do not match — please re-enter.');   document.getElementById('reset-pin2').value = ''; document.getElementById('reset-pin2').focus(); return; }
+  const result = await resetPin(email, name, pin);
+  if (!result?.success) {
+    showModalError(result?.message || 'Reset failed — please try again.');
+    return;
+  }
+  showModalSuccess('PIN reset successfully! You can now log in with your new PIN.');
+  ['reset-email','reset-name','reset-pin','reset-pin2'].forEach(id => { document.getElementById(id).value = ''; });
+  setTimeout(() => {
+    document.getElementById('login-email').value = email;
+    setModalTab('login');
+    setTimeout(() => document.getElementById('login-pin').focus(), 50);
+  }, 2000);
 }
 
 async function doRegister() {
