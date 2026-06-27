@@ -13,6 +13,7 @@ BEGIN
   WITH per_member AS (
     SELECT
       (ma.result_entered_at AT TIME ZONE 'Asia/Kolkata')::date AS day_date,
+      mb.id                                                                  AS member_id,
       mb.display_name,
       SUM(p.points_awarded)::int                                            AS day_points,
       COUNT(*) FILTER (WHERE p.points_awarded > 0)::int                    AS correct_picks,
@@ -42,6 +43,7 @@ BEGIN
         'date',      day_date,
         'standings', jsonb_agg(
           jsonb_build_object(
+            'member_id',     member_id,
             'rank',          day_rank,
             'member_name',   display_name,
             'day_points',    day_points,

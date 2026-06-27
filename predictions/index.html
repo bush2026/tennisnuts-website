@@ -312,7 +312,7 @@ function setModalTab(tab) {
   document.getElementById('fields-login').style.display    = isLogin ? '' : 'none';
   document.getElementById('fields-register').style.display = tab === 'register' ? '' : 'none';
   document.getElementById('fields-reset').style.display    = isReset ? '' : 'none';
-  document.getElementById('modal-tabs').style.display      = isReset ? 'none' : '';
+  document.getElementById('modal-tabs').style.display      = isReset ? 'none' : 'flex';
   document.getElementById('login-err').style.display       = 'none';
   document.getElementById('login-success').style.display   = 'none';
   if (isReset) {
@@ -332,7 +332,7 @@ function openLoginModal() {
 
 function closeLoginModal() {
   document.getElementById('login-modal').classList.remove('open');
-  document.getElementById('login-err').style.display = 'none';
+  setModalTab('login');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
