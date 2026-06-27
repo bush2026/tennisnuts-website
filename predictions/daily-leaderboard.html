@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Day Leaderboards — Tennisnuts Predictions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+:root{--green:#3a5c2c;--green-2:#2c4621;--green-3:#4d7239;--green-soft:#eef2e6;--ball:#cddc39;--ball-2:#d8e85a;--ink:#1c2218;--ink-2:#4a5240;--paper:#fff;--cream:#faf8f1;--line:#e6e3d8;}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;overflow-x:hidden;}
+body{font-family:"DM Sans","Helvetica Neue",sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;font-size:17px;line-height:1.55;}
+h1,h2,h3,h4{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;letter-spacing:-.02em;margin:0;}
+p{margin:0;}a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;border:0;background:none;}
+.container{max-width:860px;margin:0 auto;padding:0 28px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;font-weight:600;font-size:14px;font-family:"DM Sans",sans-serif;transition:all .15s;white-space:nowrap;cursor:pointer;text-decoration:none;border:none;}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);}
+.btn-ghost:hover{background:var(--green-soft);border-color:var(--green);}
+.btn-sm{padding:7px 16px;font-size:13px;}
+
+/* HERO */
+.hero{min-height:260px;position:relative;overflow:hidden;display:flex;align-items:center;color:#fff;padding:64px 0 48px;}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 40%,rgba(205,220,57,.1),transparent 50%),linear-gradient(155deg,#0e1810 0%,#1c2218 55%,#2c4621 100%);z-index:0;}
+.hero::after{content:"DAY";position:absolute;right:-10px;bottom:-20px;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(100px,20vw,260px);line-height:1;color:#fff;opacity:.03;pointer-events:none;letter-spacing:-.05em;z-index:0;}
+.hero .container{position:relative;z-index:1;}
+.eyebrow-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(205,220,57,.15);border:1px solid rgba(205,220,57,.4);padding:6px 14px;border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ball);margin-bottom:16px;}
+.hero h1{font-size:clamp(36px,6vw,64px);line-height:.97;letter-spacing:-.04em;margin-bottom:10px;}
+.hero .sub{font-size:16px;color:rgba(255,255,255,.7);max-width:44ch;}
+
+/* TOURNAMENT TABS */
+.tourn-bar{background:var(--cream);border-bottom:1px solid var(--line);padding:0;}
+.tourn-bar .container{display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tourn-bar .container::-webkit-scrollbar{display:none;}
+.tourn-btn{padding:13px 20px;font-size:14px;font-weight:600;color:var(--ink-2);border-bottom:3px solid transparent;margin-bottom:-1px;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;transition:color .15s,border-color .15s;white-space:nowrap;}
+.tourn-btn.active{color:var(--green);border-bottom-color:var(--green);}
+.tourn-btn:hover:not(.active){color:var(--ink);}
+
+/* DAY CHIPS */
+.day-picker{padding:28px 0 0;}
+.day-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.day-chip{padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;background:#fff;transition:all .15s;white-space:nowrap;}
+.day-chip:hover{border-color:var(--green);color:var(--green);}
+.day-chip.active{background:var(--green);border-color:var(--green);color:#fff;}
+.day-chip .chip-num{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;letter-spacing:.06em;display:block;margin-bottom:1px;opacity:.7;}
+
+/* DAY LEADERBOARD */
+.day-section{padding:32px 0 64px;}
+.day-heading{margin-bottom:6px;}
+.day-heading h2{font-size:clamp(28px,5vw,44px);letter-spacing:-.03em;}
+.day-meta{font-size:14px;color:var(--ink-2);margin-bottom:32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+
+/* PODIUM */
+.podium-row{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:12px;margin-bottom:28px;align-items:end;}
+.podium-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center;position:relative;}
+.podium-card.first{border-color:var(--ball);box-shadow:0 8px 24px -8px rgba(205,220,57,.35);}
+.podium-medal{font-size:26px;margin-bottom:6px;}
+.podium-name{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;word-break:break-word;}
+.podium-pts{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--green);}
+.podium-picks{font-size:11px;color:var(--ink-2);margin-top:2px;}
+
+/* TABLE */
+.lb-table{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+.lb-row{display:grid;grid-template-columns:48px 1fr auto auto;align-items:center;padding:13px 20px;border-bottom:1px solid var(--line);transition:background .12s;gap:12px;}
+.lb-row:last-child{border-bottom:none;}
+.lb-row:hover{background:var(--cream);}
+.lb-row.me{background:rgba(205,220,57,.1);}
+.lb-rank{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:600;color:var(--ink-2);}
+.lb-name{font-size:15px;font-weight:600;}
+.lb-picks{font-size:12px;color:var(--ink-2);text-align:right;}
+.lb-pts{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--green);text-align:right;white-space:nowrap;}
+
+.empty-state{text-align:center;padding:56px 20px;color:var(--ink-2);}
+.empty-state h3{font-size:22px;color:var(--ink);margin-bottom:8px;}
+
+@media(max-width:640px){
+  .container{padding:0 16px;}
+  .podium-row{gap:8px;}
+  .podium-card{padding:14px 10px;}
+  .podium-name{font-size:13px;}
+  .lb-row{padding:11px 14px;grid-template-columns:40px 1fr auto auto;gap:8px;}
+}
+@media(max-width:400px){
+  .podium-row{grid-template-columns:1fr 1fr 1fr;}
+}
+</style>
+</head>
+<body>
+<div id="site-nav"></div>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow-chip">Tennisnuts · Predictions</div>
+    <h1>Day by Day</h1>
+    <p class="sub">Who won each match day? See the daily leaderboard and find out who's been the sharpest picker.</p>
+    <div style="margin-top:20px">
+      <a href="index.html" class="btn btn-ghost btn-sm" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.25)">← Back to Predictions</a>
+    </div>
+  </div>
+</section>
+
+<div id="tourn-bar-wrap" style="display:none">
+  <div class="tourn-bar">
+    <div class="container" id="tourn-tabs"></div>
+  </div>
+</div>
+
+<div id="main-wrap">
+  <div class="container">
+    <div class="day-picker" id="day-picker-wrap" style="display:none">
+      <div class="day-chips" id="day-chips"></div>
+    </div>
+    <div id="day-content"></div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="../nav.js?v=4"></script>
+<script src="../footer.js?v=9"></script>
+<script src="config.js"></script>
+<script src="auth.js"></script>
+<script>
+let allTournaments = [];
+let activeTournamentId = null;
+let allDays = [];
+let selectedDate = null;
+let myMemberId = null;
+
+async function init() {
+  const session = await restoreSession();
+  myMemberId = session?.member_id || null;
+
+  const { data } = await db.from('tournaments')
+    .select('*')
+    .eq('is_visible', true)
+    .neq('status', 'completed')
+    .order('created_at', { ascending: false });
+
+  allTournaments = data || [];
+
+  if (!allTournaments.length) {
+    document.getElementById('day-content').innerHTML =
+      '<div class="empty-state" style="padding-top:48px"><h3>No active tournaments</h3><p>Check back once a tournament is underway.</p></div>';
+    return;
+  }
+
+  // Prefer live tournament, else first
+  const live = allTournaments.find(t => t.status === 'live');
+  activeTournamentId = (live || allTournaments[0]).id;
+
+  if (allTournaments.length > 1) {
+    renderTournamentTabs();
+    document.getElementById('tourn-bar-wrap').style.display = '';
+  }
+
+  await loadDays(activeTournamentId);
+}
+
+function renderTournamentTabs() {
+  document.getElementById('tourn-tabs').innerHTML = allTournaments.map(t =>
+    `<button class="tourn-btn${t.id === activeTournamentId ? ' active' : ''}" onclick="switchTournament('${t.id}')">${esc(t.name)}</button>`
+  ).join('');
+}
+
+async function switchTournament(tid) {
+  activeTournamentId = tid;
+  document.querySelectorAll('.tourn-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.tourn-btn[onclick="switchTournament('${tid}')"]`)?.classList.add('active');
+  allDays = [];
+  selectedDate = null;
+  await loadDays(tid);
+}
+
+async function loadDays(tid) {
+  document.getElementById('day-content').innerHTML =
+    '<div class="empty-state" style="padding-top:40px"><h3>Loading…</h3></div>';
+  document.getElementById('day-picker-wrap').style.display = 'none';
+
+  const { data, error } = await db.rpc('get_daily_leaderboard', { p_tournament_id: tid });
+
+  if (error || !Array.isArray(data)) {
+    document.getElementById('day-content').innerHTML =
+      '<div class="empty-state" style="padding-top:40px"><h3>Could not load data</h3><p>' + esc(error?.message || 'Unknown error') + '</p></div>';
+    return;
+  }
+
+  allDays = data;
+
+  if (!allDays.length) {
+    document.getElementById('day-content').innerHTML =
+      '<div class="empty-state" style="padding-top:40px"><h3>No results yet</h3><p>Day leaderboards will appear here once the first match results are entered.</p></div>';
+    return;
+  }
+
+  // Default: most recent day
+  selectedDate = allDays[allDays.length - 1].date;
+  renderDayChips();
+  renderDay();
+  document.getElementById('day-picker-wrap').style.display = '';
+}
+
+function renderDayChips() {
+  document.getElementById('day-chips').innerHTML = allDays.map((d, i) => {
+    const label = shortDate(d.date);
+    return `<button class="day-chip${d.date === selectedDate ? ' active' : ''}" onclick="selectDay('${d.date}')">
+      <span class="chip-num">Day ${i + 1}</span>${label}
+    </button>`;
+  }).join('');
+}
+
+function selectDay(date) {
+  selectedDate = date;
+  document.querySelectorAll('.day-chip').forEach((el, i) => {
+    el.classList.toggle('active', allDays[i].date === date);
+  });
+  renderDay();
+}
+
+function renderDay() {
+  const dayObj   = allDays.find(d => d.date === selectedDate);
+  if (!dayObj) return;
+  const dayNum   = allDays.indexOf(dayObj) + 1;
+  const standings = dayObj.standings || [];
+  const ranked   = rankList(standings, 'day_points');
+
+  const dateStr = new Date(dayObj.date + 'T12:00:00').toLocaleDateString('en-IN', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+  });
+
+  const matchCount = standings.length
+    ? Math.max(...standings.map(s => s.total_picks))
+    : 0;
+
+  let html = `<div class="day-section">
+    <div class="day-heading"><h2>Day ${dayNum}</h2></div>
+    <div class="day-meta">
+      <span>${dateStr}</span>
+      ${matchCount ? `<span style="color:var(--line)">·</span><span>${matchCount} match${matchCount !== 1 ? 'es' : ''} played</span>` : ''}
+    </div>`;
+
+  if (!ranked.length) {
+    html += '<div class="empty-state"><h3>No data for this day</h3></div>';
+  } else {
+    html += buildPodiumHTML(ranked.slice(0, 3));
+    if (ranked.length > 3) {
+      html += `<div class="lb-table" style="margin-top:16px">
+        ${ranked.slice(3).map(r => buildRowHTML(r)).join('')}
+      </div>`;
+    }
+  }
+
+  html += '</div>';
+  document.getElementById('day-content').innerHTML = html;
+}
+
+function buildPodiumHTML(top3) {
+  const medals = ['🥇', '🥈', '🥉'];
+  const slots  = [1, 0, 2]; // display order: 2nd, 1st, 3rd
+  const cards  = [0, 1, 2].map(i => {
+    const r = top3[i];
+    if (!r) return `<div class="podium-card"><div class="podium-medal" style="opacity:.2">${medals[i]}</div><div class="podium-name" style="color:var(--ink-2)">—</div></div>`;
+    const isTied = top3.filter(x => x && x.rank === r.rank).length > 1;
+    const rankLabel = isTied ? `=${r.rank}` : String(r.rank);
+    const isMe = r.member_id === myMemberId;
+    return `<div class="podium-card${i === 0 ? ' first' : ''}">
+      <div class="podium-medal">${medals[i]}</div>
+      <div class="podium-name">${esc(r.member_name)}${isMe ? ' <small style="color:var(--green-3);font-weight:400;font-size:11px">(you)</small>' : ''}</div>
+      <div class="podium-pts">+${r.day_points} pts</div>
+      <div class="podium-picks">${r.correct_picks}/${r.total_picks} correct</div>
+    </div>`;
+  });
+  return `<div class="podium-row">${[cards[1], cards[0], cards[2]].join('')}</div>`;
+}
+
+function buildRowHTML(r) {
+  const isTied = false; // already computed via rankList
+  const rankLabel = String(r.rank);
+  const isMe = r.member_id === myMemberId;
+  return `<div class="lb-row${isMe ? ' me' : ''}">
+    <div class="lb-rank">${rankLabel}</div>
+    <div class="lb-name">${esc(r.member_name)}${isMe ? ' <small style="color:var(--green-3);font-weight:400">(you)</small>' : ''}</div>
+    <div class="lb-picks">${r.correct_picks}/${r.total_picks} ✓</div>
+    <div class="lb-pts">+${r.day_points} pts</div>
+  </div>`;
+}
+
+function shortDate(iso) {
+  return new Date(iso + 'T12:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+init();
+</script>
+</body>
+</html>

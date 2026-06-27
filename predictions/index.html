@@ -288,7 +288,7 @@ function showModalError(msg, actionLabel, actionFn) {
     errEl.appendChild(br);
     errEl.appendChild(btn);
   }
-  errEl.style.display = '';
+  errEl.style.display = 'block';
   const modal = document.querySelector('#login-modal .modal');
   modal.classList.remove('shake');
   void modal.offsetWidth;
@@ -452,8 +452,11 @@ function buildTournamentHTML(t, withDivider) {
       <div class="container">
         <div class="section-head">
           <div class="section-eyebrow">Leaderboard</div>
-          <h2>Live Standings</h2>
-          <div class="sub">Updated as results are entered. Tie ranks shown as =N.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px">
+            <h2 style="margin:0">Live Standings</h2>
+            <a href="daily-leaderboard.html" class="btn btn-ghost btn-sm" style="font-size:13px">Day by Day →</a>
+          </div>
+          <div class="sub">Overall standings. Updated as results are entered — tie ranks shown as =N.</div>
         </div>
         <div class="podium-row">${buildPodiumHTML(lb.slice(0, 3))}</div>
         <div class="lb-table">${buildLbHTML(lb, myId)}</div>
