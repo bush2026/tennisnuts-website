@@ -702,11 +702,11 @@ function populateMatchDropdowns() {
   tSel.innerHTML = '<option value="">— select tournament —</option>' +
     allTournaments.map(t => `<option value="${t.id}">${esc(t.name)}</option>`).join('');
 
-  // Results match dropdown — only locked, non-hidden matches
+  // Results match dropdown — all non-hidden matches (admin can enter result for any match)
   const resSel = document.getElementById('res-match');
-  const locked = allMatches.filter(m => new Date(m.lock_time) <= Date.now() && !m.is_hidden);
+  const forResults = allMatches.filter(m => !m.is_hidden);
   resSel.innerHTML = '<option value="">— select match —</option>' +
-    locked.map(m => `<option value="${m.id}">${esc(m.player1)} vs ${esc(m.player2)} (${esc(m.tournaments?.name||'')})</option>`).join('');
+    forResults.map(m => `<option value="${m.id}">${esc(m.player1)} vs ${esc(m.player2)} (${esc(m.tournaments?.name||'')})</option>`).join('');
 
   // Submissions tournament dropdown
   const subSel = document.getElementById('sub-tournament');
