@@ -388,8 +388,8 @@ input,select,textarea{font-family:inherit;}
         <span id="sub-count" style="font-size:13px;color:var(--ink-2)"></span>
       </div>
     </div>
-    <div class="admin-card-body" style="padding:0">
-      <table class="data-table" id="sub-table">
+    <div class="admin-card-body" style="padding:0;overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="data-table" id="sub-table" style="min-width:780px">
         <thead><tr><th>Member</th><th>Tournament</th><th>Match</th><th>Pick</th><th>Set Score</th><th>Last Updated</th><th>Points</th><th>Outcome</th></tr></thead>
         <tbody id="sub-tbody"><tr class="empty-row"><td colspan="8">Choose a tournament above or load all</td></tr></tbody>
       </table>
