@@ -12,7 +12,7 @@ BEGIN
   -- Step 3: group into per-day objects with standings array
   WITH per_member AS (
     SELECT
-      (ma.result_entered_at AT TIME ZONE 'Asia/Kolkata')::date AS day_date,
+      (ma.lock_time AT TIME ZONE 'Asia/Kolkata')::date AS day_date,
       mb.id                                                                  AS member_id,
       mb.display_name,
       SUM(p.points_awarded)::int                                            AS day_points,
@@ -26,7 +26,7 @@ BEGIN
       AND ma.result_winner IS NOT NULL
     WHERE p.points_awarded IS NOT NULL
     GROUP BY
-      (ma.result_entered_at AT TIME ZONE 'Asia/Kolkata')::date,
+      (ma.lock_time AT TIME ZONE 'Asia/Kolkata')::date,
       mb.id, mb.display_name
   ),
   ranked AS (
