@@ -117,16 +117,17 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 
 /* SPONSOR STRIP */
 .sponsor-strip{background:var(--cream);border-bottom:1px solid var(--line);padding:13px 0;}
-.sponsor-strip .container{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+.sponsor-strip .container{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
 .sponsor-label{font-size:12px;font-weight:500;color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase;}
-.sponsor-name{font-family:"Bricolage Grotesque",sans-serif;font-size:22px;font-weight:800;color:var(--green-2);text-decoration:none;letter-spacing:-.03em;transition:color .15s;}
-.sponsor-name:hover{color:var(--green);}
-.sponsor-arrow{font-size:13px;color:var(--green);opacity:.7;}
+.sponsor-logo-link{display:inline-flex;align-items:center;text-decoration:none;opacity:.9;transition:opacity .15s;}
+.sponsor-logo-link:hover{opacity:1;}
+.sponsor-logo-strip{height:28px;width:auto;display:block;object-fit:contain;}
+.sponsor-logo-footer{height:48px;width:auto;display:block;object-fit:contain;margin:0 auto;}
 
 /* SPONSOR SECTION (footer) */
 .sponsor-section{padding:48px 0;background:#fff;border-top:1px solid var(--line);}
 .sponsor-block{border:2px dashed var(--line);border-radius:16px;padding:32px;text-align:center;color:var(--ink-2);}
-.sponsor-block p{font-size:14px;margin-top:6px;}
+.sponsor-block p{font-size:14px;margin-top:10px;}
 
 /* BADGE */
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;}
@@ -214,8 +215,9 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 <div class="sponsor-strip">
   <div class="container">
     <span class="sponsor-label">Proudly presented by</span>
-    <a href="https://sportsjam.in/" target="_blank" rel="noopener" class="sponsor-name">Sportsjam</a>
-    <span class="sponsor-arrow">↗</span>
+    <a href="https://sportsjam.in/" target="_blank" rel="noopener" class="sponsor-logo-link">
+      <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/v1783180743/logo_sportsjam-1_1_sgbdji.png" alt="Sportsjam" class="sponsor-logo-strip"/>
+    </a>
   </div>
 </div>
 
@@ -229,11 +231,10 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 <section class="sponsor-section">
   <div class="container">
     <div class="sponsor-block">
-      <a href="https://sportsjam.in/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
-        <strong style="font-size:16px">🏆 Powered by Sportsjam</strong>
-        <span style="font-size:12px;color:var(--green);font-weight:600">sportsjam.in ↗</span>
+      <a href="https://sportsjam.in/" target="_blank" rel="noopener" class="sponsor-logo-link" style="display:block">
+        <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/v1783180743/logo_sportsjam-1_1_sgbdji.png" alt="Sportsjam" class="sponsor-logo-footer"/>
       </a>
-      <p style="margin-top:6px">India's community sports platform</p>
+      <p style="margin-top:10px">Proudly presented by Sportsjam — India's community sports platform</p>
     </div>
   </div>
 </section>
