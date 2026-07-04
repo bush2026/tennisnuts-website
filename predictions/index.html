@@ -586,7 +586,7 @@ function renderMatchCard(m, t) {
     predSection = `<div class="pred-form">
       <div class="pick-label">Pick winner</div>
       <div class="pick-row">${p1Btn}${p2Btn}</div>
-      <div class="pick-label">Set score <span style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0">(optional · +${m.set_score_bonus} pts)</span></div>
+      <div class="pick-label">Set score <span style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0">(required · +${m.set_score_bonus} pts)</span></div>
       <div class="score-row">${scoreBtns}</div>
       <button class="btn btn-green btn-sm" style="width:100%;justify-content:center" onclick="submitPick('${m.id}','${t.id}')">Save pick</button>
       ${savedNote}
@@ -654,16 +654,18 @@ async function submitPick(matchId, tid) {
   const pending = pendingPicks[matchId] || {};
   const winner  = pending.winner || tournamentData[tid]?.myPredictions?.[matchId]?.pick_winner;
   if (!winner) { alert('Please pick a winner first.'); return; }
+  const score   = pending.setScore || tournamentData[tid]?.myPredictions?.[matchId]?.pick_set_score;
+  if (!score)  { alert('Please pick a set score too — it\'s required.'); return; }
 
   const { data, error } = await db.rpc('upsert_prediction', {
     p_session_token:  session.session_token,
     p_match_id:       matchId,
     p_pick_winner:    winner,
-    p_pick_set_score: pending.setScore || null
+    p_pick_set_score: score
   });
   if (error || !data?.success) { alert(data?.message || error?.message || 'Error saving pick'); return; }
 
-  tournamentData[tid].myPredictions[matchId] = { pick_winner: winner, pick_set_score: pending.setScore || null, points_awarded: null };
+  tournamentData[tid].myPredictions[matchId] = { pick_winner: winner, pick_set_score: score, points_awarded: null };
   delete pendingPicks[matchId];
 
   const grid = document.querySelector(`[data-tournament-open="${tid}"]`);
