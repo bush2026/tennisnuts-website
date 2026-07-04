@@ -116,12 +116,11 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 .lb-pts{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--green);}
 
 /* SPONSOR STRIP */
-.sponsor-strip{background:var(--cream);border-bottom:1px solid var(--line);padding:13px 0;}
-.sponsor-strip .container{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;}
-.sponsor-label{font-size:12px;font-weight:500;color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase;}
-.sponsor-logo-link{display:inline-flex;align-items:center;text-decoration:none;opacity:.9;transition:opacity .15s;}
-.sponsor-logo-link:hover{opacity:1;}
-.sponsor-logo-strip{height:28px;width:auto;display:block;object-fit:contain;}
+.sponsor-strip{background:var(--cream);border-bottom:1px solid var(--line);padding:22px 0 28px;}
+.sponsor-label{display:block;text-align:center;font-size:11px;font-weight:600;color:var(--ink-2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;}
+.sponsor-card{display:block;max-width:220px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 36px;text-align:center;text-decoration:none;transition:box-shadow .2s,transform .15s;}
+.sponsor-card:hover{box-shadow:0 8px 28px -8px rgba(28,34,24,.14);transform:translateY(-2px);}
+.sponsor-logo-main{height:40px;width:auto;max-width:160px;object-fit:contain;display:block;margin:0 auto;}
 .sponsor-logo-footer{height:48px;width:auto;display:block;object-fit:contain;margin:0 auto;}
 
 /* SPONSOR SECTION (footer) */
@@ -215,8 +214,8 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;}
 <div class="sponsor-strip">
   <div class="container">
     <span class="sponsor-label">Proudly presented by</span>
-    <a href="https://sportsjam.in/" target="_blank" rel="noopener" class="sponsor-logo-link">
-      <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/v1783180743/logo_sportsjam-1_1_sgbdji.png" alt="Sportsjam" class="sponsor-logo-strip"/>
+    <a href="https://sportsjam.in/" target="_blank" rel="noopener" class="sponsor-card">
+      <img src="https://res.cloudinary.com/dwd0abtfo/image/upload/v1783180743/logo_sportsjam-1_1_sgbdji.png" alt="Sportsjam" class="sponsor-logo-main"/>
     </a>
   </div>
 </div>
