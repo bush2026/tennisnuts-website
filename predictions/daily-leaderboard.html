@@ -244,10 +244,12 @@ function renderDay() {
   if (!ranked.length) {
     html += '<div class="empty-state"><h3>No data for this day</h3></div>';
   } else {
-    html += buildPodiumHTML(ranked.slice(0, 3));
-    if (ranked.length > 3) {
+    function nr(r) { return parseInt(String(r.rank).replace('=', '')); }
+    html += buildPodiumHTML(ranked);
+    const rest = ranked.filter(r => nr(r) > 3);
+    if (rest.length) {
       html += `<div class="lb-table" style="margin-top:16px">
-        ${ranked.slice(3).map(r => buildRowHTML(r)).join('')}
+        ${rest.map(r => buildRowHTML(r)).join('')}
       </div>`;
     }
   }
@@ -256,23 +258,25 @@ function renderDay() {
   document.getElementById('day-content').innerHTML = html;
 }
 
-function buildPodiumHTML(top3) {
-  const medals = ['🥇', '🥈', '🥉'];
-  const slots  = [1, 0, 2]; // display order: 2nd, 1st, 3rd
-  const cards  = [0, 1, 2].map(i => {
-    const r = top3[i];
-    if (!r) return `<div class="podium-card"><div class="podium-medal" style="opacity:.2">${medals[i]}</div><div class="podium-name" style="color:var(--ink-2)">—</div></div>`;
-    const isTied = top3.filter(x => x && x.rank === r.rank).length > 1;
-    const rankLabel = isTied ? `=${r.rank}` : String(r.rank);
+function buildPodiumHTML(ranked) {
+  const MEDALS = { 1: '🥇', 2: '🥈', 3: '🥉' };
+  function nr(r) { return parseInt(String(r.rank).replace('=', '')); }
+  const podium = ranked.filter(r => nr(r) <= 3);
+  if (!podium.length) return '';
+  const hasTies = podium.some(r => String(r.rank).startsWith('='));
+  const classic = !hasTies && podium.length === 3;
+  const cards = podium.map(r => {
+    const isFirst = nr(r) === 1;
     const isMe = r.member_id === myMemberId;
-    return `<div class="podium-card${i === 0 ? ' first' : ''}">
-      <div class="podium-medal">${medals[i]}</div>
+    return `<div class="podium-card${isFirst ? ' first' : ''}">
+      <div class="podium-medal">${MEDALS[nr(r)]}</div>
       <div class="podium-name">${esc(r.member_name)}${isMe ? ' <small style="color:var(--green-3);font-weight:400;font-size:11px">(you)</small>' : ''}</div>
       <div class="podium-pts">+${r.day_points} pts</div>
       <div class="podium-picks">${r.correct_picks}/${r.total_picks} correct</div>
     </div>`;
   });
-  return `<div class="podium-row">${[cards[1], cards[0], cards[2]].join('')}</div>`;
+  const ordered = classic ? [cards[1], cards[0], cards[2]] : cards;
+  return `<div class="podium-row">${ordered.join('')}</div>`;
 }
 
 function buildRowHTML(r) {
