@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Wimbledon 2026 Predictions — Tennisnuts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c;
+  --green-2: #2c4621;
+  --green-3: #4d7239;
+  --green-soft: #eef2e6;
+  --ball: #cddc39;
+  --ink: #1c2218;
+  --ink-2: #4a5240;
+  --cream: #faf8f1;
+  --line: #e6e3d8;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 { font-family: "Bricolage Grotesque", "DM Sans", sans-serif; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--green); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px;
+}
+.eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--ball); display: block; }
+
+/* ═══ HERO ═══ */
+.ed-hero {
+  background: var(--ink); position: relative; overflow: hidden;
+  padding: 72px 0 68px; color: #fff;
+}
+.ed-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(115deg, rgba(255,255,255,0.025) 0 24px, transparent 24px 48px);
+  pointer-events: none;
+}
+.hero-bg-watermark {
+  position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 800;
+  font-size: clamp(120px, 18vw, 200px); line-height: 1; color: #fff; opacity: 0.04;
+  pointer-events: none; user-select: none; letter-spacing: -0.05em;
+}
+.ed-hero .container { position: relative; z-index: 1; }
+.breadcrumb {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 13px;
+  color: rgba(255,255,255,0.55); margin-bottom: 28px; transition: color .15s;
+}
+.breadcrumb:hover { color: rgba(255,255,255,0.85); }
+.tournament-chip {
+  display: inline-block; background: var(--ball); color: var(--green-2);
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; padding: 5px 14px;
+  border-radius: 999px; margin-bottom: 20px;
+}
+.ed-hero h1 {
+  font-size: clamp(42px, 7vw, 80px); font-weight: 800; color: #fff;
+  line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 18px;
+}
+.hero-tagline {
+  font-size: clamp(16px, 2.5vw, 20px); color: rgba(255,255,255,0.72);
+  font-style: italic; margin-bottom: 28px; max-width: 44ch; line-height: 1.4;
+}
+.hero-meta {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  font-size: 13px; color: rgba(255,255,255,0.5); font-family: "JetBrains Mono", monospace;
+}
+.hero-meta .dot { opacity: 0.4; }
+
+/* ═══ HERO VISUAL ═══ */
+.hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.hero-lb-card {
+  background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 20px; padding: 22px; backdrop-filter: blur(10px);
+}
+.hero-lb-head {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ball);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+}
+.hero-lb-head::before { content: ""; display: block; width: 18px; height: 1.5px; background: var(--ball); }
+.hero-lb-row {
+  display: flex; align-items: center; gap: 10px; padding: 9px 12px;
+  border-radius: 10px; margin-bottom: 5px;
+}
+.hero-lb-row:last-of-type { margin-bottom: 0; }
+.hero-lb-row.r1 { background: rgba(205,220,57,0.15); border: 1px solid rgba(205,220,57,0.3); }
+.hero-lb-row.r2, .hero-lb-row.r3 { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); }
+.hero-lb-row.r4, .hero-lb-row.r5 { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+.hero-lb-pos { font-family: "JetBrains Mono", monospace; font-size: 11px; color: rgba(255,255,255,0.35); min-width: 22px; flex-shrink: 0; }
+.hero-lb-medal { font-size: 15px; flex-shrink: 0; width: 20px; text-align: center; }
+.hero-lb-name { font-size: 13px; font-weight: 600; flex: 1; }
+.hero-lb-row.r1 .hero-lb-name { color: #fff; }
+.hero-lb-row.r2 .hero-lb-name, .hero-lb-row.r3 .hero-lb-name { color: rgba(255,255,255,0.8); }
+.hero-lb-row.r4 .hero-lb-name, .hero-lb-row.r5 .hero-lb-name { color: rgba(255,255,255,0.55); }
+.hero-lb-score { font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 600; }
+.hero-lb-row.r1 .hero-lb-score { color: var(--ball); }
+.hero-lb-row.r2 .hero-lb-score, .hero-lb-row.r3 .hero-lb-score { color: rgba(255,255,255,0.6); font-size: 11px; }
+.hero-lb-row.r4 .hero-lb-score, .hero-lb-row.r5 .hero-lb-score { color: rgba(255,255,255,0.38); font-size: 11px; }
+.hero-lb-footer {
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);
+  font-family: "JetBrains Mono", monospace; font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em;
+}
+@media (max-width: 800px) { .hero-layout { grid-template-columns: 1fr; } .hero-lb-card { display: none; } }
+
+/* ═══ PODIUM ═══ */
+.ed-podium { background: #fff; padding: 80px 0; }
+.podium-three {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px;
+}
+.podium-card {
+  border-radius: 20px; padding: 32px 28px; position: relative; overflow: hidden;
+}
+.podium-card.gold { background: var(--green); color: #fff; }
+.podium-card.gold::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--ball);
+}
+.podium-card.silver { background: #fff; border: 1.5px solid var(--line); }
+.podium-card.bronze { background: var(--green-soft); border: 1.5px solid rgba(58,92,44,0.2); }
+.podium-medal { font-size: 36px; margin-bottom: 10px; line-height: 1; }
+.podium-label {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.65; margin-bottom: 8px;
+}
+.podium-card.gold .podium-label { color: rgba(255,255,255,0.75); }
+.podium-card.silver .podium-label, .podium-card.bronze .podium-label { color: var(--ink-2); }
+.podium-names {
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+  font-size: clamp(18px, 2.5vw, 26px); line-height: 1.1; letter-spacing: -0.02em;
+}
+.podium-card.gold .podium-names { color: #fff; }
+.podium-card.silver .podium-names, .podium-card.bronze .podium-names { color: var(--ink); }
+.podium-pts {
+  margin-top: 10px; font-family: "JetBrains Mono", monospace;
+  font-size: 20px; font-weight: 600; letter-spacing: -0.01em;
+}
+.podium-card.gold .podium-pts { color: var(--ball); }
+.podium-card.silver .podium-pts { color: var(--green); }
+.podium-card.bronze .podium-pts { color: var(--green-2); }
+.podium-pts-label { font-size: 11px; opacity: 0.6; margin-left: 4px; font-family: "DM Sans", sans-serif; font-weight: 400; }
+.podium-note {
+  margin-top: 6px; font-size: 12px; font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.04em;
+}
+.podium-card.gold .podium-note { color: rgba(255,255,255,0.55); }
+.podium-card.silver .podium-note, .podium-card.bronze .podium-note { color: var(--ink-2); }
+
+/* ═══ LEADERBOARD ═══ */
+.ed-leaderboard { background: var(--cream); padding: 80px 0; }
+.lb-list { display: flex; flex-direction: column; gap: 6px; margin-top: 36px; }
+.lb-row {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 13px 18px; display: flex; align-items: center; gap: 14px;
+}
+.lb-row.lb-gold { background: rgba(205,220,57,0.1); border-color: rgba(205,220,57,0.55); }
+.lb-row.lb-silver { background: rgba(240,240,240,0.5); border-color: rgba(200,200,200,0.6); }
+.lb-row.lb-bronze { background: rgba(205,220,180,0.15); border-color: rgba(58,92,44,0.2); }
+.lb-rank {
+  font-family: "JetBrains Mono", monospace; font-size: 12px; font-weight: 500;
+  color: var(--ink-2); min-width: 36px; flex-shrink: 0;
+}
+.lb-row.lb-gold .lb-rank { color: var(--green-2); font-weight: 700; }
+.lb-medal { font-size: 16px; flex-shrink: 0; width: 20px; text-align: center; }
+.lb-name {
+  font-weight: 600; font-size: 14px; color: var(--ink);
+  flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lb-bar-wrap {
+  width: 120px; height: 6px; background: var(--line); border-radius: 999px;
+  overflow: hidden; flex-shrink: 0;
+}
+.lb-bar { height: 100%; background: var(--ball); border-radius: 999px; }
+.lb-row.lb-gold .lb-bar { background: var(--green); }
+.lb-score {
+  font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 14px;
+  color: var(--ink); min-width: 44px; text-align: right; flex-shrink: 0;
+}
+.lb-participants {
+  margin-top: 24px; font-size: 13px; color: var(--ink-2); text-align: right;
+  font-family: "JetBrains Mono", monospace; letter-spacing: 0.06em;
+}
+
+/* ═══ STORY ═══ */
+.ed-story { background: #fff; padding: 80px 0; }
+.story-content { max-width: 720px; margin-top: 28px; }
+.story-content p { font-size: 17px; color: var(--ink-2); line-height: 1.7; margin-bottom: 20px; }
+.story-content p:last-of-type { margin-bottom: 0; }
+.pull-quote {
+  border-left: 4px solid var(--ball); padding: 18px 24px; margin: 32px 0;
+  background: rgba(205,220,57,0.08); border-radius: 0 12px 12px 0;
+}
+.pull-quote p {
+  font-family: "Bricolage Grotesque", sans-serif; font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 600; color: var(--ink); line-height: 1.4; font-style: italic; margin: 0;
+}
+.powered-row {
+  margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line);
+  display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--ink-2);
+}
+.powered-label {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--green);
+}
+
+/* ═══ EDITION NAV ═══ */
+.ed-nav { background: var(--green-2); padding: 36px 0; }
+.ed-nav .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.ed-nav-link {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;
+  color: rgba(255,255,255,0.75); transition: color .15s; font-family: "DM Sans", sans-serif;
+}
+.ed-nav-link:hover { color: #fff; }
+.ed-nav-link.disabled { opacity: 0.3; pointer-events: none; cursor: default; }
+.ed-nav-center {
+  font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: 0.1em;
+  color: var(--ball); text-transform: uppercase; transition: opacity .15s;
+}
+.ed-nav-center:hover { opacity: 0.8; }
+
+/* ═══ STORY EXTRAS ═══ */
+.story-content strong { color: var(--ink); font-weight: 700; }
+.story-subhead {
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 700;
+  font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); margin: 36px 0 10px; display: flex; align-items: center; gap: 10px;
+}
+.story-subhead::before { content: ""; width: 20px; height: 2px; background: var(--ball); flex-shrink: 0; }
+.story-divider {
+  margin: 36px 0; border: none; border-top: 1px solid var(--line);
+}
+.zero-day {
+  background: var(--ink); border-radius: 14px; padding: 22px 24px; margin: 28px 0;
+}
+.zero-day-label {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px;
+}
+.zero-day-grid {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.zero-chip {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 600;
+  color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 6px;
+}
+.zero-chip .pts { font-family: "JetBrains Mono", monospace; font-size: 11px; color: rgba(255,255,255,0.28); }
+.cta-block {
+  background: var(--ball); border-radius: 16px; padding: 24px 28px; margin: 32px 0;
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.cta-icon { font-size: 28px; flex-shrink: 0; line-height: 1; }
+.cta-content { flex: 1; }
+.cta-label {
+  font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-2); margin-bottom: 8px;
+}
+.cta-desc { font-size: 16px; color: var(--green-2); font-weight: 600; line-height: 1.5; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 760px) {
+  .podium-three { grid-template-columns: 1fr; gap: 14px; }
+  .lb-bar-wrap { display: none; }
+}
+@media (max-width: 480px) {
+  .ed-hero { padding: 56px 0 52px; }
+  .ed-podium, .ed-leaderboard, .ed-story { padding: 60px 0; }
+  .ed-nav .container { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<main>
+
+  <!-- ══ HERO ══ -->
+  <section class="ed-hero">
+    <div class="hero-bg-watermark">W '26</div>
+    <div class="container">
+      <div class="hero-layout">
+        <div>
+          <a href="grandslam-predictions.html" class="breadcrumb">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Grand Slam Predictions
+          </a>
+          <div class="tournament-chip">Tennisnuts · Grand Slam Predictions</div>
+          <h1>Wimbledon<br>2026</h1>
+          <p class="hero-tagline">"The grass doesn't lie. Neither does the leaderboard."</p>
+          <div class="hero-meta">
+            <span>🎾 Wimbledon</span>
+            <span class="dot">·</span>
+            <span>July 2026</span>
+            <span class="dot">·</span>
+            <span>62 Participants</span>
+            <span class="dot">·</span>
+            <span>Powered by Sportsjam</span>
+          </div>
+        </div>
+        <div class="hero-lb-card">
+          <div class="hero-lb-head">Final Leaderboard</div>
+          <div class="hero-lb-row r1">
+            <span class="hero-lb-pos">1</span><span class="hero-lb-medal">🥇</span>
+            <span class="hero-lb-name">Prashil Talwanker</span>
+            <span class="hero-lb-score">925 pts</span>
+          </div>
+          <div class="hero-lb-row r2">
+            <span class="hero-lb-pos">=2</span><span class="hero-lb-medal">🥈</span>
+            <span class="hero-lb-name">Rachit Tiwari</span>
+            <span class="hero-lb-score">920</span>
+          </div>
+          <div class="hero-lb-row r3">
+            <span class="hero-lb-pos">=2</span><span class="hero-lb-medal">🥈</span>
+            <span class="hero-lb-name">Tanmay Nandurdikar</span>
+            <span class="hero-lb-score">920</span>
+          </div>
+          <div class="hero-lb-row r4">
+            <span class="hero-lb-pos">4</span><span class="hero-lb-medal"></span>
+            <span class="hero-lb-name">Kaushal I</span>
+            <span class="hero-lb-score">900</span>
+          </div>
+          <div class="hero-lb-row r5">
+            <span class="hero-lb-pos">5</span><span class="hero-lb-medal"></span>
+            <span class="hero-lb-name">Manoj Sharma</span>
+            <span class="hero-lb-score">895</span>
+          </div>
+          <div class="hero-lb-footer">Wimbledon 2026 · London · 62 participants</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PODIUM ══ -->
+  <section class="ed-podium">
+    <div class="container">
+      <div class="eyebrow">Top Predictors</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Grand Predictor Podium</h2>
+      <div class="podium-three">
+
+        <div class="podium-card gold">
+          <div class="podium-medal">🥇</div>
+          <div class="podium-label">Grand Predictor</div>
+          <div class="podium-names">Prashil Talwanker</div>
+          <div class="podium-pts">925<span class="podium-pts-label">pts</span></div>
+          <div class="podium-note">Never led until Day 13. Won by 5.</div>
+        </div>
+
+        <div class="podium-card silver">
+          <div class="podium-medal">🥈</div>
+          <div class="podium-label">Joint Runner-up</div>
+          <div class="podium-names">Rachit Tiwari<br>Tanmay Nandurdikar</div>
+          <div class="podium-pts">920<span class="podium-pts-label">pts</span></div>
+          <div class="podium-note">=2nd · 5 points off gold</div>
+        </div>
+
+        <div class="podium-card bronze">
+          <div class="podium-medal">4️⃣</div>
+          <div class="podium-label">Fourth Place</div>
+          <div class="podium-names">Kaushal I</div>
+          <div class="podium-pts">900<span class="podium-pts-label">pts</span></div>
+          <div class="podium-note">Top 5 almost every day</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LEADERBOARD ══ -->
+  <section class="ed-leaderboard">
+    <div class="container">
+      <div class="eyebrow">Full Results</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Final Leaderboard</h2>
+      <div class="lb-list">
+
+        <div class="lb-row lb-gold">
+          <span class="lb-rank">1</span><span class="lb-medal">🥇</span>
+          <span class="lb-name">Prashil Talwanker</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:100%"></div></div>
+          <span class="lb-score">925</span>
+        </div>
+
+        <div class="lb-row lb-silver">
+          <span class="lb-rank">=2</span><span class="lb-medal">🥈</span>
+          <span class="lb-name">Rachit Tiwari</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:99%"></div></div>
+          <span class="lb-score">920</span>
+        </div>
+
+        <div class="lb-row lb-silver">
+          <span class="lb-rank">=2</span><span class="lb-medal">🥈</span>
+          <span class="lb-name">Tanmay Nandurdikar</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:99%"></div></div>
+          <span class="lb-score">920</span>
+        </div>
+
+        <div class="lb-row">
+          <span class="lb-rank">4</span><span class="lb-medal"></span>
+          <span class="lb-name">Kaushal I</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:97%"></div></div>
+          <span class="lb-score">900</span>
+        </div>
+
+        <div class="lb-row">
+          <span class="lb-rank">5</span><span class="lb-medal"></span>
+          <span class="lb-name">Manoj Sharma</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:97%"></div></div>
+          <span class="lb-score">895</span>
+        </div>
+
+        <div class="lb-row">
+          <span class="lb-rank">6</span><span class="lb-medal"></span>
+          <span class="lb-name">Rohit Agarwal</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:96%"></div></div>
+          <span class="lb-score">885</span>
+        </div>
+
+        <div class="lb-row">
+          <span class="lb-rank">=7</span><span class="lb-medal"></span>
+          <span class="lb-name">Ashish</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:92%"></div></div>
+          <span class="lb-score">855</span>
+        </div>
+
+        <div class="lb-row">
+          <span class="lb-rank">=7</span><span class="lb-medal"></span>
+          <span class="lb-name">Nikhil Habib</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:92%"></div></div>
+          <span class="lb-score">855</span>
+        </div>
+
+        <div class="lb-row">
+          <span class="lb-rank">=7</span><span class="lb-medal"></span>
+          <span class="lb-name">Salil Kunchur</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:92%"></div></div>
+          <span class="lb-score">855</span>
+        </div>
+
+        <div class="lb-row">
+          <span class="lb-rank">10</span><span class="lb-medal"></span>
+          <span class="lb-name">Anks</span>
+          <div class="lb-bar-wrap"><div class="lb-bar" style="width:88%"></div></div>
+          <span class="lb-score">815</span>
+        </div>
+
+      </div>
+      <div class="lb-participants">62 participants · 1 form per matchday · Powered by Sportsjam</div>
+    </div>
+  </section>
+
+  <!-- ══ STORY ══ -->
+  <section class="ed-story">
+    <div class="container">
+      <div class="eyebrow">How It Played Out</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">The Grass<br>Doesn't Lie</h2>
+      <div class="story-content">
+
+        <p>Sixty-two people. Fourteen days. One leaderboard. And a prediction game that turned out to be almost as dramatic as the tournament itself.</p>
+
+        <p>When Wimbledon 2026 began, the defending champion Jannik Sinner — arriving fresh from a humiliating second-round exit at Roland-Garros — needed five sets just to beat Miomir Kecmanovic in Round 1. Right then, the All England Club was sending a message: nothing would be easy here. Nobody would be handed anything.</p>
+
+        <p>The Tennisnuts community got the memo immediately.</p>
+
+        <hr class="story-divider"/>
+
+        <h3 class="story-subhead">The Opening Stampede</h3>
+
+        <p>In the first few days, almost everyone was right about almost everything. The early leaderboard looked like a traffic jam — thirty predictors bunched together, separated by single-digit points, everyone waiting for the tournament to reveal its true character. <strong>Rachit Tiwari</strong> and <strong>Tanmay Nandurdikar</strong> were near the top. <strong>Bhushan</strong> won Star of the Day twice in the opening three days and briefly looked like the man to beat. <strong>Anks</strong> earned two Stars of his own. <strong>Kaushal I</strong>, <strong>Rohit Agarwal</strong>, <strong>Salil Kunchur</strong> and <strong>Ashish</strong> were all lurking just behind, never far enough back to be written off.</p>
+
+        <p>This wasn't a one-horse race. It never was going to be.</p>
+
+        <hr class="story-divider"/>
+
+        <h3 class="story-subhead">The Day Osaka Changed Everything</h3>
+
+        <p>Wimbledon's first real thunderbolt came in the Round of 16, when Naomi Osaka walked onto Centre Court as a heavy underdog against World No. 1 Aryna Sabalenka — and won. It was one of the great upsets of the fortnight, and it rewarded the handful of Tennisnuts predictors bold enough to call it while punishing the majority who hadn't.</p>
+
+        <p>On the same day, Dimitrov beat Berrettini in five sets. Bublik outlasted Tiafoe in a five-set thriller. Madison Keys knocked out Anisimova. The points were reshuffled violently. <strong>Tanmay Nandurdikar</strong> read the chaos better than anyone — going 5/6 and taking the overall lead for the first time. He would defend that lead with extraordinary consistency for days.</p>
+
+        <p>The gap at the top was small but the pace was brutal. <strong>Manoj Sharma</strong>, <strong>Nikhil Habib</strong>, and <strong>Prashil Talwanker</strong> were all within range, all accumulating steadily, all refusing to be shaken loose by a bad day.</p>
+
+        <div class="pull-quote">
+          <p>"Tanmay read the chaos better than anyone — 5/6 on the day Osaka stunned Sabalenka. He'd defend that lead for days."</p>
+        </div>
+
+        <hr class="story-divider"/>
+
+        <h3 class="story-subhead">When Wimbledon Stopped Being Polite</h3>
+
+        <p>The quarterfinal phase brought bigger matches, bigger odds, and bigger swings. A perfect day in this phase of the tournament was worth 130 points — more than three times what a perfect day earned in the opening rounds. The stakes changed overnight.</p>
+
+        <p>Three predictors rose to the moment simultaneously. <strong>Ashish</strong>, <strong>Balaji G</strong> and <strong>SHIVAM UPADHYAY</strong> each went 4/4 on the highest-value day of the tournament, sharing a triple Star of the Day award that had never happened before. <strong>Rohit Agarwal</strong> and <strong>Santosh Chitnis</strong> were right behind them. These weren't lucky punts — they were reads, and the right ones.</p>
+
+        <p>But the quarterfinals also produced Arthur Fery — a qualifier from France who reached the men's semifinals and promptly broke almost every prediction sheet in the game. Almost nobody called Fery over Cobolli. Those who did earned premium points. Most didn't, and watched their carefully built leads take a hit.</p>
+
+        <hr class="story-divider"/>
+
+        <h3 class="story-subhead">Day 11: Wimbledon Shows No Mercy</h3>
+
+        <p>Then came what will be remembered as the cruelest single day in the history of the Tennisnuts prediction game.</p>
+
+        <p>Three matches. Three results that nobody saw coming. And a scoreline at the bottom of the leaderboard that read like a roll call of heartbreak:</p>
+
+        <div class="zero-day">
+          <div class="zero-day-label">Day 11 · Zero-point club</div>
+          <div class="zero-day-grid">
+            <div class="zero-chip">Bhushan <span class="pts">0 pts</span></div>
+            <div class="zero-chip">Sudhir <span class="pts">0 pts</span></div>
+            <div class="zero-chip">Alok Saini <span class="pts">0 pts</span></div>
+            <div class="zero-chip">Namya <span class="pts">0 pts</span></div>
+            <div class="zero-chip">Neha Pisal <span class="pts">0 pts</span></div>
+            <div class="zero-chip">Yashshree N <span class="pts">0 pts</span></div>
+          </div>
+        </div>
+
+        <p>A dozen participants, some of whom had been in the top half of the leaderboard all fortnight, walked away from Day 11 with nothing. Bhushan — who had led the overall standings after the first three days and stayed in contention through Week One — earned zero. His challenge was effectively over. So were several others.</p>
+
+        <p><strong>Pratik Desai</strong> was one of the very few who went 3/3 that day, earning his second Star of the Day of the tournament. It was Wimbledon's way of saying: some people just read grass better than others.</p>
+
+        <hr class="story-divider"/>
+
+        <h3 class="story-subhead">The Final 48 Hours: Five Points That Changed Everything</h3>
+
+        <p>Going into the closing days, <strong>Tanmay Nandurdikar</strong> had led the leaderboard for most of the second week. <strong>Rachit Tiwari</strong> was always close — always within striking distance, always accumulating. Behind them, <strong>Prashil Talwanker</strong> had been doing something that nobody was really watching: not winning days, not starring in daily reports, just quietly, relentlessly, getting more right than wrong, every single day.</p>
+
+        <p>On Day 12, <strong>Nikhil Habib</strong> produced the single greatest prediction performance of the entire tournament — 4/4 for 160 points, the highest single-day haul by any participant across all 14 days. He didn't just win the day, he won it by a distance. <strong>Rachit Tiwari</strong> scored 140 points on the same day and surged past Tanmay to retake the overall lead.</p>
+
+        <div class="pull-quote">
+          <p>"Three players. Thirty points. Two days left."</p>
+        </div>
+
+        <p>Then came the women's final. Linda Noskova versus Karolína Muchová — an all-Czech final, Olympic doubles partners turned opponents on the biggest stage in tennis. Noskova dominated the first set in 31 minutes. She led 5-2 in the second and served for the match. And then the match turned extraordinary. Muchová saved one match point. Then another. Then three more. Five match points saved, the second set clawed back 7-5, the crowd on Centre Court barely breathing.</p>
+
+        <p>Noskova held her nerve in the third. Won 6-2, 5-7, 6-3. Became Wimbledon champion at 21 years old. And in the prediction game — when the points from that match were calculated — <strong>Prashil Talwanker</strong> earned 85 points while <strong>Rachit Tiwari</strong> earned 55.</p>
+
+        <p>For the first time in fourteen days, Prashil was in first place. By five points.</p>
+
+        <p>The final match was the men's final — Sinner versus Zverev. Sinner came from a set down to win 6-7, 7-6, 6-3, 6-4. His fifth Grand Slam. His second Wimbledon. His 100th career Grand Slam match win. And in the prediction game, both Prashil and Rachit backed him. Both earned the same points. The gap stayed at five.</p>
+
+        <p><strong>The final leaderboard was done.</strong></p>
+
+        <hr class="story-divider"/>
+
+        <h3 class="story-subhead">What the Fortnight Revealed</h3>
+
+        <p>Sixty-two participants is three times the usual game. The first time it all ran on tennisnuts.co.in/predict — no Google Docs, no manual tallying, no WhatsApp points debates. Just predictions, results, and a leaderboard that updated itself and told the truth.</p>
+
+        <p>Wimbledon 2026 gave us a Cinderella in Arthur Fery, a comeback queen in Naomi Osaka, a 21-year-old champion in Linda Noskova who almost gave it away five times, and a defending men's champion who arrived wounded and left undefeated.</p>
+
+        <p>The Tennisnuts prediction game gave us its own version of all of it. A leader who emerged on Day 1 and then faded on Day 11. A dark horse who never topped the leaderboard for 13 straight days and then won it. A five-point margin across 62 participants and 14 days of tennis.</p>
+
+        <p>The grass doesn't lie. Neither does the leaderboard.</p>
+
+        <div class="cta-block">
+          <div class="cta-icon">🎾</div>
+          <div class="cta-content">
+            <div class="cta-label">Next Up</div>
+            <div class="cta-desc">US Open, anyone? Join the Tennisnuts WhatsApp group to get notified when predictions open for the next Grand Slam.</div>
+          </div>
+        </div>
+
+        <div class="powered-row">
+          <span class="powered-label">Powered by</span>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px;color:var(--ink);">Sportsjam</span>
+          <span style="color:var(--ink-2);font-size:13px;">· Platform: <strong>tennisnuts.co.in/predictions</strong></span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ EDITION NAV ══ -->
+  <nav class="ed-nav" aria-label="Edition navigation">
+    <div class="container">
+      <a href="grandslam-rg-2026.html" class="ed-nav-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Roland Garros 2026
+      </a>
+      <a href="grandslam-predictions.html" class="ed-nav-center">All Grand Slams</a>
+      <span class="ed-nav-link disabled">
+        US Open 2026
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </span>
+    </div>
+  </nav>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="nav.js?v=4"></script>
+<script src="footer.js?v=9"></script>
+</body>
+</html>
