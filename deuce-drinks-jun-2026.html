@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>June 2026 — Deuce &amp; Drinks Chai Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green: #3a5c2c; --green-2: #2c4621; --green-3: #4d7239;
+  --green-soft: #eef2e6; --ball: #cddc39; --ink: #1c2218;
+  --ink-2: #4a5240; --cream: #faf8f1; --line: #e6e3d8;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: "DM Sans","Helvetica Neue",Helvetica,Arial,sans-serif; color: var(--ink); background: #fff; -webkit-font-smoothing: antialiased; font-size: 17px; line-height: 1.55; }
+h1,h2,h3,h4 { font-family: "Bricolage Grotesque","DM Sans",sans-serif; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+p { margin: 0; } a { color: inherit; text-decoration: none; } img,svg { display: block; max-width: 100%; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+.eyebrow { font-family: "JetBrains Mono",monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--ball); display: block; }
+
+/* COMMUNITY BADGE */
+.community-bar { background: var(--green-soft); border-bottom: 1px solid rgba(58,92,44,0.15); padding: 10px 0; }
+.community-bar .container { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--ink-2); }
+.community-chip { background: var(--green); color: #fff; font-family: "JetBrains Mono",monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; flex-shrink: 0; }
+
+/* HERO */
+.ed-hero { background: var(--ink); position: relative; overflow: hidden; padding: 72px 0 68px; color: #fff; }
+.ed-hero::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(115deg,rgba(255,255,255,0.025) 0 24px,transparent 24px 48px); pointer-events: none; }
+.hero-bg-watermark { position: absolute; right: -10px; top: 50%; transform: translateY(-50%); font-family: "Bricolage Grotesque",sans-serif; font-weight: 800; font-size: clamp(120px,18vw,220px); line-height: 1; color: #fff; opacity: 0.04; pointer-events: none; user-select: none; letter-spacing: -0.05em; }
+.ed-hero .container { position: relative; z-index: 1; }
+.breadcrumb { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 28px; transition: color .15s; }
+.breadcrumb:hover { color: rgba(255,255,255,0.85); }
+.tournament-chip { display: inline-block; background: var(--ball); color: var(--green-2); font-family: "JetBrains Mono",monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; margin-bottom: 20px; }
+.ed-hero h1 { font-size: clamp(42px,7vw,80px); font-weight: 800; color: #fff; line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 18px; }
+.hero-tagline { font-size: clamp(16px,2.5vw,20px); color: rgba(255,255,255,0.72); font-style: italic; margin-bottom: 28px; max-width: 44ch; line-height: 1.4; }
+.hero-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: rgba(255,255,255,0.5); font-family: "JetBrains Mono",monospace; }
+.hero-meta .dot { opacity: 0.4; }
+
+/* RESULT BANNER */
+.result-banner { background: #fff; padding: 64px 0; }
+.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+.result-card { border-radius: 20px; padding: 32px 28px; position: relative; overflow: hidden; }
+.result-card.champions { background: var(--green); color: #fff; }
+.result-card.champions::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--ball); }
+.result-card.runners { background: var(--cream); border: 1.5px solid var(--line); }
+.result-medal { font-size: 40px; margin-bottom: 12px; line-height: 1; }
+.result-label { font-family: "JetBrains Mono",monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.65; margin-bottom: 8px; }
+.result-card.champions .result-label { color: rgba(255,255,255,0.75); }
+.result-card.runners .result-label { color: var(--ink-2); }
+.result-names { font-family: "Bricolage Grotesque",sans-serif; font-weight: 700; font-size: clamp(22px,3vw,32px); line-height: 1.1; letter-spacing: -0.02em; }
+.result-card.champions .result-names { color: #fff; }
+.result-card.runners .result-names { color: var(--ink); }
+.result-note { margin-top: 10px; font-size: 14px; }
+.result-card.champions .result-note { color: rgba(255,255,255,0.6); }
+.result-card.runners .result-note { color: var(--ink-2); }
+
+/* PHOTO SECTION */
+.photos-section { background: var(--cream); padding: 80px 0; }
+.photos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+.photo-slot { border-radius: 16px; overflow: hidden; background: var(--line); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; }
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--ink-2); font-size: 14px; font-family: "JetBrains Mono",monospace; letter-spacing: 0.06em; opacity: 0.5; }
+.photo-placeholder-icon { font-size: 36px; opacity: 0.6; }
+
+/* STORY */
+.ed-story { background: #fff; padding: 80px 0; }
+.story-content { max-width: 720px; margin-top: 28px; }
+.story-content p { font-size: 17px; color: var(--ink-2); line-height: 1.7; margin-bottom: 20px; }
+.story-content p:last-of-type { margin-bottom: 0; }
+.story-content strong { color: var(--ink); font-weight: 700; }
+.story-subhead { font-family: "Bricolage Grotesque",sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin: 32px 0 10px; display: flex; align-items: center; gap: 10px; }
+.story-subhead::before { content: ""; width: 20px; height: 2px; background: var(--ball); flex-shrink: 0; }
+.pull-quote { border-left: 4px solid var(--ball); padding: 18px 24px; margin: 32px 0; background: rgba(205,220,57,0.08); border-radius: 0 12px 12px 0; }
+.pull-quote p { font-family: "Bricolage Grotesque",sans-serif; font-size: clamp(17px,2.2vw,21px); font-weight: 600; color: var(--ink); line-height: 1.4; font-style: italic; margin: 0; }
+.thankyou-block { background: var(--green-soft); border-radius: 16px; padding: 24px 28px; margin: 32px 0; border: 1px solid rgba(58,92,44,0.12); }
+.thankyou-block p { font-size: 15px; color: var(--ink-2); line-height: 1.65; margin: 0; }
+
+/* EDITION NAV */
+.ed-nav { background: var(--green-2); padding: 36px 0; }
+.ed-nav .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.ed-nav-link { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.75); transition: color .15s; font-family: "DM Sans",sans-serif; }
+.ed-nav-link:hover { color: #fff; }
+.ed-nav-link.disabled { opacity: 0.3; pointer-events: none; cursor: default; }
+.ed-nav-center { font-family: "JetBrains Mono",monospace; font-size: 12px; letter-spacing: 0.1em; color: var(--ball); text-transform: uppercase; transition: opacity .15s; }
+.ed-nav-center:hover { opacity: 0.8; }
+
+@media (max-width:760px) { .result-grid { grid-template-columns: 1fr; } .photos-grid { grid-template-columns: 1fr; } }
+@media (max-width:480px) { .ed-hero { padding: 56px 0 52px; } .result-banner,.photos-section,.ed-story { padding: 60px 0; } .ed-nav .container { flex-direction: column; gap: 12px; text-align: center; } }
+</style>
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<div class="community-bar">
+  <div class="container">
+    <span class="community-chip">Community Event</span>
+    <span>Independently organised by Rahul Gupta &amp; team · Hosted on Tennisnuts</span>
+  </div>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section class="ed-hero">
+    <div class="hero-bg-watermark">JUN</div>
+    <div class="container">
+      <a href="deuce-drinks.html" class="breadcrumb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Deuce &amp; Drinks League
+      </a>
+      <div class="tournament-chip">Deuce &amp; Drinks · Chai Edition</div>
+      <h1>June Mini<br>Doubles 2026</h1>
+      <p class="hero-tagline">"AI picks the teams. Clay courts. 6:30 AM. The rain waited."</p>
+      <div class="hero-meta">
+        <span>🎾 Mini Doubles</span>
+        <span class="dot">·</span>
+        <span>28th June 2026</span>
+        <span class="dot">·</span>
+        <span>L.J. Tennis Academy, Sanghavi</span>
+        <span class="dot">·</span>
+        <span>Clay Courts</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="result-banner">
+    <div class="container">
+      <div class="eyebrow">Results</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">Champions &amp; Runners-up</h2>
+      <div class="result-grid">
+        <div class="result-card champions">
+          <div class="result-medal">🏆</div>
+          <div class="result-label">Champions</div>
+          <div class="result-names">Abhinav &amp; Chandan</div>
+          <div class="result-note">Won the final to claim the June edition title</div>
+        </div>
+        <div class="result-card runners">
+          <div class="result-medal">🥈</div>
+          <div class="result-label">Runners-up</div>
+          <div class="result-names">Ivan &amp; Ajinkya</div>
+          <div class="result-note">An excellent display — finalists on the day</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTOS -->
+  <section class="photos-section">
+    <div class="container">
+      <div class="eyebrow">From the Morning</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">On the Clay</h2>
+      <div class="photos-grid">
+        <div class="photo-slot">
+          <div class="photo-placeholder">
+            <div class="photo-placeholder-icon">📸</div>
+            <span>Photo coming soon</span>
+          </div>
+        </div>
+        <div class="photo-slot">
+          <div class="photo-placeholder">
+            <div class="photo-placeholder-icon">📸</div>
+            <span>Group photo coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="ed-story">
+    <div class="container">
+      <div class="eyebrow">How It Played Out</div>
+      <h2 style="font-size:clamp(28px,4vw,42px);letter-spacing:-0.03em;">The Morning<br>of June 28</h2>
+      <div class="story-content">
+
+        <p>The first serve was struck at 6:30 AM, with everyone secretly hoping the rain would wait just a little longer. Thankfully, it did.</p>
+
+        <p>The enthusiasm was fantastic. Every player arrived on time, and a few passionate members even travelled long distances from Hadapsar and Hinjewadi to be part of the morning. A big thank you to <strong>L.J. Tennis Academy, Sanghavi</strong> for preparing the courts and supporting the event.</p>
+
+        <h3 class="story-subhead">How the Teams Were Made</h3>
+
+        <p>As always, the AI team generator did its job — randomly pairing up the doubles partnerships so there are no favourites, no negotiations, and no awkward politics. Just let AI decide and let the racquets do the talking.</p>
+
+        <div class="pull-quote">
+          <p>"The AI certainly did its job well — every match was closely contested, with long rallies and exciting points."</p>
+        </div>
+
+        <h3 class="story-subhead">A Race to the Final</h3>
+
+        <p>Four doubles teams competed in a round-robin format. The race to the final wasn't decided until the very last round-robin match — which is exactly what the format is designed to do. Every match mattered.</p>
+
+        <p>When the dust settled, <strong>Abhinav and Chandan</strong> and <strong>Ivan and Ajinkya</strong> earned their places in the final. The final was an excellent display of tennis from both pairs — and Abhinav and Chandan took the title.</p>
+
+        <h3 class="story-subhead">Chai, Breakfast &amp; the Usual Debates</h3>
+
+        <p>No social tennis tournament is complete without the classic "That ball was definitely in!" debates, a few spectacular winners, a couple of unexpected misses, plenty of laughter — and chai and breakfast after. Thankfully, AI only picks the teams. It still can't settle line calls.</p>
+
+        <p>The morning ended with the traditional group photograph — capturing what this tournament is really about: a growing community brought together by a shared love of the game.</p>
+
+        <div class="thankyou-block">
+          <p>A special thank you to <strong>Rahul Gupta</strong>, whose vision and passion are the driving force behind this tournament. From booking the courts and coordinating players to ensuring everyone is ready on time, Rahul quietly manages everything behind the scenes and has created a wonderful tradition that the community now eagerly looks forward to every month. 🙏</p>
+        </div>
+
+        <p>Here's to more tennis, more friendships, more laughter, and another exciting Mini Doubles Tournament next month. See you on the clay courts! 🎾</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITION NAV -->
+  <nav class="ed-nav" aria-label="Edition navigation">
+    <div class="container">
+      <span class="ed-nav-link disabled">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Previous
+      </span>
+      <a href="deuce-drinks.html" class="ed-nav-center">All Editions</a>
+      <span class="ed-nav-link disabled">
+        Next Edition
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </span>
+    </div>
+  </nav>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="nav.js?v=5"></script>
+<script src="footer.js?v=9"></script>
+</body>
+</html>

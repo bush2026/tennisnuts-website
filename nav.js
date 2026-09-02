@@ -62,6 +62,7 @@
     + '<a href="/tennis-clinics.html">Tennis Clinics</a>'
     + '<a href="/grandslam-predictions.html">Grand Slam Predictions</a>'
     + '<a href="/flexi-league.html">Flexi League</a>'
+    + '<a href="/deuce-drinks.html">Deuce &amp; Drinks</a>'
     + '</div>'
     + '</li>'
     + '</ul>'
