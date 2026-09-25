@@ -314,7 +314,7 @@ function Nav() {
           <div style={{position:'relative'}} onMouseEnter={()=>setOpen('events')} onMouseLeave={()=>setOpen(null)}>
             <button style={btnStyle} onClick={()=>toggle('events')}>Events <Chevron/></button>
             {open==='events' && <div style={dropStyle}>
-              {[['Tennisnuts Socials','/socials.html'],['Seniors Tennis','/seniors.html'],['Tennisnuts Open','/open.html'],['Sopal Club Championship','/sopal-trophy.html'],['Corporate Tournament','/corporate-tournament.html'],['Tennis Clinics','/tennis-clinics.html'],['Grand Slam Predictions','/grandslam-predictions.html'],['Flexi League','/flexi-league.html']].map(([l,h])=><a key={h} href={h} style={dropLinkStyle}>{l}</a>)}
+              {[['Tennisnuts Socials','/socials.html'],['Seniors Tennis','/seniors.html'],['Tennisnuts Open','/open.html'],['Sopal Club Championship','/sopal-trophy.html'],['Corporate Tournament','/corporate-tournament.html'],['Tennis Clinics','/tennis-clinics.html'],['Grand Slam Predictions','/grandslam-predictions.html'],['Flexi League','/flexi-league.html'],['Deuce & Drinks','/deuce-drinks.html']].map(([l,h])=><a key={h} href={h} style={dropLinkStyle}>{l}</a>)}
             </div>}
           </div>
         </nav>
@@ -341,6 +341,7 @@ function Nav() {
         <a href="/tennis-clinics.html" onClick={closeMobile}>Tennis Clinics</a>
         <a href="/grandslam-predictions.html" onClick={closeMobile}>Grand Slam Predictions</a>
         <a href="/flexi-league.html" onClick={closeMobile}>Flexi League</a>
+        <a href="/deuce-drinks.html" onClick={closeMobile}>Deuce &amp; Drinks</a>
       </div>
     </header>
   );
@@ -633,6 +634,7 @@ function Footer() {
               <li><a href="/tennis-clinics.html">Tennis Clinics</a></li>
               <li><a href="/grandslam-predictions.html">Grand Slam Predictions</a></li>
               <li><a href="/flexi-league.html">Flexi League</a></li>
+              <li><a href="/deuce-drinks.html">Deuce &amp; Drinks</a></li>
             </ul>
           </div>
           <div className="footer-col">
