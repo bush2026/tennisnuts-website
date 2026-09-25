@@ -2,8 +2,9 @@
   // A. Inject styles
   var style = document.createElement('style');
   style.textContent = [
-    /* Prevent horizontal overflow site-wide */
-    'html,body{overflow-x:hidden;max-width:100%}',
+    /* Prevent horizontal overflow site-wide — use clip (not hidden) on body only;
+       overflow-x:hidden on html creates a scroll container that breaks position:sticky on iOS Safari */
+    'body{overflow-x:clip;max-width:100%}',
     '.site-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.93);backdrop-filter:saturate(140%) blur(12px);-webkit-backdrop-filter:saturate(140%) blur(12px);border-bottom:1px solid var(--line,#e6e3d8);}',
     '.site-nav .nav-inner{max-width:1240px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px;}',
     '.site-nav .brand{display:flex;align-items:center;flex-shrink:0;}',
@@ -77,6 +78,7 @@
   }
 
   // C. JavaScript logic
+  if (!navContainer) return; // no #site-nav div — nothing to wire up
 
   // Hamburger toggle
   document.getElementById('nav-burger-btn').addEventListener('click', function () {
